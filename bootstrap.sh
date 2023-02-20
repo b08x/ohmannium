@@ -104,7 +104,8 @@ if [ ! -d $ANSIBLE_HOME ]; then
 
   cd $ANSIBLE_HOME
   git restore . && git checkout development
-  git lfs checkout && git lfs fetch
+  git lfs install || exit
+  git lfs checkout && git lfs fetch || exit
 
 
   echo "---" > inventory.yml
