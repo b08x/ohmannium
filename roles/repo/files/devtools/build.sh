@@ -100,11 +100,11 @@ update_chroot() {
   if [[ $architecture == 'x86_64_v3' ]]; then
     arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman-key --recv-keys F3B607488DB35A47 --keyserver keyserver.ubuntu.com
 
-    arch-nspawn -C $pacman -M $makepkg $CHROOT/rootpacman-key --lsign-key F3B607488DB35A47
+    arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman-key --lsign-key F3B607488DB35A47
 
     local mirror_url="https://mirror.cachyos.org/repo/x86_64/cachyos"
 
-    arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman -U "${mirror_url}/cachyos-keyring-2-1-any.pkg.tar.zst" \
+    arch-nspawn -C $pacman -M $makepkg $CHROOT/root yes | pacman -U "${mirror_url}/cachyos-keyring-2-1-any.pkg.tar.zst" \
     "${mirror_url}/cachyos-mirrorlist-15-1-any.pkg.tar.zst" \
     "${mirror_url}/cachyos-v3-mirrorlist-15-1-any.pkg.tar.zst" \
     "${mirror_url}/cachyos-v4-mirrorlist-3-1-any.pkg.tar.zst" \
