@@ -2,13 +2,18 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+
 export ZSH="/usr/local/share/oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+{% if user.name == 'aur_builder' %}
+ZSH_THEME="ys"
+{% else %}
 ZSH_THEME="minimal-terminal-prompt"
+{% endif %}
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -107,6 +112,10 @@ PATH="$HOME/bin:/usr/local/sbin:$PATH"
 if [ -d $HOME/.cargo/bin ]; then
   PATH="$PATH:$HOME/.cargo/bin"
 fi
+
+{% if user.name == 'aur_builder' %}
+PATH="$PATH:$HOME/Workspace/devtools"
+{% endif %}
 
 export -U PATH
 
