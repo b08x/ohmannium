@@ -98,17 +98,18 @@ declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.ini"
 # if this is an initial install; clone repository then run playbook
 # otherwise, change into $ANSIBLE_HOME and run git status
 if [ ! -d $ANSIBLE_HOME ]; then
-  git clone --recursive https://github.com/SyncopatedStudio/cm.git $ANSIBLE_HOME
+  git clone --recursive https://github.com/b08x/syncopated.git $ANSIBLE_HOME
   git config --global --add safe.directory $ANSIBLE_HOME
 
   cd $ANSIBLE_HOME
   git restore . && git checkout development
+  git lfs fetch
 
   echo "$(uname -n) ansible_connection=local" > $ANSIBLE_INVENTORY
 
   chown -R $user:$user $ANSIBLE_HOME
 
-  ansible-playbook --connection=local -i $(uname -n), syncopated.yml
+  ansible-playbook --connection=local -i $ANSIBLE_INVENTORY, syncopated.yml
 
   if [ $? = 0 ]; then
     echo "ansible bootstrap complete!"
