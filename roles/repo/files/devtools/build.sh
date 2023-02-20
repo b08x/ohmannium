@@ -100,17 +100,17 @@ update_chroot() {
   if [[ $architecture == 'x86_64_v3' ]]; then
     arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman-key --recv-keys F3B607488DB35A47 --keyserver keyserver.ubuntu.com
 
-    arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman-key --lsign-key F3B607488DB35A47
+    sudo arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman-key --lsign-key F3B607488DB35A47
 
     local mirror_url="https://mirror.cachyos.org/repo/x86_64/cachyos"
 
-    arch-nspawn -C $pacman -M $makepkg $CHROOT/root yes | pacman -U "${mirror_url}/cachyos-keyring-2-1-any.pkg.tar.zst" \
+    arch-nspawn -C $pacman -M $makepkg $CHROOT/root yes | sudo pacman -U --noconfirm "${mirror_url}/cachyos-keyring-2-1-any.pkg.tar.zst" \
     "${mirror_url}/cachyos-mirrorlist-15-1-any.pkg.tar.zst" \
     "${mirror_url}/cachyos-v3-mirrorlist-15-1-any.pkg.tar.zst" \
     "${mirror_url}/cachyos-v4-mirrorlist-3-1-any.pkg.tar.zst" \
     "${mirror_url}/pacman-6.0.2-10-x86_64.pkg.tar.zst"
   else
-    arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman -Syu
+    sudo arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman -Syu
   fi
 }
 
@@ -121,9 +121,13 @@ build () {
 }
 
 #########################################################################
-trap \
-  "{ /usr/bin/rm -rf "${PACKAGES}/${architecture}/sources/$pkg*" ; exit 255 }" \
-SIGINT SIGTERM ERR EXIT
+
+cleanup() {
+	local s="${PACKAGES}/${architecture}/sources/$pkg*"
+	echo $s
+}
+
+trap cleanup SIGINT SIGTERM ERR EXIT
 
 if [ $? == 0 ]
 then
@@ -133,7 +137,7 @@ then
 
   for name in ${package_selection[@]}; do
     declare -x pkg=$name
-    build $pkg || continue
+    build $pkg || break
   done
 
   rm $AUR_BUILDER_HOME/.makepkg.conf

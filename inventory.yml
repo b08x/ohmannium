@@ -5,7 +5,7 @@ all:
     ansible_user: b08x
 
   hosts:
-    ninjabot:
+    soundbot:
       ansible_connection: local
 
   children:
