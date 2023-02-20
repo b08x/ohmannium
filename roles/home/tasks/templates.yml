@@ -1,7 +1,7 @@
 ---
 
 - include_vars:
-    dir: "{{ lookup('env','ANSIBLE_HOME') }}/roles/ui/defaults/"
+    dir: "{{ lookup('env','PWD') }}/roles/ui/defaults/"
     extensions:
       - 'yml'
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+
 PS4='LINENO:'
 VER=0.5-beta
 
@@ -21,16 +21,9 @@ BOOTSTRAP_PKGS=(
   'ruby-bundler'
   'rubygems'
   'rust'
-  'whiptail'
   'wget'
   'zsh'
 )
-
-function startssh() {
-  systemctl enable sshd.service
-
-  systemctl start sshd.servce || echo "unable to start sshd"
-}
 
 if [[ ! -z "$(pacman-key --list-keys | grep syncopated 2>/dev/null)" ]];
 then
@@ -60,7 +53,7 @@ pacman -Scc --noconfirm
 # install pre-requisite packages
 pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
 
-startssh
+systemctl enable sshd.service
 
 # install oh-my-zsh
 if [ -d "/usr/local/share/oh-my-zsh" ]; then
@@ -73,15 +66,28 @@ fi
 
 # [[ $LINES ]] || LINES=$(tput lines)
 # [[ $COLUMNS ]] || COLUMNS=$(tput cols)
-echo "----------\n"
+echo -e "----------\n"
 
-printf "confirm userid"
-ANSIBLE_USER=$(gum input --placeholder="enter userid if different" --value=$(getent passwd | grep 1000 | awk -F ":" '{print $1}'))
+function getuserid() {
+  user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}')
+}
 
-printf "enter location to clone repository:"
-ANSIBLE_HOME=$(gum input --placeholder"enter location to clone" --value="/home/$user/Workspace")
+getuserid
 
-echo "----------\n"
+declare -rx WORKSPACE="/home/$user/Workspace"
+
+if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
+
+declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
+
+#
+# printf "confirm userid"
+# ANSIBLE_USER=$(gum input --placeholder="enter userid if different" --value="b08x")
+#
+# printf "enter location to clone repository:"
+# ANSIBLE_HOME=$(gum input --placeholder"enter location to clone" --value="/home/$user/Workspace")
+#
+# echo -e "----------\n"
 
 # NAME=$(whiptail --inputbox "What is your name?" 8 39 --title "Getting to know you" 3>&1 1>&2 2>&3)
 
@@ -95,12 +101,12 @@ if [ ! -d $ANSIBLE_HOME ]; then
   git clone --recursive https://github.com/SyncopatedStudio/cm.git $ANSIBLE_HOME
   git config --global --add safe.directory $ANSIBLE_HOME
 
-  chown -R $user:$user $ANSIBLE_HOME
-
   cd $ANSIBLE_HOME
   git restore . && git checkout development
 
   echo "$(uname -n) ansible_connection=local" > $ANSIBLE_INVENTORY
+
+  chown -R $user:$user $ANSIBLE_HOME
 
   ansible-playbook --connection=local -i $(uname -n), syncopated.yml
 
