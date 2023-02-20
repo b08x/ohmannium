@@ -49,8 +49,14 @@ for pkg in *.zst; do
   echo "$phrase" | gpg2 -v --batch --yes --detach-sign --pinentry-mode loopback --passphrase --passphrase-fd 0 --out ${LOCAL_REPO}/$pkg.sig --sign $pkg
 done
 
+if [[ $architecture == 'x86_64_v3' ]]; then
+  repo_db="syncopated-v3.db.tar.gz"
+else
+  repo_db="syncopated.db.tar.gz"
+fi
+
 echo "refreshing repository database"
-repo-add -v -n -k 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A syncopated.db.tar.gz *.pkg.tar.zst -s
+repo-add -v -n -k 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A $repo_db *.pkg.tar.zst -s
 
 echo "syncing local repository to remote mirror"
 if [ $? = 0 ]; then

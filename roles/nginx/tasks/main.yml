@@ -44,6 +44,7 @@
   when: nginx_create_blank_index
 
 - include: selinux.yml
+  tags: ['selinux']
 
 - name: Start the nginx service
   service: name={{ nginx_service_name }} state=started enabled=yes
