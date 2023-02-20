@@ -67,3 +67,4 @@
     owner: aur_builder
     group: aur_builder
     mode: '2775'
+    recurse: True
