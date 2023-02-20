@@ -34,47 +34,8 @@ declare -rx REPOSITORY_REMOTE="ec2-user@soundbot.hopto.org"
 declare -rx WORKSPACE="${AUR_BUILDER_HOME}/Workspace"
 declare -rx PKGBUILDS="${WORKSPACE}/pkgbuilds"
 
-
 #########################################################################
-#                             Greetings                                 #
-#########################################################################
-
-gum style \
-  --foreground 014 --border-foreground 024 --border double \
-  --align center --width 50 --margin "1 2" --padding "2 4" \
-  'Hello.' && sleep 1 && clear
-
-#########################################################################
-
-say "Select cpu architecture" $GREEN
-say "------------------------" $GREEN
-
-architecture=$(gum choose --limit=1 "x86_64" "x86_64_v3")
-
-say "${architecture}" $BLUE
-
-pacman="${WORKSPACE}/devtools/pacman-${architecture}.conf"
-makepkg="${WORKSPACE}/devtools/makepkg-${architecture}.conf"
-
-say $pacman $BLUE
-say $makepkg $BLUE
-
-#########################################################################
-
-#declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
-
-declare -a package_list=$(exa -D -1 -s modified $PKGBUILDS)
-
-say "select packages to build" $GREEN
-say "-------------------------" $GREEN
-package_selection=$(gum choose --no-limit --height 30 all ${package_list[@]})
-
-if [[ $package_selection == 'all' ]]; then
-  package_selection=${package_list[@]}
-fi
-
-say "${package_selection}" $BLUE
-
+#                             set functions                             #
 #########################################################################
 
 declare -rx CHROOT="/mnt/chroots/arch"
@@ -125,14 +86,53 @@ build () {
   makechrootpkg -n -c -r $CHROOT
 }
 
-#########################################################################
-
 cleanup() {
 	local s="${PACKAGES}/${architecture}/sources/$pkg*"
 	echo $s
 }
 
 trap cleanup SIGINT SIGTERM ERR EXIT
+
+
+#########################################################################
+#                             Greetings                                 #
+#########################################################################
+
+gum style \
+  --foreground 014 --border-foreground 024 --border double \
+  --align center --width 50 --margin "1 2" --padding "2 4" \
+  'Hello.' && sleep 1 && clear
+
+#########################################################################
+
+say "Select cpu architecture" $GREEN
+say "------------------------" $GREEN
+
+architecture=$(gum choose --limit=1 "x86_64" "x86_64_v3")
+
+say "${architecture}" $BLUE
+
+pacman="${WORKSPACE}/devtools/pacman-${architecture}.conf"
+makepkg="${WORKSPACE}/devtools/makepkg-${architecture}.conf"
+
+say $pacman $BLUE
+say $makepkg $BLUE
+say "\n" $GREEN
+
+#########################################################################
+
+declare -a package_list=$(exa -D -1 -s modified $PKGBUILDS)
+
+say "select packages to build" $GREEN
+say "-------------------------" $GREEN
+package_selection=$(gum choose --no-limit --height 30 all ${package_list[@]})
+
+if [[ $package_selection == 'all' ]]; then
+  package_selection=${package_list[@]}
+fi
+
+say "${package_selection}" $BLUE
+
 
 if [ $? == 0 ]
 then
