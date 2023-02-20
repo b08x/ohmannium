@@ -59,7 +59,9 @@ say $makepkg $BLUE
 
 #########################################################################
 
-declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
+#declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
+
+declare -a package_list=$(exa -D -1 -s modified $PKGBUILDS)
 
 say "select packages to build" $GREEN
 say "-------------------------" $GREEN
