@@ -21,12 +21,18 @@ export RAY_PARENT_SCRIPT_DIR="$HOME/Sessions/ray-scripts"
 
 export KITTYSOCK=unix:/tmp/kitty-soundbot
 
-export bipscripts="$HOME/Workspace/syncopated-linux/robot-stuff/bip"
-
 export ANSIBLE_HOME="$WORKSPACE/syncopated"
 export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
-export INVENTORY="$ANSIBLE_HOME/inventory.ini"
-export PLAYBOOK="$ANSIBLE_HOME/syncopated.yml"
+export INVENTORY="$ANSIBLE_HOME/inventory.yml"
+export PLAYBOOK="$ANSIBLE_HOME/playbooks/syncopated.yml"
+
+if [[ $USER == 'aur_builder' ]]; then
+  export PACKAGES="$HOME/Packages"
+  export REPOSITORY_LOCAL="$HOME/Repository"
+
+  export REPOSITORY_REMOTE="ec2-user@soundbot.hopto.org"
+  export PKGBUILDS="${WORKSPACE}/pkgbuilds"
+fi
 
 #export CFLAGS="-ffast-math -msse -msse2 -mfpmath=sse"
 #export CXXFLAGS="-ffast-math -msse -msse2 -mfpmath=sse"

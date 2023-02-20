@@ -1,5 +1,31 @@
 #!/usr/bin/env bash
 
+tput reset
+
+if [[ ! "${EUID}" -eq 0 ]]; then
+  echo "please run as root. exiting"
+  exit
+fi
+
+#########################################################################
+#                             set colors                                 #
+#########################################################################
+
+declare -rx ALL_OFF="\e[1;0m"
+# declare -rx BOLD="\e[1;1m"
+declare -rx BLUE="${BOLD}\e[1;34m"
+declare -rx GREEN="${BOLD}\e[1;32m"
+declare -rx RED="${BOLD}\e[1;31m"
+declare -rx YELLOW="${BOLD}\e[1;33m"
+
+say () {
+  local statement=$1
+  local color=$2
+
+  echo -e "${color}${statement}${ALL_OFF}"
+}
+
+
 PS4='LINENO:'
 VER=0.5-beta
 
@@ -92,9 +118,16 @@ declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
 # NAME=$(whiptail --inputbox "What is your name?" 8 39 --title "Getting to know you" 3>&1 1>&2 2>&3)
 
-declare -rx ANSIBLE_PLUGINS="$ANSIBLE_HOME/plugins/modules"
-declare -rx ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
 declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.yml"
+
+declare -a ANSIBLE_PLAYBOOKS=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
+
+say "select playbook to run" $GREEN
+say "-------------------------" $GREEN
+
+playbook=$(gum choose ${ANSIBLE_PLAYBOOKS[@]})
+
+say "running ${playbook}" $BLUE
 
 # if this is an initial install; clone repository then run playbook
 # otherwise, change into $ANSIBLE_HOME and run git status
@@ -107,7 +140,6 @@ if [ ! -d $ANSIBLE_HOME ]; then
   git lfs install || exit
   git lfs checkout && git lfs fetch || exit
 
-
   echo "---" > inventory.yml
   echo "\n" >> inventory.yml
   echo "all:" >> inventory.yml
@@ -115,10 +147,9 @@ if [ ! -d $ANSIBLE_HOME ]; then
   echo "    $(uname -n):" >> inventory.yml
   echo "      ansible_connection: local" >> inventory.yml
 
-
   chown -R $user:$user $ANSIBLE_HOME
 
-  ansible-playbook --connection=local -i $(uname -n), syncopated.yml -e "newInstall=true"
+  ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_PLAYBOOKS}/${playbook}" -e "newInstall=true"
 
   if [ $? = 0 ]; then
     echo "ansible bootstrap complete!"

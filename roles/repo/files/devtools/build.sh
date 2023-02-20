@@ -112,7 +112,7 @@ then
   create_chroot
   update_chroot
   for name in ${package_selection[@]}; do
-    build $name || exit
+    build $name || continue
   done
   rm $AUR_BUILDER_HOME/.makepkg.conf
 else
