@@ -170,6 +170,11 @@
     --save /etc/pacman.d/mirrorlist
   tags: ['mirrors']
 
+- name: update and upgrade
+  pacman:
+    update_cache: True
+    upgrade: False
+
 - name: remove pipewire
   pacman:
     name: "{{ item }}"
