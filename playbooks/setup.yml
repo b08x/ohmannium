@@ -1,8 +1,7 @@
 ---
 
-- name: setup audio production environment
-  hosts: devel
-  strategy: linear
+- name: setup audio production workstation
+  hosts: localhost
   become: True
   gather_subset:
     - hardware
@@ -21,22 +20,23 @@
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
     PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
-    ZSH: "/usr/local/share/oh-my-zsh"
     DISPLAY: ":0"
+    ZSH: "/usr/local/share/oh-my-zsh"
+
 
   pre_tasks:
 
     - block:
-        - name: check if keys are present
-          stat:
-            path: "{{ user.home }}/.ssh/id_rsa"
-          register: keys
-
         - name: start ssh daemon
           service:
             name: sshd
             state: started
             enabled: True
+
+        - name: check if keys are present
+          stat:
+            path: "{{ user.home }}/.ssh/id_rsa"
+          register: keys
 
         - name: copy keys from remote host
           delegate_to: 127.0.0.1
