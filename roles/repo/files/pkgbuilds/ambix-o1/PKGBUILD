@@ -5,7 +5,7 @@ pkgname=ambix-o1
 pkgver=0.2.10
 pkgrel=1
 pkgdesc="Ambisonic VST, LV2 plug-ins with variable order for use in Digital Audio Workstations"
-arch=('x86_64')
+arch=('x86_64' 'x86_64_v3')
 url="https://github.com/kronihias/ambix"
 license=('GPL2')
 groups=('lv2-plugins' 'pro-audio' 'vst-plugins')
@@ -62,6 +62,7 @@ prepare() {
     ['ambix_rotator']="Ambisonics Sounds Rotator"
     ['ambix_vmic']="Ambisonics Virtual Microphone"
   )
+  #TODO: fix desktop file names
   for _standalone in ${_standalone_names[@]}; do
     gendesk -f -n \
             --pkgname "${_standalone}" \
