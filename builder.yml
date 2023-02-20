@@ -6,17 +6,36 @@
   gather_subset:
     - hardware
     - network
-  vars:
-    user:
-      name: aur_builder
-      group: aur_builder
-      uid: 1001
-      gid: 1001
-      home: /home/aur_builder
-      secondary_groups: "input,video,audio"
-      shell: /usr/bin/zsh
+  # vars:
+  pre_tasks:
+
+    - name: ensure aur_builder user to build packages
+      user:
+        name: aur_builder
+        create_home: yes
+        shell: /usr/bin/zsh
+
+    - name: ensure permissions for aur_builder in sudoers
+      copy:
+        content: |
+          aur_builder ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman,/usr/bin/mkdir,/usr/bin/rm,/usr/bin/mkarchroot,/usr/bin/makechrootpkg,/usr/bin/arch-nspawn
+        dest: /etc/sudoers.d/11-aur_builder
+        validate: 'visudo -cf %s'
+
+    - name: ensure group writeable for aur_builder home
+      file:
+        path: /home/aur_builder
+        state: directory
+        owner: aur_builder
+        group: aur_builder
+        mode: '2775'
+
+    - name: add user to aur_builder group
+      user:
+        name: "{{ user.name }}"
+        groups: aur_builder
+        append: yes
+
   roles:
     - role: repo
       tags: ['repo']
-    - role: virt
-      tags: ['virt']

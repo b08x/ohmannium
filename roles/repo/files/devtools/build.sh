@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
-declare -rx PACKAGES="${HOME}/Packages"
-declare -rx REPOSITORY_LOCAL="${HOME}/Repository"
-declare -rx REPOSITORY_REMOTE="ec2-user@soundbot.hopto.org"
+#########################################################################
+#                             set colors                                 #
+#########################################################################
 
-declare -rx WORKSPACE="${HOME}/Workspace"
-declare -rx PKGBUILDS="${WORKSPACE}/pkgbuilds"
-
-declare -rx CHROOT="${WORKSPACE}/chroot"
-
-# set colors
 declare -rx ALL_OFF="\e[1;0m"
 # declare -rx BOLD="\e[1;1m"
 declare -rx BLUE="${BOLD}\e[1;34m"
@@ -17,17 +11,40 @@ declare -rx GREEN="${BOLD}\e[1;32m"
 declare -rx RED="${BOLD}\e[1;31m"
 declare -rx YELLOW="${BOLD}\e[1;33m"
 
-# obtain package list from folder names in pkgbuild directory
-declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
-
-echo $package_list
-
 say () {
   local statement=$1
   local color=$2
 
   echo -e "${color}${statement}${ALL_OFF}"
 }
+
+#########################################################################
+#                             set locations                             #
+#########################################################################
+
+declare -rx AUR_BUILDER_HOME="/home/aur_builder"
+
+declare -rx PACKAGES="${AUR_BUILDER_HOME}/Packages"
+declare -rx REPOSITORY_LOCAL="${AUR_BUILDER_HOME}/Repository"
+
+declare -rx REPOSITORY_REMOTE="ec2-user@soundbot.hopto.org"
+
+declare -rx WORKSPACE="${HOME}/Workspace/syncopated/roles/repo/files"
+declare -rx PKGBUILDS="${WORKSPACE}/pkgbuilds"
+
+#########################################################################
+#                             mount tempfs                              #
+#########################################################################
+
+
+
+#########################################################################
+#                     get updated packagelist                           #
+#########################################################################
+
+declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
+
+echo $package_list
 
 #########################################################################
 #                             Greetings                                 #
@@ -67,15 +84,22 @@ say "${package_selection}" $BLUE
 
 #########################################################################
 
+declare -rx CHROOT="/mnt/chroots/arch"
+
+mount_chroot() {
+
+  if [ mountpoint -q $CHROOT ]; then sudo umount $CHROOT; fi
+
+  sudo mount --mkdir -t tmpfs -o defaults,size=8G tmpfs $CHROOT
+}
+
 create_chroot() {
   if [ -L ~/.makepkg.conf ]; then
-    ln -sf $makepkg ~/.makepkg.conf
+    ln -sf $makepkg /home/aur_builder/.makepkg.conf
   else
     rm -rf ~/.makepkg.conf || exit
-    ln -s $makepkg ~/.makepkg.conf
+    ln -s $makepkg /home/aur_builder/.makepkg.conf
   fi
-
-  sudo rm -rf $CHROOT && mkdir -pv $CHROOT
 
   mkarchroot -C $pacman -M $makepkg -f /etc/pacman.d/cachyos-mirrorlist \
   -f /etc/pacman.d/cachyos-v3-mirrorlist $CHROOT/root base-devel
@@ -88,19 +112,20 @@ update_chroot() {
 build () {
   local pkgname=$1
   cd ${PKGBUILDS}/${pkgname}
-  makechrootpkg -n -c -r $CHROOT
+  makechrootpkg -U aur_builder -n -c -r $CHROOT
 }
 
 #########################################################################
 
 if [ $? == 0 ]
 then
+  mount_chroot
   create_chroot
   update_chroot
   for name in ${package_selection[@]}; do
     build $name || exit
   done
-  rm ~/.makepkg.conf
+  rm /home/aur_builder/.makepkg.conf
 else
   echo -e "${RED}alright. exiting for now...${ALL_OFF}"
   exit

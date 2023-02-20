@@ -9,6 +9,14 @@
     create_home: yes
     shell: /usr/bin/zsh
 
+- name: set group writeable for aur_builder home
+  file:
+    path: /home/aur_builder
+    state: directory
+    owner: aur_builder
+    group: aur_builder
+    mode: '2775'
+
 - name: set permissions for aur_builder in sudoers
   copy:
     content: |

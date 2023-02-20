@@ -1,9 +1,6 @@
-    user:
-      name: aur_builder
-      group: aur_builder
-      uid: 1001
-      gid: 1001
-      home: /home/aur_builder
-      secondary_groups: "input,video,audio"
-      shell: /usr/bin/zsh
-      email: rwpannick@gmail.com
+---
+
+pkgbuilds: "{{ user.home }}/Workspace/roles/repo/files/pkgbuilds"
+devtools: "{{ user.home }}/Workspace/roles/repo/files/devtools"
+
+buildroot: "/mnt/chroots/arch"

@@ -13,7 +13,7 @@ say "------------------------" $GREEN
 
 architecture=$(gum choose --limit=1 "x86_64" "x86_64_v3")
 
-declare -rx WORKSPACE="/home/aur_builder/Workspace"
+
 declare -rx PACKAGES="/home/aur_builder/Packages/${architecture}"
 declare -rx DEBUGPKGS="${PACKAGES}/debug/${architecture}"
 
