@@ -35,7 +35,7 @@
     dest: "/home/aur_builder/Workspace/"
     recursive: yes
     mode: push
-    delete: no
+    delete: yes
     checksum: yes
     perms: no
     rsync_opts:
