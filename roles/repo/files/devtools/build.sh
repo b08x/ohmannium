@@ -68,7 +68,7 @@ say "select packages to build" $GREEN
 say "-------------------------" $GREEN
 package_selection=$(gum choose --no-limit --height 30 all ${package_list[@]})
 
-if [ $package_selection[0] == 'all' ]; then
+if $package_selection == 'all'; then
   package_selection=${package_list[@]}
 fi
 
@@ -80,7 +80,7 @@ declare -rx CHROOT="/mnt/chroots/arch"
 
 mount_chroot() {
 
-  if [ mountpoint -q $CHROOT ]; then sudo umount $CHROOT; fi
+  if mountpoint -q $CHROOT; then sudo umount $CHROOT; fi
 
   sudo mount --mkdir -t tmpfs -o defaults,size=8G tmpfs $CHROOT
 }
