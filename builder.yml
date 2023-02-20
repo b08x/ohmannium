@@ -6,7 +6,13 @@
   gather_subset:
     - hardware
     - network
-  # vars:
+  vars:
+    path:
+      - "{{ lookup('env','HOME') }}/.local/bin"
+      - "{{ lookup('env','HOME') }}/.cargo/bin"
+    vars_files:
+      - "vars/user.yml"
+
   pre_tasks:
 
     - name: ensure aur_builder user to build packages
