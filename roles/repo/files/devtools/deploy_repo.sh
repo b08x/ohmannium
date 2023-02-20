@@ -26,15 +26,16 @@ fd --exact-depth 1 -t f "debug" -x mv {} $DEBUGPKGS
 
 echo "select package(s) to move into the repository"
 echo "press CTRL+C to select nothing"
-sleep 1
 
-new_packages=$(fd -e .zst-E 'makepkglogs/' -E 'sources/' -E 'srcpackages' -E 'debug/' -a)
+declare -rAx new_packages=$(fd -e .zst -a | fzf -m)
 
 if [[ -z "$new_packages" ]]; then
   echo "no new packages"
 else
-  selected=$(${new_packages} | gum filter --no-limit | xargs echo)
+  
+  
   echo "moving new packages to repository"
+  
   for pkg in ${new_packages[@]}; do
     mv -v $pkg "${LOCAL_REPO}/"
   done
