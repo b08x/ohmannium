@@ -91,7 +91,7 @@ alias sampler="fd -e flac -e wav -e opus -e mp3 --strip-cwd-prefix .  | fzf --pr
 alias samplerv2="fd -e flac -e wav -e opus -e mp3 . '/home/b08x'  | fzf --preview='mpv {}' --preview-window '~3,follow' --tac --reverse -m --cycle   --bind 'ctrl-/:toggle-preview' --bind 'return:execute(mpv {}),ctrl-y:change-preview-window(down|hidden|)'"
 
 # download
-alias download="aria2c"
+alias dl="aria2c"
 #exit
 alias e="exit"
 #pgrep
