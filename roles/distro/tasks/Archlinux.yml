@@ -215,6 +215,10 @@
     extra_args: --noconfirm
   ignore_errors: True
 
+- name: installing packages
+  debug:
+    msg: "Installing packages...."
+
 - block:
     - name: install packages
       aur:
