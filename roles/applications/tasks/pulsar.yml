@@ -1,0 +1,28 @@
+---
+
+- name: install pulsar
+  aur:
+    use: auto
+    name: pulsar-bin
+    state: present
+  become_user: aur_builder
+
+- name: install pulsar packages
+  shell: pulsar -p install {{ item }}
+  with_items:
+    - atom-jinja2
+    - blocky
+    - color-picker
+    - file-type-icons
+    - file-types
+    - highlight-colors
+    - indent-sort
+    - language-diff
+    - language-docker
+    - language-dotfiles language-markdown
+    - open-terminal-here
+    - permanent-delete
+    - sb-atom-sonic-pi
+    - tool-bar
+    - vibrant-ink-ruby
+  become_user: "{{ user.name }}"

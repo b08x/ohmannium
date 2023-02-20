@@ -1,0 +1,12 @@
+---
+
+- name: setup nas
+  hosts: nas
+  become: True
+  gather_subset:
+    - hardware
+    - network
+  vars_files:
+    - "vars/user.yml"
+  roles:
+    - role: nas

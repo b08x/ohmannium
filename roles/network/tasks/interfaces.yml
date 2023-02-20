@@ -1,0 +1,83 @@
+---
+
+# - name: print host network vars
+#   debug:
+#     msg: "print {{ item }}"
+#   with_dict: "{{ network.interfaces }}"
+
+- name: add ethernet device
+  nmcli:
+    type: "{{ item.value.type }}"
+    ifname: "{{ item.value.ifname }}"
+    conn_name: "{{ item.value.conn_name }}"
+    ip4: "{{ item.value.ip4 }}"
+    gw4: "{{ item.value.gw4 }}"
+    dns4: "{{ item.value.dns4 }}"
+    dns4_search: "{{ item.value.dns4_search }}"
+    autoconnect: "{{ item.value.autoconnect }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ network.interfaces }}"
+  when:
+    - item.value.type == 'ethernet'
+    - item.value.conn_name == item.value.ifname
+
+- name: add wifi device
+  nmcli:
+    type: "{{ item.value.type }}"
+    ifname: "{{ item.value.ifname }}"
+    conn_name: "{{ item.value.conn_name }}"
+    ssid: "{{ item.value.ssid }}"
+    wifi_sec:
+      key-mgmt: "{{ item.value.wifi_sec.key_mgmt }}"
+      psk: "{{ item.value.wifi_sec.psk }}"
+    ip4: "{{ item.value.ip4 }}"
+    gw4: "{{ item.value.gw4 }}"
+    dns4: "{{ item.value.dns4 }}"
+    autoconnect: "{{ item.value.autoconnect }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ network.interfaces }}"
+  when: item.value.type == 'wifi'
+  tags: ['wireless']
+
+- name: add audio subnet device
+  nmcli:
+    type: "{{ item.value.type }}"
+    ifname: "{{ item.value.ifname }}"
+    conn_name: "{{ item.value.conn_name }}"
+    ip4: "{{ item.value.ip4 }}"
+    autoconnect: "{{ item.value.autoconnect }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ network.interfaces }}"
+  when: item.value.conn_name == 'audio'
+
+- name: add bridge device
+  nmcli:
+    type: "{{ item.value.type }}"
+    ifname: "{{ item.value.ifname }}"
+    conn_name: "{{ item.value.conn_name }}"
+    ip4: "{{ item.value.ip4 }}"
+    gw4: "{{ item.value.gw4 }}"
+    dns4: "{{ item.value.dns4 }}"
+    autoconnect: "{{ item.value.autoconnect }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ network.interfaces }}"
+  when: item.value.type == 'bridge'
+
+- name: add bridge slave
+  nmcli:
+    type: "{{ item.value.type }}"
+    ifname: "{{ item.value.ifname }}"
+    conn_name: "{{ item.value.conn_name }}"
+    master: "{{ item.value.bridge }}"
+    autoconnect: "{{ item.value.autoconnect }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ network.interfaces }}"
+  when:
+    - item.value.type == 'ethernet'
+    - item.value.bridge is defined
+
+- name: ensure NetworkManager is enabled and restart service
+  systemd:
+    name: NetworkManager
+    enabled: yes
+    state: restarted

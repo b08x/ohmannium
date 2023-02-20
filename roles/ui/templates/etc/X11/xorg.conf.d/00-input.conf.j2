@@ -1,0 +1,29 @@
+# Written by systemd-localed(8), read by systemd-localed and Xorg. It's
+# probably wise not to edit this file manually. Use localectl(1) to
+# instruct systemd-localed to update it.
+# Section "InputClass"
+#     Identifier "{{ input.keyboard.name }}"
+#     MatchIsKeyboard "on"
+#     MatchProduct "{{ input.keyboard.name }}"
+#     Option "XkbModel" "{{ input.keyboard.model }}"
+#     Option "XkbLayout" "{{ input.keyboard.layout }}"
+#     Option "XKbOptions" "{{ input.keyboard.options }}"
+# EndSection
+#
+# Section "InputClass"
+#     Identifier "Dell KB216 Wired Keyboard"
+#     MatchIsKeyboard "on"
+#     MatchUSBID "413c:2113"
+#     Option "XkbModel" "dell"
+#     Option "XkbLayout" "us"
+#     Option "XKbOptions" "keypad:pointerkeys"
+# EndSection
+
+
+#Section "InputClass"
+#        Identifier "system-keyboard"
+#        MatchIsKeyboard "on"
+#        Option "XkbLayout" "us"
+#        Option "XkbModel" "pc105+inet"
+#        Option "XkbOptions" "terminate:ctrl_alt_bksp"
+#EndSection

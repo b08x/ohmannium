@@ -1,0 +1,130 @@
+---
+
+- name: setup ngninx host
+  hosts: webserver
+  strategy: free
+  gather_subset:
+    - hardware
+    - network
+  vars:
+    nginx_redhat_pkg:
+      - nginx
+
+    nginx_ubuntu_pkg:
+      - python-selinux
+      - nginx
+
+    nginx_freebsd_pkg:
+      - nginx
+
+    nginx_suse_pkg:
+      - nginx
+
+    nginx_env:
+     RUNLEVEL: 1
+
+    nginx_installation_types_using_service: ["packages", "configuration-only"]
+
+    nginx_is_el: "{{ ansible_distribution in ['RedHat', 'CentOS'] }}"
+
+    yum_epel_repo: epel
+    yum_base_repo: base
+    yum_passenger_repo: passenger
+
+    nginx_official_repo: False
+    nginx_official_repo_mainline: False
+
+    nginx_passenger: False
+    nginx_passenger_redhat_pkg:
+      - curl
+      - pygpgme
+      - nginx
+      - passenger
+      - passenger-devel
+
+    keep_only_specified: False
+
+    nginx_installation_type: "packages"
+    nginx_binary_name: "nginx"
+    nginx_service_name: "{{nginx_binary_name}}"
+    nginx_conf_dir: "{% if ansible_os_family == 'FreeBSD' %}/usr/local/etc/nginx{% else %}/etc/nginx{% endif %}"
+
+    nginx_user: "{% if ansible_os_family == 'RedHat' or ansible_os_family == 'Suse' %}nginx{% elif ansible_os_family == 'Debian' %}www-data{% elif ansible_os_family == 'FreeBSD' %}www{% endif %}"
+    nginx_group: "{{nginx_user}}"
+
+    nginx_pid_file: '/var/run/{{nginx_service_name}}.pid'
+
+    nginx_worker_processes: "{% if ansible_processor_vcpus is defined %}{{ ansible_processor_vcpus }}{% else %}auto{% endif %}"
+    nginx_worker_rlimit_nofile: 1024
+    nginx_log_dir: "/var/log/nginx"
+
+    nginx_events_params:
+      - worker_connections {% if nginx_max_clients is defined %}{{nginx_max_clients}}{% else %}512{% endif %}
+
+    nginx_http_params:
+      - sendfile "on";
+      - tcp_nopush "on";
+      - tcp_nodelay "on";
+      - keepalive_timeout "70";
+      - log_format  graylog2_format  '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for" <msec=$msec|connection=$connection|connection_requests=$connection_requests|millis=$request_time>';
+      - access_log {{nginx_log_dir}}/access.log graylog2_format;
+      - error_log "{{nginx_log_dir}}/error.log";
+      - server_tokens off;
+      - types_hash_max_size 2048;
+      - fastcgi_buffers 256 4k;
+      - map_hash_bucket_size 128;
+      - map $sent_http_content_type $expires { default off; text/html epoch; text/css max; application/javascript max; ~image/ max; }
+
+    nginx_stream_params: []
+
+    nginx_sites:
+      00_default:
+        - listen 80 default_server
+        - server_name _
+        - root "{% if ansible_os_family == 'FreeBSD' %}/usr/local/www/nginx-dist{% else %}/usr/share/nginx/html{% endif %}"
+        - index index.html
+        - autoindex on
+    nginx_remove_sites: []
+
+    nginx_configs:
+      proxy:
+        - proxy_http_version 1.1
+        - proxy_set_header Upgrade $http_upgrade
+        - proxy_set_header Connection upgrade
+        - proxy_set_header Host $http_host
+        - proxy_set_header X-Forwarded-Proto $scheme
+        - proxy_set_header X-Forwarded-For $remote_addr
+        - proxy_set_header X-Forwarded-Port $server_port
+        - proxy_set_header X-Request-Start $msec
+      gzip:
+        - gzip on
+        - gzip_min_length  1100
+        - gzip_buffers  4 32k
+        - gzip_types    text/css text/javascript text/xml text/plain text/x-component application/javascript application/x-javascript application/json application/xml  application/rss+xml font/truetype application/x-font-ttf font/opentype application/vnd.ms-fontobject image/svg+xml image/png image/gif image/jpeg
+        - gzip_vary on
+        - gzip_http_version 1.1
+        - gzip_comp_level  9
+        - gzip_disable "MSIE [1-6]\.(?!.*SV1)"
+
+    nginx_stream_configs: {}
+
+    nginx_remove_default_configs: False
+
+    nginx_remove_configs: []
+
+    nginx_auth_basic_files: {}
+    nginx_remove_auth_basic_files: []
+
+    nginx_daemon_mode: "on"
+
+    nginx_create_blank_index: True
+
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
+    PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
+    ZSH: "/usr/local/share/oh-my-zsh"
+
+  roles:
+    - role: nginx
+      become: True
+      tags: ['nginx']

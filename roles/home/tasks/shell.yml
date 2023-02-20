@@ -1,0 +1,23 @@
+---
+
+- name: sync folder zsh functions
+  synchronize:
+    src: "usr/local/share/zsh"
+    dest: "/usr/local/share"
+    recursive: yes
+    mode: push
+    delete: yes
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--update"
+      - "--omit-dir-times"
+  tags: ['zsh']
+
+- name: set perms for /usr/local/share/zsh
+  file:
+    path: "/usr/local/share/zsh"
+    state: directory
+    owner: root
+    group: root
+  tags: ['zsh']

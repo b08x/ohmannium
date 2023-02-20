@@ -1,0 +1,19 @@
+---
+
+
+- name: reload systemd daemon
+  systemd:
+    daemon_reload: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: docker service
+  systemd:
+    name: docker
+    enabled: "{{ docker.service.enabled }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: libvirtd service
+  systemd:
+    name: libvirtd
+    enabled: "{{ libvirt.service.enabled }}"
+  ignore_errors: "{{ ansible_check_mode }}"

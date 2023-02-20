@@ -1,0 +1,24 @@
+/export 192.168.41.0/24(rw,fsid=0,no_subtree_check,sync)
+/export/Archive 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Documents 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Images 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Library 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Music 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Notebook 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Recordings 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Sessions 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Videos 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+/export/Workspace 192.168.41.0/24(rw,nohide,insecure,no_subtree_check,sync)
+
+
+# fstab
+# /backup/Music   /export/Music   none    bind 0 0
+# /backup/b08x/Archive    /export/Archive none    bind 0 0
+# /backup/b08x/Documents  /export/Documents   none    bind 0 0
+# /backup/b08x/Images /export/Images  none    bind 0 0
+# /backup/b08x/Library    /export/Library none    bind 0 0
+# /backup/b08x/Notebook   /export/Notebook    none    bind 0 0
+# /backup/b08x/Recordings /export/Recordings  none    bind 0 0
+# /backup/b08x/Sessions   /export/Sessions    none    bind 0 0
+# /backup/b08x/Videos /export/Videos  none    bind 0 0
+# /backup/b08x/Workspace  /export/Workspace   none    bind 0 0

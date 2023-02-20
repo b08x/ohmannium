@@ -1,0 +1,16 @@
+
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+
+export GPG_TTY="$TTY"
+
+systemctl --user import-environment GPG_TTY SSH_AUTH_SOCK
+
+dbus-update-activation-environment --all
+
+##### gnome keyring is unlocked with pam #####################
+
+#if ! pgrep -a "keyring" > /dev/null; then
+eval "$(/usr/bin/gnome-keyring-daemon --replace --daemonize --components=pkcs11,secrets,ssh,gpg)"
+#fi
+
+##############################################################

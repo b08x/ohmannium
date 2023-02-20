@@ -1,0 +1,22 @@
+pkgbase = parui-git
+	pkgdesc = Simple TUI frontend for paru.
+	pkgver = 1.0.7.r0.6ff8e9f
+	pkgrel = 1
+	url = https://github.com/Vonr/parui
+	arch = x86_64
+	license = MIT
+	makedepends = cargo
+	depends = glibc
+	depends = git
+	depends = pacman
+	depends = gcc-libs
+	optdepends = paru: default AUR interface
+	optdepends = yay: alternative AUR interface
+	provides = parui
+	provides = parui-git
+	conflicts = parui
+	conflicts = parui-git
+	source = git+https://github.com/Vonr/parui
+	md5sums = SKIP
+
+pkgname = parui-git

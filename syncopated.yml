@@ -1,0 +1,115 @@
+---
+
+- name: setup audio production environment
+  hosts: devel
+  strategy: linear
+  become: True
+  gather_subset:
+    - hardware
+    - network
+  vars:
+    path:
+      - "{{ lookup('env','HOME') }}/.local/bin"
+      - "{{ lookup('env','HOME') }}/.cargo/bin"
+  vars_files:
+    - "vars/user.yml"
+  # vars_prompt:
+  #   - name: reboot
+  #     prompt: Reboot at stages where major OS changes take place?
+  #     default: "no"
+
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
+    PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
+    ZSH: "/usr/local/share/oh-my-zsh"
+    DISPLAY: ":0"
+
+  pre_tasks:
+
+    - block:
+        - name: check if keys are present
+          stat:
+            path: "{{ user.home }}/.ssh/id_rsa"
+          register: keys
+
+        - name: start ssh daemon
+          service:
+            name: sshd
+            state: started
+            enabled: True
+
+        - name: copy keys from remote host
+          delegate_to: 127.0.0.1
+          run_once: True
+          become_user: "{{ user.name }}"
+          shell: "scp {{ user.name }}@bender.syncopated.net:~/.ssh/{{ item }} {{ user.home }}/.ssh/{{ item }}"
+          args:
+            chdir: "{{ user.home }}"
+          with_items:
+            - id_rsa
+            - id_rsa.pub
+          when:
+            - not keys.stat.exists
+            - newInstall is defined
+          tags: ['keys']
+
+      ignore_errors: "{{ ansible_check_mode }}"
+      tags: ['testing']
+
+#Notes:
+# `check_mode:` False means that the tasks will run even if using check mode
+# setting `check_mode: True` will cause the task to fail if running in check mode and regular mode.
+# ignore_errors: "{{ check_mode }}" wil ignore errors while running in check mode
+# the command module does not run given commands in check mode
+
+  roles:
+    - role: distro
+      tags: ['distro']
+    - role: user
+      tags: ['user']
+    - role: home
+      tags: ['home']
+    - role: common
+      tags: ['common']
+    - role: network
+      tags: ['network']
+    - role: firewall
+      tags: ['firewall']
+    - role: audio
+      tags: ['audio']
+    - role: ui
+      tags: ['ui']
+
+  post_tasks:
+
+      - name: cleanup old backup files
+        script: roles/common/files/usr/local/bin/cleanup.sh
+        when: cleanup is defined
+        tags: ['cleanup']
+
+      - name: set root shell
+        user:
+          name: root
+          shell: /usr/bin/zsh
+
+      # - name: reboot host if major changes were made
+      #   shell: |
+      #     shutdown -r now
+      #   when:
+      #     - installed_kernel.changed
+
+      # Reset is not implemented local connection
+      - name: reboot host
+        ansible.builtin.reboot:
+        async: 1
+        poll: 0
+        ignore_errors: True
+        when: reboot is defined
+
+      - name: wait for host to reboot
+        wait_for_connection:
+          connect_timeout: 20
+          sleep: 5
+          delay: 5
+          timeout: 120
+        when: reboot is defined

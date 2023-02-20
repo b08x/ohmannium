@@ -1,0 +1,11 @@
+{% if btrfs_exists|default(false)|bool == true %}
+MODULES=(crc32c-intel btrfs intel_agp i915 amdgpu radeon nouveau)
+BINARIES=(/usr/bin/btrfs)
+{% else %}
+MODULES=(crc32c-intel intel_agp i915 amdgpu radeon nouveau)
+BINARIES=()
+{% endif %}
+FILES=()
+HOOKS=(base systemd autodetect keyboard keymap modconf block filesystems fsck mdadm_udev)
+COMPRESSION="zstd"
+COMPRESSION_OPTIONS=(-2)

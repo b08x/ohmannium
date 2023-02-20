@@ -1,0 +1,55 @@
+---
+
+- name: install devtools
+  aur:
+    use: auto
+    name: devtools
+    state: present
+  become_user: aur_builder
+
+- name: ensure folder tree
+  file:
+    path: "/home/aur_builder/{{ item }}"
+    state: directory
+    owner: aur_builder
+    group: aur_builder
+  with_items:
+    - Packages
+    - Packages/x86_64
+    - Packages/x86_64_v3
+    - Repository
+    - Repository/x86_64
+    - Repository/x86_64_v3
+    - Workspace
+    - Workspace/chroot
+    - Workspace/pkgbuilds
+
+- name: rsync pkgbuild and devtools folders to workspace
+  synchronize:
+    src: "{{ item }}"
+    dest: "{{ workspace }}/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--update"
+      - "--omit-dir-times"
+  with_items:
+    - pkgbuilds
+    - devtools
+  become_user: aur_builder
+
+- name: copy makepkg and pacman templates to workspace
+  template:
+    src: "devtools/{{ item }}.j2"
+    dest: "{{ workspace }}/devtools/{{ item }}"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'
+  with_items:
+    - makepkg-x86_64.conf
+    - makepkg-x86_64_v3.conf
+    - pacman-x86_64.conf
+    - pacman-x86_64_v3.conf

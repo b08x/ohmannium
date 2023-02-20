@@ -1,0 +1,15 @@
+---
+
+user:
+  name: b08x
+  group: b08x
+  uid: 1000
+  gid: 1000
+  home: /home/b08x
+  secondary_groups: "input,video,audio"
+  shell: /usr/bin/zsh
+  email: rwpannick@gmail.com
+  realname: Robert Pannick
+
+workspace: /home/b08x/Workspace
+install_pulsar: False

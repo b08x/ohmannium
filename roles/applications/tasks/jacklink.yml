@@ -1,0 +1,26 @@
+---
+
+- name: check if jack_link is already installed
+  stat:
+    path: /usr/local/bin/jack_link
+  register: result
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+    - name: clone jack_link
+      git:
+        repo: "https://github.com/rncbc/jack_link.git"
+        dest: "/tmp/jack_link"
+        accept_hostkey: yes
+        update: no
+        force: no
+        recursive: yes
+
+    - name: make and install jack_link
+      shell: |
+        make
+        sudo mv jack_link /usr/local/bin/jack_link
+      args:
+        chdir: "/tmp/jack_link"
+
+  when: not result.stat.exists

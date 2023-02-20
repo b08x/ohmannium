@@ -1,0 +1,25 @@
+---
+
+- name: enable and restart lightdm service
+  systemd:
+    name: lightdm
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+    force: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: enable autofs service
+  systemd:
+    name: autofs
+    enabled: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: reload user systemd
+  systemd:
+    daemon_reload: yes
+  become_user: "{{ user.name }}"
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes

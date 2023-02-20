@@ -1,0 +1,14 @@
+---
+
+- block:
+    - name: Allow nginx to read files in syncopated webroot
+      sefcontext:
+        target: '/usr/share/nginx/html/syncopated(/.*)?'
+        setype: httpd_sys_content_t
+        state: present
+
+    - name: Apply new SELinux file context to filesystem
+      command: restorecon -iRv /usr/share/nginx/html/syncopated/
+
+  become: True
+  notify: restart nginx

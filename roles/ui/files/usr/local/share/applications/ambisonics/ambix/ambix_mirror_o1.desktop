@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ambix_mirror_o1
+GenericName=Soundfield Mirroring o1
+Comment= o1
+Exec=ambix_mirror_o1
+Icon=ambix
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics
+

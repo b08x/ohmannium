@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Shishqa
+  role_name: pkg_manager
+  description: Ansible module to use distro specific package managers
+  license: GPL-3.0-or-later
+  min_ansible_version: 2.0
+
+  # https://galaxy.ansible.com/api/v1/platforms/
+  platforms:
+  - name: ArchLinux
+    versions:
+    - any
+  - name: RedHat
+    versions:
+    - any
+  - name: Debian
+    versions:
+    - any
+
+  galaxy_tags:
+  - pkg_manager
+
+dependencies: []

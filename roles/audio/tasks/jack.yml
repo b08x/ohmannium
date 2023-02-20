@@ -1,0 +1,35 @@
+---
+
+- name: create environment file for jack_control.service
+  copy:
+    content: |
+      DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+    dest: "/etc/default/jack_control"
+
+- name: create systemd user directory
+  file:
+    path: "{{ user.home }}/.config/systemd/user"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0755'
+
+- name: install jack_control service file
+  copy:
+    src: "usr/lib/systemd/user/jack_control.service"
+    dest: "{{ user.home }}/.config/systemd/user/jack_control.service"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'
+
+# - name: enable jack services
+#   systemd:
+#     name: jack_control
+#     enabled: yes
+#     state: started
+#     scope: user
+#     daemon_reload: yes
+#   environment:
+#     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+#   become_user: "{{ user.name }}"
+#   ignore_errors: "{{ ansible_check_mode }}"

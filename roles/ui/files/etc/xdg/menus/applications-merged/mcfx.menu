@@ -1,0 +1,28 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+<Menu>
+  <Name>Applications</Name>
+  <Menu>
+    <Name>Ambisonics</Name>
+    <Menu>
+      <Name>mcfx</Name>
+      <Directory>mcfx.directory</Directory>
+      <Include>
+         <Filename>mcfx_convolver_o1.desktop</Filename>
+         <Filename>mcfx_convolver_o3.desktop</Filename>
+         <Filename>mcfx_convolver_o5.desktop</Filename>
+         <Filename>mcfx_delay_o1.desktop</Filename>
+         <Filename>mcfx_delay_o3.desktop</Filename>
+         <Filename>mcfx_delay_o5.desktop</Filename>
+         <Filename>mcfx_filter_o1.desktop</Filename>
+         <Filename>mcfx_filter_o3.desktop</Filename>
+         <Filename>mcfx_filter_o5.desktop</Filename>
+         <Filename>mcfx_gain_delay_o1.desktop</Filename>
+         <Filename>mcfx_gain_delay_o3.desktop</Filename>
+         <Filename>mcfx_gain_delay_o5.desktop</Filename>
+         <Filename>mcfx_meter_o1.desktop</Filename>
+         <Filename>mcfx_meter_o3.desktop</Filename>
+         <Filename>mcfx_meter_o5.desktop</Filename>
+      </Include>
+    </Menu>
+  </Menu>
+</Menu>

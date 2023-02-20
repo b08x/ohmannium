@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ambix_converter_o1
+GenericName=Ambisonics Formats Converter o1
+Comment= o1
+Exec=ambix_converter_o1
+Icon=ambix
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics
+

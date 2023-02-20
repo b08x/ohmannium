@@ -1,0 +1,11 @@
+---
+
+
+- include: shell.yml
+  tags: ['shell']
+
+- include: menu.yml
+  tags: ['menu']
+
+- include: templates.yml
+  tags: ['templates']

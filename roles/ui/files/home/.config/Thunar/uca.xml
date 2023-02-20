@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1640763842500001-1</unique-id>
+	<command>alacritty --working-directory %f</command>
+	<description>Open a terminal in the current directory.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>terminator</icon>
+	<name>Open Root Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1640763842500039-2</unique-id>
+	<command>sudo -i /usr/bin/terminator --working-directory %d</command>
+	<description>Open a Root terminal in the current directory.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>angrysearch</icon>
+	<name>Search For Text within Folder</name>
+	<submenu></submenu>
+	<unique-id>1640771708379034-1</unique-id>
+	<command>kitty /usr/local/bin/rga-fzf %f</command>
+	<description>find files containing specified text using rga and fzf</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>Thunar</icon>
+	<name>Open Folder as Root</name>
+	<submenu></submenu>
+	<unique-id>1640763842500060-3</unique-id>
+	<command>sudo thunar %f</command>
+	<description>Open the current directory with Root permissions.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>accessories-text-editor</icon>
+	<name>Edit Text as Root</name>
+	<submenu></submenu>
+	<unique-id>1640763842500080-4</unique-id>
+	<command>sudo mousepad %f</command>
+	<description>Open selected text file with Root permissions.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<text-files/>
+</action>
+<action>
+	<icon>emblem-symbolic-link</icon>
+	<name>Create A Soft-Link</name>
+	<submenu></submenu>
+	<unique-id>1640763842500101-5</unique-id>
+	<command>ln -s %f $(zenity --file-selection --directory)</command>
+	<description>Create soft-link to a File or Folder.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>/home/b08x/Images/Soundbot/icons/soundbot.png</icon>
+	<name>Create a Hydrogen Drum Machine Drumkit</name>
+	<submenu></submenu>
+	<unique-id>1640763842500132-6</unique-id>
+	<command>xterm -title MakeH2drumkit -e makeh2kit -I --files %F</command>
+	<description>Create an h2drumkit sound library from a directory of samples.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+</action>
+<action>
+	<icon>soundbot</icon>
+	<name>Create an SFZ Sound Library</name>
+	<submenu></submenu>
+	<unique-id>1640763842500151-7</unique-id>
+	<command>xterm -hold -title MakeSFZ -e /usr/local/bin/makesfz -I --files %F</command>
+	<description>Create an SFZ sound library from a directory of samples.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+</action>
+<action>
+	<icon>soundbot</icon>
+	<name>convert to wav</name>
+	<submenu></submenu>
+	<unique-id>1642234727848050-4</unique-id>
+	<command>xterm -class &apos;soundbot&apos; -T &quot;convert to wav&quot; -e /home/b08x/.local/bin/convert_to_wav.rb %F</command>
+	<description>convert file to wav</description>
+	<range></range>
+	<patterns>*</patterns>
+	<audio-files/>
+</action>
+<action>
+	<icon>soundbot</icon>
+	<name>genereate spectrogram</name>
+	<submenu></submenu>
+	<unique-id>1642197296022568-2</unique-id>
+	<command>xterm -T &quot;generate spectrogram&quot; -e /home/b08x/.local/bin/spectrogram.rb %F</command>
+	<description>generate spectrogram and attach to flac</description>
+	<range></range>
+	<patterns>*.flac;*.mp3</patterns>
+	<audio-files/>
+</action>
+<action>
+	<icon>soundbot</icon>
+	<name>tp-norm</name>
+	<submenu></submenu>
+	<unique-id>1667885667802663-1</unique-id>
+	<command>xterm -hold -T &quot;clipfix&quot; -e /home/b08x/Workspace/robot-stuff/utils/clipfix.rb %F </command>
+	<description>normalize sound files to -3.0dB</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<other-files/>
+</action>
+<action>
+	<icon>terminator-custom-commands</icon>
+	<name>xarchiver</name>
+	<submenu></submenu>
+	<unique-id>1640763842500320-16</unique-id>
+	<command>xarchiver -c %F</command>
+	<description></description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<other-files/>
+</action>
+<action>
+	<icon>application-x-xz-compressed-tar</icon>
+	<name>create xz archive</name>
+	<submenu></submenu>
+	<unique-id>1659317316651695-1</unique-id>
+	<command>uxterm -T &quot;archive&quot; -e /usr/local/bin/archive.sh %N</command>
+	<description>with -e9</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>gcr-gnupg</icon>
+	<name>Encrypt symmetrically with GPG</name>
+	<submenu></submenu>
+	<unique-id>1640763842500336-17</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    if ! /usr/bin/gpg-agent;then     (echo &apos;#&apos;$(eval_gettext &apos;Initialising gnupg...&apos;);        /usr/bin/gpg2 --list-public-keys;        /usr/bin/gpg-connect-agent /bye;        /usr/bin/gpg-agent --pinentry-program=&quot;/usr/bin/pinentry-gtk-2&quot;         pulse)|/usr/bin/zenity --progress --auto-kill --auto-close;fi;    PASSWORD=$(/usr/bin/zenity --password) || exit;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Encrypting&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;.asc)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (echo $PASSWORD | /usr/bin/gpg2 --batch --yes --passphrase-fd 0 --symmetric --armor -o &quot;$fileout&quot; &quot;$fileinput&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>Each selected file is encrypted symmetrically with one given password with GPG.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>gcr-gnupg</icon>
+	<name>Encrypt asymmetrically with GPG</name>
+	<submenu></submenu>
+	<unique-id>1640763842500352-18</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    if ! /usr/bin/gpg-agent;then     (echo &apos;#&apos;$(eval_gettext &apos;Initialising gnupg...&apos;);        /usr/bin/gpg2 --list-public-keys;        /usr/bin/gpg-connect-agent /bye;        /usr/bin/gpg-agent --pinentry-program=&quot;/usr/bin/pinentry-gtk-2&quot;         pulse)|/usr/bin/zenity --progress --auto-kill --auto-close;fi;    if test -z &quot;$(/usr/bin/gpg2 --list-public-keys | /usr/bin/parse-gpg2-k)&quot;;then         /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;Your local keyring does not contain any public keys.&apos;))&quot;;        exit;    fi;    RECIPIENT_KEY=&quot;$(/usr/bin/gpg2 --list-public-keys | /usr/bin/parse-gpg2-k |        /usr/bin/zenity --list --print-column=1         --column=&quot;$(eval_gettext &apos;Public Key&apos;)&quot;         --column=&quot;$(eval_gettext &apos;Name&apos;)&quot;         --column=&quot;$(eval_gettext &apos;Email&apos;)&quot;        --text=&quot;$(eval_gettext &apos;Select a recipient key from the list below.&apos;)&quot;        --title=&quot;$(eval_gettext &apos;Recipient key&apos;)&quot;        )&quot;;    /usr/bin/gpg-connect-agent /bye;    /usr/bin/gpg-agent --pinentry-program=&quot;/usr/bin/pinentry-gtk-2&quot;;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Encrypting&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;.gpg)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/gpg2 --batch --yes --recipient &quot;$RECIPIENT_KEY&quot;                     --encrypt --armor --trust-model always                     --output &quot;$fileout&quot; &quot;$fileinput&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>Each selected file is encrypted asymmetrically with GPG.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>gcr-gnupg</icon>
+	<name>Decrypt with GPG</name>
+	<submenu></submenu>
+	<unique-id>1640763842500365-19</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    if ! /usr/bin/gpg-agent;then     (echo &apos;#&apos;$(eval_gettext &apos;Initialising gnupg...&apos;);        /usr/bin/gpg2 --list-public-keys;        /usr/bin/gpg-connect-agent /bye;        /usr/bin/gpg-agent --pinentry-program=&quot;/usr/bin/pinentry-gtk-2&quot;         pulse)|/usr/bin/zenity --progress --auto-kill --auto-close;fi;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Decrypting&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 $(dirname &quot;$file&quot;)/$(basename &quot;$file&quot; | /usr/bin/perl -pe &apos;s#\.\w+$##g&apos;))&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/gpg2 --batch --yes --decrypt -o &quot;$fileout&quot; &quot;$fileinput&quot; ||                 /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;Could not decrypt $filebase.&apos;) $(eval_gettext &apos;Wrong password or no appropriate private key available?&apos;))&quot;;                );fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>Each selected file is decrypted with GPG.</description>
+	<range></range>
+	<patterns>*.asc;*.pgp;*.gpg</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>edit-redo</icon>
+	<name>Turn clockwise</name>
+	<submenu></submenu>
+	<unique-id>1640763842500376-20</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Rotating clockwise&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/convert -rotate 90 &quot;$fileinput&quot; &quot;$fileout&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>The selected images are turned clockwise.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>edit-undo</icon>
+	<name>Turn anti-clockwise</name>
+	<submenu></submenu>
+	<unique-id>1640763842500387-21</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Rotating anti-clockwise&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/convert -rotate 270 &quot;$fileinput&quot; &quot;$fileout&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>The selected images are turned anti-clockwise.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>insert-image</icon>
+	<name>Convert to other format</name>
+	<submenu></submenu>
+	<unique-id>1640763842500402-22</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    FORMAT=$(        /usr/bin/convert -list format |         /usr/bin/perl -ane &apos;($f,$m,$c,$d)=m/^\s*(\S*?)\**\s*(\S*)\s*([r-][w-][+-])\s*(.*)$/g;if($c=~m/^.w.$/){print join &quot;\n&quot;,$f,$d,&quot;&quot;}&apos; |         /usr/bin/zenity --list             --print-column=1             --column=&quot;$(eval_gettext &apos;Format&apos;)&quot;             --column=&quot;$(eval_gettext &apos;Description&apos;)&quot;             --text=&quot;$(eval_gettext &apos;Select format:&apos;)&quot;             --title=&quot;$(eval_gettext &apos;Format&apos;)&quot;         );    if test $? -ne 0;then         exit;    fi;    FORMAT=$(echo $FORMAT | /usr/bin/perl -ne &apos;print lc&apos;);    if test -z &quot;$FORMAT&quot;;then         /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;No format selected.&apos;) $(eval_gettext &apos;If you see this message, please contact the developer on https://github.com/nobodyinperson/thunar-custom-actions.&apos;))&quot;;        exit 1;    fi;     (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Converting to $FORMAT&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 $(dirname &quot;$file&quot;)/$(basename &quot;$file&quot; | /usr/bin/perl -pe &apos;s#\.\w+$##g&apos;).${FORMAT})&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (CONVERT_OUTPUT=$(/usr/bin/convert &quot;$fileinput&quot; &quot;$fileout&quot; 2&gt;&amp;1;) ||                     /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;Could not convert $fileinput to $FORMAT: $CONVERT_OUTPUT&apos;))&quot;;                );fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>The selected images are converted to a specified format.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>applications-graphics-symbolic</icon>
+	<name>Convert to grayscale</name>
+	<submenu></submenu>
+	<unique-id>1640763842500413-23</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Converting to grayscale&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/convert &quot;$fileinput&quot; -set colorspace Gray -separate -average &quot;$fileout&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>The selected images are converted to grayscale by averaging the RGB-channels.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<image-files/>
+</action>
+<action>
+	<icon>image-denoise</icon>
+	<name>optimize png for web</name>
+	<submenu></submenu>
+	<unique-id>1659250986226811-1</unique-id>
+	<command>uxterm -e convert %F -strip -resize 1280x640 -quality 86 </command>
+	<description></description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>color-fill</icon>
+	<name>Fill transparency</name>
+	<submenu></submenu>
+	<unique-id>1640763842500424-24</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    COLOR=$(/usr/bin/zenity --color-selection) || exit;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Filling transparency with $COLOR&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/convert &quot;$fileinput&quot; -background &quot;$COLOR&quot; -alpha remove &quot;$fileout&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>The alpha channel in the selected images is filled with the selected color.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>window-restore-symbolic</icon>
+	<name>Shrink images</name>
+	<submenu></submenu>
+	<unique-id>1640763842500436-25</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    SCALE=$(/usr/bin/zenity --text=&quot;$(eval_gettext &apos;Scale to what percentage?&apos;)&quot; --scale --value=50 --min-value=1 --max-value=99) || exit;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Scale to $SCALE percent&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/convert &quot;$fileinput&quot; -resize ${SCALE}%% &quot;$fileout&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>The selected images are scaled to a given percentage of the original size.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>emblem-symbolic-link</icon>
+	<name>Create link targeted here</name>
+	<submenu></submenu>
+	<unique-id>1640763842500447-26</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;        TARGET=&quot;$(/usr/bin/zenity --file-selection --title=&quot;$(eval_gettext &apos;Select link location&apos;)&quot; --save --filename %f)&quot; || exit;        if test &quot;$TARGET&quot; = %f;then         /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;The link name has to differ from the target name.&apos;))&quot;;exit;        fi;        fileinput=&quot;$(echo             %f)&quot;;filefinalout=&quot;$(echo             $TARGET)&quot;;fileout=&quot;$filefinalout&quot;;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (ln -sf &quot;$fileinput&quot; &quot;$fileout&quot; || /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;Could not create link&apos;))&quot;);fi;         )</command>
+	<description>Create a symbolic link targeted here.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>edit-find</icon>
+	<name>Find space-consuming elements</name>
+	<submenu></submenu>
+	<unique-id>1640763842500481-27</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    TMPFILE=$(mktemp);    (echo &apos;#&apos;$(eval_gettext &apos;Determining file sizes&apos;)...;        du -ha --max-depth 1 %f |             sort -rh |             perl -ne &apos;($s,$n)=m/^(\S+)\s+(\S+.*)$/;$n=~s:.*/([^/]+)$:${1}:g;print &quot;$s\n$n\n&quot;&apos; |             tee $TMPFILE)|/usr/bin/zenity --progress --auto-kill --auto-close --title=&quot;$(echo         $(eval_gettext &apos;Determining file sizes&apos;))&quot; --pulsate;    cd %f;    cat $TMPFILE |         /usr/bin/zenity --list --column=&quot;$(eval_gettext &apos;Size&apos;)&quot;             --column=&quot;$(eval_gettext &apos;Name&apos;)&quot;             --title=&quot;$(eval_gettext &apos;Big elements&apos;)&quot;             --text=&quot;$(eval_gettext &apos;Elements sorted by size&apos;)\n$(eval_gettext &apos;Double-click to open.&apos;)&quot;             --print-column 2 |         /usr/bin/xargs -r --delimiter=&apos;\n&apos; /usr/bin/xdg-open;    rm &quot;$TMPFILE&quot;)</command>
+	<description>Give a sorted list of the biggest files and folders here.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>checkbox-checked-symbolic</icon>
+	<name>Checksums</name>
+	<submenu></submenu>
+	<unique-id>1640763842500493-28</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    TMPFILE=$(mktemp);    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Determining checksums&apos;) ... &quot;$filebase&quot;;  (basename &quot;$file&quot; &gt;&gt; $TMPFILE;            /usr/bin/md5sum    &quot;$file&quot; | cut -d&apos; &apos; -f1 &gt;&gt; $TMPFILE;            /usr/bin/sha1sum   &quot;$file&quot; | cut -d&apos; &apos; -f1 &gt;&gt; $TMPFILE;            /usr/bin/sha256sum &quot;$file&quot; | cut -d&apos; &apos; -f1 &gt;&gt; $TMPFILE;            );  echo $PERCENTAGE;done)|/usr/bin/zenity --progress --auto-kill --auto-close --title=&quot;$(echo         $(eval_gettext &apos;Determining checksums&apos;))&quot;;    cat $TMPFILE |         /usr/bin/zenity --list             --column=&quot;$(eval_gettext &apos;Name&apos;)&quot;             --column=&quot;$(eval_gettext &apos;MD5&apos;)&quot;             --column=&quot;$(eval_gettext &apos;SHA1&apos;)&quot;             --column=&quot;$(eval_gettext &apos;SHA256&apos;)&quot;             --title=&quot;$(eval_gettext &apos;Checksums&apos;)&quot;             --text=&quot;$(eval_gettext &apos;Checksums&apos;)\n$(eval_gettext &apos;Double-click to open.&apos;)&quot;             --print-column 1 |         /usr/bin/xargs -r --delimiter=&apos;\n&apos; /usr/bin/xdg-open;    rm &quot;$TMPFILE&quot;)</command>
+	<description>Show different checksums of the selected files.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>application-pdf</icon>
+	<name>Convert to a single PDF</name>
+	<submenu></submenu>
+	<unique-id>1640763842500508-29</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;        ORIENTATION=&quot;$(            (            echo $(eval_gettext &apos;Portrait&apos;);            echo $(eval_gettext &apos;Landscape&apos;);            ) | /usr/bin/zenity --list             --column=&quot;$(eval_gettext &apos;Orientation&apos;)&quot;             --text=&quot;$(eval_gettext &apos;Choose an orientation for the PDF.&apos;)&quot;             --title=&quot;$(eval_gettext &apos;PDF orientation&apos;)&quot;)&quot;;         if test $? -ne 0;then             exit;        fi;        A4_PORTRAIT_WIDTH=1654;        A4_PORTRAIT_HEIGHT=2338;        if test &quot;$ORIENTATION&quot; = &quot;$(eval_gettext &apos;Portrait&apos;)&quot;;then             WIDTH=$A4_PORTRAIT_WIDTH;            HEIGHT=$A4_PORTRAIT_HEIGHT;        elif test &quot;$ORIENTATION&quot; = &quot;$(eval_gettext &apos;Landscape&apos;)&quot;;then             WIDTH=$A4_PORTRAIT_HEIGHT;            HEIGHT=$A4_PORTRAIT_WIDTH;        else             /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;Strange orientation $ORIENTATION selected.&apos;) $(eval_gettext &apos;If you see this message, please contact the developer on https://github.com/nobodyinperson/thunar-custom-actions.&apos;))&quot;;            exit 1;        fi;         (echo &apos;#&apos;$(eval_gettext &apos;Converting to PDF&apos;)...;            fileinput=&quot;$(echo                 %F)&quot;;filefinalout=&quot;$(echo                 $(dirname %f)/$(basename %f | /usr/bin/perl -pe &apos;s#\.\w+$##g&apos;)_$ORIENTATION.pdf)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/convert %F -gravity Center -background white -resize ${WIDTH}x${HEIGHT} -extent ${WIDTH}x${HEIGHT} -units PixelsPerInch -density 200x200 &quot;$fileout&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi )|/usr/bin/zenity --progress --auto-kill --auto-close --title=&quot;$(echo             $(eval_gettext &apos;Converting to PDF&apos;))&quot; --pulsate        )</command>
+	<description>The selected images are converted to pages of a single PDF document at A4 page size.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>application-pdf</icon>
+	<name>Concatenate PDFs</name>
+	<submenu></submenu>
+	<unique-id>1640763842500543-30</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;        (echo &apos;#&apos;$(eval_gettext &apos;Concatenating PDFs&apos;)...;            fileinput=&quot;$(echo                 %F)&quot;;filefinalout=&quot;$(echo                 %f-all.pdf)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=&quot;$fileout&quot; %F);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi )|/usr/bin/zenity --progress --auto-kill --auto-close --title=&quot;$(echo             $(eval_gettext &apos;Concatenating PDFs&apos;))&quot; --pulsate        )</command>
+	<description>The selected PDF files are concatenated into one PDF file.</description>
+	<range></range>
+	<patterns>*.PDF;*.pdf</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>window-restore-symbolic</icon>
+	<name>Reduce PDF file size</name>
+	<submenu></submenu>
+	<unique-id>1640763842500556-31</unique-id>
+	<command>(set -e;export TEXTDOMAIN=&apos;thunar-custom-actions&apos;;export TEXTDOMAINDIR=&apos;/usr/share/locale&apos;;. /usr/bin/gettext.sh;    (AMOUNT=$(for file in %F;do echo &quot;$file&quot;;done | wc -l);NR=0;for file in %F;do  NR=&quot;$(echo &quot;$NR+1&quot; | /usr/bin/bc)&quot;; PERCENTAGE=&quot;$(echo &quot;$NR*100/$AMOUNT&quot; | /usr/bin/bc)&quot;; filebase=$(basename &quot;$file&quot;); echo &apos;#&apos;$(eval_gettext &apos;Optimizing PDF&apos;) ... &quot;$filebase&quot;;  (fileinput=&quot;$(echo                 &quot;$file&quot;)&quot;;filefinalout=&quot;$(echo                 &quot;$file&quot;)&quot;;if test &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  fileout=$(f=$(echo &quot;$filefinalout&quot;);while test -e &quot;$f&quot;;do f=$(dirname &quot;$f&quot;)/.$(basename &quot;$f&quot;).tmp;done;echo &quot;$f&quot;);else  fileout=&quot;$filefinalout&quot;;fi;OVERWRITE=yes;if test -e &quot;$filefinalout&quot; -a ! &quot;$fileinput&quot; = &quot;$filefinalout&quot;;then  base=$(basename &quot;$filefinalout&quot;); if ! (/usr/bin/zenity --question --text=&quot;$(echo $(eval_gettext &apos;overwrite $base?&apos;))&quot;);then   OVERWRITE=no; fi;fi;if test &quot;$OVERWRITE&quot; = &quot;yes&quot;;then  (/usr/bin/gs -dBATCH -dNOPAUSE -q -dPDFSETTINGS=/prepress                 -sDEVICE=pdfwrite -dDownsampleColorImages=true                 -dDownsampleGrayImages=true -dDownsampleMonoImages=true                 -dColorImageResolution=72 -dGrayImageResolution=72                 -dMonoImageResolution=72 -sOutputFile=&quot;$fileout&quot; &quot;$fileinput&quot;);fi;if ! test &quot;$fileout&quot; = &quot;$filefinalout&quot;;then  if cp &quot;$fileout&quot; &quot;$filefinalout&quot;;then   rm &quot;$fileout&quot;; else   /usr/bin/zenity --error --text=&quot;$(echo $(eval_gettext &apos;something went wrong copying the file $fileout over to $filefinalout.&apos;))&quot;; fi;fi );  echo $PERCENTAGE;done        )|/usr/bin/zenity --progress --auto-kill --auto-close    )</command>
+	<description>[Caution: loss of quality!] An attempt to reduce the file size of each selected PDF file is made.</description>
+	<range></range>
+	<patterns>*.PDF;*.pdf</patterns>
+	<other-files/>
+</action>
+</actions>

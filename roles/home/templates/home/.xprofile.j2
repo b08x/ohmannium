@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+declare -rx BACKGROUNDS="/usr/share/backgrounds/syncopated"
+
+if [ -d /usr/share/fonts/75dpi ]; then
+    xset +fp /usr/share/fonts/75dpi
+fi
+
+if [ -d /usr/share/fonts/100dpi ]; then
+    xset +fp /usr/share/fonts/100dpi
+fi
+
+xset s off
+xset -dpms
+xset -b
+
+numlockx on
+
+if test -f "$HOME/.asound.state"; then
+	alsactl restore -f "$HOME/.asound.state"
+fi
+
+if [ ! -d /tmp/reaper ]; then
+	mkdir -pv /tmp/reaper
+fi
+
+if [ -x "$(command -v autorandr)" ]; then
+  autorandr -l "$(autorandr --detected)"
+  sleep 0.5
+else
+  echo "autorandr not found"
+fi
+
+#note: "~"" does not expand in quotes
+if [ -f ~/.fehbg ]; then
+  ~/.fehbg
+else
+  feh --recursive --bg-fill --randomize $BACKGROUNDS/*
+fi
+

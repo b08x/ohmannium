@@ -1,0 +1,20 @@
+---
+
+- name: sync folder syncopated utility scripts
+  synchronize:
+    src: usr/local/bin/
+    dest: /usr/local/bin/
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--update"
+      - "--omit-dir-times"
+
+- name: ensure files in /usr/local/bin are executable
+  file:
+    path: /usr/local/bin
+    mode: '0755'
+    recurse: True

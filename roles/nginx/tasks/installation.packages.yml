@@ -1,0 +1,40 @@
+---
+- name: Install the selinux python module
+  yum: name=python3-libselinux state=present
+  when: ansible_os_family == "RedHat"
+  tags: [packages,nginx]
+
+# this really isn't needed here as we install epel using the common role
+# will comment out for now
+# - name: Install the epel packages
+#   yum: name=epel-release state=present
+#   when: nginx_is_el|bool
+#   tags: [packages,nginx]
+
+- name: Install the nginx packages from either epel or nginx_offical repo
+  yum: >
+    name={{ item }}
+    state=latest
+    enablerepo={{ "nginx" if nginx_official_repo else "" }}
+  with_items: "{{ nginx_redhat_pkg }}"
+  when:  nginx_is_el|bool and not nginx_passenger
+  tags: [packages,nginx]
+
+  ###update 5/4 - changed to state=present as using latest lead to an
+  #unexpected update to nginx
+  # use state=latest in case nginx was already installed from epel.
+  # this will ensure the passenger complied version of nginx is installed
+- name: Install nginx & passenger packages using passenger repo
+  yum: >
+    name={{ item }}
+    state=present
+    enablerepo={{ yum_passenger_repo }}
+  with_items: "{{ nginx_passenger_redhat_pkg }}"
+  when: nginx_is_el|bool and nginx_passenger
+  tags: [packages,nginx]
+
+- name: Install the nginx packages for a rhel based distro that isn't Redhat or Centos
+  yum: name={{ item }} state=present
+  with_items: "{{ nginx_redhat_pkg }}"
+  when: ansible_os_family == "RedHat" and not nginx_is_el|bool
+  tags: [packages,nginx]

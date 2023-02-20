@@ -1,0 +1,8 @@
+---
+
+- name: starting network tasks
+  debug:
+    msg: "Starting network tasks"
+
+- include: networkmanager.yml
+  tags: ['networkmanager']

@@ -1,0 +1,243 @@
+---
+
+- name: include distribution package vars
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- name: create user to build packages
+  user:
+    name: aur_builder
+    create_home: yes
+    shell: /usr/bin/zsh
+
+- name: set permissions for aur_builder in sudoers
+  copy:
+    content: |
+      aur_builder ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman,/usr/bin/mkdir,/usr/bin/rm,/usr/bin/mkarchroot,/usr/bin/makechrootpkg,/usr/bin/arch-nspawn
+    dest: /etc/sudoers.d/11-aur_builder
+    validate: 'visudo -cf %s'
+
+- name: check -march support
+  shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
+  register: supported_march
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: check output from grep command
+  debug:
+    msg: "{{ supported_march }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: set architecture
+  set_fact:
+    architecture: "{{ supported_march.stdout_lines[0] }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: update pacman.conf and makepkg.conf
+  template:
+    src: "etc/{{ item }}.j2"
+    dest: "/etc/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  with_items:
+    - pacman.conf
+    - makepkg.conf
+  tags: ['makepkg', 'pacman']
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+    - name: get cachyos repo installer
+      get_url:
+        url: https://build.cachyos.org/cachyos-repo.tar.xz
+        dest: /tmp
+
+    - name: extract tarball to /tmp
+      unarchive:
+        src: /tmp/cachyos-repo.tar.xz
+        dest: /tmp
+        remote_src: yes
+
+    - name: install cachyos repo
+      shell: yes | ./cachyos-repo.sh --install
+      args:
+        chdir: /tmp/cachyos-repo
+      register: cachy_repo
+      until: "cachy_repo is not failed"
+      retries: 10
+      delay: 10
+
+    - debug:
+        msg: "{{ cachy_repo.stdout_lines }}"
+
+  # when: inventory_hostname in groups.get('devel', [])
+  when: architecture == 'x86-64-v3'
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags: ['cachyos']
+
+- name: add syncopated repo key
+  shell: |
+    if [[ -z "$(pacman-key --list-keys | grep syncopated 2>/dev/null)" ]];
+    then
+      echo "key already installed"
+    else
+      curl http://soundbot.hopto.org/syncopated/syncopated.gpg | pacman-key --add -
+      pacman-key --lsign-key 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A
+    fi
+  register: syncopated_keys
+  until: "syncopated_keys is not failed"
+  retries: 10
+  delay: 10
+  check_mode: False
+
+- name: add archaudio repo key
+  shell: |
+    if [[ -z "$(pacman-key --list-keys | grep OSAMC 2>/dev/null)" ]];
+    then
+      echo "key already installed"
+    else
+      curl https://arch.osamc.de/proaudio/osamc.gpg | pacman-key --add -
+      pacman-key --lsign-key 762AE5DB2B38786364BD81C4B9141BCC62D38EE5
+    fi
+  register: archaudio_keys
+  until: "archaudio_keys is not failed"
+  retries: 10
+  delay: 10
+  check_mode: False
+
+- name: update and upgrade
+  pacman:
+    update_cache: True
+    upgrade: False
+
+- name: ensure user permissions for /var/tmp/makepkg
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0775'
+    owner: aur_builder
+    group: wheel
+    recurse: True
+  with_items:
+    - /tmp/makepkg
+    - /var/tmp/makepkg
+
+- name: check if paru installed
+  stat: path="/usr/bin/paru"
+  register: paru
+  tags: ['paru']
+
+- name: install paru
+  block:
+    - name: install paru
+      pacman:
+        name: paru
+        state: present
+        force: yes
+        extra_args: --noconfirm
+      register: paru_package
+      until: "paru_package is not failed"
+      retries: 10
+      delay: 10
+
+  rescue:
+    - name: clone paru
+      git:
+        repo: "https://aur.archlinux.org/paru.git"
+        dest: "/tmp/paru"
+        accept_hostkey: yes
+        update: yes
+        force: no
+      become_user: aur_builder
+
+    - name: make and install paru
+      shell: "makepkg -si --noconfirm --needed"
+      args:
+        chdir: "/tmp/paru"
+      become_user: aur_builder
+
+    - name: clean and update package cache
+      shell: |
+        paru -Sc --noconfirm && paru -Syy
+      become_user: aur_builder
+
+  when: not paru.stat.exists
+  tags: ['paru']
+
+- name: update mirrors
+  shell: |
+    reflector --download-timeout 1 --protocol https \
+    --latest 20 --sort rate --score 10 --fastest 5 \
+    --save /etc/pacman.d/mirrorlist
+  tags: ['mirrors']
+
+- name: remove pipewire
+  pacman:
+    name: "{{ item }}"
+    state: absent
+    force: yes
+    extra_args: --noconfirm
+  with_items:
+    - pipewire-alsa
+    - pipewire-audio
+    - pipewire-jack
+    - pipewire-pulse
+    - wireplumber
+  when: use_jack|default(true)|bool == true
+  ignore_errors: True
+
+# stderr: 'error: target not found: jack'
+- name: remove jack in favor of jack2dbus
+  pacman:
+    name: jack
+    state: absent
+    force: yes
+    extra_args: --noconfirm
+  ignore_errors: True
+
+- name: remove nitrogen
+  pacman:
+    name: nitrogen
+    state: absent
+    force: yes
+    extra_args: --noconfirm
+  ignore_errors: True
+
+- block:
+    - name: install packages
+      aur:
+        use: paru
+        name: "{{ packages }}"
+        state: present
+        extra_args: "--overwrite '*'"
+
+    - name: install autofs
+      aur:
+        use: auto
+        name: autofs
+        state: present
+
+  rescue:
+    - name: install packages
+      shell: |
+        export pkgs=({{ packages }})
+        for p in ${pkgs[@]};do
+          paru -S --noconfirm --needed --cleanafter --useask $(echo $p | sed 's/,//') || continue
+        done
+
+  become_user: aur_builder
+  tags: ['packages']
+
+
+# - name: Check on an async task
+#   async_status:
+#     jid: "{{ package_install.ansible_job_id }}"
+#   register: job_result
+#   until: job_result.finished
+#   retries: 100
+#   delay: 10
+#   become_user: aur_builder
+#   tags: ['testing']
+
+# #TODO: add task to watch long running task
+
+#

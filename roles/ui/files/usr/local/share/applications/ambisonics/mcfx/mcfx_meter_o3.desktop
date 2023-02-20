@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=mcfx_meter_o3
+Comment=mcfx_meter_o3
+Exec=mcfx_meter_o3
+Icon=mcfx
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics
+

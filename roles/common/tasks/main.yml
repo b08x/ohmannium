@@ -1,0 +1,36 @@
+---
+
+- name: starting base role tasks
+  debug:
+    msg: "Starting base role tasks"
+
+- include: sudoers.yml
+  tags: ['user']
+
+- include: grub.yml
+  tags: ['grub']
+
+- include: autologin.yml
+  tags: ['auto']
+
+- include: ssh.yml
+  tags: ['ssh']
+
+- include: logging.yml
+  tags: ['logging']
+
+- include: tuning.yml
+  tags: ['tuning']
+
+- include: ruby.yml
+  tags: ['ruby']
+
+- include: utils.yml
+  tags: ['utils']
+
+- include: updatedb.yml
+  tags: ['updatedb']
+
+- include: autofs.yml
+  when: autofs_client is defined
+  tags: ['network']

@@ -1,0 +1,13 @@
+---
+
+- name: setup libvirt and docker hosts
+  hosts: devel
+  become: True
+  gather_subset:
+    - hardware
+    - network
+  vars_files:
+    - "vars/user.yml"
+  roles:
+    - role: virt
+      tags: ['virt']

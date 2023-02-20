@@ -1,0 +1,18 @@
+---
+
+- name: xdg-user-dirs-update service
+  systemd:
+    name: xdg-user-dirs-update.service
+    enabled: yes
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+  become_user: "{{ user.name }}"
+
+- name: update desktop database
+  command: bash -lc "update-desktop-database"
+
+- name: reload i3
+  command: bash -lc "i3-msg -s /run/user/{{ user.uid }}/i3/ipc-socket.* reload"
+  become_user: "{{ user.name }}"
+  ignore_errors: True

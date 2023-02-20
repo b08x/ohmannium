@@ -1,0 +1,27 @@
+---
+
+- name: check if timemachine is already installed
+  stat:
+    path: /usr/local/bin/timemachine
+  register: result
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+  - name: clone timemachine
+    git:
+      repo: "https://github.com/swh/timemachine.git"
+      dest: "/tmp/timemachine"
+      accept_hostkey: yes
+      update: no
+      force: no
+
+  - name: build timemachine
+    shell: |
+      ./autogen.sh --prefix=/usr/local
+      make
+      make install
+    args:
+      chdir: "/tmp/timemachine"
+
+  when: not result.stat.exists
+  check_mode: False

@@ -1,0 +1,48 @@
+---
+- name: copy rsyslog config for nginx
+  copy: >
+    src=90-nginx_rsyslog.conf
+    dest=/etc/rsyslog.d/90-nginx_rsyslog.conf
+    owner=root
+    group=root
+    mode=0644
+  notify: restart rsyslog
+  tags: [configuration,nginx]
+
+- include: nginx-official-repo.yml
+  when: nginx_official_repo == True
+
+- include: passenger-phusion-repo.yml
+  when: nginx_passenger == True
+
+- include: installation.packages.yml
+  when: nginx_installation_type == "packages"
+
+- include: ensure-dirs.yml
+
+- include: remove-defaults.yml
+  when: not keep_only_specified
+
+- include: remove-extras.yml
+  when: keep_only_specified
+
+- include: remove-unwanted.yml
+
+- include: configuration.yml
+
+- name: create blank index.html for default traffic
+  copy: >
+    src=index.html
+    dest=/usr/share/nginx/html/index.html
+    backup=yes
+    owner=root
+    group=root
+    mode=0644
+  when: nginx_create_blank_index
+
+- include: selinux.yml
+
+- name: Start the nginx service
+  service: name={{ nginx_service_name }} state=started enabled=yes
+  when: nginx_installation_type in nginx_installation_types_using_service and nginx_daemon_mode == "on"
+  tags: [service,nginx]

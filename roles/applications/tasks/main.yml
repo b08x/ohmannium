@@ -1,0 +1,174 @@
+---
+
+- name: starting application tasks
+  debug:
+    msg: "starting application tasks"
+
+- name: install lsmi
+  copy:
+    src: "usr/local/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: '0755'
+  with_items:
+    - lsmi-joystick
+    - lsmi-keyhack
+    - lsmi-monterey
+    - lsmi-mouse
+
+- name: install makeh2kit and makesfz
+  copy:
+    src: "usr/local/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: '0755'
+  with_items:
+    - makeh2kit
+    - makesfz
+
+- name: install ebu-norm
+  copy:
+    src: "usr/local/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: '0755'
+  with_items:
+    - ebu-norm
+    - ebu-scan
+    - tp-norm
+    - tp-normv2
+
+- name: copy ld config file
+  copy:
+    src: etc/ld.so.conf
+    dest: /etc/ld.so.conf
+    mode: '0644'
+    backup: yes
+
+- name: run ldconfig
+  shell: /sbin/ldconfig
+
+# - name: set make and cmake flags
+#   shell: |
+#     export CFLAGS="-ffast-math -msse -msse2 -mfpmath=sse"
+#     export CXXFLAGS="-ffast-math -msse -msse2 -mfpmath=sse"
+#     export MAKEFLAGS="-ffast-math -msse -msse2 -mfpmath=sse"
+#   when: microarch == 'x86-64'
+
+- name: copy raysession default scripts
+  copy:
+    src: "usr/local/share/raysession/session_templates/scripted/ray-scripts/{{ item }}"
+    dest: "/usr/share/raysession/session_templates/scripted/ray-scripts/{{ item }}"
+    mode: '0755'
+    backup: yes
+  with_items:
+    - close.sh
+    - load.sh
+    - save.sh
+  tags: ['raysession']
+
+- include: pulsar.yml
+  when: install_pulsar|default(false)|bool == true
+  tags: ['pulsar']
+
+- include: vamp.yml
+  tags: ['vamp']
+
+- include: mixxx.yml
+  tags: ['mixxx']
+
+- name: install vmpk keymap
+  copy:
+    src: usr/share/vmpk/qwerty_extended.xml
+    dest: /usr/share/vmpk/qwerty_extended.xml
+    mode: '0644'
+  tags: ['vmpk']
+
+# - include: jacklink.yml
+#   when: build_jacklink|default(true)|bool == true
+#   tags: ['jacklink']
+
+# - include: njconnect.yml
+#   when: build_njconnect|default(true)|bool == true
+#   tags: ['njconnect']
+
+- include: reaper.yml
+  when: install_reaper|default(true)|bool == true
+  tags: ['reaper']
+
+- include: sonicannotator.yml
+  when: install_annotator|default(true)|bool == true
+  tags: ['sonicannotator']
+
+- include: soniclineup.yml
+  when: install_soniclineup|default(true)|bool == true
+  tags: ['soniclineup']
+
+# - include: sononym.yml
+#   when: install_sononym|default(true)|bool == true
+#   tags: ['sononym']
+
+# - include: timemachine.yml
+#   when: build_timemachine|default(true)|bool == true
+#   tags: ['timemachine']
+
+- include: tony.yml
+  when: install_tony|default(true)|bool == true
+  tags: ['tony']
+
+- include: touchosc.yml
+  when: install_touchosc|default(true)|bool == true
+  tags: ['touchosc']
+
+# - include: lsmi.yml
+#   when: build_lsmi|default(true)|bool == true
+#   tags: ['lsmi']
+
+# - include: baudline.yml
+#   when: install_baudline|default(false)|bool == true
+#   tags: ['baudline']
+#
+# - include: bipscript.yml
+#   when: build_bipscript|default(false)|bool == true
+#   tags: ['bipscript']
+#
+# - include: iempluginsuite.yml
+#   when: build_iempluginsuite|default(false)|bool == true
+#   tags: ['iempluginsuite']
+#
+# - include: ingen.yml
+#   when: build_ingen|default(false)|bool == true
+#   tags: ['ingen']
+
+# - include: jacktrip.yml
+#   when: build_jacktrip|default(false)|bool == true
+#   tags: ['jacktrip']
+#
+# - include: jalvselect.yml
+#   when: build_jalvselect|default(false)|bool == true
+#   tags: ['jalvselect']
+
+# - include: patchage.yml
+#   when: build_patchage|default(false)|bool == true
+#   tags: ['patchage']
+#
+# - include: qmidinet.yml
+#   when: build_qmidinet|default(false)|bool == true
+#   tags: ['qmidinet']
+#
+# - include: raysession.yml
+#   when: build_raysession|default(false)|bool == true
+#   tags: ['raysession']
+
+# - include: sonicpi.yml
+#   when: build_sonicpi|default(false)|bool == true
+#   tags: ['sonicpi']
+
+# - include: sonicvisualiser.yml
+#   when: build_sonicvisualiser|default(false)|bool == true
+#   tags: ['sonicvisualiser']
+
+# - include: sparta.yml
+#   when: build_sparta|default(false)|bool == true
+#   tags: ['sparta']
+#
+# - include: swami.yml
+#   when: build_swami|default(false)|bool == true
+#   tags: ['swami']

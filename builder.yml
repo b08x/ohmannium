@@ -1,0 +1,22 @@
+---
+
+- name: setup build host
+  hosts: soundbot
+  become: True
+  gather_subset:
+    - hardware
+    - network
+  vars:
+    user:
+      name: aur_builder
+      group: aur_builder
+      uid: 1001
+      gid: 1001
+      home: /home/aur_builder
+      secondary_groups: "input,video,audio"
+      shell: /usr/bin/zsh
+  roles:
+    - role: repo
+      tags: ['repo']
+    - role: virt
+      tags: ['virt']

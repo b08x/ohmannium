@@ -1,0 +1,34 @@
+
+theme = "syncopated"
+icons = "awesome6"
+
+[[block]]
+block = "sound"
+format = "{volume}"
+on_click = "pavucontrol"
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m} {5m}"
+on_click = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh"
+
+[[block]]
+block = "custom"
+command = "echo \uf0c2"
+on_click = "kitty --class 'brightness' -e /usr/local/bin/brightness.rb"
+
+[[block]]
+block = "custom"
+command = "echo \uf0c3"
+on_click = "kitty --class 'noteinfo' -e /usr/local/bin/noteinfo.rb"
+
+[[block]]
+block = "time"
+interval = 5
+format = "%a %m/%d %R"
+on_click = "uxterm -hold -e cal -s"
+
+[[block]]
+block = "battery"
+if_command = "test -e /sys/class/power_supply/BAT0"

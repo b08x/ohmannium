@@ -1,0 +1,40 @@
+---
+
+- name: check if the vamp plugins currently exist
+  stat:
+    path: "/usr/local/share/vamp/vamp-example-plugins.so"
+  register: vamp_installed
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+
+    - name: ensure vamp directory exits
+      file:
+        path: /usr/local/share/vamp
+        state: directory
+        group: "{{ user.name }}"
+        mode: '0775'
+
+    # unable to compile libextract using gcc11 or 12
+    # however the vamp plugin installer works
+    - name: fetch vamp plugin installer
+      get_url:
+        url: "https://code.soundsoftware.ac.uk/attachments/download/2696/vamp-plugin-pack-installer-1.0"
+        dest: /tmp
+        mode: '0755'
+
+    # xterm: Xt error: Can't open display: :0
+    # when running this in multi-user mode
+    - name: run vamp plugin pack installer
+      script: "/usr/bin/uxterm -class 'backup' -e /usr/bin/env DISPLAY=:0 /tmp/vamp-plugin-pack-installer-1.0"
+      ignore_errors: True
+
+  when: not vamp_installed.stat.exists
+
+# - name: add vamp_path to /etc/environment
+#   lineinfile:
+#     path: /etc/environment
+#     regexp: '^VAMP_PATH '
+#     insertafter: '\n'
+#     line: VAMP_PATH=/usr/local/share/vamp
+#   become: True

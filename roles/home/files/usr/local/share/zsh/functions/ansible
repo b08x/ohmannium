@@ -1,0 +1,42 @@
+#TODO: does not read extra vars option. e.g -e "thing='.zsh'"
+
+function runplaybook() {
+  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK
+}
+
+function listtags() {
+  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK --list-tags
+}
+
+function listtasks() {
+  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK --list-tasks
+}
+
+function runtag() {
+  TAGS="${1}"
+  ansible-playbook -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --tags $TAGS
+}
+
+function checktag() {
+  TAGS="${1}"
+  ansible-playbook -C -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --tags $TAGS
+}
+
+function starttask(){
+  TASK=$1
+  ansible-playbook -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --start-at-task $TASK
+}
+
+function setloglevel() {
+  LEVEL=$1
+
+  ansible-playbook -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --tags logging -e "journal_level=$LEVEL"
+}
+
+function settheme() {
+  GTK_THEME=$1
+  ICON_THEME=$2
+
+  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK --tags theme -e "gtk_theme=$GTK_THEME" -e "gtk_icon_theme=$ICON_THEME" \
+  -e "qt5_icon_theme=$ICON_THEME"
+}

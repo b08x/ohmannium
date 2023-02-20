@@ -1,0 +1,66 @@
+local _old_path="$PATH"
+
+# Local config
+[[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
+
+if [[ $PATH != $_old_path ]]; then
+  # `colors` isn't initialized yet, so define a few manually
+  typeset -AHg fg fg_bold
+  if [ -t 2 ]; then
+    fg[red]=$'\e[31m'
+    fg_bold[white]=$'\e[1;37m'
+    reset_color=$'\e[m'
+  else
+    fg[red]=""
+    fg_bold[white]=""
+    reset_color=""
+  fi
+
+  cat <<MSG >&2
+${fg[red]}Warning:${reset_color} your \`~/.zshenv.local' configuration seems to edit PATH entries.
+Please move that configuration to \`.zshrc.local' like so:
+  ${fg_bold[white]}cat ~/.zshenv.local >> ~/.zshrc.local && rm ~/.zshenv.local${reset_color}
+
+(called from ${(%):-%N:%i})e
+
+MSG
+fi
+
+unset _old_path
+
+export TEMP="/tmp"
+
+export TERM="xterm-256color"
+export TERMINAL="xterm-256color"
+export TERMCMD="$TERMINAL"
+
+# export BROWSER="qutebrowser"
+
+if [ -x "$(command -v most)" ]; then
+  export PAGER=most
+else
+  export PAGER=less
+fi
+
+if [[ -f /etc/hostname ]]; then
+  export HOSTNAME=$(cat /etc/hostname)
+else
+  export HOSTNAME=`hostnamectl --static`
+fi
+
+export DISTRO=$(cat /etc/os-release | grep -w ID | awk 'BEGIN { FS = "=" } ; { print $2 }')
+
+export NO_AT_BRIDGE=1
+export QT_SCALE_FACTOR=1.0
+export QT_FONT_DPI=96
+export QT_QPA_PLATFORMTHEME=qt5ct
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
+export LADSPA_PATH="/usr/lib/ladspa"
+export LADSPA_RDF_PATH="/usr/share/ladspa/rdf"
+
+export ECASOUND=ecasound
+
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#a4b000,bg:#121212,hl:#5f87af --color=fg+:#d0d0d0,bg+:#262626,hl+:#5fd7ff --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff --color=marker:#87ff00,spinner:#af5fff,header:#87afaf'
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color='bg:#141414,bg+:#3F3F3F,info:#BDBB72,border:#6B6B6B,spinner:#98BC99' --color='hl:#719872,fg:#bbb12a,header:#719872,fg+:#D9D9D9' --color='pointer:#E12672,marker:#E17899,prompt:#98BEDE,hl+:#98BC99''
