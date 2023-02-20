@@ -11,7 +11,7 @@ license=('GPL2')
 depends=('alsa-lib' 'bzip2' 'capnproto' 'fftw' 'gcc-libs' 'glibc' 'hicolor-icon-theme' 'libfishsound' 'libglvnd' 'libid3tag' 'liblo' 'liblrdf' 'libmad' 'liboggz' 'libpulse' 'libsamplerate' 'libsndfile' 'libx11' 'opusfile' 'portaudio' 'qt5-base' 'qt5-svg' 'rubberband' 'serd' 'sord' 'libsoxr')
 makedepends=('mercurial' 'git' 'mlton' 'vamp-plugin-sdk' 'ninja' 'meson' 'qt5-tools')
 provides=("${pkgname%-git}")
-conflicts=("${pkgname%} ${pkgname%-hg}" "${pkgname%-hg}3")
+conflicts=("${pkgname%} ${pkgname%-hg}" "${pkgname%-hg}")
 source=("git+https://github.com/sonic-visualiser/$_pkgname")
 md5sums=('SKIP')
 
