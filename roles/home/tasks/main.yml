@@ -1,5 +1,10 @@
 ---
 
+- include_vars:
+    dir: "../{{ lookup('env','PWD') }}/roles/ui/defaults/"
+    extensions:
+      - 'yml'
+
 - include: shell.yml
   tags: ['shell']
 

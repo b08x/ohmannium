@@ -1,10 +1,5 @@
 ---
 
-- include_vars:
-    dir: "{{ lookup('env','PWD') }}/roles/ui/defaults/"
-    extensions:
-      - 'yml'
-
 - name: ensure these directories exist
   file:
     path: "{{ user.home }}/{{ item }}"
