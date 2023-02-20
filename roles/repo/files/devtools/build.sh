@@ -82,6 +82,7 @@ update_chroot() {
 build () {
   local pkgname=$1
   cd ${PKGBUILDS}/${pkgname}
+  touch .latest-build
   echo ${timestampe} > .latest-build
   makechrootpkg -n -c -r $CHROOT
 }
