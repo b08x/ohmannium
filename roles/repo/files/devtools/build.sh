@@ -29,22 +29,14 @@ declare -rx REPOSITORY_LOCAL="${AUR_BUILDER_HOME}/Repository"
 
 declare -rx REPOSITORY_REMOTE="ec2-user@soundbot.hopto.org"
 
-declare -rx WORKSPACE="${HOME}/Workspace/syncopated/roles/repo/files"
+declare -rx WORKSPACE="${AUR_BUILDER_HOME}/Workspace"
 declare -rx PKGBUILDS="${WORKSPACE}/pkgbuilds"
-
-#########################################################################
-#                             mount tempfs                              #
-#########################################################################
-
-
 
 #########################################################################
 #                     get updated packagelist                           #
 #########################################################################
 
 declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
-
-echo $package_list
 
 #########################################################################
 #                             Greetings                                 #
@@ -76,7 +68,7 @@ say "select packages to build" $GREEN
 say "-------------------------" $GREEN
 package_selection=$(gum choose --no-limit --height 30 all ${package_list[@]})
 
-if [ $package_selection == 'all' ]; then
+if [ $package_selection[0] == 'all' ]; then
   package_selection=${package_list[@]}
 fi
 
@@ -94,11 +86,11 @@ mount_chroot() {
 }
 
 create_chroot() {
-  if [ -L ~/.makepkg.conf ]; then
-    ln -sf $makepkg /home/aur_builder/.makepkg.conf
+  if [ -L $AUR_BUILDER_HOME/.makepkg.conf ]; then
+    ln -sf $makepkg $AUR_BUILDER_HOME/.makepkg.conf
   else
-    rm -rf ~/.makepkg.conf || exit
-    ln -s $makepkg /home/aur_builder/.makepkg.conf
+    rm -rf $AUR_BUILDER_HOME/.makepkg.conf || exit
+    ln -s $makepkg $AUR_BUILDER_HOME/.makepkg.conf
   fi
 
   mkarchroot -C $pacman -M $makepkg -f /etc/pacman.d/cachyos-mirrorlist \
@@ -112,7 +104,7 @@ update_chroot() {
 build () {
   local pkgname=$1
   cd ${PKGBUILDS}/${pkgname}
-  makechrootpkg -U aur_builder -n -c -r $CHROOT
+  makechrootpkg -n -c -r $CHROOT
 }
 
 #########################################################################
@@ -125,7 +117,7 @@ then
   for name in ${package_selection[@]}; do
     build $name || exit
   done
-  rm /home/aur_builder/.makepkg.conf
+  rm $AUR_BUILDER_HOME/.makepkg.conf
 else
   echo -e "${RED}alright. exiting for now...${ALL_OFF}"
   exit

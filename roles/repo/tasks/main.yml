@@ -20,14 +20,32 @@
     - Repository
     - Repository/x86_64
     - Repository/x86_64_v3
+    - Workspace
+  become_user: aur_builder
+
+- name: sync devtools and pkgbuilds folder
+  synchronize:
+    src: "files/{{ item }}"
+    dest: "/home/aur_builder/Workspace/{{ item }}"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--update"
+      - "--omit-dir-times"
+  with_items:
+    - devtools
+    - pkgbuilds
   become_user: aur_builder
 
 - name: copy makepkg and pacman templates to workspace
   template:
     src: "devtools/{{ item }}.j2"
-    dest: "{{ devtools }}/{{ item }}"
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
+    dest: "/home/aur_builder/Workspace/devtools/{{ item }}"
+    owner: aur_builder
+    group: aur_builder
     mode: '0644'
   with_items:
     - makepkg-x86_64.conf
