@@ -78,7 +78,7 @@
 
   post_tasks:
 
-      - name: cleanup old backup files
+      - name: cleanup backup files
         script: roles/common/files/usr/local/bin/cleanup.sh
         when: cleanup is defined
         tags: ['cleanup']

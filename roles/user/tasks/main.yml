@@ -7,10 +7,18 @@
         state: present
         gid: "{{ user.gid }}"
 
-    - name: add user to own group
+    - name: set user primary group
       user:
         name: "{{ user.name }}"
         group: "{{ user.group }}"
+
+    - name: ensure user ownership of home directory
+      file:
+        path: "{{ user.home }}"
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        recurse: True
 
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -29,34 +37,3 @@
     group: "{{ user.group }}"
     mode: '0755'
   tags: ['yadm']
-
-# - name: copy ssh keys from bender
-#   copy:
-#     src: "{{ user.home }}/.ssh/{{ item }}"
-#     dest: "{{ user.home }}/.ssh/{{ item }}"
-#     owner: "{{ user.name }}"
-#     group: "{{ user.group }}"
-#     mode: preserve
-#     backup: yes
-#   with_items:
-#     - id_rsa
-#     - id_rsa.pub
-#   delegate_to: bender.syncopated.net
-#   become_user: "{{ user.name }}"
-#   tags: ['test']
-
-# - name: clone, checkout and run yadm bootstrap
-#   shell: echo "echo"
-#
-# - name: clone dots
-#   script: "/usr/bin/uxterm -class 'backup' -e {{ user.home }}/.local/bin/yadm clone git@github.com:b08x/dots.git && sleep 2"
-#   args:
-#     chdir: "{{ user.home }}"
-#   ignore_errors: True
-#   tags: ['yadm']
-#
-# - name: bootstrap dots
-#   script: "/usr/bin/uxterm -class 'backup' -e {{ user.home }}/.local/bin/yadm bootstrap && sleep 2"
-#   args:
-#     chdir: "{{ user.home }}"
-#   tags: ['yadm']

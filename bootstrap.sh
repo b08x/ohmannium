@@ -166,11 +166,11 @@ playbook=$(gum choose ${ANSIBLE_PLAYBOOKS[@]})
 
 say "running ${playbook}" $BLUE
 
-ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}" -e "newInstall=true"
+ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}" -e "newInstall=true" -e "cleanup=true"
 
 if [ $? = 0 ]; then
-  echo "ansible bootstrap complete!"
-  sleep 3
+  dialog --infobox "bootstrap complete\!" 4 23
+  sleep 2
 else
   echo "woeful errors have occured at some point in this process."
 fi
