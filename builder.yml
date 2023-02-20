@@ -10,8 +10,8 @@
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
-    vars_files:
-      - "vars/user.yml"
+  vars_files:
+    - "vars/user.yml"
 
   pre_tasks:
 
