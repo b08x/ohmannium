@@ -7,16 +7,25 @@ if [[ ! "${EUID}" -eq 0 ]]; then
   exit
 fi
 
+PS4='LINENO:'
+VER=0.5-beta
+
+export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
 #########################################################################
-#                             set colors                                 #
+#                             set colors                                #
 #########################################################################
 
 declare -rx ALL_OFF="\e[1;0m"
-# declare -rx BOLD="\e[1;1m"
+declare -rx BBOLD="\e[1;1m"
 declare -rx BLUE="${BOLD}\e[1;34m"
 declare -rx GREEN="${BOLD}\e[1;32m"
 declare -rx RED="${BOLD}\e[1;31m"
 declare -rx YELLOW="${BOLD}\e[1;33m"
+
+#########################################################################
+#                             functions                                 #
+#########################################################################
 
 say () {
   local statement=$1
@@ -25,13 +34,22 @@ say () {
   echo -e "${color}${statement}${ALL_OFF}"
 }
 
+clone () {
+  local repo=$1
+  local dest=$2
+  git clone --recursive $repo $dest
+  git config --global --add safe.directory $dest
+}
 
-PS4='LINENO:'
-VER=0.5-beta
+getuserid() {
+  declare -rx user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}' | xargs)
+}
 
-export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#########################################################################
+#                        install dependencies                           #
+#########################################################################
 
-BOOTSTRAP_PKGS=(
+declare -A BOOTSTRAP_PKGS=(
   'ansible'
   'base-devel'
   'ccache'
@@ -52,6 +70,7 @@ BOOTSTRAP_PKGS=(
   'zsh'
 )
 
+# install repository keys
 if [[ ! -z "$(pacman-key --list-keys | grep syncopated 2>/dev/null)" ]];
 then
   printf "key already installed"
@@ -80,8 +99,6 @@ pacman -Scc --noconfirm
 # install pre-requisite packages
 pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
 
-systemctl enable sshd.service
-
 # install oh-my-zsh
 if [ -d "/usr/local/share/oh-my-zsh" ]; then
   echo "oh-my-zsh already installed"
@@ -91,45 +108,30 @@ else
   env ZSH="/usr/local/share/oh-my-zsh" /tmp/ohmyzsh/tools/install.sh --unattended
 fi
 
-# [[ $LINES ]] || LINES=$(tput lines)
-# [[ $COLUMNS ]] || COLUMNS=$(tput cols)
-echo -e "----------\n"
+#########################################################################
+tput reset
+sleep 1
 
-function getuserid() {
-  user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}')
-}
+say "----------\n" $GREEN
 
 getuserid
 
-declare -rx WORKSPACE="/home/$user/Workspace"
+say "uid 1000 is assigned to ${user}" $YELLOW
+
+declare -rx WORKSPACE="/home/${user}/Workspace"
 
 if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
+declare -rx ANSIBLE_HOME=$(gum input --placeholder="${WORKSPACE}")
+
 declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
-#
-# printf "confirm userid"
-# ANSIBLE_USER=$(gum input --placeholder="enter userid if different" --value="b08x")
-#
-# printf "enter location to clone repository:"
-# ANSIBLE_HOME=$(gum input --placeholder"enter location to clone" --value="/home/$user/Workspace")
-#
-# echo -e "----------\n"
+say "project will be clone to ${ANSIBLE_HOME}" $BLUE
 
-# NAME=$(whiptail --inputbox "What is your name?" 8 39 --title "Getting to know you" 3>&1 1>&2 2>&3)
+#########################################################################
 
-declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.yml"
-
-clone () {
-  git clone --recursive https://github.com/b08x/syncopated.git $ANSIBLE_HOME
-  git config --global --add safe.directory $ANSIBLE_HOME
-}
-
-
-# if this is an initial install; clone repository then run playbook
-# otherwise, change into $ANSIBLE_HOME and run git status
 if [ ! -d $ANSIBLE_HOME ]; then
-  clone
+  clone https://github.com/b08x/syncopated.git $ANSIBLE_HOME
 fi
 
 cd $ANSIBLE_HOME
@@ -146,14 +148,14 @@ echo "  hosts:" >> inventory.yml
 echo "    $(uname -n):" >> inventory.yml
 echo "      ansible_connection: local" >> inventory.yml
 
+sleep 1 && chown -R ${user} $ANSIBLE_HOME
+
 tput -S <<!
 clear
-cup 10 10
+cup 5 5
 !
 
 say "--------------------" %YELLOW
-
-chown -R ${user} $ANSIBLE_HOME
 
 declare -a ANSIBLE_PLAYBOOKS=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
 

@@ -32,10 +32,9 @@ declare -rAx new_packages=$(fd -e .zst -a | fzf -m)
 if [[ -z "$new_packages" ]]; then
   echo "no new packages"
 else
-  
-  
+
   echo "moving new packages to repository"
-  
+
   for pkg in ${new_packages[@]}; do
     mv -v $pkg "${LOCAL_REPO}/"
   done

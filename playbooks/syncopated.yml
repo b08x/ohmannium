@@ -13,10 +13,6 @@
       - "{{ lookup('env','HOME') }}/.cargo/bin"
   vars_files:
     - "vars/user.yml"
-  # vars_prompt:
-  #   - name: reboot
-  #     prompt: Reboot at stages where major OS changes take place?
-  #     default: "no"
 
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
@@ -91,12 +87,6 @@
         user:
           name: root
           shell: /usr/bin/zsh
-
-      # - name: reboot host if major changes were made
-      #   shell: |
-      #     shutdown -r now
-      #   when:
-      #     - installed_kernel.changed
 
       # Reset is not implemented local connection
       - name: reboot host

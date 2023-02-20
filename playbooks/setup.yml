@@ -12,10 +12,6 @@
       - "{{ lookup('env','HOME') }}/.cargo/bin"
   vars_files:
     - "vars/user.yml"
-  # vars_prompt:
-  #   - name: reboot
-  #     prompt: Reboot at stages where major OS changes take place?
-  #     default: "no"
 
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
@@ -23,16 +19,15 @@
     DISPLAY: ":0"
     ZSH: "/usr/local/share/oh-my-zsh"
 
-
   pre_tasks:
 
-    - block:
-        - name: start ssh daemon
-          service:
-            name: sshd
-            state: started
-            enabled: True
+    - name: start ssh daemon
+      service:
+        name: sshd
+        state: started
+        enabled: True
 
+    - block:
         - name: check if keys are present
           stat:
             path: "{{ user.home }}/.ssh/id_rsa"
@@ -54,7 +49,7 @@
           tags: ['keys']
 
       ignore_errors: "{{ ansible_check_mode }}"
-      tags: ['testing']
+      tags: ['keys']
 
 #Notes:
 # `check_mode:` False means that the tasks will run even if using check mode
@@ -91,12 +86,6 @@
         user:
           name: root
           shell: /usr/bin/zsh
-
-      # - name: reboot host if major changes were made
-      #   shell: |
-      #     shutdown -r now
-      #   when:
-      #     - installed_kernel.changed
 
       # Reset is not implemented local connection
       - name: reboot host
