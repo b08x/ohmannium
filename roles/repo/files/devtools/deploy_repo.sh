@@ -28,7 +28,7 @@ echo "select package(s) to move into the repository"
 echo "press CTRL+C to select nothing"
 sleep 1
 
-new_packages=$(fd -e .zst -E 'debug/' -a)
+new_packages=$(fd -e .zst-E 'makepkglogs/' -E 'sources/' -E 'srcpackages' -E 'debug/' -a)
 
 if [[ -z "$new_packages" ]]; then
   echo "no new packages"
