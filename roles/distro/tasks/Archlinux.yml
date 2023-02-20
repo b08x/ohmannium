@@ -17,13 +17,6 @@
     group: aur_builder
     mode: '2775'
 
-- name: set permissions for aur_builder in sudoers
-  copy:
-    content: |
-      aur_builder ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman,/usr/bin/mkdir,/usr/bin/rm,/usr/bin/mkarchroot,/usr/bin/makechrootpkg,/usr/bin/arch-nspawn
-    dest: /etc/sudoers.d/11-aur_builder
-    validate: 'visudo -cf %s'
-
 - name: check -march support
   shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
   register: supported_march

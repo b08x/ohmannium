@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+PS4='LINENO:'
+VER=0.5-beta
 
 tput reset
 
@@ -6,9 +8,6 @@ if [[ ! "${EUID}" -eq 0 ]]; then
   echo "please run as root. exiting"
   exit
 fi
-
-PS4='LINENO:'
-VER=0.5-beta
 
 export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
@@ -41,9 +40,6 @@ clone () {
   git config --global --add safe.directory $dest
 }
 
-getuserid() {
-  declare -rx user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}' | xargs)
-}
 
 #########################################################################
 #                        install dependencies                           #
@@ -112,17 +108,19 @@ fi
 tput reset
 sleep 1
 
-say "----------\n" $GREEN
+say "------------------" $GREEN
 
-getuserid
+declare -rx user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}' | xargs)
 
-say "uid 1000 is assigned to ${user}" $YELLOW
+say "\nuid 1000 is assigned to ${user}\n" $YELLOW
 
 declare -rx WORKSPACE="/home/${user}/Workspace"
 
 if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
-declare -rx ANSIBLE_HOME=$(gum input --placeholder="${WORKSPACE}")
+say "------------------\n" $GREEN
+
+declare -x ANSIBLE_HOME=$(gum input --placeholder="${WORKSPACE}")
 
 declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
@@ -155,7 +153,7 @@ clear
 cup 5 5
 !
 
-say "--------------------" %YELLOW
+say "--------------------" $YELLOW
 
 declare -a ANSIBLE_PLAYBOOKS=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
 
