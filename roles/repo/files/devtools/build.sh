@@ -75,10 +75,12 @@ say "${package_selection}" $BLUE
 
 declare -rx CHROOT="/mnt/chroots/arch"
 
-mount_chroot() {
-
+unmount_chroot() {
   if mountpoint -q $CHROOT; then sudo umount $CHROOT; fi
+}
 
+mount_chroot() {
+  unmount_chroot
   sudo mount --mkdir -t tmpfs -o defaults,size=8G tmpfs $CHROOT
 }
 
@@ -115,6 +117,7 @@ then
     build $name || continue
   done
   rm $AUR_BUILDER_HOME/.makepkg.conf
+  unmount_chroot
 else
   echo -e "${RED}alright. exiting for now...${ALL_OFF}"
   exit

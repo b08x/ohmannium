@@ -44,6 +44,7 @@
   with_items:
     - devtools
     - pkgbuilds
+  tags: ['devtools', 'pkgbuilds']
 
 - name: copy makepkg and pacman templates to workspace
   template:
@@ -57,3 +58,4 @@
     - makepkg-x86_64_v3.conf
     - pacman-x86_64.conf
     - pacman-x86_64_v3.conf
+  tags: ['devtools']
