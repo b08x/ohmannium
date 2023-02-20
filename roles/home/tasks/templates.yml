@@ -86,7 +86,6 @@
     mode: '0644'
     backup: yes
   with_items:
-    - .gitconfig
     - .aliases
     - .profile
     - .ualiases
@@ -95,7 +94,7 @@
     - .zshenv
     - .zshrc
     - .zshrc.local
-  tags: ['zsh', 'shell', 'git', 'profile']
+  tags: ['zsh', 'shell', 'profile']
 
 - name: syncronize templates - gtk
   template:

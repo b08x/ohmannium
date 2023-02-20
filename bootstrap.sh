@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 set -x
 PS4='LINENO:'
+VER=0.5-beta
 
 export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
-declare -rx ANSIBLE_HOME="/opt/syncopated"
-declare -rx ANSIBLE_PLUGINS="$ANSIBLE_HOME/plugins/modules"
-declare -rx ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
-declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.ini"
 
 BOOTSTRAP_PKGS=(
   'ansible'
@@ -25,6 +21,7 @@ BOOTSTRAP_PKGS=(
   'ruby-bundler'
   'rubygems'
   'rust'
+  'whiptail'
   'wget'
   'zsh'
 )
@@ -74,22 +71,34 @@ else
   env ZSH="/usr/local/share/oh-my-zsh" /tmp/ohmyzsh/tools/install.sh --unattended
 fi
 
+# [[ $LINES ]] || LINES=$(tput lines)
+# [[ $COLUMNS ]] || COLUMNS=$(tput cols)
+echo "----------\n"
+
+printf "confirm userid"
+ANSIBLE_USER=$(gum input --placeholder="enter userid if different" --value=$(getent passwd | grep 1000 | awk -F ":" '{print $1}'))
+
+printf "enter location to clone repository:"
+ANSIBLE_HOME=$(gum input --placeholder"enter location to clone" --value="/home/$user/Workspace")
+
+echo "----------\n"
+
+# NAME=$(whiptail --inputbox "What is your name?" 8 39 --title "Getting to know you" 3>&1 1>&2 2>&3)
+
+declare -rx ANSIBLE_PLUGINS="$ANSIBLE_HOME/plugins/modules"
+declare -rx ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
+declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.ini"
+
 # if this is an initial install; clone repository then run playbook
 # otherwise, change into $ANSIBLE_HOME and run git status
 if [ ! -d $ANSIBLE_HOME ]; then
   git clone --recursive https://github.com/SyncopatedStudio/cm.git $ANSIBLE_HOME
-
-  printf "enter username for mgmt user:"
-  user=$(gum input --placeholder="1000")
-  sleep 1
-
   git config --global --add safe.directory $ANSIBLE_HOME
+
+  chown -R $user:$user $ANSIBLE_HOME
 
   cd $ANSIBLE_HOME
   git restore . && git checkout development
-
-  chown -R $user:wheel $ANSIBLE_HOME
-  chmod -R '2775' $ANSIBLE_HOME
 
   echo "$(uname -n) ansible_connection=local" > $ANSIBLE_INVENTORY
 

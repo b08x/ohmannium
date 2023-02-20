@@ -23,11 +23,7 @@ export KITTYSOCK=unix:/tmp/kitty-soundbot
 
 export bipscripts="$HOME/Workspace/syncopated-linux/robot-stuff/bip"
 
-{% if inventory_hostname in groups.get('devel', []) %}
-export ANSIBLE_HOME="/opt/syncopated"
-{% else %}
-export ANSIBLE_HOME="$WORKSPACE/syncopated/cm"
-{% endif %}
+export ANSIBLE_HOME="$WORKSPACE/syncopated"
 export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
 export INVENTORY="$ANSIBLE_HOME/inventory.ini"
 export PLAYBOOK="$ANSIBLE_HOME/syncopated.yml"
