@@ -38,7 +38,6 @@
   with_items:
     - devtools
     - pkgbuilds
-  become_user: aur_builder
 
 - name: copy makepkg and pacman templates to workspace
   template:
