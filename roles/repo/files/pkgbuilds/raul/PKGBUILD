@@ -22,20 +22,20 @@ sha256sums=('5d38a8c457724a1b36bd03d7eecfc0eaffe61c856d35514df37f764cfa496fc4')
 
 build() {
   cd "${pkgname}-v${pkgver}"
-  arch-meson $pkgname-builddir $pkgname
-  meson compile -C $pkgname-builddir
+  meson setup build
+  meson configure -Dprefix="/usr" build/
+  ninja -C build
 }
 
 check() {
-  meson test -C $pkgname-builddir
+  cd "${pkgname}-v${pkgver}"
+  meson test -C build/
 }
 
 package() {
-  cd "${pkgname}-$v{pkgver}"
+  cd "${pkgname}-v${pkgver}"
 
-  meson install --destdir="$pkgdir" -C $pkgname-builddir
-
-  cd $pkgname
+  meson install --destdir="$pkgdir" -C build/
 
   install -vDm644 README.md NEWS -t "${pkgdir}/usr/share/doc/${pkgname}/"
 }
