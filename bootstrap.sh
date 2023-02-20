@@ -11,6 +11,7 @@ BOOTSTRAP_PKGS=(
   'ccache'
   'cmake'
   'git'
+  'git-lfs'
   'gum'
   'htop'
   'neovim'
@@ -93,7 +94,7 @@ declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
 declare -rx ANSIBLE_PLUGINS="$ANSIBLE_HOME/plugins/modules"
 declare -rx ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
-declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.ini"
+declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.yml"
 
 # if this is an initial install; clone repository then run playbook
 # otherwise, change into $ANSIBLE_HOME and run git status
@@ -103,13 +104,20 @@ if [ ! -d $ANSIBLE_HOME ]; then
 
   cd $ANSIBLE_HOME
   git restore . && git checkout development
-  git lfs fetch
+  git lfs checkout && git lfs fetch
 
-  echo "$(uname -n) ansible_connection=local" > $ANSIBLE_INVENTORY
+
+  echo "---" > inventory.yml
+  echo "\n" >> inventory.yml
+  echo "all:" >> inventory.yml
+  echo "  hosts:" >> inventory.yml
+  echo "    $(uname -n):" >> inventory.yml
+  echo "      ansible_connection: local" >> inventory.yml
+
 
   chown -R $user:$user $ANSIBLE_HOME
 
-  ansible-playbook --connection=local -i $ANSIBLE_INVENTORY, syncopated.yml
+  ansible-playbook --connection=local -i $(uname -n), syncopated.yml -e "newInstall=true"
 
   if [ $? = 0 ]; then
     echo "ansible bootstrap complete!"
