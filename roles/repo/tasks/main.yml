@@ -59,3 +59,11 @@
     - pacman-x86_64.conf
     - pacman-x86_64_v3.conf
   tags: ['devtools']
+
+- name: ensure group writeable for aur_builder home
+  file:
+    path: /home/aur_builder/Workspace
+    state: directory
+    owner: aur_builder
+    group: aur_builder
+    mode: '2775'
