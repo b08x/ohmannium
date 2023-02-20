@@ -32,11 +32,6 @@ declare -rx REPOSITORY_REMOTE="ec2-user@soundbot.hopto.org"
 declare -rx WORKSPACE="${AUR_BUILDER_HOME}/Workspace"
 declare -rx PKGBUILDS="${WORKSPACE}/pkgbuilds"
 
-#########################################################################
-#                     get updated packagelist                           #
-#########################################################################
-
-declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
 
 #########################################################################
 #                             Greetings                                 #
@@ -64,11 +59,13 @@ say $makepkg $BLUE
 
 #########################################################################
 
+declare -a package_list=$(fd -t d --max-depth 1 --relative-path --search-path $PKGBUILDS -x echo "{/}")
+
 say "select packages to build" $GREEN
 say "-------------------------" $GREEN
 package_selection=$(gum choose --no-limit --height 30 all ${package_list[@]})
 
-if $package_selection == 'all'; then
+if [[ $package_selection == 'all' ]]; then
   package_selection=${package_list[@]}
 fi
 
