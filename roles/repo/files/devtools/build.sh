@@ -121,18 +121,21 @@ build () {
 }
 
 #########################################################################
-trap "echo Exited!; break;" SIGINT SIGTERM
+trap \
+  "{ /usr/bin/rm -rf "${PACKAGES}/${architecture}/sources/$pkg*" ; exit 255 }" \
+SIGINT SIGTERM ERR EXIT
 
 if [ $? == 0 ]
 then
   mount_chroot
   create_chroot
   update_chroot
+
   for name in ${package_selection[@]}; do
     declare -x pkg=$name
     build $pkg || continue
   done
-  rm -rf "$PACKAGES/${architecture}/sources/$pkg*"
+
   rm $AUR_BUILDER_HOME/.makepkg.conf
   unmount_chroot
 else
