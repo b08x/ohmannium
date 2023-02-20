@@ -7,6 +7,7 @@ pkgdesc="a minimal, cross platform, C++ GUID library"
 arch=(x86_64)
 url="https://github.com/graeme-hill/crossguid"
 license=(MIT)
+depends=('gcc-libs' 'util-linux-libs')
 makedepends=('cpio' 'git' 'cmake' 'ninja')
 provides=('crossguid')
 conflicts=('libcrossguid')
