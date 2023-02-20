@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+declare -rx timestampe=$(date +%Y%m%d%H%M)
+
 #########################################################################
 #                             set colors                                 #
 #########################################################################
@@ -119,6 +121,7 @@ update_chroot() {
 build () {
   local pkgname=$1
   cd ${PKGBUILDS}/${pkgname}
+  echo ${timestampe} > .latest-build
   makechrootpkg -n -c -r $CHROOT
 }
 
