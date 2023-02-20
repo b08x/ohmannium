@@ -66,5 +66,5 @@
     state: directory
     owner: aur_builder
     group: aur_builder
-    mode: '2775'
+    mode: '0775'
     recurse: True
