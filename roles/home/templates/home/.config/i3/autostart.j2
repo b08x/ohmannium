@@ -12,17 +12,19 @@ $exec_always "pkill picom; sleep 1; DISPLAY=':0' picom -b; sleep 1"
 
 $exec "nm-applet"
 
-$exec "guake"
-
-$exec "tilda -g ~/.config/tilda/config_0"
-
 $exec "pactl -- set-sink-volume 0 55%"
 
 $exec "input-remapper-control --command autoload;sleep 1"
 
 $exec_always "$localbin/reload-sxhkd.sh"
 
+{% if inventory_hostname in groups.get('devel', []) %}
+$exec "guake"
+
+$exec "tilda -g ~/.config/tilda/config_0"
+
 $exec "barrier"
+{% endif %}
 
 {% if ansible_hostname == 'ninjabot' %}
 $exec "hexchat --minimize=2"
