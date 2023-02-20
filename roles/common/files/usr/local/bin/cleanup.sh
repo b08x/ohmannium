@@ -14,8 +14,7 @@ fi
 if [ $(command -v fd) ];then
   mkdir -pv /tmp/removed
 
-  fd --change-older-than ${days} -E 'tmp/'-E '*.gnupg' -E 'pubring' -E 'run/' -E 'mnt/' -H "@\d+:\d+:\d+~$" \
-     --full-path '/' -X mv -v '{}' /tmp/removed/
+  fd --change-older-than ${days} -u --show-errors -E "proc/*" -E "sys/*" -E "*cache*" -E "lost+found/" -E "tmp/*" -E "*.gnupg" -E "pubring" -E "run/*" -E "mnt/*" -H "@\d+:\d+:\d+~$"  --full-path "/" -X mv -v '{}' /tmp/removed/
 
   echo "the ansible backup files moved to /tmp/removed and will be removed upon next reboot"
 
