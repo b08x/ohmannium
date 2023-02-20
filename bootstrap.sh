@@ -120,6 +120,41 @@ declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
 declare -rx ANSIBLE_INVENTORY="$ANSIBLE_HOME/inventory.yml"
 
+clone () {
+  git clone --recursive https://github.com/b08x/syncopated.git $ANSIBLE_HOME
+  git config --global --add safe.directory $ANSIBLE_HOME
+}
+
+
+# if this is an initial install; clone repository then run playbook
+# otherwise, change into $ANSIBLE_HOME and run git status
+if [ ! -d $ANSIBLE_HOME ]; then
+  clone
+fi
+
+cd $ANSIBLE_HOME
+
+git restore . && git fetch && git pull
+git checkout development
+git lfs install || exit
+git lfs checkout && git lfs fetch || exit
+
+echo "---" > inventory.yml
+echo "\n" >> inventory.yml
+echo "all:" >> inventory.yml
+echo "  hosts:" >> inventory.yml
+echo "    $(uname -n):" >> inventory.yml
+echo "      ansible_connection: local" >> inventory.yml
+
+tput -S <<!
+clear
+cup 10 10
+!
+
+say "--------------------" %YELLOW
+
+chown -R ${user} $ANSIBLE_HOME
+
 declare -a ANSIBLE_PLAYBOOKS=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
 
 say "select playbook to run" $GREEN
@@ -129,37 +164,11 @@ playbook=$(gum choose ${ANSIBLE_PLAYBOOKS[@]})
 
 say "running ${playbook}" $BLUE
 
-# if this is an initial install; clone repository then run playbook
-# otherwise, change into $ANSIBLE_HOME and run git status
-if [ ! -d $ANSIBLE_HOME ]; then
-  git clone --recursive https://github.com/b08x/syncopated.git $ANSIBLE_HOME
-  git config --global --add safe.directory $ANSIBLE_HOME
+ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}" -e "newInstall=true"
 
-  cd $ANSIBLE_HOME
-  git restore . && git checkout development
-  git lfs install || exit
-  git lfs checkout && git lfs fetch || exit
-
-  echo "---" > inventory.yml
-  echo "\n" >> inventory.yml
-  echo "all:" >> inventory.yml
-  echo "  hosts:" >> inventory.yml
-  echo "    $(uname -n):" >> inventory.yml
-  echo "      ansible_connection: local" >> inventory.yml
-
-  chown -R $user:$user $ANSIBLE_HOME
-
-  ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_PLAYBOOKS}/${playbook}" -e "newInstall=true"
-
-  if [ $? = 0 ]; then
-    echo "ansible bootstrap complete!"
-    sleep 3
-  else
-    echo "woeful errors have occured at some point in this process."
-  fi
-
+if [ $? = 0 ]; then
+  echo "ansible bootstrap complete!"
+  sleep 3
 else
-  printf "somehow $ANSIBLE_HOME already exists...."
-  sleep 1
-  exit
+  echo "woeful errors have occured at some point in this process."
 fi
