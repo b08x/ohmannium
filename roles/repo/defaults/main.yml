@@ -1,6 +1,6 @@
 ---
 
-pkgbuilds: "{{ user.home }}/Workspace/roles/repo/files/pkgbuilds"
-devtools: "{{ user.home }}/Workspace/roles/repo/files/devtools"
+pkgbuilds: "{{ user.home }}/Workspace/syncopated/roles/repo/files/pkgbuilds"
+devtools: "{{ user.home }}/Workspace/syncopated/roles/repo/files/devtools"
 
 buildroot: "/mnt/chroots/arch"
