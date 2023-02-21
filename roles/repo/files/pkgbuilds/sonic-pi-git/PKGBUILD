@@ -21,7 +21,7 @@ depends=('aubio' 'boost' 'cmake' 'elixir' 'erlang-nox' 'gcc-libs' 'gendesk'
 'ruby-ffi' 'ruby-i18n' 'ruby-kramdown' 'ruby-minitest' 'ruby-mocha' 'ruby-multi_json'
 'ruby-rake' 'ruby-rouge' 'ruby-rugged' 'ruby-sys-proctable' 'ruby-rexml' 'stk' 'libxext' 'libxft' 'libx11'
 'sc3-plugins' 'sox' 'supercollider')
-makedepends=('boost' 'curl' 'ninja' 'cmake' 'git' 'erlang-nox' 'gendesk' 'lua' 'qt5-tools' 'wkhtmltopdf' 'zip' 'unzip' 'tar')
+makedepends=('boost' 'curl' 'ninja' 'cmake' 'git' 'erlang-nox' 'gendesk' 'lua' 'qt5-tools' 'wkhtmltopdf-static' 'zip' 'unzip' 'tar')
 source=('git+https://github.com/samaaron/sonic-pi.git'
         "${_name}-4.3.0-rugged_compile_flags.patch"
         "${_name}-4.3.0-find_package_glew.patch"
