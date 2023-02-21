@@ -6,3 +6,7 @@
 
 - include: networkmanager.yml
   tags: ['networkmanager']
+
+- include: autofs.yml
+  when: autofs_client is defined
+  tags: ['network']

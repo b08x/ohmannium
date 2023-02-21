@@ -7,9 +7,6 @@
 - include: sudoers.yml
   tags: ['user']
 
-- include: grub.yml
-  tags: ['grub']
-
 - include: autologin.yml
   tags: ['auto']
 
@@ -30,7 +27,3 @@
 
 - include: updatedb.yml
   tags: ['updatedb']
-
-- include: autofs.yml
-  when: autofs_client is defined
-  tags: ['network']

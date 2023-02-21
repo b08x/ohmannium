@@ -1,0 +1,132 @@
+---
+
+- name: setup repositories and install packages
+  hosts: all
+  gather_subset:
+    - hardware
+    - network
+
+  vars_files:
+    - "vars/user.yml"
+
+  vars_prompt:
+    - name: keyserver
+      prompt: enter keyserver fqdn
+
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/sbin:/bin"
+    PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
+    ZSH: "/usr/local/share/oh-my-zsh"
+    DISPLAY: ":0"
+
+  pre_tasks:
+
+    - name: set root shell
+      user:
+        name: root
+        shell: /usr/bin/zsh
+
+    - name: symlink os-release
+      file:
+        src: /etc/os-release
+        dest: /etc/system-release
+        state: link
+
+    - name: print output
+      debug:
+        msg: "{{ keyserver }}"
+
+    - block:
+
+        - name: check if keys are present
+          stat:
+            path: "{{ user.home }}/.ssh/id_rsa"
+          register: keys
+
+        - name: copy keys from remote host
+          delegate_to: 127.0.0.1
+          run_once: True
+          become_user: "{{ user.name }}"
+          shell: "scp {{ user.name }}@{{ keyserver }}:~/.ssh/{{ item }} {{ user.home }}/.ssh/{{ item }}"
+          args:
+            chdir: "{{ user.home }}"
+          with_items:
+            - id_rsa
+            - id_rsa.pub
+          when:
+            - not keys.stat.exists
+            - keyserver | length > 4
+          tags: ['keys']
+
+        - name: enable ssh daemon
+          service:
+            name: sshd
+            enabled: True
+
+      ignore_errors: "{{ ansible_check_mode }}"
+      tags: ['ssh']
+
+  roles:
+  
+    - role: distro
+      tags: ['distro']
+
+  post_tasks:
+
+    - name: remove aur_builder
+      user:
+        name: aur_builder
+        remove: yes
+        state: absent
+      when: inventory_hostname not in groups.get('build', [])
+
+    - name: install modified starfield theme
+      unarchive:
+        src: usr/share/grub/starfield.tar.gz
+        dest: "/usr/share/grub/themes"
+
+    - name: set kernel cmdline params in grub
+      template:
+        src: etc/default/grub.j2
+        dest: /etc/default/grub
+        owner: root
+        group: root
+        mode: '644'
+        backup: yes
+      register: default_grub
+
+    - name: remake grub if changes were made
+      shell: grub-mkconfig -o /boot/grub/grub.cfg
+      when: default_grub.changed and reboot is not defined
+
+    - block:
+
+        - name: remake grub if changes were made
+          shell: grub-mkconfig -o /boot/grub/grub.cfg
+
+        # [WARNING]: Reset is not implemented local connection
+        - name: reboot host if grub was modified
+          ansible.builtin.reboot:
+          async: 1
+          poll: 0
+
+        - name: wait for host to reboot
+          wait_for_connection:
+            connect_timeout: 20
+            sleep: 5
+            delay: 5
+            timeout: 60
+
+      rescue:
+
+        - name: reboot host if grub was modified
+          command: shutdown -r now
+
+      when: default_grub.changed and reboot is defined
+
+
+### Notes:
+###  `check_mode:` False means that the tasks will run even if using check mode
+###  setting `check_mode: True` will cause the task to fail if running in check mode and regular mode.
+###  ignore_errors: "{{ check_mode }}" wil ignore errors while running in check mode
+###  the command module does not run given commands in check mode

@@ -65,6 +65,7 @@ BOOTSTRAP_PKGS=(
   'ruby-bundler'
   'rubygems'
   'rust'
+  'unzip'
   'wget'
   'zsh'
 )

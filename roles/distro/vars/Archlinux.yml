@@ -187,6 +187,7 @@ packages:
   - sparta-plugins
   # applications:
   # - sonic-visualiser-git
+  - raysession-git
   - ams
   - audacity
   #   - scala-music
