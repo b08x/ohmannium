@@ -314,7 +314,6 @@ packages:
   - patat-bin
   - pdfjs
   - python-adblock
-  - qpdfview
   - qutebrowser
   - redshift
   - seahorse
