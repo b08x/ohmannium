@@ -87,7 +87,7 @@ build () {
   if [ $args == "none" ]; then
     makechrootpkg -n -c -r $CHROOT
   else
-  	makechrootpkg -n -c -r -I "${args}" $CHROOT
+  	makechrootpkg -n -c -I "${args}" -r $CHROOT
   fi
 }
 
@@ -146,9 +146,9 @@ then
   update_chroot
 
   if [ -z "$2" ]; then
-  	declare -x args=$2
-  else
   	declare -x args="none"
+  else
+  	declare -x args=$2
   fi
 
   for name in ${package_selection[@]}; do
