@@ -67,7 +67,7 @@
       tags: ['ssh']
 
   roles:
-  
+
     - role: distro
       tags: ['distro']
 
@@ -80,6 +80,7 @@
         state: absent
       when: inventory_hostname not in groups.get('build', [])
 
+    #TODO: package this
     - name: install modified starfield theme
       unarchive:
         src: usr/share/grub/starfield.tar.gz

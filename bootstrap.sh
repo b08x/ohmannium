@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+
 PS4='LINENO:'
 VER=0.5-beta
 
@@ -40,6 +42,12 @@ clone () {
   git config --global --add safe.directory $dest
 }
 
+wipe() {
+  tput -S <<!
+  clear
+  cup 20
+  !
+}
 
 #########################################################################
 #                        install dependencies                           #
@@ -103,15 +111,13 @@ pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
 if [ -d "/usr/local/share/oh-my-zsh" ]; then
   echo "oh-my-zsh already installed"
 else
-  cd /tmp || exit
+  cd /tmp
   git clone --recursive https://github.com/ohmyzsh/ohmyzsh.git
   env ZSH="/usr/local/share/oh-my-zsh" /tmp/ohmyzsh/tools/install.sh --unattended
 fi
 
 #########################################################################
-tput reset
-sleep 1
-
+wipe && sleep 1
 say "------------------" $GREEN
 
 declare -rx user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}' | xargs)
@@ -124,11 +130,11 @@ if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
 say "------------------\n" $GREEN
 
-declare -x ANSIBLE_HOME=$(gum input --placeholder="${WORKSPACE}")
+declare -x ANSIBLE_HOME=$(gum input --placeholder="${WORKSPACE}" --value="${WORKSPACE}")
 
 declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
-say "project will be clone to ${ANSIBLE_HOME}" $BLUE
+say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
 
 #########################################################################
 
@@ -138,10 +144,11 @@ fi
 
 cd $ANSIBLE_HOME
 
-git restore . && git fetch && git pull
-git checkout development
-git lfs install || exit
-git lfs checkout && git lfs fetch || exit
+git restore .
+
+git fetch && git pull && git checkout development
+
+git lfs install && git lfs checkout && git lfs fetch
 
 echo "---" > inventory.yml
 echo "\n" >> inventory.yml
@@ -152,27 +159,23 @@ echo "      ansible_connection: local" >> inventory.yml
 
 sleep 1 && chown -R ${user} $ANSIBLE_HOME
 
-tput -S <<!
-clear
-cup 5 5
-!
-
+wipe && sleep 1
 say "--------------------" $YELLOW
-
-declare -a ANSIBLE_PLAYBOOKS=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
 
 say "select playbook to run" $GREEN
 say "-------------------------" $GREEN
+
+playbooks=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
 
 playbook=$(gum choose ${ANSIBLE_PLAYBOOKS[@]})
 
 say "running ${playbook}" $BLUE
 
-ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}" -e "newInstall=true" -e "cleanup=true"
+wipe && sleep 1
 
-if [ $? = 0 ]; then
-  dialog --infobox "bootstrap complete\!" 4 23
-  sleep 2
-else
-  echo "woeful errors have occured at some point in this process."
-fi
+ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}" \
+                  -e "newInstall=true" \
+                  -e "cleanup=true"
+
+wipe && sleep 1
+say "bootstrap complete!" $GREEN && sleep 2
