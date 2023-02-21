@@ -78,7 +78,7 @@
         name: aur_builder
         remove: yes
         state: absent
-      when: inventory_hostname not in groups.get('build', [])
+        move_home: /tmp/aur_builder
 
     #TODO: package this
     - name: install modified starfield theme
