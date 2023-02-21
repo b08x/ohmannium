@@ -75,6 +75,8 @@
       tags: ['audio']
     - role: ui
       tags: ['ui']
+    - role: applications
+      tags: ['applications']
 
   post_tasks:
 

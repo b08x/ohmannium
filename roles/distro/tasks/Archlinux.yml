@@ -21,11 +21,11 @@
     - ansible_hostname != 'soundbot'
     - aur_builder_home.gid != 1001
     - aur_builder_home.gid != 998
-  tags: ['testest']
 
 - name: print output
   debug:
     msg: "{{ aur_builder_home.gid }}"
+  when: debugging is defined
 
 - block:
     - name: check -march support
@@ -64,6 +64,17 @@
   tags: ['makepkg', 'pacman', 'paru']
   ignore_errors: "{{ ansible_check_mode }}"
 
+- name: check if cachyos repo is already installed
+  shell: cat /etc/pacman.conf | grep -E "^\[cachyos\]"
+  register: cachyrepo
+  failed_when: cachyrepo.rc == '255'
+  tags: ['cachyos']
+
+- name: check output from grep command
+  debug:
+    msg: "{{ cachyrepo }}"
+  when: debugging is defined
+
 - block:
     - name: get cachyos repo installer
       get_url:
@@ -88,8 +99,9 @@
     - debug:
         msg: "{{ cachy_repo.stdout_lines }}"
 
-  # when: inventory_hostname in groups.get('devel', [])
-  when: architecture == 'x86-64-v3'
+  when:
+    - cachyrepo.stdout == ''
+    - architecture == 'x86-64-v3'
   ignore_errors: "{{ ansible_check_mode }}"
   tags: ['cachyos']
 
@@ -123,7 +135,7 @@
   delay: 10
   check_mode: False
 
-- name: update and upgrade
+- name: update cache
   pacman:
     update_cache: True
     upgrade: False
@@ -182,17 +194,30 @@
   when: not paru.stat.exists
   tags: ['paru']
 
+- name: check if mirrors have been updated within the past 24h
+  shell: "fd --changed-within 24hours --search-path=/etc/pacman.d"
+  register: mirror_status
+  tags: ['mirrors']
+
+- name: print output
+  debug:
+    msg: "{{ mirror_status }}"
+  when: mirror_status.stdout_lines | length < 0
+
 - name: update mirrors
   shell: |
     reflector --download-timeout 1 --protocol https \
     --latest 20 --sort rate --score 10 --fastest 5 \
     --save /etc/pacman.d/mirrorlist
+  when: mirror_status.stdout_lines | length < 0
+  register: mirror_update
   tags: ['mirrors']
 
 - name: update and upgrade
   pacman:
     update_cache: True
     upgrade: False
+  when: mirror_update.changed
 
 - name: remove pipewire
   pacman:
@@ -226,15 +251,39 @@
     extra_args: --noconfirm
   ignore_errors: True
 
-- name: installing packages
+- name: get list of currently installed packages
+  shell: "pacman -Q | awk '{print $1}'"
+  register: installed_packages
+
+- name: print installed_packages
   debug:
-    msg: "Installing packages...."
+    msg: "{{ installed_packages }}"
+  when: debugging is defined
+
+- name: print package list
+  debug:
+    msg: "{{ packages }}"
+  when: debugging is defined
+
+- name: set packages to install
+  set_fact:
+    _packages: "{{ packages | difference(installed_packages.stdout) }}"
+
+- name: print output
+  debug:
+    msg: "{{ _packages }}"
+  when: debugging is defined
+
 
 - block:
-    - name: install packages
+    - name: installing
+      debug:
+        msg: "Installing...."
+
+    - name: packages
       aur:
         use: paru
-        name: "{{ packages }}"
+        name: "{{ _packages }}"
         state: present
         extra_args: "--overwrite '*'"
 
@@ -245,14 +294,15 @@
         state: present
 
   rescue:
-    - name: install packages
+    - name: packages
       shell: |
-        export pkgs=({{ packages }})
+        export pkgs=({{ _packages }})
         for p in ${pkgs[@]};do
           paru -S --noconfirm --needed --cleanafter --useask $(echo $p | sed 's/,//') || continue
         done
 
   become_user: aur_builder
+  when: _packages | length > 0
   tags: ['packages']
 
 

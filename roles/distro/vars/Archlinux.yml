@@ -112,7 +112,6 @@ packages:
   - ncurses
   - net-tools
   - nfs-utils
-  - notification-daemon
   - npm
   - numlockx
   - openssl
@@ -412,7 +411,7 @@ packages:
   - ttf-opensans
   - ttf-ubuntu-font-family
   # qt:
-  - kvantum-qt5
+  - kvantum
   - qt5-base
   - qt5-graphicaleffects
   - qt5-quickcontrols2

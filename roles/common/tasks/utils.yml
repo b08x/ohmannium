@@ -18,3 +18,13 @@
     path: /usr/local/bin
     mode: '0755'
     recurse: True
+
+- name: copy ld config file
+  copy:
+    src: etc/ld.so.conf
+    dest: /etc/ld.so.conf
+    mode: '0644'
+    backup: yes
+
+- name: run ldconfig
+  shell: /sbin/ldconfig
