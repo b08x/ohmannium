@@ -30,11 +30,7 @@ VCSCLIENTS=('bzr::bzr'
 # ARCHITECTURE, COMPILE FLAGS
 #########################################################################
 #
-{% if architecture == 'x86-64-v3' %}
-CARCH="x86_64_v3"
-{% else %}
-CARCH="x86_64"
-{% endif %}
+CARCH="{{ architecture | replace('-','_') }}"
 CHOST="x86_64-pc-linux-gnu"
 
 #-- Compiler and Linker Flags

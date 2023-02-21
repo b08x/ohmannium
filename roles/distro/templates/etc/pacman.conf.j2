@@ -71,7 +71,7 @@ LocalFileSigLevel = Optional
 #
 
 [syncopated]
-Server = http://soundbot.hopto.org/$repo/$arch/
+Server = http://soundbot.hopto.org/$repo/{{ architecture | replace('-','_') }}
 
 [proaudio]
 Server = https://arch.osamc.de/$repo/$arch

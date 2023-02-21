@@ -5,7 +5,7 @@ all:
     ansible_user: b08x
 
   hosts:
-    soundbot:
+    ninjabot:
       ansible_connection: local
 
   children:
@@ -24,7 +24,9 @@ all:
           install:
             libvirt:
               qemu_full: True
+          use_local_repo: True
         ninjabot:
+          use_local_repo: False
 
     staging:
       vars:

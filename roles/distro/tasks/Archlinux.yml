@@ -16,23 +16,40 @@
     owner: aur_builder
     group: aur_builder
     mode: '2775'
+  register: aur_builder_home
+  failed_when:
+    - ansible_hostname != 'soundbot'
+    - aur_builder_home.gid != 1001
+    - aur_builder_home.gid != 998
+  tags: ['testest']
 
-- name: check -march support
-  shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
-  register: supported_march
-  ignore_errors: "{{ ansible_check_mode }}"
-
-- name: check output from grep command
+- name: print output
   debug:
-    msg: "{{ supported_march }}"
-  ignore_errors: "{{ ansible_check_mode }}"
+    msg: "{{ aur_builder_home.gid }}"
 
-- name: set architecture
-  set_fact:
-    architecture: "{{ supported_march.stdout_lines[0] }}"
-  ignore_errors: "{{ ansible_check_mode }}"
+- block:
+    - name: check -march support
+      shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
+      register: supported_march
 
-- name: update pacman.conf and makepkg.conf
+    - name: check output from grep command
+      debug:
+        msg: "{{ supported_march }}"
+
+    - name: set architecture
+      set_fact:
+        architecture: "x86-64-v3"
+      when: supported_march.stdout_lines[0] == 'x86-64-v3'
+
+    - name: set architecture
+      set_fact:
+        architecture: "x86-64"
+      when: supported_march.stdout_lines[0] == 'x86-64-v2'
+
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags: ['flags']
+
+- name: adjust pacman, paru and makepkg configs
   template:
     src: "etc/{{ item }}.j2"
     dest: "/etc/{{ item }}"
@@ -42,8 +59,9 @@
     backup: yes
   with_items:
     - pacman.conf
+    - paru.conf
     - makepkg.conf
-  tags: ['makepkg', 'pacman']
+  tags: ['makepkg', 'pacman', 'paru']
   ignore_errors: "{{ ansible_check_mode }}"
 
 - block:
