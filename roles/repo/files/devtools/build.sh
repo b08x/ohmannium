@@ -83,7 +83,12 @@ build () {
   local pkgname=$1
   cd ${PKGBUILDS}/${pkgname}
   echo ${timestampe} > .latest-build
-  makechrootpkg -n -c -r $CHROOT
+
+  if [ -z "$2" ]; then
+    makechrootpkg -n -c -r -I "${2}" $CHROOT
+  else
+    makechrootpkg -n -c -r $CHROOT
+  fi
 }
 
 cleanup() {
