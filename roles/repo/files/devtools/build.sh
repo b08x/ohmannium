@@ -84,10 +84,10 @@ build () {
   cd ${PKGBUILDS}/${pkgname}
   echo ${timestampe} > .latest-build
 
-  if [ -z "$2" ]; then
-    makechrootpkg -n -c -r -I "${2}" $CHROOT
-  else
+  if [ $args == "none" ]; then
     makechrootpkg -n -c -r $CHROOT
+  else
+  	makechrootpkg -n -c -r -I "${args}" $CHROOT
   fi
 }
 
@@ -145,9 +145,15 @@ then
   create_chroot
   update_chroot
 
+  if [ -z "$2" ]; then
+  	declare -x args=$2
+  else
+  	declare -x args="none"
+  fi
+
   for name in ${package_selection[@]}; do
     declare -x pkg=$name
-    build $pkg || if [[ ${1} == 'cont' ]]; then continue; else break; fi
+    build $pkg $args || if [[ ${1} == 'cont' ]]; then continue; else break; fi
   done
 
   if [ ! $? = 0 ]; then
