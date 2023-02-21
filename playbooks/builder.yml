@@ -46,7 +46,7 @@
     - name: ensure permissions for aur_builder in sudoers
       copy:
         content: |
-          aur_builder ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman,/usr/bin/mkdir,/usr/bin/rm,/usr/bin/mkarchroot,/usr/bin/makechrootpkg,/usr/bin/arch-nspawn,/usr/bin/mount,/usr/bin/umount
+          aur_builder ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman,/usr/bin/mkdir,/usr/bin/rm,/usr/bin/mkarchroot,/usr/bin/makechrootpkg,/usr/bin/arch-nspawn,/usr/bin/mount,/usr/bin/umount,/usr/bin/micro
         dest: /etc/sudoers.d/11-aur_builder
         validate: 'visudo -cf %s'
 
