@@ -47,6 +47,7 @@ clone () {
 
 BOOTSTRAP_PKGS=(
   'ansible'
+  'aria2c'
   'base-devel'
   'ccache'
   'cmake'
