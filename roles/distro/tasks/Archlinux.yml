@@ -71,47 +71,6 @@
   tags: ['makepkg', 'pacman', 'paru']
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: check if cachyos repo is already installed
-  shell: cat /etc/pacman.conf | grep -E "^\[cachyos\]"
-  register: cachyrepo
-  failed_when: cachyrepo.rc == '255'
-  tags: ['cachyos']
-
-- name: check output from grep command
-  debug:
-    msg: "{{ cachyrepo }}"
-  when: debugging is defined
-
-- block:
-    - name: get cachyos repo installer
-      get_url:
-        url: https://build.cachyos.org/cachyos-repo.tar.xz
-        dest: /tmp
-
-    - name: extract tarball to /tmp
-      unarchive:
-        src: /tmp/cachyos-repo.tar.xz
-        dest: /tmp
-        remote_src: yes
-
-    - name: install cachyos repo
-      shell: yes | ./cachyos-repo.sh --install
-      args:
-        chdir: /tmp/cachyos-repo
-      register: cachy_repo
-      until: "cachy_repo is not failed"
-      retries: 10
-      delay: 10
-
-    - debug:
-        msg: "{{ cachy_repo.stdout_lines }}"
-
-  when:
-    - cachyrepo.stdout == ''
-    - architecture == 'x86-64-v3'
-  ignore_errors: "{{ ansible_check_mode }}"
-  tags: ['cachyos']
-
 - name: add syncopated repo key
   shell: |
     if [[ -z "$(pacman-key --list-keys | grep syncopated 2>/dev/null)" ]];
