@@ -1,7 +1,0 @@
-[bin]
-MFlags = --syncdeps
-[options]
-BottomUp=true
-{% if use_local_repo == True %}
-LocalRepo={{ ansible_hostname }}-{{ architecture | replace('-','_') }}
-{% endif %}
