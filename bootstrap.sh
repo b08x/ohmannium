@@ -43,10 +43,10 @@ clone () {
 }
 
 wipe() {
-  tput -S <<!
-  clear
-  cup 20
-  !
+tput -S <<!
+clear
+cup 20
+!
 }
 
 #########################################################################
@@ -55,7 +55,7 @@ wipe() {
 
 BOOTSTRAP_PKGS=(
   'ansible'
-  'aria2c'
+  'aria2'
   'base-devel'
   'ccache'
   'cmake'
