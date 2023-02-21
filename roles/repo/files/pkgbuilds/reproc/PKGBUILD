@@ -9,7 +9,7 @@ arch=('x86_64' 'x86_64_v3')
 url='https://github.com/DaanDeMeyer/reproc'
 license=('MIT')
 makedepends=('cmake' 'gcc')
-source=("v${pkgver}".tar.gz)
+source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/DaanDeMeyer/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
 sha256sums=('55c780f7faa5c8cabd83ebbb84b68e5e0e09732de70a129f6b3c801e905415dd')
 
 build() {

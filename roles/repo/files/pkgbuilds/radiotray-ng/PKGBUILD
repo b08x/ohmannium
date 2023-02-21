@@ -8,7 +8,7 @@ arch=('i686' 'x86_64' 'x86_64_v3')
 url="https://github.com/ebruck/radiotray-ng"
 license=('GPL')
 depends=('boost-libs' 'curl' 'gst-plugins-good' 'jsoncpp' 'libappindicator-gtk3'
-         'libbsd' 'libnotify' 'libxdg-basedir' 'glibmm' 'wxwidgets-gtk3')
+         'libbsd' 'libnotify' 'libxdg-basedir' 'glibmm' 'wxwidgets-gtk3' 'python')
 makedepends=('cmake' 'boost' 'lsb-release')
 optdepends=('python-lxml: Convert radiotray bookmarks to radiotray-ng format')
 options=('!libtool')

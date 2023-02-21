@@ -68,9 +68,9 @@ prepare() {
   #TODO: fix desktop file names
   for _standalone in ${_standalone_names[@]}; do
     gendesk -f -n \
-            --pkgname "${_standalone}" \
+            --pkgname "${_standalone}_o3" \
             --name "${_standalone}_o3" \
-            --pkgdesc "${_description[${_standalone}]} o3" \
+            --pkgdesc "${_description[${_standalone}]}_o3" \
             --genericname "${_generic[${_standalone}]}" \
             --icon "ambix" \
             --categories "AudioVideo;Audio,Ambisonics"

@@ -62,7 +62,7 @@ create_chroot() {
 }
 
 update_chroot() {
-  if [[ $architecture == 'x86_64_v3' ]]; then
+  if [[ $architecture == "x86_64_v3" ]]; then
     arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman-key --recv-keys F3B607488DB35A47 --keyserver keyserver.ubuntu.com
 
     sudo arch-nspawn -C $pacman -M $makepkg $CHROOT/root pacman-key --lsign-key F3B607488DB35A47
@@ -142,8 +142,13 @@ then
 
   for name in ${package_selection[@]}; do
     declare -x pkg=$name
-    build $pkg || break
+    build $pkg || if [[ ${1} == 'cont' ]]; then continue; else break; fi
   done
+
+  if [ ! $? = 0 ]; then
+  	echo "build failed for ${pkg}"
+  	echo -e "${pkg}" >> "${PKGBUILDS}_failed_${timestampe}.txt"
+  fi
 
   rm $AUR_BUILDER_HOME/.makepkg.conf
   unmount_chroot
