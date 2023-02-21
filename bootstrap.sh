@@ -178,4 +178,4 @@ ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/$
                   -e "cleanup=true"
 
 wipe && sleep 1
-say "bootstrap complete!" $GREEN && sleep 2
+say "bootstrap complete\!" $GREEN && sleep 2
