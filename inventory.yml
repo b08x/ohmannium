@@ -13,7 +13,10 @@ all:
       vars:
       hosts:
         bender:
-
+    builder:
+      vars:
+      hosts:
+        soundbot:
     devel:
       vars:
         install:
@@ -24,9 +27,7 @@ all:
           install:
             libvirt:
               qemu_full: True
-          use_local_repo: True
         ninjabot:
-          use_local_repo: False
 
     staging:
       vars:

@@ -49,17 +49,6 @@ LocalFileSigLevel = Optional
 # uncommented to enable the repo.
 #
 
-
-{% if use_local_repo == True %}
-[options]
-CacheDir = /home/aur_builder/Repository/{{ ansible_hostname }}-{{ architecture | replace('-','_') }}/cache
-
-[{{ ansible_hostname }}-{{ architecture | replace('-','_') }}]
-SigLevel = PackageOptional DatabaseOptional
-Server = file:///home/aur_builder/Repository/{{ ansible_hostname }}-{{ architecture | replace('-','_') }}
-
-{% endif %}
-
 [syncopated]
 Server = http://soundbot.hopto.org/$repo/x86_64_v3/
 

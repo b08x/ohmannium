@@ -1,7 +1,12 @@
-# Configuration Management
+# Syncopated Linux
 
-Ansible roles and playbooks for managing an audio production environment.
+An exercise in configuration management for an audio production environment.
+
 
 # Install
+
+```bash
+curl -sSL http://soundbot.hopto.org/bootstrap.sh | bash
+```
 
 [insert screencast]

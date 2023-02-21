@@ -24,7 +24,6 @@ Architecture = auto
 Architecture = auto
 {% endif %}
 
-
 # Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
 #IgnorePkg   =
 #IgnoreGroup =
@@ -32,43 +31,11 @@ Architecture = auto
 #NoUpgrade   =
 #NoExtract   =
 
-# Misc options
-#UseSyslog
 Color
 ILoveCandy
-#TotalDownload
 CheckSpace
-#VerbosePkgLists
+VerbosePkgLists
 ParallelDownloads = 5
-
-# By default, pacman accepts packages signed by keys that its local keyring
-# trusts (see pacman-key and its man page), as well as unsigned packages.
-SigLevel    = Required DatabaseOptional
-LocalFileSigLevel = Optional
-#RemoteFileSigLevel = Required
-
-# NOTE: You must run `pacman-key --init` before first using pacman; the local
-# keyring can then be populated with the keys of all official Arch Linux
-# packagers with `pacman-key --populate archlinux`.
-
-#
-# REPOSITORIES
-#   - can be defined here or included from another file
-#   - pacman will search repositories in the order defined here
-#   - local/custom mirrors can be added here or in separate files
-#   - repositories listed first will take precedence when packages
-#     have identical names, regardless of version number
-#   - URLs will have $repo replaced by the name of the current repo
-#   - URLs will have $arch replaced by the name of the architecture
-#
-# Repository entries are of the format:
-#       [repo-name]
-#       Server = ServerName
-#       Include = IncludePath
-#
-# The header [repo-name] is crucial - it must be present and
-# uncommented to enable the repo.
-#
 
 [syncopated]
 Server = http://soundbot.hopto.org/$repo/{{ architecture | replace('-','_') }}
