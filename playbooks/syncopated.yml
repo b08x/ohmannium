@@ -1,7 +1,7 @@
 ---
 
 - name: setup audio production environment
-  hosts: devel
+  hosts: all
   strategy: linear
   become: True
   gather_subset:

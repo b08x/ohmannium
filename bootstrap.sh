@@ -45,11 +45,13 @@ clone () {
 #                        install dependencies                           #
 #########################################################################
 
-declare -A BOOTSTRAP_PKGS=(
+BOOTSTRAP_PKGS=(
   'ansible'
   'base-devel'
   'ccache'
   'cmake'
+  'fd'
+  'dialog'
   'git'
   'git-lfs'
   'gum'
@@ -73,7 +75,7 @@ then
 else
   printf "adding syncopated gpg to pacman db"
   sleep 0.5
-  curl http://soundbot.hopto.org/syncopated/syncopated.gpg | pacman-key --add -
+  curl http://soundbot.hopto.org/syncopated.gpg | pacman-key --add -
   pacman-key --lsign-key 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A
   pacman -Sy --noconfirm
 fi

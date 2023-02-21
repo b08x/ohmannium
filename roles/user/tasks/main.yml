@@ -12,13 +12,13 @@
         name: "{{ user.name }}"
         group: "{{ user.group }}"
 
-    - name: ensure user ownership of home directory
-      file:
-        path: "{{ user.home }}"
-        state: directory
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        recurse: True
+    # - name: ensure user ownership of home directory
+    #   file:
+    #     path: "{{ user.home }}"
+    #     state: directory
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     recurse: True
 
   ignore_errors: "{{ ansible_check_mode }}"
 
