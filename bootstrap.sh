@@ -167,7 +167,7 @@ say "-------------------------" $GREEN
 
 playbooks=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
 
-playbook=$(gum choose ${ANSIBLE_PLAYBOOKS[@]})
+playbook=$(gum choose ${playbooks[@]})
 
 say "running ${playbook}" $BLUE
 
