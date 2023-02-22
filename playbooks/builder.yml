@@ -64,22 +64,20 @@
         groups: aur_builder
         append: yes
 
-    - name: run home role for aur_builder
-      import_role:
-        name: home
-      vars:
-        user:
-          name: aur_builder
-          group: aur_builder
-          uid: 1001
-          gid: 1001
-          home: /home/aur_builder
-          shell: /usr/bin/zsh
-          realname: Robert Pannick
-          email: rwpannick@gmail.com
-        workspace: /home/aur_builder/workspace
+  tasks:
+    - import_role:
+        name: repo
 
-
-  roles:
-    - role: repo
-      tags: ['repo']
+- name: run home role for aur_builder
+  import_playbook: ui.yml
+  vars:
+    user:
+      name: aur_builder
+      group: aur_builder
+      uid: 1001
+      gid: 1001
+      home: /home/aur_builder
+      shell: /usr/bin/zsh
+      realname: Robert Pannick
+      email: rwpannick@gmail.com
+    workspace: /home/aur_builder/workspace
