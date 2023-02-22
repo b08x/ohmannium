@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -ex
 
 # PS4='LINENO:'
@@ -140,18 +140,21 @@ if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
 declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
-say "------------------\n" $GREEN
-say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
-
-
 #########################################################################
 
 if [ ! -d $ANSIBLE_HOME ]; then
+  say "------------------\n" $GREEN
+  say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
   clone https://github.com/b08x/syncopated.git $ANSIBLE_HOME
+  git config --global --add safe.directory $ANSIBLE_HOME
   cd $ANSIBLE_HOME && git restore .
 else
   cd $ANSIBLE_HOME
 fi
+
+git checkout development
+
+git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
 echo "---" > inventory.yml
 echo "\n" >> inventory.yml
@@ -169,15 +172,19 @@ say "select playbook to run" $GREEN
 say "-------------------------\n" $YELLOW
 
 playbooks=$(gum choose --no-limit "base" "ui" "nas" "builder")
+
 runas_user=$(gum choose $user aur_builder)
 
-gum confirm "copy ssh keys from remote host?"
+gum confirm "copy ssh keys from a remote host?"
 
 if [ $? = 0 ]; then
-  say "Enter the hostname\n" $GREEN
-  keyserver=$(gum input --placeholder="host.example.net")
+  say "Enter the fqdn or ip of the remote host" $GREEN
+
+  read KEYSERVER
+
+  say "setting ${KEYSERVER} as remote host keyserver\n"
 else
-  keyserver="na"
+  KEYSERVER=""
 fi
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
@@ -188,7 +195,7 @@ for playbook in ${playbooks[@]}; do
   ansible-playbook -c local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
                    -e "newInstall=true" \
                    -e "cleanup=true" \
-                   -e "keyserver=${keyserver}"
+                   -e "keyserver=${KEYSERVER}"
 done
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi

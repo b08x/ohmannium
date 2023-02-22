@@ -215,26 +215,6 @@
   ignore_errors: True
   tags: ['packages']
 
-# stderr: 'error: target not found: jack'
-- name: remove jack in favor of jack2dbus
-  pacman:
-    name: jack
-    state: absent
-    extra_args: --noconfirm
-  when: newInstall is defined
-  ignore_errors: True
-  tags: ['packages']
-
-- name: remove nitrogen
-  pacman:
-    name: nitrogen
-    state: absent
-    force: yes
-    extra_args: --noconfirm
-  when: newInstall is defined
-  ignore_errors: True
-  tags: ['packages']
-
 - name: get list of currently installed packages
   shell: "pacman -Q | awk '{print $1}'"
   register: installed_packages
@@ -283,7 +263,7 @@
       shell: |
         export pkgs=({{ _packages }})
         for p in ${pkgs[@]};do
-          paru -S --noconfirm --needed --cleanafter --useask $(echo $p | sed 's/,//') || continue
+          yes | paru -S --noconfirm --needed --cleanafter --useask $(echo $p | sed 's/,//') || continue
         done
 
   become_user: aur_builder
