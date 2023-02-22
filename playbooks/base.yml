@@ -79,14 +79,6 @@
         path: /tmp/ansible.log
         mode: '0777'
 
-    - name: remove aur_builder
-      user:
-        name: aur_builder
-        move_home: True
-        home: /tmp/aur_builder
-        # state: absent
-        # remove: True
-
     #TODO: package this
     - name: install modified starfield theme
       unarchive:
