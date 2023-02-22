@@ -239,7 +239,7 @@ packages:
   - sendmidi
   - sfizz
   - sonic-pi-git
-  - sonic-visualiser
+  - sonic-visualiser-git
   - sooperlooper-git
   #   - stochas
   #   - tonespace
