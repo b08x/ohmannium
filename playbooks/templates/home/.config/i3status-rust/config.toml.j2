@@ -15,11 +15,19 @@ cmd = "alsamixer"
 
 [[block]]
 block = "load"
+format = " $icon 1min avg: $1m.eng(w:4) "
 interval = 1
-format = "{1m} {5m}"
 [[button.click]]
 button = "left"
 cmd = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh"
+
+[[block]]
+block = "custom"
+cycle = ["echo ON", "echo OFF"]
+interval = 1
+[[block.click]]
+button = "left"
+cmd = "<command>"
 
 [[block]]
 block = "custom"
