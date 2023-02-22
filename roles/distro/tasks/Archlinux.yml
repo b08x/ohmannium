@@ -272,15 +272,12 @@
     - name: packages
       aur:
         use: paru
-        name: "{{ _packages }}"
+        name: "{{ item }}"
         state: present
         extra_args: "--overwrite '*'"
-
-    - name: install autofs
-      aur:
-        use: auto
-        name: autofs
-        state: present
+      with_items:
+        - "{{ _packages }}"
+        - autofs
 
   rescue:
     - name: packages
