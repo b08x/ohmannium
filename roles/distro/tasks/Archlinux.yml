@@ -29,7 +29,7 @@
     path: /home/aur_builder
     state: directory
     owner: aur_builder
-    group: aur_builder
+    group: wheel
     mode: '2775'
   register: aur_builder_home
   failed_when:

@@ -1,11 +1,12 @@
 ---
 
-- name: install devtools
-  aur:
-    use: auto
+- name: install X package
+  pacman:
     name: devtools
     state: present
-  become_user: aur_builder
+    force: yes
+    extra_args: --noconfirm
+  tags: ['packages']
 
 - name: ensure folder tree
   file:
@@ -26,24 +27,29 @@
     - Repository
     - Repository/x86_64
     - Repository/x86_64_v3
-    - Workspace
   become_user: aur_builder
 
-- name: sync devtools and pkgbuilds folder
-  synchronize:
-    src: "files/{{ item }}"
-    dest: "/home/aur_builder/Workspace/"
+- name: clone pkbuild repository
+  git:
+    repo: https://gitlab.com/b08x/pkgbuilds.git
+    dest: "/home/aur_builder/Workspace"
     recursive: yes
-    mode: push
-    delete: yes
-    checksum: yes
-    perms: no
-    rsync_opts:
-      - "--update"
-      - "--omit-dir-times"
-  with_items:
-    - devtools
-    - pkgbuilds
+    accept_hostkey: yes
+    update: yes
+    force: no
+  check_mode: no
+  tags: ['devtools', 'pkgbuilds']
+
+- name: fetch lfs files
+  shell: |
+    git config --global --add safe.directory /home/aur_builder/Workspace
+    git restore .
+    git lfs install && \
+    git lfs checkout && \
+    git lfs fetch && \
+    git lfs pull
+  args:
+    chdir: /home/aur_builder/Workspace
   tags: ['devtools', 'pkgbuilds']
 
 - name: copy makepkg and pacman templates to workspace
@@ -65,6 +71,6 @@
     path: /home/aur_builder/Workspace
     state: directory
     owner: aur_builder
-    group: aur_builder
-    mode: '0775'
+    group: wheel
+    mode: '2775'
     recurse: True

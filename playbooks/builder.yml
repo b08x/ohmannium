@@ -55,7 +55,7 @@
         path: /home/aur_builder
         state: directory
         owner: aur_builder
-        group: aur_builder
+        group: wheel
         mode: '2775'
 
     - name: add user to aur_builder group
@@ -67,17 +67,3 @@
   tasks:
     - import_role:
         name: repo
-
-- name: run home role for aur_builder
-  import_playbook: ui.yml
-  vars:
-    user:
-      name: aur_builder
-      group: aur_builder
-      uid: 1001
-      gid: 1001
-      home: /home/aur_builder
-      shell: /usr/bin/zsh
-      realname: Robert Pannick
-      email: rwpannick@gmail.com
-    workspace: /home/aur_builder/workspace
