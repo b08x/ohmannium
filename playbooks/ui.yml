@@ -1,7 +1,7 @@
 ---
 
 - name: configure user specific stuff
-  hosts: localhost
+  hosts: all
   become: True
   gather_subset:
     - hardware
@@ -65,7 +65,7 @@
   roles:
 
     - role: ui
-      tags: ['ui']
+      tags: ['ui', 'env', 'i3', 'theme', 'x11', 'menu', 'user', 'sudoers', 'shell']
 
 
   post_tasks:

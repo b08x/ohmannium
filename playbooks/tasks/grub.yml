@@ -1,0 +1,46 @@
+---
+
+#TODO: package this
+- name: install modified starfield theme
+  unarchive:
+    src: files/usr/share/grub/starfield.tar.gz
+    dest: "/usr/share/grub/themes"
+
+- name: set kernel cmdline params in grub
+  template:
+    src: etc/default/grub.j2
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: '644'
+    backup: yes
+  register: default_grub
+
+- name: remake grub if changes were made
+  shell: grub-mkconfig -o /boot/grub/grub.cfg
+  when: default_grub.changed and reboot is not defined
+
+- block:
+
+    - name: remake grub if changes were made
+      shell: grub-mkconfig -o /boot/grub/grub.cfg
+
+    # [WARNING]: Reset is not implemented local connection
+    - name: reboot host if grub was modified
+      ansible.builtin.reboot:
+      async: 1
+      poll: 0
+
+    - name: wait for host to reboot
+      wait_for_connection:
+        connect_timeout: 20
+        sleep: 5
+        delay: 5
+        timeout: 60
+
+  rescue:
+
+    - name: reboot host if grub was modified
+      command: shutdown -r now
+
+  when: default_grub.changed and reboot is defined

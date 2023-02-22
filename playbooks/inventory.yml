@@ -1,0 +1,44 @@
+---
+
+all:
+  vars:
+    ansible_user: b08x
+
+  hosts:
+    ninjabot:
+      ansible_connection: local
+
+  children:
+    nas:
+      vars:
+      hosts:
+        bender:
+    builder:
+      vars:
+      hosts:
+        soundbot:
+    devel:
+      vars:
+        install:
+          libvirt:
+            qemu_full: False
+      hosts:
+        soundbot:
+          install:
+            libvirt:
+              qemu_full: True
+        ninjabot:
+
+    staging:
+      vars:
+        install:
+          docker:
+      hosts:
+        lapbot:
+
+    webserver:
+      vars:
+        ansible_user: ec2-user
+        remote_user: root
+      hosts:
+        soundbot.hopto.org:

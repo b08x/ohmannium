@@ -28,6 +28,10 @@ if [ -x "$(command -v bat)" ]; then
   alias cat="bat --theme 'Solarized (dark)' -p"
 fi
 
+# mlocate
+alias updatedb='sudo updatedb'
+alias locate='sudo locate'
+
 # view a file without comments `nocomment file.txt`
 alias nocomment='grep -v "^\($\|#\|;;\|;\|\n\)"'
 
@@ -92,7 +96,9 @@ alias samplerv2="fd -e flac -e wav -e opus -e mp3 . '/home/b08x'  | fzf --previe
 
 # download
 alias dl="aria2c"
+
 #exit
 alias e="exit"
+
 #pgrep
 alias pgrep="pgrep -a"
