@@ -2,7 +2,6 @@
 
 - name: setup audio production environment
   hosts: all
-  strategy: linear
   become: True
   gather_subset:
     - hardware
