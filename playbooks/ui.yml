@@ -58,7 +58,7 @@
           mode: '0755'
         tags: ['yadm']
 
-      include_tasks: sudoers.yml
+      include_tasks: tasks/sudoers.yml
       tags: ['sudoers']
 
   roles:

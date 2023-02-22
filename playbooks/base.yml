@@ -83,11 +83,11 @@
 
   post_tasks:
 
-    - include_tasks: filesystem.yml
-    - include_tasks: utils.yml
-    - include_tasks: updatedb.yml
+    - include_tasks: tasks/filesystem.yml
+    - include_tasks: tasks/utils.yml
+    - include_tasks: tasks/updatedb.yml
 
-    - include_tasks: autologin.yml
+    - include_tasks: tasks/autologin.yml
 
     - name: reset perms on /tmp/ansible.log
       file:
