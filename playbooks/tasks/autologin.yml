@@ -81,7 +81,6 @@
       Session=i3
     dest: "{{ user.home }}/.dmrc"
     owner: "{{ user.name }}"
-    group: "{{ user.group }}"
     mode: '0644'
 
 # on base arch install:

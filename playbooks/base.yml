@@ -8,6 +8,7 @@
     - network
   vars:
     journal_level: notice
+    shell_login: True
 
   vars_files:
     - "vars/user.yml"

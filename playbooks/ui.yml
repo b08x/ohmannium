@@ -7,6 +7,7 @@
     - hardware
     - network
   vars:
+    admin_group: wheel
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
@@ -58,8 +59,8 @@
           mode: '0755'
         tags: ['yadm']
 
-      include_tasks: tasks/sudoers.yml
-      tags: ['sudoers']
+      - include_tasks: tasks/sudoers.yml
+        tags: ['sudoers']
 
   roles:
 
