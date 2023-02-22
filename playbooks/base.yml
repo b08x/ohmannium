@@ -99,7 +99,7 @@
     - role: distro
       tags: ['distro', 'repo', 'packages']
     - role: network
-      tags: ['netork', 'firewall']
+      tags: ['netork', 'firewall', 'autofs']
     - role: audio
       tags: ['audio', 'alsa', 'jack', 'pulsesudio']
 

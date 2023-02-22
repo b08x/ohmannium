@@ -13,3 +13,17 @@ user:
 
 workspace: /home/b08x/Workspace
 install_pulsar: False
+
+autofs_client:
+  host: bender
+  shares:
+    - Archive
+    - Documents
+    - Images
+    - Library
+    - Music
+    - Notebooks
+    - Recordings
+    - Sessions
+    - Videos
+    - Workspace
