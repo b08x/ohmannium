@@ -23,7 +23,7 @@
   lineinfile:
     path: "/usr/lib/systemd/system/docker.service"
     regexp: "^ExecStart=/usr/bin/dockerd -H fd://"
-    line: "ExecStart=/usr/bin/dockerd -g {{ docker.storage }} -H fd:// --containerd=/run/containerd/containerd.sock"
+    line: "ExecStart=/usr/bin/dockerd --data-root {{ docker.storage }} -H fd:// --containerd=/run/containerd/containerd.sock"
   notify: reload systemd daemon
 
 - name: create docker config directory
