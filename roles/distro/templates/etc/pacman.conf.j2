@@ -17,12 +17,7 @@ HoldPkg     = pacman glibc
 #XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
 #CleanMethod = KeepInstalled
 #UseDelta    = 0.7
-{% if architecture == 'x86-64-v3' %}
-# Architecture = x86_64_v3 x86_64
 Architecture = auto
-{% else %}
-Architecture = auto
-{% endif %}
 
 # Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
 #IgnorePkg   =

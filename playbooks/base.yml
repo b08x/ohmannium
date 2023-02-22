@@ -2,6 +2,7 @@
 
 - name: setup repositories and install packages
   hosts: all
+  become: True
   gather_subset:
     - hardware
     - network
@@ -76,9 +77,10 @@
     - name: remove aur_builder
       user:
         name: aur_builder
-        remove: yes
         state: absent
-        move_home: /tmp/aur_builder
+        move_home: True
+        home: /tmp/aur_builder
+        remove: True
 
     #TODO: package this
     - name: install modified starfield theme

@@ -21,7 +21,7 @@ VCSCLIENTS=('bzr::bzr'
 # ARCHITECTURE, COMPILE FLAGS
 #########################################################################
 
-CARCH="{{ architecture | replace('-','_') }}"
+CARCH="x86_64"
 CHOST="x86_64-pc-linux-gnu"
 
 #-- Compiler and Linker Flags
@@ -104,17 +104,6 @@ PURGE_TARGETS=(usr/{,share}/info/dir .packlist *.pod)
 #-- Directory to store source code in for debug packages
 DBGSRCDIR="/usr/src/debug"
 
-{% if inventory_hostname in groups.get('build', []) %}
-#########################################################################
-# PACKAGE OUTPUT
-#########################################################################
-PKGDEST=/home/aur_builder/Packages/x86_64
-SRCDEST=/home/aur_builder/Packages/x86_64/sources
-SRCPKGDEST=/home/aur_builder/Packages/x86_64/srcpackages
-LOGDEST=/home/aur_builder/Packages/x86_64/makepkglogs
-PACKAGER="Robert Pannick <rwpannick@gmail.com>"
-GPGKEY="36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A"
-{% endif %}
 #########################################################################
 # COMPRESSION DEFAULTS
 #########################################################################
