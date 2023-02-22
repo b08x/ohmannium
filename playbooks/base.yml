@@ -81,6 +81,8 @@
 
     - role: distro
       tags: ['distro']
+    - role: network
+      tags: ['netork']
 
   post_tasks:
 

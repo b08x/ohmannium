@@ -1,6 +1,0 @@
----
-
-- name: reload firewalld
-  shell: "firewall-cmd --reload"
-  ignore_errors: True
-  # ignore_errors: "{{ ansible_check_mode }}"

@@ -4,3 +4,14 @@
   systemd:
     name: systemd-timesyncd
     enabled: yes
+
+- name: reload firewalld
+  shell: "firewall-cmd --reload"
+  ignore_errors: True
+  # ignore_errors: "{{ ansible_check_mode }}"
+
+- name: enable autofs service
+  systemd:
+    name: autofs
+    enabled: yes
+  ignore_errors: "{{ ansible_check_mode }}"

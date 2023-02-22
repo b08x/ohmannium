@@ -1,4 +1,9 @@
 ---
+
+- include_tasks: tasks/ssl.yml
+  when: use_ssl is defined
+  tags: ['ssl']
+
 - name: copy rsyslog config for nginx
   copy: >
     src=90-nginx_rsyslog.conf

@@ -9,12 +9,6 @@
     force: yes
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: enable autofs service
-  systemd:
-    name: autofs
-    enabled: yes
-  ignore_errors: "{{ ansible_check_mode }}"
-
 - name: reload user systemd
   systemd:
     daemon_reload: yes

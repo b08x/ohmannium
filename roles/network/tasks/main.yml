@@ -4,9 +4,12 @@
   debug:
     msg: "Starting network tasks"
 
-- include: networkmanager.yml
+- include_tasks: networkmanager.yml
   tags: ['networkmanager']
 
-- include: autofs.yml
+- include_tasks: firewall.yml
+  tags: ['firewall']
+
+- include_tasks: autofs.yml
   when: autofs_client is defined
   tags: ['network']
