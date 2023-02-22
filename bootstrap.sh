@@ -175,5 +175,5 @@ for playbook in ${playbooks[@]}; do
                    -e "cleanup=true" || break
 done
 
-wipe && sleep 1
+sleep 1
 say "bootstrap complete\!" $GREEN && sleep 2
