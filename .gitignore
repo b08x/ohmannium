@@ -2,3 +2,4 @@ sonic-pi-dev/
 roles/repo/files/devtools/makepkg-*
 roles/repo/files/devtools/pacman-*
 roles/repo/files/pkgbuilds/.*
+pkgbuilds/

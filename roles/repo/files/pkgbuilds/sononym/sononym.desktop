@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Sononym
-Comment=Sound Manager
-Exec=sononym
-Terminal=false
-Type=Application
-Icon=sononym
-Categories=AudioVideo;Audio;
