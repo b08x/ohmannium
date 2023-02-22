@@ -1,6 +1,6 @@
 ---
 
-- include: filesystem.yml
+- include_tasks: filesystem.yml
   tags: ['filesystem']
 
 - name: ensure user belongs to audio group

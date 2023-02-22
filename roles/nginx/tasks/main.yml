@@ -9,29 +9,29 @@
   notify: restart rsyslog
   tags: [configuration,nginx]
 
-- include: nginx-official-repo.yml
+- include_tasks: nginx-official-repo.yml
   when: nginx_official_repo == True
 
-- include: passenger-phusion-repo.yml
+- include_tasks: passenger-phusion-repo.yml
   when: nginx_passenger == True
 
-- include: installation.packages.yml
+- include_tasks: installation.packages.yml
   when: nginx_installation_type == "packages"
 
-- include: installation.source.yml
+- include_tasks: installation.source.yml
   when: nginx_installation_type == "source"
 
-- include: ensure-dirs.yml
+- include_tasks: ensure-dirs.yml
 
-- include: remove-defaults.yml
+- include_tasks: remove-defaults.yml
   when: not keep_only_specified
 
-- include: remove-extras.yml
+- include_tasks: remove-extras.yml
   when: keep_only_specified
 
-- include: remove-unwanted.yml
+- include_tasks: remove-unwanted.yml
 
-- include: configuration.yml
+- include_tasks: configuration.yml
 
 - name: create blank index.html for default traffic
   copy: >

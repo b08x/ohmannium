@@ -12,8 +12,8 @@
     backup: yes
   tags: ['modprobe']
 
-- include: jack.yml
+- include_tasks: jack.yml
   tags: ['jack']
 
-- include: pulseaudio.yml
+- include_tasks: pulseaudio.yml
   tags: ['pulseaudio']

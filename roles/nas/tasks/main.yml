@@ -1,14 +1,14 @@
 ---
 
-- include: musikcube.yml
+- include_tasks: musikcube.yml
   when: musikcube_host is defined
   tags: ['musikcube']
 
-- include: nfs.yml
+- include_tasks: nfs.yml
   when: nfs_host is defined
   tags: ['nfs']
 
-- include: rsyncd.yml
+- include_tasks: rsyncd.yml
   when: rsyncd_host is defined
   tags: ['rsyncd']
 

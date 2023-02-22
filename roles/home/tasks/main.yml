@@ -9,11 +9,11 @@
     extensions:
       - 'yml'
 
-- include: shell.yml
+- include_tasks: shell.yml
   tags: ['shell']
 
-- include: menu.yml
+- include_tasks: menu.yml
   tags: ['menu']
 
-- include: templates.yml
+- include_tasks: templates.yml
   tags: ['templates']

@@ -71,8 +71,8 @@
   become_user: "{{ user.name }}"
   tags: ['thunar']
 
-- include: theme.yml
+- include_tasks: theme.yml
   tags: ['theme']
 
-- include: x11.yml
+- include_tasks: x11.yml
   tags: ['x11']

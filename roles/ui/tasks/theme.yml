@@ -47,5 +47,5 @@
     src: usr/local/share/themes/oomox-soundbot.tar.xz
     dest: "/usr/share/themes"
 
-- include: xdg.yml
+- include_tasks: xdg.yml
   tags: ['xdg']

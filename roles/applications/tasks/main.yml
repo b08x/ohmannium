@@ -16,14 +16,14 @@
     - save.sh
   tags: ['raysession']
 
-- include: pulsar.yml
+- include_tasks: pulsar.yml
   when: install_pulsar|default(false)|bool == true
   tags: ['pulsar']
 
-- include: vamp.yml
+- include_tasks: vamp.yml
   tags: ['vamp']
 
-- include: mixxx.yml
+- include_tasks: mixxx.yml
   tags: ['mixxx']
 
 - name: install vmpk keymap
@@ -33,23 +33,23 @@
     mode: '0644'
   tags: ['vmpk']
 
-- include: reaper.yml
+- include_tasks: reaper.yml
   when: install_reaper|default(true)|bool == true
   tags: ['reaper']
 
-- include: sonicannotator.yml
+- include_tasks: sonicannotator.yml
   when: install_annotator|default(true)|bool == true
   tags: ['sonicannotator']
 
-- include: soniclineup.yml
+- include_tasks: soniclineup.yml
   when: install_soniclineup|default(true)|bool == true
   tags: ['soniclineup']
 
-- include: tony.yml
+- include_tasks: tony.yml
   when: install_tony|default(true)|bool == true
   tags: ['tony']
 
-- include: touchosc.yml
+- include_tasks: touchosc.yml
   when: install_touchosc|default(true)|bool == true
   tags: ['touchosc']
 

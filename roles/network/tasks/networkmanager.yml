@@ -27,7 +27,7 @@
         enabled: yes
         state: started
 
-    # - include: interfaces.yml
+    # - include_tasks: interfaces.yml
 
     - name: set ntp servers in timesyncd.conf
       copy:
