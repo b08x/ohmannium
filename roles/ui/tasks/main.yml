@@ -45,20 +45,18 @@
     dest: /usr/lib/environment.d/50-xdg-environment.conf
   tags: ['env', 'xdg']
 
-- name: set environment vars
+- name: set misc profile vars
   template:
-    src: etc/environment.j2
-    dest: /etc/environment
-    mode: '0644'
+    src: etc/profile.d/misc.sh.j2
+    dest: /etc/profile.d/misc.sh
+    mode: '0755'
     backup: yes
   tags: ['env']
 
 - name: install Thunar custom actions
   copy:
-    src: "home/.config/Thunar/{{ item }}"
-    dest: "{{ user.home }}/.config/Thunar/{{ item }}"
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
+    src: "etc/xdg/Thunar/{{ item }}"
+    dest: "/etc/xdg/Thunar/{{ item }}"
     mode: '0644'
   with_items:
     - accels.scm
@@ -66,13 +64,15 @@
   tags: ['thunar']
 
 - name: set thunar as default for opening directories
-  shell: |
-    xdg-mime default thunar.desktop inode/directory
+  shell: xdg-mime default thunar.desktop inode/directory
   become_user: "{{ user.name }}"
   tags: ['thunar']
+
+- include_tasks: x11.yml
+  tags: ['x11']
 
 - include_tasks: theme.yml
   tags: ['theme']
 
-- include_tasks: x11.yml
-  tags: ['x11']
+- include_tasks: menu.yml
+  tags: ['menu']

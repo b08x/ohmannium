@@ -1,6 +1,6 @@
 ---
 
-- name: sync folder zsh functions
+- name: sync zsh functions
   synchronize:
     src: "usr/local/share/zsh"
     dest: "/usr/local/share"
@@ -14,7 +14,7 @@
       - "--omit-dir-times"
   tags: ['zsh']
 
-- name: set perms for /usr/local/share/zsh
+- name: ensure /usr/local/share/zsh has correct owner/group
   file:
     path: "/usr/local/share/zsh"
     state: directory

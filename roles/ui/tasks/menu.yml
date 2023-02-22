@@ -1,5 +1,8 @@
 ---
 
+- include_tasks: xdg.yml
+  tags: ['xdg']
+
 - name: ensure these directories exist
   file:
     path: "{{ user.home }}/{{ item }}"

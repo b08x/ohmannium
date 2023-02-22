@@ -10,3 +10,10 @@ curl -sSL http://soundbot.hopto.org/bootstrap.sh | bash
 ```
 
 [insert screencast]
+
+
+# about
+
+```yaml
+become = True
+```
