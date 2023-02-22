@@ -7,7 +7,6 @@
     - hardware
     - network
   vars:
-    admin_group: wheel
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
