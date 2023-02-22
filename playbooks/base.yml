@@ -17,6 +17,7 @@
   vars_prompt:
     - name: keyserver
       prompt: enter keyserver fqdn
+      private: False
 
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin"
@@ -30,6 +31,7 @@
       file:
         path: /tmp/ansible.log
         mode: '0777'
+      ignore_errors: True
 
     - name: symlink os-release
       file:

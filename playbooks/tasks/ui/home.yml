@@ -89,7 +89,7 @@
     - .zshenv
     - .zshrc
     - .zshrc.local
-  tags: ['zsh', 'shell', 'profile']
+  tags: ['zsh', 'shell', 'profile', 'alias']
 
 - name: syncronize templates - gtk
   template:

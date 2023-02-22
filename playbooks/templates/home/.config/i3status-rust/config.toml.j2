@@ -5,7 +5,7 @@ icons = "awesome6"
 
 [[block]]
 block = "sound"
-format = " $icon $output_description{ $volume|} "
+format = " $icon $output_name{ $volume|} "
 [[block.click]]
 button = "left"
 cmd = "pavucontrol"
@@ -19,30 +19,31 @@ format = " $icon 1min avg: $1m.eng(w:4) "
 interval = 1
 [[button.click]]
 button = "left"
-cmd = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh"
+cmd = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh performance"
 
 [[block]]
 block = "custom"
-cycle = ["echo ON", "echo OFF"]
-interval = 1
+format = " \uf0c2 "
+cycle = ["kitty --class 'govna' -e /usr/local/bin/set-govna.sh performance", "kitty --class 'govna' -e /usr/local/bin/set-govna.sh powersave"]
+interval = "once"
 [[block.click]]
 button = "left"
 cmd = "<command>"
 
 [[block]]
-block = "custom"
-command = "echo \uf0c2"
-interval = "once"
-[[button.click]]
-button = "left"
-cmd = "kitty --class 'brightness' -e /usr/local/bin/brightness.rb"
-
-[[block]]
-block = "custom"
-command = "echo \uf0c3"
-[[button.click]]
-button = "left"
+block = "menu"
+text = " \uf0c3 "
+[[block.items]]
+display = " -&gt;   noteinfo   &lt;-"
 cmd = "kitty --class 'noteinfo' -e /usr/local/bin/noteinfo.rb"
+[[block.items]]
+display = " -&gt; brightness &lt;-"
+cmd = "kitty --class 'brightness' -e /usr/local/bin/brightness.rb"
+#confirm_msg = "Are you sure you want to power off?"
+# [[block.items]]
+# display = " -&gt;  Reboot   &lt;-"
+# cmd = "/usr/bin/uxterm"
+# confirm_msg = "Are you sure you want to reboot?"
 
 [[block]]
 block = "custom"

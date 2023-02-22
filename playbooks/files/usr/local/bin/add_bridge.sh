@@ -39,9 +39,14 @@ if [ $? = 0 ]; then
 
   nmcli connection modify br0 ipv4.dns-search ${search}
 
-  nmcli connection delete ${bridge_slave}
+  nmconnection=$(nmcli connection show | grep ${bridge_slave} | awk -F '  ' '{print $1}')
+
+  nmcli connection delete "${nmconnection}"
 
   nmcli connection add type bridge-slave autoconnect yes con-name ${bridge_slave} ifname ${bridge_slave} master ${bridge_name}
+
+  gum confirm "reboot?" && sudo shutdown -r now
+
 else
   echo "ok then, try again. exiting"
   exit

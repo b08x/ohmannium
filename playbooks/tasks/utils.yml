@@ -12,9 +12,11 @@
     rsync_opts:
       - "--update"
       - "--omit-dir-times"
+  tags: ['utils']
 
 - name: ensure files in /usr/local/bin are executable
   file:
     path: /usr/local/bin
     mode: '0755'
     recurse: True
+  tags: ['utils']
