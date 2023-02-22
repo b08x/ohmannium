@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
 # PS4='LINENO:'
 VER=0.5-beta
