@@ -24,6 +24,7 @@
   tasks:
 
     - include_tasks: tasks/ui/main.yml
+      tags: ['ui']
 
   post_tasks:
 
