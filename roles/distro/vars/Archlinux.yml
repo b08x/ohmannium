@@ -306,7 +306,7 @@ packages:
   - guake
   - hexchat
   - imv
-  - jgmenu-minimal
+  # - jgmenu-minimal
   - micro
   - mpv
   - mpv-plugin-excerpt-git
@@ -329,7 +329,7 @@ packages:
   - thunar-volman
   - v4l2loopback-dkms
   - wmctrl
-  - wordnet-cli
+  # - wordnet-cli
   - xarchiver
   - xdot
   - xterm

@@ -85,7 +85,7 @@
     #TODO: package this
     - name: install modified starfield theme
       unarchive:
-        src: usr/share/grub/starfield.tar.gz
+        src: files/usr/share/grub/starfield.tar.gz
         dest: "/usr/share/grub/themes"
 
     - name: set kernel cmdline params in grub
