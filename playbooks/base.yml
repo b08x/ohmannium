@@ -42,6 +42,12 @@
     - include_tasks: tasks/logging.yml
       tags: ['logging']
 
+    - include_tasks: tasks/user.yml
+      tags: ['user']
+
+    - include_tasks: tasks/sudoers.yml
+      tags: ['sudoers']
+
     - block:
         - name: print output
           debug:
