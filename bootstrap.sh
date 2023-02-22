@@ -146,7 +146,6 @@ if [ ! -d $ANSIBLE_HOME ]; then
   say "------------------\n" $GREEN
   say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
   clone https://github.com/b08x/syncopated.git $ANSIBLE_HOME
-  git config --global --add safe.directory $ANSIBLE_HOME
   cd $ANSIBLE_HOME && git restore .
 else
   cd $ANSIBLE_HOME
@@ -175,9 +174,9 @@ playbooks=$(gum choose --no-limit "base" "ui" "nas" "builder")
 
 runas_user=$(gum choose $user aur_builder)
 
-gum confirm "copy ssh keys from a remote host?"
+gum confirm "copy ssh keys from a remote host?" && say "ok" $GREEN
 
-if [ $? = 0 ]; then
+if [ $? = '0' ]; then
   say "Enter the fqdn or ip of the remote host" $GREEN
 
   read KEYSERVER
