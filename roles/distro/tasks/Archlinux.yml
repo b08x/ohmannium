@@ -13,7 +13,9 @@
   file:
     path: /home/aur_builder/.ansible
     state: directory
-  become_user: aur_builder
+    owner: aur_builder
+    group: aur_builder
+    mode: '0775'
 
 - name: ensure permissions for aur_builder in sudoers
   copy:
