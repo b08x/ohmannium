@@ -24,3 +24,12 @@
     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
   become_user: "{{ user.name }}"
   ignore_errors: "{{ ansible_check_mode }}"
+
+- name: reload user systemd
+  systemd:
+    daemon_reload: yes
+  become_user: "{{ user.name }}"
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes

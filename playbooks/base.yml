@@ -91,6 +91,8 @@
       tags: ['distro', 'repo', 'packages']
     - role: network
       tags: ['netork', 'firewall']
+    - role: audio
+      tags: ['audio', 'alsa', 'jack', 'pulsesudio']
 
   post_tasks:
 
