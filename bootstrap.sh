@@ -128,12 +128,9 @@ declare -rx WORKSPACE="/home/${user}/Workspace"
 
 if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
-say "------------------\n" $GREEN
-
-declare -x ANSIBLE_HOME=$(gum input --placeholder="${WORKSPACE}" --value="${WORKSPACE}")
-
 declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 
+say "------------------\n" $GREEN
 say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
 
 #########################################################################
@@ -165,15 +162,17 @@ say "--------------------" $YELLOW
 say "select playbook to run" $GREEN
 say "-------------------------" $GREEN
 
-playbook=$(gum choose "base" "ui" "nas" "builder")
+playbooks=$(gum choose --no-limit "base" "ui" "nas" "builder")
 
-say "running ${playbook} playbook" $BLUE
+say "running ${playbooks} playbook" $BLUE
 
 wipe && sleep 1
 
-ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
-                  -e "newInstall=true" \
-                  -e "cleanup=true"
+for playbook in ${playbooks[@]}; do
+  ansible-playbook -c local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
+                   -e "newInstall=true" \
+                   -e "cleanup=true" || break
+done
 
 wipe && sleep 1
 say "bootstrap complete\!" $GREEN && sleep 2
