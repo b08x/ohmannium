@@ -66,15 +66,15 @@
       ignore_errors: "{{ ansible_check_mode }}"
       tags: ['ssh']
 
-      - name: copy ld config file
-        copy:
-          src: etc/ld.so.conf
-          dest: /etc/ld.so.conf
-          mode: '0644'
-          backup: yes
+    - name: copy ld config file
+      copy:
+        src: etc/ld.so.conf
+        dest: /etc/ld.so.conf
+        mode: '0644'
+        backup: yes
 
-      - name: run ldconfig
-        shell: /sbin/ldconfig
+    - name: run ldconfig
+      shell: /sbin/ldconfig
 
   roles:
 
