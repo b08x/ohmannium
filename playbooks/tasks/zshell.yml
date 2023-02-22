@@ -25,4 +25,5 @@
     state: directory
     owner: root
     group: root
+    recurse: True
   tags: ['zsh']

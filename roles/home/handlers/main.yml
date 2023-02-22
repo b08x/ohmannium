@@ -1,6 +1,0 @@
----
-
-- name: reload i3
-  command: bash -lc "i3-msg -s /run/user/{{ user.uid }}/i3/ipc-socket.* reload"
-  become_user: "{{ user.name }}"
-  ignore_errors: True

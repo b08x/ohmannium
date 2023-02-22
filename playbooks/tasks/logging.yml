@@ -2,7 +2,7 @@
 
 - name: install systemd configs
   copy:
-    src: "etc/systemd/{{ item }}"
+    src: "files/etc/systemd/{{ item }}"
     dest: "/etc/systemd/{{ item }}"
     mode: '0644'
     backup: yes

@@ -6,6 +6,8 @@
   gather_subset:
     - hardware
     - network
+  vars:
+    journal_level: notice
 
   vars_files:
     - "vars/user.yml"
@@ -29,6 +31,7 @@
         state: link
 
     - include_tasks: tasks/zshell.yml
+    - include_tasks: tasks/logging.yml
 
     - block:
         - name: print output

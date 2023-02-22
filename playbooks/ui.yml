@@ -1,0 +1,75 @@
+---
+
+- name: configure user specific stuff
+  hosts: localhost
+  become: True
+  gather_subset:
+    - hardware
+    - network
+  vars:
+    path:
+      - "{{ lookup('env','HOME') }}/.local/bin"
+      - "{{ lookup('env','HOME') }}/.cargo/bin"
+  vars_files:
+    - "vars/user.yml"
+
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
+    ZSH: "/usr/local/share/oh-my-zsh"
+    DISPLAY: ":0"
+
+  pre_tasks:
+
+      - block:
+          - name: create group for user
+            group:
+              name: "{{ user.group }}"
+              state: present
+              gid: "{{ user.gid }}"
+
+          - name: set user primary group
+            user:
+              name: "{{ user.name }}"
+              group: "{{ user.group }}"
+
+          - name: ensure user ownership of home directory
+            file:
+              path: "{{ user.home }}"
+              state: directory
+              owner: "{{ user.name }}"
+              group: "{{ user.group }}"
+
+        ignore_errors: "{{ ansible_check_mode }}"
+        tags: ['user']
+
+      - name: install yadm
+        get_url:
+          url: "https://github.com/TheLocehiliosan/yadm/raw/master/yadm"
+          dest: "/usr/local/bin"
+          mode: '0755'
+        tags: ['yadm']
+
+      - name: copy clonedots script into user home
+        copy:
+          src: files/home/.local/bin/clonedots.sh
+          dest: "{{ user.home }}/.local/bin/clonedots.sh"
+          owner: "{{ user.name }}"
+          group: "{{ user.group }}"
+          mode: '0755'
+        tags: ['yadm']
+
+      include_tasks: sudoers.yml
+      tags: ['sudoers']
+
+  roles:
+
+    - role: ui
+      tags: ['ui']
+
+
+  post_tasks:
+
+      - name: cleanup old backup files
+        script: /usr/local/bin/cleanup.sh
+        when: cleanup is defined
+        tags: ['cleanup']
