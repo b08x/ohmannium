@@ -2,7 +2,7 @@
 
 - name: install icons
   copy:
-    src: "usr/local/share/pixmaps/"
+    src: "files/usr/local/share/pixmaps/"
     dest: "/usr/local/share/pixmaps/"
     directory_mode: yes
     mode: '644'
@@ -10,7 +10,7 @@
 
 - name: extract soundbot theme icons into /usr/local/share/icons
   unarchive:
-    src: usr/local/share/icons/oomox-soundbot_icons.tar.xz
+    src: files/usr/local/share/icons/oomox-soundbot_icons.tar.xz
     dest: "/usr/share/icons"
   tags: ['icons']
 
@@ -22,7 +22,7 @@
 
 - name: extract fonts to /usr/local/share/fonts
   unarchive:
-    src: usr/local/share/fonts.tar.xz
+    src: files/usr/local/share/fonts.tar.xz
     dest: "/usr/local/share/"
   tags: ['fonts']
 
@@ -34,7 +34,7 @@
 
 - name: install backgrounds
   synchronize:
-    src: "usr/share/backgrounds/syncopated/"
+    src: "files/usr/share/backgrounds/syncopated/"
     dest: "/usr/share/backgrounds/syncopated/"
     recursive: yes
     mode: push
@@ -44,5 +44,5 @@
 
 - name: extract soundbot theme into /usr/local/share/themes
   unarchive:
-    src: usr/local/share/themes/oomox-soundbot.tar.xz
+    src: files/usr/local/share/themes/oomox-soundbot.tar.xz
     dest: "/usr/share/themes"

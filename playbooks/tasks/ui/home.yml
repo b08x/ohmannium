@@ -48,8 +48,8 @@
     - .config/i3status-rust/config.toml
     - .config/i3status-rust/themes/syncopated.toml
     - .config/picom/picom.conf
-  notify: reload i3
-  tags: ['i3', 'dunst']
+  register: wm_config
+  tags: ['i3', 'dunst', 'picom']
 
 - name: syncronize templates - x
   template:
@@ -175,5 +175,14 @@
   with_items:
     - .config/i3/bindings
     - .config/sxhkd/sxhkdrc
-  notify: reload i3
+  register: keybinding
   tags: ['keybindings', 'i3', 'sxhkd']
+
+- name: reload i3
+  command: bash -lc "i3-msg -s /run/user/{{ user.uid }}/i3/ipc-socket.* reload"
+  become_user: "{{ user.name }}"
+  when:
+    - wm_config.changed
+    - keybinding.changed
+  ignore_errors: True
+  tags: ['i3', 'dunst', 'picom', 'keybindings', 'sxhkd']

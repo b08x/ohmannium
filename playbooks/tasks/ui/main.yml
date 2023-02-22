@@ -58,7 +58,7 @@
 
 - name: install Thunar custom actions
   copy:
-    src: "etc/xdg/Thunar/{{ item }}"
+    src: "files/etc/xdg/Thunar/{{ item }}"
     dest: "/etc/xdg/Thunar/{{ item }}"
     mode: '0644'
   with_items:

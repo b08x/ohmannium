@@ -13,6 +13,7 @@
       - "{{ lookup('env','HOME') }}/.cargo/bin"
   vars_files:
     - "vars/user.yml"
+    - "vars/ui.yml"
 
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
@@ -62,11 +63,9 @@
       - include_tasks: tasks/sudoers.yml
         tags: ['sudoers']
 
-  roles:
+  tasks:
 
-    - role: ui
-      tags: ['ui', 'env', 'i3', 'theme', 'x11', 'menu', 'user', 'sudoers', 'shell']
-
+    - include_tasks: tasks/ui/main.yml
 
   post_tasks:
 
