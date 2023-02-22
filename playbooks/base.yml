@@ -66,6 +66,16 @@
       ignore_errors: "{{ ansible_check_mode }}"
       tags: ['ssh']
 
+      - name: copy ld config file
+        copy:
+          src: etc/ld.so.conf
+          dest: /etc/ld.so.conf
+          mode: '0644'
+          backup: yes
+
+      - name: run ldconfig
+        shell: /sbin/ldconfig
+
   roles:
 
     - role: distro
@@ -74,7 +84,9 @@
   post_tasks:
 
     - include_tasks: filesystem.yml
+    - include_tasks: utils.yml
     - include_tasks: updatedb.yml
+
     - include_tasks: autologin.yml
 
     - name: reset perms on /tmp/ansible.log
