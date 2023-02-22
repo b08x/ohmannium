@@ -1,33 +1,54 @@
-
+[[theme]]
 theme = "syncopated"
+[[icons]]
 icons = "awesome6"
 
 [[block]]
 block = "sound"
-format = "{volume}"
-on_click = "pavucontrol"
+format = " $icon $output_description{ $volume|} "
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+[[block.click]]
+button = "right"
+cmd = "alsamixer"
 
 [[block]]
 block = "load"
 interval = 1
 format = "{1m} {5m}"
-on_click = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh"
+[[button.click]]
+button = "left"
+cmd = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh"
 
 [[block]]
 block = "custom"
 command = "echo \uf0c2"
-on_click = "kitty --class 'brightness' -e /usr/local/bin/brightness.rb"
+[[button.click]]
+button = "left"
+cmd = "kitty --class 'brightness' -e /usr/local/bin/brightness.rb"
 
 [[block]]
 block = "custom"
 command = "echo \uf0c3"
-on_click = "kitty --class 'noteinfo' -e /usr/local/bin/noteinfo.rb"
+[[button.click]]
+button = "left"
+cmd = "kitty --class 'noteinfo' -e /usr/local/bin/noteinfo.rb"
+
+[[block]]
+block = "custom"
+command = "sed 's/  //' <(curl 'https://wttr.in/?format=1' -s)"
+interval = 600
 
 [[block]]
 block = "time"
-interval = 5
-format = "%a %m/%d %R"
-on_click = "uxterm -hold -e cal -s"
+interval = 60
+[block.format]
+full = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %R %Z', l:en_US) "
+short = " $icon $timestamp.datetime(f:%R) "
+[[button.click]]
+button = "left"
+cmd = "uxterm -hold -e cal -s"
 
 [[block]]
 block = "battery"
