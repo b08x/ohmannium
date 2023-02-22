@@ -26,7 +26,7 @@
     content: |
       DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
     dest: "/etc/default/jack_control"
-# 
+#
 # - name: create systemd user directory
 #   file:
 #     path: "{{ user.home }}/.config/systemd/user"
@@ -39,8 +39,6 @@
   copy:
     src: "usr/lib/systemd/user/jack_control.service"
     dest: "/usr/lib/systemd/user/jack_control.service"
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
     mode: '0644'
 
 # - name: enable jack services
