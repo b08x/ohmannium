@@ -157,7 +157,7 @@ echo "  hosts:" >> inventory.yml
 echo "    $(uname -n):" >> inventory.yml
 echo "      ansible_connection: local" >> inventory.yml
 
-sleep 1 && chown -R ${user} $ANSIBLE_HOME
+sleep 1 && chown -R ${user} $WORKSPACE
 
 wipe && sleep 1
 say "--------------------" $YELLOW
@@ -165,15 +165,13 @@ say "--------------------" $YELLOW
 say "select playbook to run" $GREEN
 say "-------------------------" $GREEN
 
-playbooks=$(/usr/bin/ls $ANSIBLE_HOME/playbooks/)
+playbook=$(gum choose "base" "ui" "nas" "builder")
 
-playbook=$(gum choose ${playbooks[@]})
-
-say "running ${playbook}" $BLUE
+say "running ${playbook} playbook" $BLUE
 
 wipe && sleep 1
 
-ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}" \
+ansible-playbook --connection=local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
                   -e "newInstall=true" \
                   -e "cleanup=true"
 
