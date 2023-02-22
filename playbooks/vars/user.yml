@@ -19,6 +19,7 @@ autofs_client:
   shares:
     - Archive
     - Documents
+    - Downloads
     - Images
     - Library
     - Music

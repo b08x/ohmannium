@@ -1,8 +1,15 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/env sh
+set -ex
 
-PS4='LINENO:'
+# PS4='LINENO:'
 VER=0.5-beta
+
+ctrl_c() {
+        echo "** Exiting the program. The end."
+        sleep 1
+}
+
+trap ctrl_c INT SIGINT SIGTERM ERR EXIT
 
 tput reset
 
@@ -118,8 +125,10 @@ else
 fi
 
 #########################################################################
-wipe && sleep 1
-say "------------------" $GREEN
+wipe="false"
+if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
+
+say "-------------------\n" $GREEN
 
 declare -rx user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}' | xargs)
 
@@ -134,19 +143,15 @@ declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 say "------------------\n" $GREEN
 say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
 
+
 #########################################################################
 
 if [ ! -d $ANSIBLE_HOME ]; then
   clone https://github.com/b08x/syncopated.git $ANSIBLE_HOME
+  cd $ANSIBLE_HOME && git restore .
+else
+  cd $ANSIBLE_HOME
 fi
-
-cd $ANSIBLE_HOME
-
-git restore .
-
-git fetch && git pull && git checkout development
-
-git lfs install && git lfs checkout && git lfs fetch
 
 echo "---" > inventory.yml
 echo "\n" >> inventory.yml
@@ -157,23 +162,35 @@ echo "      ansible_connection: local" >> inventory.yml
 
 sleep 1 && chown -R ${user} $WORKSPACE
 
-wipe && sleep 1
-say "--------------------" $YELLOW
+if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
+say "-------------------------" $YELLOW
 
 say "select playbook to run" $GREEN
-say "-------------------------" $GREEN
+say "-------------------------\n" $YELLOW
 
 playbooks=$(gum choose --no-limit "base" "ui" "nas" "builder")
+runas_user=$(gum choose $user aur_builder)
 
-say "running ${playbooks} playbook" $BLUE
+gum confirm "copy ssh keys from remote host?"
 
-wipe && sleep 1
+if [ $? = 0 ]; then
+  say "Enter the hostname\n" $GREEN
+  keyserver=$(gum input --placeholder="host.example.net")
+else
+  keyserver="na"
+fi
+
+if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
+
+say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
 
 for playbook in ${playbooks[@]}; do
   ansible-playbook -c local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
                    -e "newInstall=true" \
-                   -e "cleanup=true" || break
+                   -e "cleanup=true" \
+                   -e "keyserver=${keyserver}"
 done
 
-sleep 1
+if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
+
 say "bootstrap complete\!" $GREEN && sleep 2

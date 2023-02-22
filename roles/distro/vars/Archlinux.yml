@@ -170,7 +170,6 @@ packages:
   - alsa-tools
   - alsa-utils
   # jack:
-  - jack2
   - jack2-dbus
   - jack-example-tools
   - jack_capture

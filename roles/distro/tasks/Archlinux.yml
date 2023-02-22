@@ -220,7 +220,6 @@
   pacman:
     name: jack
     state: absent
-    force: yes
     extra_args: --noconfirm
   when: newInstall is defined
   ignore_errors: True
