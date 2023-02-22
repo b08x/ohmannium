@@ -22,22 +22,18 @@
 
   pre_tasks:
 
-    - name: set root shell
-      user:
-        name: root
-        shell: /usr/bin/zsh
-
     - name: symlink os-release
       file:
         src: /etc/os-release
         dest: /etc/system-release
         state: link
 
-    - name: print output
-      debug:
-        msg: "{{ keyserver }}"
+    - include_tasks: tasks/zshell.yml
 
     - block:
+        - name: print output
+          debug:
+            msg: "{{ keyserver }}"
 
         - name: check if keys are present
           stat:

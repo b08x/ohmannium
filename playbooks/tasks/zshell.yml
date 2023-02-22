@@ -1,8 +1,13 @@
 ---
 
+- name: set root shell
+  user:
+    name: root
+    shell: /usr/bin/zsh
+
 - name: sync zsh functions
   synchronize:
-    src: "usr/local/share/zsh"
+    src: "files/usr/local/share/zsh"
     dest: "/usr/local/share"
     recursive: yes
     mode: push
