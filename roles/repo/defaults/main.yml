@@ -1,8 +1,0 @@
----
-
-repository_url: http://soundbot.hopto.org/library/packages/archlinux
-
-pkgbuilds: "/home/aur_builder/Workspace/pkgbuilds"
-devtools: "/home/aur_builder/Workspace/devtools"
-
-buildroot: "/mnt/chroots/arch"

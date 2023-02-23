@@ -8,8 +8,12 @@
     - network
   vars:
     path:
+      - "/home/aur_builder/Workspace/devtools"
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
+    buildroot: "/mnt/chroots/arch"
+    repository_url: http://soundbot.hopto.org/library/packages/archlinux
+
   vars_files:
     - "vars/user.yml"
 
@@ -65,5 +69,78 @@
         append: yes
 
   tasks:
-    - import_role:
-        name: repo
+
+    - name: install devtools
+      pacman:
+        name: devtools
+        state: present
+        force: yes
+        extra_args: --noconfirm
+      tags: ['packages']
+
+    - name: ensure folder tree
+      file:
+        path: "/home/aur_builder/{{ item }}"
+        state: directory
+        owner: aur_builder
+        group: aur_builder
+      with_items:
+        - Packages
+        - Packages/x86_64
+        - Packages/x86_64/sources
+        - Packages/x86_64/srcpackages
+        - Packages/x86_64/makepkglogs
+        - Packages/x86_64_v3
+        - Packages/x86_64_v3/sources
+        - Packages/x86_64_v3/srcpackages
+        - Packages/x86_64_v3/makepkglogs
+        - Repository
+        - Repository/x86_64
+        - Repository/x86_64_v3
+      become_user: aur_builder
+
+    - name: clone pkbuild repository
+      git:
+        repo: https://gitlab.com/b08x/pkgbuilds.git
+        dest: "/home/aur_builder/Workspace"
+        recursive: yes
+        accept_hostkey: yes
+        update: yes
+        force: no
+      check_mode: no
+      tags: ['devtools', 'pkgbuilds']
+
+    - name: fetch lfs files
+      shell: |
+        git config --global --add safe.directory /home/aur_builder/Workspace
+        git restore .
+        git lfs install && \
+        git lfs checkout && \
+        git lfs fetch && \
+        git lfs pull
+      args:
+        chdir: /home/aur_builder/Workspace
+      tags: ['devtools', 'pkgbuilds']
+
+    - name: copy makepkg and pacman templates to workspace
+      template:
+        src: "devtools/{{ item }}.j2"
+        dest: "/home/aur_builder/Workspace/devtools/{{ item }}"
+        owner: aur_builder
+        group: aur_builder
+        mode: '0644'
+      with_items:
+        - makepkg-x86_64.conf
+        - makepkg-x86_64_v3.conf
+        - pacman-x86_64.conf
+        - pacman-x86_64_v3.conf
+      tags: ['devtools']
+
+    - name: ensure group writeable for aur_builder home
+      file:
+        path: /home/aur_builder/Workspace
+        state: directory
+        owner: aur_builder
+        group: wheel
+        mode: '2775'
+        recurse: True
