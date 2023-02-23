@@ -1,7 +1,6 @@
 ---
 
-- name: setup audio production environment
-  hosts: all
+- hosts: all
   become: True
   gather_subset:
     - hardware
@@ -10,8 +9,6 @@
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
-  vars_files:
-    - "vars/user.yml"
 
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
@@ -19,53 +16,12 @@
     ZSH: "/usr/local/share/oh-my-zsh"
     DISPLAY: ":0"
 
-  roles:
-    - role: user
-      tags: ['user']
-    - role: home
-      tags: ['home']
+  tasks:
+    - debug:
+        msg: "test"
 
-    - role: network
-      tags: ['network']
-    - role: firewall
-      tags: ['firewall']
+- name: include base playbook
+  import_playbook: base.yml
 
-
-    - role: common
-      tags: ['common']
-
-
-    - role: audio
-      tags: ['audio']
-    - role: ui
-      tags: ['ui']
-    - role: applications
-      tags: ['applications']
-
-  post_tasks:
-
-      - name: cleanup backup files
-        script: /usr/local/bin/cleanup.sh
-        when: cleanup is defined
-        tags: ['cleanup']
-
-      - name: set root shell
-        user:
-          name: root
-          shell: /usr/bin/zsh
-
-      # Reset is not implemented local connection
-      - name: reboot host
-        ansible.builtin.reboot:
-        async: 1
-        poll: 0
-        ignore_errors: True
-        when: reboot is defined
-
-      - name: wait for host to reboot
-        wait_for_connection:
-          connect_timeout: 20
-          sleep: 5
-          delay: 5
-          timeout: 120
-        when: reboot is defined
+- name: include ui playbook
+  import_playbook: ui.yml

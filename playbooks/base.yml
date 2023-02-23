@@ -131,6 +131,23 @@
     - include_tasks: tasks/grub.yml
       tags: ['grub']
 
+    # Reset is not implemented local connection
+    - name: reboot host
+      ansible.builtin.reboot:
+      async: 1
+      poll: 0
+      ignore_errors: True
+      when: reboot is defined
+
+    - name: wait for host to reboot
+      wait_for_connection:
+        connect_timeout: 20
+        sleep: 5
+        delay: 5
+        timeout: 120
+      when: reboot is defined
+
+
 
 ### Notes:
 ###  `check_mode:` False means that the tasks will run even if using check mode
