@@ -15,6 +15,7 @@
     repository_url: http://soundbot.hopto.org/library/packages/archlinux
 
   vars_files:
+    - "vars/distro/{{ ansible_distribution }}.yml"
     - "vars/user.yml"
 
   pre_tasks:

@@ -4,12 +4,14 @@
 require 'ruport'
 require 'yaml'
 
+ANSIBLE_HOME = File.join(Dir.home, "Workspace", "syncopated")
+
 module Soundbot
 
   class Config
 
-    def self.load_config
-      YAML.load_file(CONFIG)
+    def self.load_vars(varfile)
+      YAML.load_file(varfile)
     end
 
     def self.get(attribute)
@@ -24,28 +26,37 @@ module Soundbot
 
 end
 
-ANSIBLE_HOME = File.join(ENV['HOME'], "Workspace", "syncopated")
 
-vars = Dir.glob
-
-config = Soundbot::Config.load_config
-
-packages = Soundbot::Config.get("packages")
-
-table = Ruport::Data::Table.new
-
-table.column_names = %w[Key Value]
-
-packages.each do |key, value|
-  table << [key,value.join("\s")]
-end
-
-puts table.to_text
+# allpackages = []
+#
+# varfiles = Dir.glob(File.join(ANSIBLE_HOME, "roles", "distro", "vars", "packages", "*.yml"))
 
 
-# {% if architecture == 'x86-64-v3' %}
-# [syncopated-v3]
-# Server = http://soundbot.hopto.org/library/packages/archlinux/x86_64_v3/
-# {% endif %}
-# [syncopated]
-# Server = http://soundbot.hopto.org/library/packages/archlinux/x86_64/
+require 'colorize'
+
+puts "Blue text".blue
+puts 'Bold cyan on blue text'.cyan.on_blue.bold
+puts "This is #{"fancy".red} text"
+
+exit(0)
+# varfiles.each do |varfile|
+#
+#   allpackages << Soundbot::Config.load_vars(varfile)
+#
+# end
+#
+# p allpackages
+# #
+# packages = Soundbot::Config.get("packages")
+#
+# table = Ruport::Data::Table.new
+#
+# table.column_names = %w[Key Value]
+#
+# packages.each do |key, value|
+#   table << [key,value.join("\s")]
+# end
+#
+# puts table.to_text
+#
+#

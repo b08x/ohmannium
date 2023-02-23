@@ -7,6 +7,7 @@
     - hardware
     - network
   vars_files:
+    - "vars/distro/{{ ansible_distribution }}.yml"
     - "vars/user.yml"
   roles:
     - role: virt

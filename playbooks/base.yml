@@ -7,11 +7,11 @@
     - hardware
     - network
   vars:
-    admin_group: wheel
     journal_level: notice
     shell_login: True
 
   vars_files:
+    - "vars/distro/{{ ansible_distribution }}.yml"
     - "vars/user.yml"
 
   vars_prompt:
@@ -94,16 +94,27 @@
     - name: run ldconfig
       shell: /sbin/ldconfig
 
+    - name: Print all available facts
+      ansible.builtin.debug:
+        var: ansible_facts
+      tags: ['facts']
+
+  tasks:
+
+    - include_tasks: "tasks/distro/{{ ansible_distribution }}/main.yml"
+      tags: ['repo', 'packages']
+
   roles:
 
-    - role: distro
-      tags: ['distro', 'repo', 'packages']
     - role: network
       tags: ['netork', 'firewall', 'autofs']
     - role: audio
       tags: ['audio', 'alsa', 'jack', 'pulsesudio']
 
   post_tasks:
+
+    - include_tasks: firewall.yml
+      tags: ['firewall']
 
     - include_tasks: tasks/filesystem.yml
       tags: ['filesystem']

@@ -6,9 +6,19 @@
   gather_subset:
     - hardware
     - network
+
   vars_files:
-    - "vars/user.yml"
-    - "vars/nas.yml"
+    - "vars/distro/{{ ansible_distribution }}.yml"
+
+  vars:
+    nfs:
+      ports:
+        lockd:
+          tcp: 32803
+          udp: 32769
+        mountd: 892
+        statd: 662
+        rpc: 40418
 
   pre_tasks:
 
@@ -31,3 +41,8 @@
       when: web_host is defined
 
   post_tasks:
+
+    - name: reload firewalld
+      shell: "firewall-cmd --reload"
+      when: fw_nfs.changed
+      ignore_errors: True

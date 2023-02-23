@@ -7,9 +7,6 @@
 - include_tasks: networkmanager.yml
   tags: ['networkmanager']
 
-- include_tasks: firewall.yml
-  tags: ['firewall']
-
 - include_tasks: autofs.yml
   when: autofs_client is defined
   tags: ['autofs']

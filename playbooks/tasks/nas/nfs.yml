@@ -54,7 +54,6 @@
         - 32769/udp
         - 32803/tcp
         - 40418/udp
-
-      notify: reload firewalld
+      register: fw_nfs
 
   ignore_errors: "{{ ansible_check_mode }}"

@@ -41,8 +41,11 @@
 
 - name: ensure .xinitrc is executable
   file:
-    path: "{{ user.home }}/.xinitrc"
+    path: "{{ item }}/.xinitrc"
     mode: '0755'
+  with_items:
+    - '/etc/skel'
+    - '{{ user.home }}'
   tags: ['x', 'profile']
 
 - name: syncronize templates - shell
@@ -56,7 +59,7 @@
   with_nested:
     - [ '{{ user.home }}', '/etc/skel' ]
     - [ '.aliases', '.profile', '.ualiases', '.zlogin', '.zprofile', '.zshenv', '.zshrc', '.zshrc.local' ]
-  tags: ['zsh', 'shell', 'profile', 'alias', 'testing']
+  tags: ['zsh', 'shell', 'profile', 'alias' ]
 
 - name: syncronize templates - gtk
   template:
@@ -131,6 +134,7 @@
     owner: root
     group: root
     recurse: True
+  tags: ['skel']
 
 - name: reload i3
   command: bash -lc "i3-msg -s /run/user/{{ user.uid }}/i3/ipc-socket.* reload"
