@@ -26,7 +26,7 @@ CARCH="x86_64"
 CHOST="x86_64-pc-linux-gnu"
 
 #-- Compiler and Linker Flags
-#CPPFLAGS=""
+CPPFLAGS="-march=x86-64"
 #CFLAGS="-march=native -O3 -pipe -fno-plt -fexceptions \
 CFLAGS="-march=x86-64 -O2 -pipe -fno-plt -fexceptions \
         -Wp,-D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security \
