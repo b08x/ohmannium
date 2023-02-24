@@ -1,7 +1,7 @@
 ---
 
 - name: setup ngninx host
-  hosts: webserver
+  hosts: webhost
   become: True
   gather_subset:
     - hardware

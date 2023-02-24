@@ -13,10 +13,6 @@ all:
       vars:
       hosts:
         bender:
-    builder:
-      vars:
-      hosts:
-        soundbot:
     devel:
       vars:
         install:
@@ -36,7 +32,7 @@ all:
       hosts:
         lapbot:
 
-    webserver:
+    webhost:
       vars:
         ansible_user: ec2-user
         remote_user: root
