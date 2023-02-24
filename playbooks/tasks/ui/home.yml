@@ -9,7 +9,7 @@
     mode: '0755'
     recurse: False
   with_nested:
-    - [ '{{ user.home }}', '/etc/skel', '/home/aur_builder' ]
+    - [ '{{ user.home }}', '/etc/skel' ]
     - ['.config/Debauchee', '.config/Kvantum', '.config/Thunar', '.config/alacritty', '.config/dunst', '.config/gtk-3.0', '.config/gtk-4.0', '.config/htop', '.config/i3', '.config/i3status-rust/themes/', '.config/kitty', '.config/nitrogen', '.config/picom', '.config/qt5ct/colors', '.config/qt6ct/colors', '.config/qutebrowser', '.config/sxhkd', '.config/tilda', '.config/zim', '.local/share/zim/templates/plugins', '.guake', '.sonic-pi/config' ]
   tags: ['home', 'skel']
 
