@@ -126,17 +126,17 @@ DBGSRCDIR="/usr/src/debug"
 # Default: put built package and cached source in build directory
 #
 #-- Destination: specify a fixed directory where all packages will be placed
-PKGDEST=/home/aur_builder/Packages/x86_64_v3
+PKGDEST={{ user.home }}/Packages/x86_64_v3
 #-- Source cache: specify a fixed directory where source files will be cached
-SRCDEST=/home/aur_builder/Packages/x86_64_v3/sources
+SRCDEST={{ user.home }}/Packages/x86_64_v3/sources
 #-- Source packages: specify a fixed directory where all src packages will be placed
-SRCPKGDEST=/home/aur_builder/Packages/x86_64_v3/srcpackages
+SRCPKGDEST={{ user.home }}/Packages/x86_64_v3/srcpackages
 #-- Log files: specify a fixed directory where all log files will be placed
-LOGDEST=/home/aur_builder/Packages/x86_64_v3/makepkglogs
+LOGDEST={{ user.home }}/Packages/x86_64_v3/makepkglogs
 #-- Packager: name/email of the person or organization building packages
-PACKAGER="Robert Pannick <rwpannick@gmail.com>"
+PACKAGER="{{ user.realname }} <{{ user.email }}>"
 #-- Specify a key to use for package signing
-GPGKEY="36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A"
+GPGKEY="{{ user.gpg }}"
 
 #########################################################################
 # COMPRESSION DEFAULTS
