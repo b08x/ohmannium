@@ -8,7 +8,7 @@
     - network
   vars:
     path:
-      - "/home/aur_builder/Workspace/devtools"
+      - "{{ lookup('env','HOME') }}/Workspace/devtools"
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
     buildroot: "/mnt/chroots/arch"
@@ -42,33 +42,6 @@
       ignore_errors: "{{ ansible_check_mode }}"
       tags: ['flags']
 
-    - name: ensure aur_builder user to build packages
-      user:
-        name: aur_builder
-        create_home: yes
-        shell: /usr/bin/zsh
-
-    - name: ensure permissions for aur_builder in sudoers
-      copy:
-        content: |
-          aur_builder ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman,/usr/bin/mkdir,/usr/bin/rm,/usr/bin/mkarchroot,/usr/bin/makechrootpkg,/usr/bin/arch-nspawn,/usr/bin/mount,/usr/bin/umount,/usr/bin/micro
-        dest: /etc/sudoers.d/11-aur_builder
-        validate: 'visudo -cf %s'
-
-    - name: ensure group writeable for aur_builder home
-      file:
-        path: /home/aur_builder
-        state: directory
-        owner: aur_builder
-        group: wheel
-        mode: '2775'
-
-    - name: add user to aur_builder group
-      user:
-        name: "{{ user.name }}"
-        groups: aur_builder
-        append: yes
-
   tasks:
 
     - name: install devtools
@@ -79,69 +52,56 @@
         extra_args: --noconfirm
       tags: ['packages']
 
-    - name: ensure folder tree
-      file:
-        path: "/home/aur_builder/{{ item }}"
-        state: directory
-        owner: aur_builder
-        group: aur_builder
-      with_items:
-        - Packages
-        - Packages/x86_64
-        - Packages/x86_64/sources
-        - Packages/x86_64/srcpackages
-        - Packages/x86_64/makepkglogs
-        - Packages/x86_64_v3
-        - Packages/x86_64_v3/sources
-        - Packages/x86_64_v3/srcpackages
-        - Packages/x86_64_v3/makepkglogs
-        - Repository
-        - Repository/x86_64
-        - Repository/x86_64_v3
-      become_user: aur_builder
+    - block:
+        - name: ensure folder tree
+          file:
+            path: "{{ user.home }}/{{ item }}"
+            state: directory
+          with_items:
+            - Packages
+            - Packages/x86_64
+            - Packages/x86_64/sources
+            - Packages/x86_64/srcpackages
+            - Packages/x86_64/makepkglogs
+            - Packages/x86_64_v3
+            - Packages/x86_64_v3/sources
+            - Packages/x86_64_v3/srcpackages
+            - Packages/x86_64_v3/makepkglogs
+            - Repository
+            - Repository/x86_64
+            - Repository/x86_64_v3
 
-    - name: clone pkbuild repository
-      git:
-        repo: https://gitlab.com/b08x/pkgbuilds.git
-        dest: "/home/aur_builder/Workspace"
-        recursive: yes
-        accept_hostkey: yes
-        update: yes
-        force: no
-      check_mode: no
+        - name: clone pkbuild repository
+          git:
+            repo: https://gitlab.com/b08x/repository.git
+            dest: "{{ user.home }}/Workspace/pkgbuilds"
+            recursive: yes
+            accept_hostkey: yes
+            update: yes
+            force: no
+          check_mode: no
+
+        - name: fetch lfs files
+          shell: |
+            git lfs install && \
+            git lfs checkout && \
+            git lfs fetch && \
+            git lfs pull
+          args:
+            chdir: "{{ user.home }}/Workspace/pkgbuilds"
+
+        - name: copy makepkg and pacman templates to workspace
+          template:
+            src: "devtools/{{ item }}.j2"
+            dest: "{{ user.home }}/Workspace/pkgbuilds/devtools/{{ item }}"
+            owner: aur_builder
+            group: aur_builder
+            mode: '0644'
+          with_items:
+            - makepkg-x86_64.conf
+            - makepkg-x86_64_v3.conf
+            - pacman-x86_64.conf
+            - pacman-x86_64_v3.conf
+
+      become_user: {{ user.name }}
       tags: ['devtools', 'pkgbuilds']
-
-    - name: fetch lfs files
-      shell: |
-        git config --global --add safe.directory /home/aur_builder/Workspace
-        git restore .
-        git lfs install && \
-        git lfs checkout && \
-        git lfs fetch && \
-        git lfs pull
-      args:
-        chdir: /home/aur_builder/Workspace
-      tags: ['devtools', 'pkgbuilds']
-
-    - name: copy makepkg and pacman templates to workspace
-      template:
-        src: "devtools/{{ item }}.j2"
-        dest: "/home/aur_builder/Workspace/devtools/{{ item }}"
-        owner: aur_builder
-        group: aur_builder
-        mode: '0644'
-      with_items:
-        - makepkg-x86_64.conf
-        - makepkg-x86_64_v3.conf
-        - pacman-x86_64.conf
-        - pacman-x86_64_v3.conf
-      tags: ['devtools']
-
-    - name: ensure group writeable for aur_builder home
-      file:
-        path: /home/aur_builder/Workspace
-        state: directory
-        owner: aur_builder
-        group: wheel
-        mode: '2775'
-        recurse: True

@@ -113,9 +113,7 @@ if [ -d $HOME/.cargo/bin ]; then
   PATH="$PATH:$HOME/.cargo/bin"
 fi
 
-{% if user.name == 'aur_builder' %}
-PATH="$PATH:$HOME/Workspace/devtools"
-{% endif %}
+PATH="$PATH:$HOME/Workspace/pkgbuilds/devtools"
 
 export -U PATH
 
