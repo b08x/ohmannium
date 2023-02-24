@@ -12,7 +12,7 @@
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
     buildroot: "/mnt/chroots/arch"
-    repository_url: http://soundbot.hopto.org/library/packages/archlinux
+    repository_url: http://soundbot.hopto.org/packages/archlinux
 
   vars_files:
     - "vars/distro/{{ ansible_distribution }}.yml"
@@ -44,15 +44,17 @@
 
   tasks:
 
-    - name: install devtools
-      pacman:
-        name: devtools
-        state: present
-        force: yes
-        extra_args: --noconfirm
-      tags: ['packages']
-
     - block:
+        - name: install devtools and watchman
+          aur:
+            use: auto
+            name: "{{ item }}"
+            state: present
+          with_items:
+            - devtools
+            - watchman-bin
+          tags: ['packages']
+
         - name: ensure folder tree
           file:
             path: "{{ user.home }}/{{ item }}"
@@ -73,8 +75,8 @@
 
         - name: clone pkbuild repository
           git:
-            repo: https://gitlab.com/b08x/repository.git
-            dest: "{{ user.home }}/Workspace/pkgbuilds"
+            repo: https://gitlab.com/b08x/repo.git
+            dest: "{{ user.home }}/Workspace/repo"
             recursive: yes
             accept_hostkey: yes
             update: yes
@@ -88,12 +90,12 @@
             git lfs fetch && \
             git lfs pull
           args:
-            chdir: "{{ user.home }}/Workspace/pkgbuilds"
+            chdir: "{{ user.home }}/Workspace/repo"
 
         - name: copy makepkg and pacman templates to workspace
           template:
             src: "devtools/{{ item }}.j2"
-            dest: "{{ user.home }}/Workspace/pkgbuilds/devtools/{{ item }}"
+            dest: "{{ user.home }}/Workspace/repo/devtools/{{ item }}"
             mode: '0644'
           with_items:
             - makepkg-x86_64.conf
