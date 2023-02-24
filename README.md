@@ -16,8 +16,14 @@ $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
 
 `ansible-playbook -i inventory.yml base.yml`
 
-`ansible-playbook -i inventory.yml ui.yml --limit soundbot,ninjabot --tags ui,home,i3`
+`ansible-playbook -i inventory.yml ui.yml --limit soundbot,ninjabot --tags ui,home,skel,i3`
 
+`ansible-playbook -i inventory.yml ui.yml --limit soundbot,ninjabot --tags ui,home,skel,profile`
+
+```bash
+# to update mirrors
+ansible-playbook -i inventory.yml base.yml --limit soundbot,ninjabot --tags repo,mirrors -e "update_mirrors=true"
+```
 
 ```bash
 # to setup an autofs client

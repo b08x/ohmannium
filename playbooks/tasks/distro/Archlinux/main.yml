@@ -9,39 +9,6 @@
     create_home: yes
     shell: /usr/bin/zsh
 
-- name: create tmp directory for ansible logs
-  file:
-    path: /home/aur_builder/.ansible
-    state: directory
-    owner: aur_builder
-    group: aur_builder
-    mode: '0775'
-
-- name: ensure permissions for aur_builder in sudoers
-  copy:
-    content: |
-      aur_builder ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman,/usr/bin/mkdir,/usr/bin/rm,/usr/bin/mkarchroot,/usr/bin/makechrootpkg,/usr/bin/arch-nspawn,/usr/bin/mount,/usr/bin/umount,/usr/bin/micro
-    dest: /etc/sudoers.d/11-aur_builder
-    validate: 'visudo -cf %s'
-
-- name: set group writeable for aur_builder home
-  file:
-    path: /home/aur_builder
-    state: directory
-    owner: aur_builder
-    group: wheel
-    mode: '2775'
-  register: aur_builder_home
-  failed_when:
-    - ansible_hostname != 'soundbot'
-    - aur_builder_home.gid != 1001
-    - aur_builder_home.gid != 998
-
-- name: print output
-  debug:
-    msg: "{{ aur_builder_home.gid }}"
-  when: debugging is defined
-
 - block:
     - name: check -march support
       shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
@@ -180,15 +147,17 @@
 - name: print output
   debug:
     msg: "{{ mirror_status }}"
-  when: mirror_status.stdout_lines | length < 0
+  when:
+    - ( mirror_status.stdout_lines | length < 0 or update_mirrors is defined )
+    - debugging is defined
   tags: ['mirrors', 'packages']
 
 - name: update mirrors
   shell: |
-    reflector --download-timeout 1 --protocol https \
-    --latest 20 --sort rate --score 10 --fastest 5 \
+    reflector --download-timeout 3 --protocol https \
+    --latest 20 --sort rate --score 10 --fastest 8 \
     --save /etc/pacman.d/mirrorlist
-  when: mirror_status.stdout_lines | length < 0
+  when: ( mirror_status.stdout_lines | length < 0 or update_mirrors is defined )
   register: mirror_update
   tags: ['mirrors', 'packages']
 
