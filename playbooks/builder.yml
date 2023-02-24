@@ -94,8 +94,6 @@
           template:
             src: "devtools/{{ item }}.j2"
             dest: "{{ user.home }}/Workspace/pkgbuilds/devtools/{{ item }}"
-            owner: aur_builder
-            group: aur_builder
             mode: '0644'
           with_items:
             - makepkg-x86_64.conf
@@ -103,5 +101,5 @@
             - pacman-x86_64.conf
             - pacman-x86_64_v3.conf
 
-      become_user: {{ user.name }}
+      become_user: "{{ user.name }}"
       tags: ['devtools', 'pkgbuilds']
