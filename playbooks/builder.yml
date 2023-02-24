@@ -62,12 +62,11 @@
             state: directory
           with_items:
             - Packages
+            - Packages/sources
             - Packages/x86_64
-            - Packages/x86_64/sources
             - Packages/x86_64/srcpackages
             - Packages/x86_64/makepkglogs
             - Packages/x86_64_v3
-            - Packages/x86_64_v3/sources
             - Packages/x86_64_v3/srcpackages
             - Packages/x86_64_v3/makepkglogs
             - Repository
