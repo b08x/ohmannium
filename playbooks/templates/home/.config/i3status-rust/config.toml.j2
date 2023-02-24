@@ -10,25 +10,31 @@ format = " $icon $output_name{ $volume|} "
 button = "left"
 cmd = "pavucontrol"
 [[block.click]]
-button = "right"
-cmd = "alsamixer"
+button = "middle"
+cmd = "alacritty --class 'alsamixer' --title 'alsamixer' -e alsamixer -D hw:0"
 
 [[block]]
 block = "load"
-format = " $icon 1min avg: $1m.eng(w:4) "
+format = " $icon $1m.eng(w:4) "
 interval = 1
-[[button.click]]
-button = "left"
-cmd = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh performance"
-
-[[block]]
-block = "custom"
-format = " \uf0c2 "
-cycle = ["kitty --class 'govna' -e /usr/local/bin/set-govna.sh performance", "kitty --class 'govna' -e /usr/local/bin/set-govna.sh powersave"]
-interval = "once"
 [[block.click]]
 button = "left"
-cmd = "<command>"
+cmd = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh performance"
+[[block.click]]
+button = "right"
+cmd = "kitty --class 'govna' -e /usr/local/bin/set-govna.sh powersave"
+[[block.click]]
+button = "middle"
+cmd = "alacritty --class 'htop' --title 'htop' -e htop"
+
+# [[block]]
+# block = "custom"
+# format = " \uf0c2 "
+# cycle = ["kitty --class 'govna' -e /usr/local/bin/set-govna.sh performance", "kitty --class 'govna' -e /usr/local/bin/# set-govna.sh powersave"]
+# interval = "once"
+# [[block.click]]
+# button = "left"
+# cmd = "<command>"
 
 [[block]]
 block = "menu"
@@ -48,18 +54,19 @@ cmd = "kitty --class 'brightness' -e /usr/local/bin/brightness.rb"
 [[block]]
 block = "custom"
 command = "sed 's/  //' <(curl 'https://wttr.in/?format=1' -s)"
-interval = 600
+interval = 1800
 
 [[block]]
 block = "time"
 interval = 60
 [block.format]
-full = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %R %Z', l:en_US) "
+full = " $icon $timestamp.datetime(f:'%a %Y-%m-%d %R', l:en_US) "
 short = " $icon $timestamp.datetime(f:%R) "
-[[button.click]]
+[[block.click]]
 button = "left"
 cmd = "uxterm -hold -e cal -s"
 
 [[block]]
 block = "battery"
+format = " $percentage {$time |} "
 if_command = "test -e /sys/class/power_supply/BAT0"
