@@ -29,7 +29,7 @@
       when: supported_march.stdout_lines[0] == 'x86-64-v2'
 
   ignore_errors: "{{ ansible_check_mode }}"
-  tags: ['flags', 'packages']
+  tags: ['flags', 'repo', 'packages']
 
 - name: adjust pacman, paru and makepkg configs
   template:
@@ -43,7 +43,7 @@
     - pacman.conf
     - paru.conf
     - makepkg.conf
-  tags: ['makepkg', 'pacman', 'paru', 'packages']
+  tags: ['makepkg', 'pacman', 'paru', 'packages', 'repo']
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add syncopated repo key
