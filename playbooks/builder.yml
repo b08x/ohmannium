@@ -44,17 +44,18 @@
 
   tasks:
 
-    - block:
-        - name: install devtools and watchman
-          aur:
-            use: auto
-            name: "{{ item }}"
-            state: present
-          with_items:
-            - devtools
-            - watchman-bin
-          tags: ['packages']
+    - name: install devtools and inotify-tools
+      pacman:
+        name: "{{ item }}"
+        state: present
+        force: yes
+        extra_args: --noconfirm
+      with_items:
+        - devtools
+        - inotify-tools
+      tags: [packages]
 
+    - block:
         - name: ensure folder tree
           file:
             path: "{{ user.home }}/{{ item }}"
