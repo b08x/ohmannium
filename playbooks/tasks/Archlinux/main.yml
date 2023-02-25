@@ -217,10 +217,11 @@
   rescue:
     - name: packages
       shell: |
-        export pkgs=({{ _packages }})
-        for p in ${pkgs[@]};do
-          yes | paru -S --noconfirm --needed --cleanafter --useask $(echo $p | sed 's/,//') || continue
-        done
+        # export pkgs=({{ packages }})
+        # for p in ${pkgs[@]};do
+        #   yes | paru -S --noconfirm --needed --cleanafter --useask $(echo $p | sed 's/,//') || continue
+        # done
+        echo "placeholder"
 
   become_user: aur_builder
   tags: ['packages']

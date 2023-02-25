@@ -7,7 +7,6 @@
     - hardware
     - network
   vars:
-    ansible_home: "{{ lookup('env','HOME') }}/Workspace/syncopated"
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
@@ -17,6 +16,11 @@
     PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
     ZSH: "/usr/local/share/oh-my-zsh"
     DISPLAY: ":0"
+
+  pre_tasks:
+    - name: set ansible_home
+      set_fact:
+        ansible_home: "{{ lookup('env','HOME') }}/Workspace/syncopated"
 
   tasks:
     - name: include vars
