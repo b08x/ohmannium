@@ -2,8 +2,8 @@
 
 - name: include vars
   include_vars:
-    dir: "vars/packages/{{ ansible_distribution }}.yml"
-    hash_behavior: merge
+    dir: "../vars/packages/{{ ansible_distribution }}.yml"
+    hash_behaviour: merge
 
 - name: create user to build packages
   user:
@@ -188,11 +188,11 @@
 #   loop: "{{ packages | dict2items }}"
 #   tags: ['packages']
 #
-# - name: print output
-#   debug:
-#     msg: "{{ _packages }}"
-#   when: debugging is defined
-#   tags: ['packages']
+- name: print output
+  debug:
+    msg: "{{ packages }}"
+  when: debugging is defined
+  tags: ['packages']
 
 - block:
     - name: installing
@@ -209,11 +209,11 @@
     #     - "{{ _packages }}"
     #     - autofs
 
-    - name: install packages
-      script: "{{ ansible_home }}/ans.rb {{ ansible_distribution }}"
-      delegate_to: 127.0.0.1
-      when: newInstall is defined
-      tags: ['testing']
+    # - name: install packages
+    #   script: "{{ ansible_home }}/ans.rb {{ ansible_distribution }}"
+    #   delegate_to: 127.0.0.1
+    #   when: newInstall is defined
+    #   tags: ['testing']
 
   rescue:
     - name: packages

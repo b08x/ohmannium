@@ -11,6 +11,9 @@
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
 
+  vars_files:
+    - "vars/user.yml"
+
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
     PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
@@ -125,6 +128,9 @@
 
     - debug:
         msg: "test"
+
+- name: include archlinux playbook
+  import_playbook: Archlinux.yml
 
 - name: include base playbook
   import_playbook: base.yml

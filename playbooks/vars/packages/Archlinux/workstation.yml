@@ -1,82 +1,73 @@
 ---
 
-packages:
-  audio:
-    players:
-      - musikcube
-      - mixxx
-      - moc
-  backup:
-    - grsync
-  browsers:
-    - google-chrome
-    - python-adblock
-    - qutebrowser
-  chat:
-    - hexchat
-  design:
-    - darktable
-    - gpick
-    - gimp
-  development:
-    editors:
-      - micro
-      - zim
-    system:
-      - asp
-    utils:
-      - devdocs-desktop
-      - gitflow-avh
-      - gitflow-zshcompletion-avh
-      - github-cli
-      - gnuplot
-      - gtksourceview3
-      - gtksourceview4
-      - xdot
-  filemanger:
-    - thunar
-    - thunar-archive-plugin
-    - thunar-volman
-  image:
-    viewers:
-      - feh
-      - ffmpegthumbnailer
-      - imv
-      - sxiv
-      - xzgv
-  input:
-    - antimicrox
-  screencasting:
-    - simplescreenrecorder
-    - teiler-git
-    - v4l2loopback-dkms
-  security:
-    - seahorse
-    - stunnel
-  terminal:
-    - asciiquarium
-    - figlet
-    - guake
-    - termdown
-    - terminator
-    - tilda
-    - xterm
-  utils:
-    - aspell-en
-    - barrier
-    - epson-inkjet-printer-escpr2
-    - gtkspell3
-    - patat-bin
-    - pdfjs
-    - redshift
-    - xarchiver
-    - xdot
-    - youtube-dl
-  video:
-    editors:
-      - mpv-plugin-excerpt-git
-    players:
-      - mpv
+players:
+  - mixxx
+  - moc
+backup:
+  - grsync
+browsers:
+  - google-chrome
+  - python-adblock
+  - qutebrowser
+chat:
+  - hexchat
+design:
+  - darktable
+  - gpick
+  - gimp
+development:
+  - micro
+  - zim
+  - asp
+  - devdocs-desktop
+  - gitflow-avh
+  - gitflow-zshcompletion-avh
+  - github-cli
+  - gnuplot
+  - gtksourceview3
+  - gtksourceview4
+  - xdot
+filemanger:
+  - thunar
+  - thunar-archive-plugin
+  - thunar-volman
+viewers:
+  - feh
+  - ffmpegthumbnailer
+  - imv
+  - sxiv
+  - xzgv
+input:
+  - antimicrox
+screencasting:
+  - simplescreenrecorder
+  - teiler-git
+  - v4l2loopback-dkms
+security:
+  - seahorse
+  - stunnel
+terminal:
+  - asciiquarium
+  - figlet
+  - guake
+  - termdown
+  - terminator
+  - tilda
+  - xterm
+utils:
+  - aspell-en
+  - barrier
+  - epson-inkjet-printer-escpr2
+  - gtkspell3
+  - patat-bin
+  - pdfjs
+  - redshift
+  - xarchiver
+  - xdot
+  - youtube-dl
+video:
+  - mpv-plugin-excerpt-git
+  - mpv
 
 
 
@@ -88,4 +79,4 @@ packages:
 
 
 
-   # - wordnet-cli
+ # - wordnet-cli
