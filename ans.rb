@@ -78,16 +78,14 @@ varfiles.each do |varfile|
 
 end
 
-currently_installed = `paru -Q | awk '{print $1}'`.split("\n")
+#currently_installed = `paru -Q | awk '{print $1}'`.split("\n")
 
 allpackages.each do |pkggroup|
-
-    pkgs = pkggroup - currently_installed
 
   begin
 
     `yes | paru -S --noconfirm --useask \
-                   --needed --batchinstall #{pkgs.join(" ")}`
+                   --needed --batchinstall #{pkggroup.join(" ")}`
 
   rescue StandardError => e
 

@@ -36,6 +36,7 @@
       with_items:
         - mesa-amber
         - libvdpau-va-gl-i965
+      when: ansible_system_vendor != "QEMU"
 
   when: ansible_processor[1] == "GenuineIntel"
   tags: ['intel', 'i965']
