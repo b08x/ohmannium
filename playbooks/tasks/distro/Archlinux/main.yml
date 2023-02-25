@@ -1,9 +1,9 @@
 ---
 
-# - name: include distribution package vars
-#   include_vars:
-#     dir: "vars/distro/"
-#     file: "{{ ansible_distribution }}.yml"
+- name: include distribution package vars
+  include_vars:
+    dir: "vars/distro/"
+    file: "{{ ansible_distribution }}.yml"
 
 - name: create user to build packages
   user:
