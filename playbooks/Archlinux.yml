@@ -233,6 +233,7 @@
         - name: install packages
           script: "/usr/bin/uxterm -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/ans.rb {{ ansible_distribution }}"
           delegate_to: 127.0.0.1
+          become_user: "{{ user.name }}"
           when: newInstall is defined
           tags: ['testing']
 
