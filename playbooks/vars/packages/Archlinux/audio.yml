@@ -1,149 +1,150 @@
 ---
 
-ambisonics:
-  - ambix-o1
-  - ambix-o3
-  - iempluginsuite-git
-  - mcfx
-  - sparta-plugins
-analysis:
-  - baudline-bin
-  - jaaa
-  - japa
-  - sonic-visualiser-git
-  - vamp-plugin-sdk
-codecs:
-  - gst-libav
-  - gst-plugins-bad
-  - opus
-  - opusfile
-  - vorbis-tools
-  - wavpack
-development:
-  - bipscript
-  - bipscript-ide
-editors:
-  audio:
-    - audacity
-    - ecasound
-    - ocenaudio-bin
-    - sound-gambit
-    - sox
-  # midi:
-  #   - placeholder
-  soundfont:
-    - gigedit
-    - polyphone
-filters:
-  - zita-dpl1
-  - zita-lrx
-looper:
-  - sooperlooper-git
-metering:
-  - jkmeter
-  - jmeters
-  - jnoisemeter
-midi:
-  keyboards:
-    - jack-keyboard
-    - vmpk
+packages:
+  ambisonics:
+    - ambix-o1
+    - ambix-o3
+    - iempluginsuite-git
+    - mcfx
+    - sparta-plugins
+  analysis:
+    - baudline-bin
+    - jaaa
+    - japa
+    - sonic-visualiser-git
+    - vamp-plugin-sdk
+  codecs:
+    - gst-libav
+    - gst-plugins-bad
+    - opus
+    - opusfile
+    - vorbis-tools
+    - wavpack
+  development:
+    - bipscript
+    - bipscript-ide
+  editors:
+    audio:
+      - audacity
+      - ecasound
+      - ocenaudio-bin
+      - sound-gambit
+      - sox
+    # midi:
+    #   - placeholder
+    soundfont:
+      - gigedit
+      - polyphone
+  filters:
+    - zita-dpl1
+    - zita-lrx
+  looper:
+    - sooperlooper-git
+  metering:
+    - jkmeter
+    - jmeters
+    - jnoisemeter
+  midi:
+    keyboards:
+      - jack-keyboard
+      - vmpk
+    sequencer:
+      - non-sequencer
+      - qmidiarp
+      - stochas
+      - tonespace
+    utils:
+      - osc2midi
+      - rtmidi
+      - sendmidi
+      - timidity++
+  mixers:
+    - jack_mixer
+    - non-mixer-lv2-git
+  network:
+    - jacktrip
+    - qmidinet
+  patchbay:
+    - njconnect
+    - patchage
+    - patchance
+  plugins:
+    host:
+      - carla
+      - guitarix
+      - jack-rack
+      - jalv-select-git
+    ladspa:
+      - ladspa
+      - swh-plugins
+    lv2:
+      - ams-lv2
+      - calf
+      - caps-lv2-git
+      - cmt
+      - distrho-ports
+      - intersect.lv2-git
+      - ir.lv2
+      - lsp-plugins
+      - lv2
+      - lv2-c++-tools
+      - lv2file
+      - noise-repellent
+      - swh-lv2-git
+      - tap-plugins-lv2-git
+      - x42-plugins
+    vst:
+      - dpf-plugins-vst3
+  reverb:
+    - dragonfly-reverb
+    - jconvolver
+    - zita-rev1
+  sampler:
+    - linuxsampler
+    - qsampler
+    - sfizz
   sequencer:
-    - non-sequencer
-    - qmidiarp
-    - stochas
-    - tonespace
-  utils:
-    - osc2midi
-    - rtmidi
-    - sendmidi
-    - timidity++
-mixers:
-  - jack_mixer
-  - non-mixer-lv2-git
-network:
-  - jacktrip
-  - qmidinet
-patchbay:
-  - njconnect
-  - patchage
-  - patchance
-plugins:
-  host:
-    - carla
-    - guitarix
-    - jack-rack
-    - jalv-select-git
-  ladspa:
-    - ladspa
-    - swh-plugins
-  lv2:
-    - ams-lv2
-    - calf
-    - caps-lv2-git
-    - cmt
-    - distrho-ports
-    - intersect.lv2-git
-    - ir.lv2
-    - lsp-plugins
-    - lv2
-    - lv2-c++-tools
-    - lv2file
-    - noise-repellent
-    - swh-lv2-git
-    - tap-plugins-lv2-git
-    - x42-plugins
-  vst:
-    - dpf-plugins-vst3
-reverb:
-  - dragonfly-reverb
-  - jconvolver
-  - zita-rev1
-sampler:
-  - linuxsampler
-  - qsampler
-  - sfizz
-sequencer:
-  - hydrogen
-services:
-  alsa:
-    - a2jmidid
-    - alsa-lib
-    - alsa-plugins
-    - alsa-tools
-    - alsa-utils
-    - zita-alsa-pcmi
-  jack:
-    - jack2-dbus
-    - jack-example-tools
-    - jack_capture
-    - jack_utils
-  # pipewire:
-  #   - pipewire-alsa
-  #   - pipewire-audio
-  #   - pipewire-jack
-  #   - pipewire-pulse
-  #   - wireplumber
-  pulseaudio:
-    - pulseaudio-alsa
-    - pulseaudio-bluetooth
-    - pulseaudio-jack
-    - pulsemixer
-    - pavucontrol
-session:
-  - jack_snapshot
-  - raysession-git
-  - zita-ajbridge
-  - zita-mu1
-synths:
-  - ams
-  - espeak-ng
-  - helm-synth
-  - sonic-pi-git
-  - spectmorph
-  - vital-synth
-  - wolf-shaper
-theory:
-  - scala-music
-  - scala-music-scales
-tuner:
-  - fmit
+    - hydrogen
+  services:
+    alsa:
+      - a2jmidid
+      - alsa-lib
+      - alsa-plugins
+      - alsa-tools
+      - alsa-utils
+      - zita-alsa-pcmi
+    jack:
+      - jack2-dbus
+      - jack-example-tools
+      - jack_capture
+      - jack_utils
+    # pipewire:
+    #   - pipewire-alsa
+    #   - pipewire-audio
+    #   - pipewire-jack
+    #   - pipewire-pulse
+    #   - wireplumber
+    pulseaudio:
+      - pulseaudio-alsa
+      - pulseaudio-bluetooth
+      - pulseaudio-jack
+      - pulsemixer
+      - pavucontrol
+  session:
+    - jack_snapshot
+    - raysession-git
+    - zita-ajbridge
+    - zita-mu1
+  synths:
+    - ams
+    - espeak-ng
+    - helm-synth
+    - sonic-pi-git
+    - spectmorph
+    - vital-synth
+    - wolf-shaper
+  theory:
+    - scala-music
+    - scala-music-scales
+  tuner:
+    - fmit

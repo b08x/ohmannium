@@ -1,91 +1,92 @@
 ---
 
-wm:
-  - i3-wm
-  - i3status-rust
-  - wmctrl
-desktop:
-  - dunst
-  - nitrogen-git
-  - perl-anyevent-i3
-  - picom
-  - rofi
-  - sxhkd
-  - wmfocus
-themes:
-  - gtk-engines
-  - gtk-engine-murrine
-fonts:
-  - gnu-free-fonts
-  - ttf-devicons
-  - ttf-font-awesome
-  - ttf-icomoon-feather
-  - ttf-input
-  - ttf-jetbrains-mono
-  - ttf-liberation
-  - ttf-opensans
-  - ttf-ubuntu-font-family
-qt5:
-  - kvantum
-  - qscintilla-qt5
-  - qt5-base
-  - qt5-graphicaleffects
-  - qt5-quickcontrols2
-  - qt5-tools
-  - qt5ct
-qt6:
-  - qt6-base
-  - qt6-declarative
-  - qt6-multimedia
-  - qt6-tools
-  - qt6ct
-x11:
-  - xdotool
-  - arandr
-  - xf86-input-libinput
-  - xf86-input-wacom
-  - xf86-video-intel
-  - xkill-shortcut
-  - xorg-bdftopcf
-  - xorg-fonts-alias-75dpi
-  - xorg-fonts-alias-100dpi
-  - xorg-fonts-alias-cyrillic
-  - xorg-fonts-alias-misc
-  - xorg-fonts-misc
-  - xorg-iceauth
-  - xorg-mkfontscale
-  - xorg-server
-  - xorg-sessreg
-  - xorg-setxkbmap
-  - xorg-smproxy
-  - xorg-x11perf
-  - xorg-xauth
-  - xorg-xbacklight
-  - xorg-xcmsdb
-  - xorg-xcursorgen
-  - xorg-xdpyinfo
-  - xorg-xdriinfo
-  - xorg-xev
-  - xorg-xgamma
-  - xorg-xhost
-  - xorg-xinit
-  - xorg-xinput
-  - xorg-xkbcomp
-  - xorg-xkbevd
-  - xorg-xkbutils
-  - xorg-xkill
-  - xorg-xlsatoms
-  - xorg-xlsclients
-  - xorg-xlsfonts
-  - xorg-xmodmap
-  - xorg-xpr
-  - xorg-xprop
-  - xorg-xrandr
-  - xorg-xrdb
-  - xorg-xrefresh
-  - xorg-xset
-  - xorg-xsetroot
-  - xorg-xvinfo
-  - xorg-xwd
-  - xorg-xwininfo
-  - xorg-xwud
+packages:
+  wm:
+    - i3-wm
+    - i3status-rust
+    - wmctrl
+  desktop:
+    - dunst
+    - nitrogen-git
+    - perl-anyevent-i3
+    - picom
+    - rofi
+    - sxhkd
+    - wmfocus
+  themes:
+    - gtk-engines
+    - gtk-engine-murrine
+  fonts:
+    - gnu-free-fonts
+    - ttf-devicons
+    - ttf-font-awesome
+    - ttf-icomoon-feather
+    - ttf-input
+    - ttf-jetbrains-mono
+    - ttf-liberation
+    - ttf-opensans
+    - ttf-ubuntu-font-family
+  qt5:
+    - kvantum
+    - qscintilla-qt5
+    - qt5-base
+    - qt5-graphicaleffects
+    - qt5-quickcontrols2
+    - qt5-tools
+    - qt5ct
+  qt6:
+    - qt6-base
+    - qt6-declarative
+    - qt6-multimedia
+    - qt6-tools
+    - qt6ct
+  x11:
+    - xdotool
+    - arandr
+    - xf86-input-libinput
+    - xf86-input-wacom
+    - xf86-video-intel
+    - xkill-shortcut
+    - xorg-bdftopcf
+    - xorg-fonts-alias-75dpi
+    - xorg-fonts-alias-100dpi
+    - xorg-fonts-alias-cyrillic
+    - xorg-fonts-alias-misc
+    - xorg-fonts-misc
+    - xorg-iceauth
+    - xorg-mkfontscale
+    - xorg-server
+    - xorg-sessreg
+    - xorg-setxkbmap
+    - xorg-smproxy
+    - xorg-x11perf
+    - xorg-xauth
+    - xorg-xbacklight
+    - xorg-xcmsdb
+    - xorg-xcursorgen
+    - xorg-xdpyinfo
+    - xorg-xdriinfo
+    - xorg-xev
+    - xorg-xgamma
+    - xorg-xhost
+    - xorg-xinit
+    - xorg-xinput
+    - xorg-xkbcomp
+    - xorg-xkbevd
+    - xorg-xkbutils
+    - xorg-xkill
+    - xorg-xlsatoms
+    - xorg-xlsclients
+    - xorg-xlsfonts
+    - xorg-xmodmap
+    - xorg-xpr
+    - xorg-xprop
+    - xorg-xrandr
+    - xorg-xrdb
+    - xorg-xrefresh
+    - xorg-xset
+    - xorg-xsetroot
+    - xorg-xvinfo
+    - xorg-xwd
+    - xorg-xwininfo
+    - xorg-xwud

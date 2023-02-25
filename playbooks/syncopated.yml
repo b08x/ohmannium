@@ -23,6 +23,39 @@
       set_fact:
         ansible_home: "{{ lookup('env','HOME') }}/Workspace/syncopated"
 
+    - block:
+        - name: print output
+          debug:
+            msg: "{{ keyserver }}"
+
+        - name: check if keys are present
+          stat:
+            path: "{{ user.home }}/.ssh/id_rsa"
+          register: keys
+
+        - name: copy keys from remote host
+          delegate_to: 127.0.0.1
+          run_once: True
+          become_user: "{{ user.name }}"
+          shell: "scp {{ user.name }}@{{ keyserver }}:~/.ssh/{{ item }} {{ user.home }}/.ssh/{{ item }}"
+          args:
+            chdir: "{{ user.home }}"
+          with_items:
+            - id_rsa
+            - id_rsa.pub
+          when:
+            - not keys.stat.exists
+            - keyserver is defined
+          tags: ['keys']
+
+        - name: enable ssh daemon
+          service:
+            name: sshd
+            enabled: True
+
+      ignore_errors: "{{ ansible_check_mode }}"
+      tags: ['ssh']
+
   tasks:
     - name: include vars
       include_vars:

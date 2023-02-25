@@ -1,8 +1,9 @@
 ---
 
-- name: include distribution package vars
+- name: include vars
   include_vars:
-    file: "vars/distro/{{ ansible_distribution }}.yml"
+    dir: "vars/packages/{{ ansible_distribution }}.yml"
+    hash_behavior: merge
 
 - name: create user to build packages
   user:
