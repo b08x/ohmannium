@@ -21,7 +21,7 @@
   tasks:
     - name: include vars
       include_vars:
-        dir: vars/distro/{{ ansible_distribution }}.yml
+        file: vars/distro/{{ ansible_distribution }}.yml
 
     - name: include user vars
       include_vars:
