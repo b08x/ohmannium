@@ -115,6 +115,19 @@ pacman -Scc --noconfirm
 # install pre-requisite packages
 pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
 
+# configure ruby to install gems as root and without docs
+echo "gem: --no-user-install --no-document" | tee /etc/gemrc
+
+GEMS=(
+  'colorize'
+  'ruport'
+  'yaml'
+)
+
+for gem in "${GEMS[@]}"; do
+  gem install "$gem" || continue
+done
+
 # install oh-my-zsh
 if [ -d "/usr/local/share/oh-my-zsh" ]; then
   echo "oh-my-zsh already installed"
@@ -145,7 +158,7 @@ declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
 if [ ! -d $ANSIBLE_HOME ]; then
   say "------------------\n" $GREEN
   say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
-  clone https://github.com/b08x/syncopated.git $ANSIBLE_HOME
+  clone https://gitlab.com/b08x/syncopated.git $ANSIBLE_HOME
   cd $ANSIBLE_HOME && git restore .
 else
   cd $ANSIBLE_HOME
@@ -155,13 +168,6 @@ git checkout development
 
 git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
-echo "---" > inventory.yml
-echo "\n" >> inventory.yml
-echo "all:" >> inventory.yml
-echo "  hosts:" >> inventory.yml
-echo "    $(uname -n):" >> inventory.yml
-echo "      ansible_connection: local" >> inventory.yml
-
 sleep 1 && chown -R ${user} $WORKSPACE
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
@@ -170,9 +176,9 @@ say "-------------------------" $YELLOW
 say "select playbook to run" $GREEN
 say "-------------------------\n" $YELLOW
 
-playbooks=$(gum choose --no-limit "base" "ui" "nas" "builder")
+playbooks=$(gum choose --no-limit "syncopated" "base" "ui" "nas" )
 
-runas_user=$(gum choose $user aur_builder)
+runas_user=$(gum choose $user)
 
 gum confirm "copy ssh keys from a remote host?" && say "ok" $GREEN
 
@@ -182,6 +188,7 @@ if [ $? = '0' ]; then
   read KEYSERVER
 
   say "setting ${KEYSERVER} as remote host keyserver\n"
+
 else
   KEYSERVER=""
 fi
@@ -191,7 +198,7 @@ if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
 
 for playbook in ${playbooks[@]}; do
-  ansible-playbook -c local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
+  ansible-playbook -c local -i localhost, "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
                    -e "newInstall=true" \
                    -e "cleanup=true" \
                    -e "keyserver=${KEYSERVER}"

@@ -25,9 +25,9 @@ module Soundbot
       return Config.load_vars[attribute]
     end
 
-    def self.set(varfile)
-      File.open(CONFIG, "w") { |file| file.write $CONFIG_DIR.to_yaml }
-    end
+    # def self.set(varfile)
+    #   File.open(varfile, "w") { |file| file.write $varfile_source.to_yaml }
+    # end
 
     # https://stackoverflow.com/a/23521624
     def self.flatten_hash(hash)
@@ -84,9 +84,12 @@ currently_installed = `paru -Q | awk '{print $1}'`.split("\n")
 
 packages_to_install = allpackages - currently_installed
 
-p packages_to_install.join(" ")
-
-#`paru -S #{packages_to_install.join(" ")}`
+begin
+  `yes | paru -S --needed --batchinstall #{packages_to_install.join(" ")}`
+rescue StandardError => e
+  puts "This is #{e.message.red}"
+  exit(1)
+end
 
 
 # puts "#{packages}".blue
@@ -98,7 +101,7 @@ p packages_to_install.join(" ")
 # #
 # packages = Soundbot::Config.get("packages")
 #
-table = Ruport::Data::Table.new
+# table = Ruport::Data::Table.new
 #
 # table.column_names = %w[Key Value]
 #

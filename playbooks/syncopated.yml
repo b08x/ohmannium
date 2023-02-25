@@ -41,11 +41,11 @@
     #   when: debugging is defined
     #   tags: ['testing']
 
-    - name: install packages
-      script: "{{ ansible_home }}/ans.rb {{ ansible_distribution }}"
-      delegate_to: 127.0.0.1
-      become_user: "{{ user.name }}"
-      tags: ['testing']
+    # - name: install packages
+    #   script: "{{ ansible_home }}/ans.rb {{ ansible_distribution }}"
+    #   delegate_to: 127.0.0.1
+    #   become_user: "{{ user.name }}"
+    #   tags: ['testing']
 
     # - name: install packages
     #   script: "/usr/bin/uxterm -class 'backup' -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/ans.rb {{ ansible_distribution }}"
