@@ -89,14 +89,13 @@
     - name: run ldconfig
       shell: /sbin/ldconfig
 
-    - name: Print all available facts
-      ansible.builtin.debug:
-        var: ansible_facts
-      tags: ['facts']
+    # - name: Print all available facts
+    #   ansible.builtin.debug:
+    #     var: ansible_facts
+    #   tags: ['facts']
 
-  tasks:
-
-    - include_tasks: "tasks/distro/{{ ansible_distribution }}/main.yml"
+    - import_tasks: tasks/Archlinux/main.yml
+      # when: ansible_distribution == 'Archlinux'
       tags: ['repo', 'packages']
 
   roles:

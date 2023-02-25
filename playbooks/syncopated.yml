@@ -28,6 +28,28 @@
         dir: vars
         depth: 1
 
+    - block:
+        - name: check -march support
+          shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
+          register: supported_march
+
+        - name: check output from grep command
+          debug:
+            msg: "{{ supported_march }}"
+
+        - name: set architecture
+          set_fact:
+            architecture: "x86-64-v3"
+          when: supported_march.stdout_lines[0] == 'x86-64-v3'
+
+        - name: set architecture
+          set_fact:
+            architecture: "x86-64"
+          when: supported_march.stdout_lines[0] == 'x86-64-v2'
+
+      ignore_errors: "{{ ansible_check_mode }}"
+      tags: ['flags', 'repo', 'packages']
+
 
     # - name: get list of currently installed packages
     #   shell: "pacman -Q | awk '{print $1}'"
