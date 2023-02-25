@@ -1,6 +1,0 @@
----
-\n
-all:
-  hosts:
-    ninjabot:
-      ansible_connection: local
