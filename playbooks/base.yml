@@ -43,9 +43,6 @@
     - import_tasks: tasks/user.yml
       tags: ['user']
 
-    - import_tasks: tasks/sudoers.yml
-      tags: ['sudoers']
-
     - name: copy ld config file
       copy:
         src: etc/ld.so.conf
@@ -60,7 +57,7 @@
     #   ansible.builtin.debug:
     #     var: ansible_facts
     #   tags: ['facts']
-    # 
+    #
     # - include_tasks: tasks/Archlinux/main.yml
     #   # when: ansible_distribution == 'Archlinux'
     #   tags: ['repo', 'packages']

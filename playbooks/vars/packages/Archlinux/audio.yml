@@ -71,11 +71,11 @@ network:
 patchbay:
   - njconnect
   - patchage
-  - patchance
+  # - patchance
 plugins:
   - carla
   - guitarix
-  - jack-rack
+  # - jack-rack
   - jalv-select-git
   - ladspa
   - swh-plugins
