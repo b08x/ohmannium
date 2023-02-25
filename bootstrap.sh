@@ -198,7 +198,7 @@ if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
 
 for playbook in ${playbooks[@]}; do
-  ansible-playbook -c local -i localhost, "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
+  ansible-playbook -K -c local -i localhost, "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
                    -e "newInstall=true" \
                    -e "cleanup=true" \
                    -e "keyserver=${KEYSERVER}"
