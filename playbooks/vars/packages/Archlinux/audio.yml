@@ -32,11 +32,12 @@ development:
 editors:
   - audacity
   - ecasound
+  - gigedit
   - ocenaudio-bin
+  - polyphone
+  - reaper-bin
   - sound-gambit
   - sox
-  - gigedit
-  - polyphone
 filters:
   - zita-dpl1
   - zita-lrx
