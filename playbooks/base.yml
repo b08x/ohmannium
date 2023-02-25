@@ -2,6 +2,7 @@
 
 - name: setup repositories and install packages
   hosts: all
+  tags: ['base']
   become: True
   gather_subset:
     - hardware
@@ -11,7 +12,6 @@
     shell_login: True
 
   vars_files:
-    - "vars/distro/{{ ansible_distribution }}.yml"
     - "vars/user.yml"
 
   vars_prompt:

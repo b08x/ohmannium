@@ -24,7 +24,7 @@
   with_nested:
     - [ '{{ user.home }}', '/etc/skel' ]
     - [ '.aliases', '.profile', '.ualiases', '.zlogin', '.zprofile', '.zshenv', '.zshrc', '.zshrc.local' ]
-  tags: ['zsh', 'shell', 'profile', 'alias' ]
+  tags: ['shell', 'profile', 'alias' ]
 
 - name: syncronize templates - x11
   template:

@@ -1,12 +1,13 @@
 ---
 
 - hosts: all
-  tags: ['base', 'ui', 'shell']
+  tags: ['base', 'ui', 'shell', 'packages', 'testing']
   become: True
   gather_subset:
     - hardware
     - network
   vars:
+    ansible_home: "{{ lookup('env','HOME') }}/Workspace/syncopated"
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
@@ -20,7 +21,48 @@
   tasks:
     - name: include vars
       include_vars:
+        dir: vars/packages/{{ ansible_distribution }}/
+        name: packages
+
+    - name: include user vars
+      include_vars:
         dir: vars
+        depth: 1
+
+
+    # - name: get list of currently installed packages
+    #   shell: "pacman -Q | awk '{print $1}'"
+    #   register: installed_packages
+    #   tags: ['testing']
+    #
+    # - name: print package list
+    #   debug:
+    #     msg: "{{ packages  | to_yaml }}"
+    #   when: debugging is defined
+    #   tags: ['testing']
+
+    - name: install packages
+      script: "{{ ansible_home }}/ans.rb {{ ansible_distribution }}"
+      delegate_to: 127.0.0.1
+      become_user: "{{ user.name }}"
+      tags: ['testing']
+
+    # - name: install packages
+    #   script: "/usr/bin/uxterm -class 'backup' -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/ans.rb {{ ansible_distribution }}"
+    #   delegate_to: 127.0.0.1
+    #   become_user: "{{ user.name }}"
+    #   tags: ['testing']
+    # - name: set packages to install
+    #   set_fact:
+    #     _packages: "{{ item.value | difference(installed_packages.stdout) }}"
+    #   loop: "{{ packages | dict2items }}"
+    #   tags: ['testing']
+
+    # - name: print output
+    #   debug:
+    #     msg: "{{ _packages }}"
+    #   when: debugging is defined
+    #   tags: ['testing']
 
     - debug:
         msg: "test"

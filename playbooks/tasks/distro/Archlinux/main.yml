@@ -186,48 +186,55 @@
   ignore_errors: True
   tags: ['packages']
 
-- name: get list of currently installed packages
-  shell: "pacman -Q | awk '{print $1}'"
-  register: installed_packages
-  tags: ['packages']
+# - name: get list of currently installed packages
+#   shell: "pacman -Q | awk '{print $1}'"
+#   register: installed_packages
+#   tags: ['packages']
 
-- name: print installed_packages
-  debug:
-    msg: "{{ installed_packages }}"
-  when: debugging is defined
-  tags: ['packages']
-
-- name: print package list
-  debug:
-    msg: "{{ packages }}"
-  when: debugging is defined
-  tags: ['packages']
-
-- name: set packages to install
-  set_fact:
-    _packages: "{{ packages | difference(installed_packages.stdout) }}"
-  tags: ['packages']
-
-- name: print output
-  debug:
-    msg: "{{ _packages }}"
-  when: debugging is defined
-  tags: ['packages']
+# - name: print installed_packages
+#   debug:
+#     msg: "{{ installed_packages }}"
+#   when: debugging is defined
+#   tags: ['packages']
+#
+# - name: print package list
+#   debug:
+#     msg: "{{ item.value  }}"
+#   loop: "{{ packages | dict2items }}"
+#   when: debugging is defined
+#   tags: ['testing']
+#
+# - name: set packages to install
+#   set_fact:
+#     _packages: "{{ item.value | difference(installed_packages.stdout) }}"
+#   loop: "{{ packages | dict2items }}"
+#   tags: ['packages']
+#
+# - name: print output
+#   debug:
+#     msg: "{{ _packages }}"
+#   when: debugging is defined
+#   tags: ['packages']
 
 - block:
     - name: installing
       debug:
         msg: "Installing...."
 
-    - name: packages
-      aur:
-        use: paru
-        name: "{{ item }}"
-        state: present
-        extra_args: "--overwrite '*'"
-      with_items:
-        - "{{ _packages }}"
-        - autofs
+    # - name: packages
+    #   aur:
+    #     use: paru
+    #     name: "{{ item }}"
+    #     state: present
+    #     extra_args: "--overwrite '*'"
+    #   with_items:
+    #     - "{{ _packages }}"
+    #     - autofs
+
+    - name: install packages
+      script: "{{ ansible_home }}/ans.rb {{ ansible_distribution }}"
+      delegate_to: 127.0.0.1
+      tags: ['testing']
 
   rescue:
     - name: packages
@@ -240,6 +247,12 @@
   become_user: aur_builder
   when: _packages | length > 0
   tags: ['packages']
+
+- name: remove aur_builder
+  user:
+    name: aur_builder
+    state: abent
+    remove: True
 
 
 # - name: Check on an async task

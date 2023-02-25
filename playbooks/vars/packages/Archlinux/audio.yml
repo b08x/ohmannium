@@ -29,8 +29,8 @@ editors:
     - ocenaudio-bin
     - sound-gambit
     - sox
-  midi:
-    - placeholder
+  # midi:
+  #   - placeholder
   soundfont:
     - gigedit
     - polyphone
@@ -117,12 +117,12 @@ services:
     - jack-example-tools
     - jack_capture
     - jack_utils
-  pipewire:
-    - pipewire-alsa
-    - pipewire-audio
-    - pipewire-jack
-    - pipewire-pulse
-    - wireplumber
+  # pipewire:
+  #   - pipewire-alsa
+  #   - pipewire-audio
+  #   - pipewire-jack
+  #   - pipewire-pulse
+  #   - wireplumber
   pulseaudio:
     - pulseaudio-alsa
     - pulseaudio-bluetooth
