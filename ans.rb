@@ -60,8 +60,8 @@ module Soundbot
 end
 
 
-# distro = ARGV[0]
-distro = "Archlinux"
+distro = ARGV[0]
+#distro = "Archlinux"
 
 allpackages = []
 
