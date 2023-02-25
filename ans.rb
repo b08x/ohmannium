@@ -88,8 +88,9 @@ allpackages.each do |pkggroup|
                    --needed --batchinstall #{pkggroup.join(" ")}`
 
   rescue StandardError => e
-
     puts "This is #{e.message.red}"
+
+    `paru -S --needed --batchinstall #{pkggroup.join(" ")}`
 
   end
 
