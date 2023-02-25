@@ -5,16 +5,20 @@ function runplaybook() {
 }
 
 function listtags() {
+  cd $PLAYBOOKS
   ansible-playbook -c local -i localhost, $1 --list-tags
 }
 
 function listtasks() {
+  cd $PLAYBOOKS
   ansible-playbook -c local -i localhost, $1 --list-tasks
 }
 
 function runtag() {
-  TAGS="${1}"
-  ansible-playbook -c local -i localhost, $1 --tag $2
+  cd $PLAYBOOKS
+  PLAYBOOK="${1}"
+  TAGS="${2}"
+  ansible-playbook -c local -i localhost, $PLAYBOOK --tag $2
 }
 
 function checktag() {
