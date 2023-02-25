@@ -14,11 +14,6 @@
   vars_files:
     - "vars/user.yml"
 
-  vars_prompt:
-    - name: keyserver
-      prompt: enter keyserver fqdn
-      private: False
-
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin"
     PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
@@ -73,7 +68,7 @@
             - id_rsa.pub
           when:
             - not keys.stat.exists
-            - keyserver | length > 4
+            - keyserver is defined
           tags: ['keys']
 
         - name: enable ssh daemon
