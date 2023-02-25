@@ -20,22 +20,25 @@
         dest: /etc/X11/xorg.conf.d/20-intel.conf
         mode: '0644'
 
-    - name: uninstall mesa in favor of mesa-amber
-      pacman:
-        name: mesa
-        state: absent
-        force: yes
-        extra_args: --noconfirm
+    - block:
+        - name: uninstall mesa in favor of mesa-amber
+          pacman:
+            name: mesa
+            state: absent
+            force: yes
+            extra_args: --noconfirm
 
-    - name: install i965 libs (mesa-amber)
-      aur:
-        use: auto
-        name: "{{ item }}"
-        state: present
-      become_user: "{{ user.name }}"
-      with_items:
-        - mesa-amber
-        - libvdpau-va-gl-i965
+
+        - name: install i965 libs (mesa-amber)
+          aur:
+            use: auto
+            name: "{{ item }}"
+            state: present
+          become_user: "{{ user.name }}"
+          with_items:
+            - mesa-amber
+            - libvdpau-va-gl-i965
+
       when: ansible_system_vendor != "QEMU"
 
   when: ansible_processor[1] == "GenuineIntel"
