@@ -24,15 +24,15 @@
 
   tasks:
 
-    - include_tasks: nfs.yml
+    - import_tasks: nfs.yml
       when: nfs_host is defined
       tags: ['nfs']
 
-    - include_tasks: rsyncd.yml
+    - import_tasks: rsyncd.yml
       when: rsyncd_host is defined
       tags: ['rsyncd']
 
-    - include_tasks: musikcube.yml
+    - import_tasks: musikcube.yml
       when: musikcube_host is defined
       tags: ['musikcube']
 

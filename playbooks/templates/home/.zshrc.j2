@@ -113,8 +113,6 @@ if [ -d $HOME/.cargo/bin ]; then
   PATH="$PATH:$HOME/.cargo/bin"
 fi
 
-PATH="$PATH:$HOME/Workspace/repo/devtools"
-
 export -U PATH
 
 # Local config
@@ -146,3 +144,5 @@ export LESS=-R
 [[ -f /usr/share/autojump/autojump.zsh ]] && source /usr/share/autojump/autojump.zsh
 
 if [[ ! -n $EDITOR ]]; then edis micro; fi
+
+tput reset && tput cup 10

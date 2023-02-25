@@ -1,6 +1,7 @@
 ---
 
 - hosts: all
+  tags: ['base', 'ui', 'shell']
   become: True
   gather_subset:
     - hardware
@@ -17,6 +18,10 @@
     DISPLAY: ":0"
 
   tasks:
+    - name: include vars
+      include_vars:
+        dir: vars
+
     - debug:
         msg: "test"
 

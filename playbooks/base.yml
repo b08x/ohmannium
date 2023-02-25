@@ -39,16 +39,16 @@
         dest: /etc/system-release
         state: link
 
-    - include_tasks: tasks/zshell.yml
+    - import_tasks: tasks/zshell.yml
       tags: ['shell']
 
-    - include_tasks: tasks/logging.yml
+    - import_tasks: tasks/logging.yml
       tags: ['logging']
 
-    - include_tasks: tasks/user.yml
+    - import_tasks: tasks/user.yml
       tags: ['user']
 
-    - include_tasks: tasks/sudoers.yml
+    - import_tasks: tasks/sudoers.yml
       tags: ['sudoers']
 
     - block:
@@ -113,22 +113,22 @@
 
   post_tasks:
 
-    - include_tasks: firewall.yml
+    - import_tasks: tasks/firewall.yml
       tags: ['firewall']
 
-    - include_tasks: tasks/filesystem.yml
+    - import_tasks: tasks/filesystem.yml
       tags: ['filesystem']
 
-    - include_tasks: tasks/utils.yml
+    - import_tasks: tasks/utils.yml
       tags: ['utils']
 
-    - include_tasks: tasks/updatedb.yml
+    - import_tasks: tasks/updatedb.yml
       tags: ['updatedb']
 
-    - include_tasks: tasks/autologin.yml
+    - import_tasks: tasks/autologin.yml
       tags: ['autologin']
 
-    - include_tasks: tasks/grub.yml
+    - import_tasks: tasks/grub.yml
       tags: ['grub']
 
     # Reset is not implemented local connection

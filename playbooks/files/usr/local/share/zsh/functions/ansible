@@ -1,42 +1,45 @@
 #TODO: does not read extra vars option. e.g -e "thing='.zsh'"
 
 function runplaybook() {
-  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK
+  ansible-playbook -c local -i localhost, $1
 }
 
 function listtags() {
-  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK --list-tags
+  ansible-playbook -c local -i localhost, $1 --list-tags
 }
 
 function listtasks() {
-  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK --list-tasks
+  ansible-playbook -c local -i localhost, $1 --list-tasks
 }
 
 function runtag() {
   TAGS="${1}"
-  ansible-playbook -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --tags $TAGS
+  ansible-playbook -c local -i localhost, $1 --tag $2
 }
 
 function checktag() {
   TAGS="${1}"
-  ansible-playbook -C -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --tags $TAGS
+  ansible-playbook -C -c local -i localhost, $1 --tags $TAGS
 }
 
 function starttask(){
-  TASK=$1
-  ansible-playbook -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --start-at-task $TASK
+  PLAYBOOK=$1
+  TASK=$2
+  ansible-playbook -c local -i localhost, $PLAYBOOK --start-at-task $TASK
 }
 
 function setloglevel() {
-  LEVEL=$1
+  INVENTORY=$1
+  PLAYBOOK=$2
 
-  ansible-playbook -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --tags logging -e "journal_level=$LEVEL"
+  ansible-playbook -i $INVENTORY $PLAYBOOK --tags logging -e "journal_level=$LEVEL"
 }
 
 function settheme() {
-  GTK_THEME=$1
-  ICON_THEME=$2
+  PLAYBOOK=$1
+  GTK_THEME=$2
+  ICON_THEME=$3
 
-  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK --tags theme -e "gtk_theme=$GTK_THEME" -e "gtk_icon_theme=$ICON_THEME" \
+  ansible-playbook -c local -i localhost, $PLAYBOOK --tags theme -e "gtk_theme=$GTK_THEME" -e "gtk_icon_theme=$ICON_THEME" \
   -e "qt5_icon_theme=$ICON_THEME"
 }

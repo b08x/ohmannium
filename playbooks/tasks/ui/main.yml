@@ -1,6 +1,6 @@
 ---
 
-- include_tasks: home.yml
+- import_tasks: home.yml
   tags: ['home']
 
 - name: ensure usr local directories exist

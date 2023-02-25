@@ -5,6 +5,7 @@
     name: root
     shell: /usr/bin/zsh
 
+
 - name: sync zsh functions
   synchronize:
     src: "files/usr/local/share/zsh"
