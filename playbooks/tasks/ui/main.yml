@@ -56,7 +56,7 @@
     backup: yes
   tags: ['env']
 
-- name: install Thunar custom actions
+- name: install Thunar actions
   copy:
     src: "files/etc/xdg/Thunar/{{ item }}"
     dest: "/etc/xdg/Thunar/{{ item }}"
@@ -66,16 +66,16 @@
     - uca.xml
   tags: ['thunar']
 
-- name: set thunar as default for opening directories
+- name: set Thunar as default for opening directories
   shell: xdg-mime default thunar.desktop inode/directory
   become_user: "{{ user.name }}"
   tags: ['thunar']
 
-- include_tasks: x11.yml
+- import_tasks: x11.yml
   tags: ['x11']
 
-- include_tasks: theme.yml
+- import_tasks: theme.yml
   tags: ['theme']
 
-- include_tasks: menu.yml
+- import_tasks: menu.yml
   tags: ['menu']
