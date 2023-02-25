@@ -36,7 +36,7 @@ viewers:
   - ffmpegthumbnailer
   - imv
   - sxiv
-  - xzgv
+  # - xzgv
 input:
   - antimicrox
 screencasting:
