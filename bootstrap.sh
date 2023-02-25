@@ -93,7 +93,7 @@ then
 else
   printf "adding syncopated gpg to pacman db"
   sleep 0.5
-  curl http://soundbot.hopto.org/syncopated.gpg | sudo pacman-key --add -
+  curl -s http://soundbot.hopto.org/syncopated.gpg | sudo pacman-key --add -
   sudo pacman-key --lsign-key 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A
   sudo pacman -Sy --noconfirm
 fi
@@ -104,7 +104,7 @@ then
 else
   printf "adding OSAMC gpg to pacman db"
   sleep 0.5
-  curl https://arch.osamc.de/proaudio/osamc.gpg | sudo pacman-key --add -
+  curl -s https://arch.osamc.de/proaudio/osamc.gpg | sudo pacman-key --add -
   sudo pacman-key --lsign-key 762AE5DB2B38786364BD81C4B9141BCC62D38EE5
   sudo pacman -Sy --noconfirm
 fi

@@ -35,7 +35,7 @@ editors:
   - gigedit
   - ocenaudio-bin
   - polyphone
-  - reaper-bin
+  - reaper
   - sound-gambit
   - sox
 filters:
