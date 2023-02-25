@@ -13,8 +13,8 @@ trap ctrl_c INT SIGINT SIGTERM ERR EXIT
 
 tput reset
 
-if [[ ! "${EUID}" -eq 0 ]]; then
-  echo "please run as root. exiting"
+if [[ "${EUID}" -eq 0 ]]; then
+  echo "please run with sudo. exiting"
   exit
 fi
 
@@ -110,13 +110,13 @@ else
 fi
 
 # clean cache
-pacman -Scc --noconfirm
+sudo pacman -Scc --noconfirm
 
 # install pre-requisite packages
-pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
+sudo pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
 
 # configure ruby to install gems as root and without docs
-echo "gem: --no-user-install --no-document" | tee /etc/gemrc
+echo "gem: --no-user-install --no-document" | sudo tee /etc/gemrc
 
 GEMS=(
   'colorize'
@@ -125,7 +125,7 @@ GEMS=(
 )
 
 for gem in "${GEMS[@]}"; do
-  gem install "$gem" || continue
+  sudo gem install "$gem" || continue
 done
 
 # install oh-my-zsh
@@ -134,7 +134,7 @@ if [ -d "/usr/local/share/oh-my-zsh" ]; then
 else
   cd /tmp
   git clone --recursive https://github.com/ohmyzsh/ohmyzsh.git
-  env ZSH="/usr/local/share/oh-my-zsh" /tmp/ohmyzsh/tools/install.sh --unattended
+  sudo env ZSH="/usr/local/share/oh-my-zsh" /tmp/ohmyzsh/tools/install.sh --unattended
 fi
 
 #########################################################################
