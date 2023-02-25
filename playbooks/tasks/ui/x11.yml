@@ -32,7 +32,7 @@
         use: auto
         name: "{{ item }}"
         state: present
-      become_user: aur_builder
+      become_user: "{{ user.name }}"
       with_items:
         - mesa-amber
         - libvdpau-va-gl-i965

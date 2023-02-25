@@ -5,7 +5,7 @@
     use: auto
     name: pulsar-bin
     state: present
-  become_user: aur_builder
+  become_user: "{{ user.name }}"
 
 - name: install pulsar packages
   shell: pulsar -p install {{ item }}

@@ -25,7 +25,7 @@
         use: auto
         name: lightdm
         state: present
-      become_user: aur_builder
+      become_user: "{{ user.name }}"
 
     - name: ensure group autologin exists
       group:

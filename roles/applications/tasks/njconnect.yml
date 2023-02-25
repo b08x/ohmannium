@@ -20,7 +20,7 @@
         name: "{{ dependencies.Archlinux }}"
         state: present
       when: ansible_distribution == 'Archlinux'
-      become_user: aur_builder
+      become_user: "{{ user.name }}"
       tags: ['packages']
 
     - name: clone njconnect

@@ -17,12 +17,6 @@
         dir: "vars/packages/{{ ansible_distribution }}/"
         name: packages
 
-    - name: create user to build packages
-      user:
-        name: aur_builder
-        create_home: yes
-        shell: /usr/bin/zsh
-
   tasks:
 
     - name: adjust pacman, paru and makepkg configs
@@ -83,7 +77,7 @@
         path: "{{ item }}"
         state: directory
         mode: '0775'
-        owner: aur_builder
+        owner: "{{ user.name }}"
         group: wheel
         recurse: True
       with_items:
@@ -117,18 +111,18 @@
             accept_hostkey: yes
             update: yes
             force: no
-          become_user: aur_builder
+          become_user: "{{ user.name }}"
 
         - name: make and install paru
           shell: "makepkg -si --noconfirm --needed"
           args:
             chdir: "/tmp/paru"
-          become_user: aur_builder
+          become_user: "{{ user.name }}"
 
         - name: clean and update package cache
           shell: |
             paru -Sc --noconfirm && paru -Syy
-          become_user: aur_builder
+          become_user: "{{ user.name }}"
 
       when: not paru.stat.exists
       tags: ['paru', 'packages']
@@ -246,14 +240,8 @@
             # done
             echo "placeholder"
 
-      become_user: aur_builder
+      become_user: "{{ user.name }}"
       tags: ['packages']
-
-    - name: remove aur_builder
-      user:
-        name: aur_builder
-        state: abent
-        remove: True
 
 
     # - name: Check on an async task
@@ -263,7 +251,7 @@
     #   until: job_result.finished
     #   retries: 100
     #   delay: 10
-    #   become_user: aur_builder
+    #   become_user: "{{ user.name }}"
     #   tags: ['testing']
 
     # #TODO: add task to watch long running task

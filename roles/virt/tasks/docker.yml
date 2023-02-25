@@ -7,7 +7,7 @@
     use: auto
     name: "{{ docker.packages }}"
     state: present
-  become_user: aur_builder
+  become_user: "{{ user.name }}"
   notify: docker service
   tags: ['packages']
 
