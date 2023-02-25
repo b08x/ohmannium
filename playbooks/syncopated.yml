@@ -67,8 +67,8 @@
       ignore_errors: "{{ ansible_check_mode }}"
       tags: ['ssh']
 
-      - import_tasks: tasks/sudoers.yml
-        tags: ['sudoers']
+    - import_tasks: tasks/sudoers.yml
+      tags: ['sudoers']
 
   tasks:
     - block:
