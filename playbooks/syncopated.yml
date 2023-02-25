@@ -18,6 +18,7 @@
     DISPLAY: ":0"
 
   pre_tasks:
+
     - name: set ansible_home
       set_fact:
         ansible_home: "{{ lookup('env','HOME') }}/Workspace/syncopated"

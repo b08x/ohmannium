@@ -85,7 +85,7 @@ currently_installed = `paru -Q | awk '{print $1}'`.split("\n")
 packages_to_install = allpackages - currently_installed
 
 begin
-  `yes | paru -S --needed --batchinstall #{packages_to_install.join(" ")}`
+  `yes | paru -S --noconfirm --useask --needed --batchinstall #{packages_to_install.join(" ")}`
 rescue StandardError => e
   puts "This is #{e.message.red}"
   exit(1)
