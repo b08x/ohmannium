@@ -159,7 +159,7 @@ if [ ! -d $ANSIBLE_HOME ]; then
   say "------------------\n" $GREEN
   say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
   clone https://gitlab.com/b08x/syncopated.git $ANSIBLE_HOME
-  cd $ANSIBLE_HOME && git restore .
+  cd $ANSIBLE_HOME
 else
   cd $ANSIBLE_HOME
 fi
