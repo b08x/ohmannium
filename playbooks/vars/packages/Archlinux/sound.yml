@@ -111,7 +111,7 @@ sampler:
   - qsampler
   - sfizz
 sequencer:
-  - hydrogen
+  - hydrogen-git
 session:
   - jack_snapshot
   - raysession-git

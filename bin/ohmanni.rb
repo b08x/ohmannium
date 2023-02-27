@@ -88,11 +88,13 @@ module Ohmanni
           puts ColorizedString["----------------------------------------------------"].colorize(:green)
 
           Command.tty("paru -S --noconfirm --needed --batchinstall --overwrite '*' #{pkgs}")
+          sleep 2
         rescue StandardError => e
           $logger.warn "#{e}"
           puts ColorizedString["initial attempt failed, trying again"].colorize(:red)
           sleep 2
           Command.tty("yes | paru -S --needed --batchinstall --overwrite '*' #{pkgs}")
+          sleep 2
         end
 
       end
