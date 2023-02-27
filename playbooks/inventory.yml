@@ -38,57 +38,46 @@ all:
         - "$ws9 output HDMI2"
         - "$ws10 output HDMI2"
 
+    soundbot:
+      ansible_connection: local
+      install:
+        libvirt:
+          qemu_full: True
+      autostart:
+        - "guake"
+        - "tilda -g ~/.config/tilda/config_0"
+        - "barrier"
+      tray_output: "primary"
+      assignments:
+        - '[class="Jalv.gtk" title="Helm"] $ws6'
+        - '[class="qmidiarp"] $ws6'
+        - '[class="REAPER"] $ws9'
+        - '[class="Qsampler"] $ws10'
+        - '[class="^Patchage"] $ws10'
+        - '[class="Jalv.select"] $ws10'
+        - '[class="^RaySession$"] $ws10'
+      workspaces:
+        - "$ws1 output eDP1"
+        - "$ws2 output eDP1"
+        - "$ws3 output eDP1"
+        - "$ws4 output HDMI1"
+        - "$ws5 output HDMI1"
+        - "$ws6 output HDMI1"
+        - "$ws7 output HDMI1"
+        - "$ws8 output HDMI1"
+        - "$ws9 output HDMI1"
+        - "$ws10 output HDMI1"
+    lapbot:
+      ansible_connection: local
+    archlabs:
+      ansible_connection: local
+
+
   children:
     nas:
-      vars:
       hosts:
         bender:
-    devel:
-      vars:
-        install:
-          libvirt:
-            qemu_full: False
-      hosts:
-        soundbot:
-          install:
-            libvirt:
-              qemu_full: True
-          autostart:
-            - "guake"
-            - "tilda -g ~/.config/tilda/config_0"
-            - "barrier"
-          tray_output: "primary"
-          assignments:
-            - '[class="Jalv.gtk" title="Helm"] $ws6'
-            - '[class="qmidiarp"] $ws6'
-            - '[class="REAPER"] $ws9'
-            - '[class="Qsampler"] $ws10'
-            - '[class="^Patchage"] $ws10'
-            - '[class="Jalv.select"] $ws10'
-            - '[class="^RaySession$"] $ws10'
-          workspaces:
-            - "$ws1 output eDP1"
-            - "$ws2 output eDP1"
-            - "$ws3 output eDP1"
-            - "$ws4 output HDMI1"
-            - "$ws5 output HDMI1"
-            - "$ws6 output HDMI1"
-            - "$ws7 output HDMI1"
-            - "$ws8 output HDMI1"
-            - "$ws9 output HDMI1"
-            - "$ws10 output HDMI1"
-        ninjabot:
-
-    staging:
-      vars:
-        install:
-          docker:
-      hosts:
-        lapbot:
-          ansible_connection: local
-
     webhost:
-      vars:
       hosts:
         bender:
           webroot: /backup/website
