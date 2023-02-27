@@ -33,7 +33,7 @@ module Command
 
   # use this if captured output is desired...
   def tty(*args)
-    cmd = TTY::Command.new(output: $logger, uuid: false, timeout: 60)
+    cmd = TTY::Command.new(output: $logger, uuid: false, timeout: 600)
 
     begin
       cmd.run(args.join(' '), only_output_on_error: false, pty: true)
