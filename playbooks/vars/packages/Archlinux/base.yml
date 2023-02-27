@@ -111,7 +111,7 @@ system:
   - openssl
   - openssl-1.1
   - pacman
-  - pandoc
+  - pandoc-cli
   - patch
   - pcsclite
   - pkgconf

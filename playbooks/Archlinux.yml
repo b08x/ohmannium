@@ -155,9 +155,21 @@
           debug:
             msg: "Installing...."
 
+        - name: include vars
+          include_vars:
+            dir: vars/packages/{{ ansible_distribution }}
+            name: packages
+          tags: ['testing']
+
+        - name: print package list
+          debug:
+            msg: "{{ packages  | to_yaml }}"
+          when: debugging is defined
+          tags: ['testing']
+
         - name: install packages
-          script: "{{ ansible_home }}/bin/ohmanni.rb {{ ansible_distribution }}"
-          #delegate_to: 127.0.0.1
+          script: "{{ ansible_home }}/bin/ohmanni.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
+          delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
           environment:
             DISPLAY: ":0"

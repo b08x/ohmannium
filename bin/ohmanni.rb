@@ -19,6 +19,8 @@ require 'tty-command'
 require 'yaml'
 
 $logger = Logging.logger(File.join("/tmp", "#{progname}-packageinstall.log"))
+#$logger = Logging.logger(STDOUT)
+$logger.level = :warn
 
 module Command
   module_function
@@ -36,7 +38,7 @@ module Command
     begin
       cmd.run(args.join(' '), only_output_on_error: false, pty: true)
     rescue TTY::Command::TimeoutExceeded => e
-      $logger.debug "#{args} timeout exceeded"
+      $logger.warn "#{args} timeout exceeded"
     end
   end
 
@@ -48,20 +50,12 @@ module Ohmanni
   class Packages
     attr_accessor :distro, :packages
 
-    def initialize(distro)
-      @packages = []
+    def initialize(distro,packages)
       @distro = distro
-      load_vars
+      @packages = packages
     end
 
-    def load_vars
-      varfiles = Dir.glob(File.join(ANSIBLE_VARS, "packages", @distro, "*.yml"))
-      varfiles.each do |varfile|
-        @packages << YAML.load_file(varfile)
-      end
-    end
-
-    def update_mirrors
+    def self.update_mirrors
       Command.run("sudo reflector --download-timeout 3 --protocol https \
                              --latest 20 --sort rate --score 10 --fastest 8 \
                              --save /etc/pacman.d/mirrorlist")
@@ -69,39 +63,38 @@ module Ohmanni
     end
 
     def install
-      update_mirrors if ARGV[1] == 'update'
+
       $logger.info "installing packages"
 
       currently_installed = `paru -Q | awk '{print $1}'`.split("\n")
 
-      
       $logger.debug "#{@packages}"
+      $logger.debug "------------"
 
-      @packages.each do |pkggroup|
-        $logger.debug "#{pkggroup}"
-          pkggroup.each do |group|
-            pkgs = group[1].keep_if {|pkg| ! currently_installed.include?(pkg) }.join(" ")
+      @packages.each do |group|
+        $logger.debug "#{group}"
 
-            if pkgs.empty?
-              $logger.info "#{group[0]} packages already installed"
-              next
-            end
+        pkgs = group[1].keep_if {|pkg| ! currently_installed.include?(pkg) }.join(" ")
 
-            begin
-              puts ColorizedString["installing #{group[0]} packages:"].colorize(:green)
-              puts ColorizedString["#{pkgs}"].colorize(:blue)
-              puts ColorizedString["check /tmp/syncopated-packageinstall.log for details"].colorize(:yellow)
-              puts ColorizedString["----------------------------------------------------"].colorize(:green)
+        if pkgs.empty?
+          $logger.info "#{group[0]} packages already installed"
+          next
+        end
 
-              Command.tty("paru -S --noconfirm --needed --batchinstall #{pkgs}")
-            rescue StandardError => e
-              $logger.warn "#{e}"
-              puts ColorizedString["initial attempt failed, trying again"].colorize(:red)
-              sleep 2
-              Command.tty("yes | paru -S --needed --batchinstall --overwrite '*' #{pkgs}")
-            end
+        begin
+          puts ColorizedString["installing #{group[0]} packages:"].colorize(:green)
+          puts ColorizedString["#{pkgs}"].colorize(:blue)
+          puts ColorizedString["check /tmp/syncopated-packageinstall.log for details"].colorize(:yellow)
+          puts ColorizedString["----------------------------------------------------"].colorize(:green)
 
-          end
+          Command.tty("paru -S --noconfirm --needed --batchinstall --overwrite '*' #{pkgs}")
+        rescue StandardError => e
+          $logger.warn "#{e}"
+          puts ColorizedString["initial attempt failed, trying again"].colorize(:red)
+          sleep 2
+          Command.tty("yes | paru -S --needed --batchinstall --overwrite '*' #{pkgs}")
+        end
+
       end
     end # end of install method
 
@@ -110,11 +103,16 @@ end #end Soundbot module
 
 if ARGV.any?
   begin
-      Ohmanni::Packages.new(ARGV[0]).install
+      distro = ARGV[0]
+      packages = YAML::load(ARGV[1])
+      Ohmanni::Packages.update_mirrors if ARGV[2]
+      Ohmanni::Packages.new(distro,packages).install
   rescue StandardError => e
+    $logger.warn "#{e.message}"
     printf "#{e}"
   ensure
     printf "package install...."
+    exit
   end
 
 end
