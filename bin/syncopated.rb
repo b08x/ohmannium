@@ -87,14 +87,15 @@ module Soundbot
             next if pkgs.empty?
 
             begin
-              puts ColorizedString["installing #{group[0]} packages"].colorize(:green)
+              puts ColorizedString["installing #{group[0]} packages:"].colorize(:green)
+              puts ColorizedString["#{pkgs}"].colorize(:blue)
               puts ColorizedString["check /tmp/syncopated-packageinstall.log for details"].colorize(:yellow)
               puts ColorizedString["----------------------------------------------------"].colorize(:green)
 
-              Command.tty("yes | paru -S --needed --batchinstall #{pkgs}")
+              Command.tty("paru -S --noconfirm --needed --batchinstall #{pkgs}")
             rescue StandardError => e
-              Command.tty("paru -S --noconfirm --useask  --needed --batchinstall #{pkgs}")
               $logger.warn "#{e}"
+              Command.tty("yes | paru -S --needed --batchinstall #{pkgs}")
             end
 
           end
