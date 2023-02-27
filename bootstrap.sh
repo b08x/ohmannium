@@ -94,8 +94,8 @@ else
   printf "adding syncopated gpg to pacman db"
   sleep 0.5
   curl -s http://soundbot.hopto.org/syncopated.gpg | sudo pacman-key --add -
-  sudo pacman-key --lsign-key 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A
-  sudo pacman -Sy --noconfirm
+  sudo pacman-key --lsign-key 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A > /dev/null
+  sudo pacman -Sy --noconfirm > /dev/null
 fi
 
 if [[ ! -z "$(pacman-key --list-keys | grep proaudio 2>/dev/null)" ]];
@@ -105,12 +105,12 @@ else
   printf "adding OSAMC gpg to pacman db"
   sleep 0.5
   curl -s https://arch.osamc.de/proaudio/osamc.gpg | sudo pacman-key --add -
-  sudo pacman-key --lsign-key 762AE5DB2B38786364BD81C4B9141BCC62D38EE5
-  sudo pacman -Sy --noconfirm
+  sudo pacman-key --lsign-key 762AE5DB2B38786364BD81C4B9141BCC62D38EE5 > /dev/null
+  sudo pacman -Sy --noconfirm > /dev/null
 fi
 
 # clean cache
-sudo pacman -Scc --noconfirm
+sudo pacman -Scc --noconfirm > /dev/null
 
 # install pre-requisite packages
 sudo pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
