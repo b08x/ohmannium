@@ -1,11 +1,11 @@
 ---
 
-players:
+player:
   - mixxx
   - moc
 backup:
   - grsync
-browsers:
+browser:
   - google-chrome
   - python-adblock
   - qutebrowser
@@ -31,7 +31,7 @@ filemanger:
   - thunar
   - thunar-archive-plugin
   - thunar-volman
-viewers:
+viewer:
   - feh
   - ffmpegthumbnailer
   - imv
@@ -54,7 +54,7 @@ terminal:
   - terminator
   - tilda
   - xterm
-utils:
+util:
   - aspell-en
   - barrier
   - epson-inkjet-printer-escpr2

@@ -7,7 +7,7 @@ alsa:
   - alsa-tools
   - alsa-utils
   - zita-alsa-pcmi
-ambisonics:
+ambisonic:
   - ambix-o1
   - ambix-o3
   - iempluginsuite-git
@@ -19,7 +19,7 @@ analysis:
   - japa
   - sonic-visualiser-git
   - vamp-plugin-sdk
-codecs:
+codec:
   - gst-libav
   - gst-plugins-bad
   - opus
@@ -29,7 +29,7 @@ codecs:
 development:
   - bipscript
   - bipscript-ide
-editors:
+editor:
   - audacity
   - ecasound
   - gigedit
@@ -38,7 +38,7 @@ editors:
   - reaper
   - sound-gambit
   - sox
-filters:
+filter:
   - zita-dpl1
   - zita-lrx
 jack:
@@ -63,7 +63,7 @@ midi:
   - rtmidi
   - sendmidi
   - timidity++
-mixers:
+mixer:
   - jack_mixer
   - non-mixer-lv2-git
 network:
@@ -73,7 +73,7 @@ patchbay:
   - njconnect
   - patchage
   # - patchance
-plugins:
+plugin:
   - carla
   - guitarix
   # - jack-rack
@@ -117,7 +117,7 @@ session:
   - raysession-git
   - zita-ajbridge
   - zita-mu1
-synths:
+synth:
   - ams
   - espeak-ng
   - helm-synth

@@ -13,10 +13,10 @@ desktop:
   - rofi
   - sxhkd
   - wmfocus
-themes:
+theme:
   - gtk-engines
   - gtk-engine-murrine
-fonts:
+font:
   - gnu-free-fonts
   - ttf-devicons
   - ttf-font-awesome
