@@ -1,9 +1,7 @@
 # If you experience issues with default SNA (e.g. pixelated graphics, corrupt text, etc.), try using UXA instead, which can be done by adding the following line to your configuration file:
-{% if ansible_processor[1] == "GenuineIntel" and ansible_system_vendor != "QEMU" %}
 Section "Device"
   Identifier "Intel Graphics"
   Driver "intel"
   # Option "AccelMethod"  "sna"
   Option "TearFree" "true"
 EndSection
-{% endif %}

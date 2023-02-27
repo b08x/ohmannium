@@ -14,13 +14,14 @@
   when: x11.inputs is defined
 
 - block:
-    - name: install intel config
-      template:
-        src: etc/X11/xorg.conf.d/20-intel.conf.j2
-        dest: /etc/X11/xorg.conf.d/20-intel.conf
-        mode: '0644'
-
     - block:
+
+        - name: install intel config
+          template:
+            src: etc/X11/xorg.conf.d/20-intel.conf.j2
+            dest: /etc/X11/xorg.conf.d/20-intel.conf
+            mode: '0644'
+
         - name: uninstall mesa in favor of mesa-amber
           pacman:
             name: mesa
