@@ -1,7 +1,6 @@
 ---
 
-- name: setup repositories and install packages
-  hosts: all
+- hosts: all
   tags: ['base']
   become: True
   gather_subset:

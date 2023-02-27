@@ -1,7 +1,8 @@
 ---
 
-- hosts: all
-  tags: ['base', 'ui', 'shell', 'packages', 'testing']
+- name: setup repositories and install packages
+  hosts: all
+  tags: ['packages', 'testing']
   become: True
   gather_subset:
     - hardware
@@ -11,28 +12,6 @@
     - "vars/user.yml"
 
   pre_tasks:
-
-    - name: include vars
-      include_vars:
-        dir: "vars/packages/{{ ansible_distribution }}/"
-        name: packages
-
-  tasks:
-
-    - name: adjust pacman, paru and makepkg configs
-      template:
-        src: "etc/{{ item }}.j2"
-        dest: "/etc/{{ item }}"
-        owner: root
-        group: root
-        mode: '0644'
-        backup: yes
-      with_items:
-        - pacman.conf
-        - paru.conf
-        - makepkg.conf
-      tags: ['makepkg', 'pacman', 'paru', 'packages', 'repo']
-      ignore_errors: "{{ ansible_check_mode }}"
 
     - name: add syncopated repo key
       shell: |
@@ -66,24 +45,29 @@
       check_mode: False
       tags: ['repo']
 
+    - name: adjust pacman, paru and makepkg configs
+      template:
+        src: "etc/{{ item }}.j2"
+        dest: "/etc/{{ item }}"
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+      with_items:
+        - pacman.conf
+        - paru.conf
+        - makepkg.conf
+      tags: ['makepkg', 'pacman', 'paru', 'packages', 'repo']
+      ignore_errors: "{{ ansible_check_mode }}"
+
     - name: update cache
       pacman:
         update_cache: True
         upgrade: False
       tags: ['packages']
 
-    - name: ensure user permissions for /var/tmp/makepkg
-      file:
-        path: "{{ item }}"
-        state: directory
-        mode: '0775'
-        owner: "{{ user.name }}"
-        group: wheel
-        recurse: True
-      with_items:
-        - /tmp/makepkg
-        - /var/tmp/makepkg
-      tags: ['packages']
+
+  tasks:
 
     - name: check if paru installed
       stat: path="/usr/bin/paru"
@@ -166,85 +150,43 @@
       ignore_errors: True
       tags: ['packages']
 
-    # - name: get list of currently installed packages
-    #   shell: "pacman -Q | awk '{print $1}'"
-    #   register: installed_packages
-    #   tags: ['packages']
-
-    # - name: print installed_packages
-    #   debug:
-    #     msg: "{{ installed_packages }}"
-    #   when: debugging is defined
-    #   tags: ['packages']
-    #
-    # - name: print package list
-    #   debug:
-    #     msg: "{{ item.value  }}"
-    #   loop: "{{ packages | dict2items }}"
-    #   when: debugging is defined
-    #   tags: ['testing']
-    #
-    # - name: set packages to install
-    #   set_fact:
-    #     _packages: "{{ item.value }}"
-    #   loop: "{{ packages | dict2items }}"
-    #   tags: ['packages']
-    #
-    # - name: print output
-    #   debug:
-    #     msg: "{{ packages | dict2items }}"
-    #   when: debugging is defined
-    #   tags: ['packages']
-
-
-    # - name: print output
-    #   debug:
-    #     msg: "{{ _packages }}"
-    #   when: debugging is defined
-    #   tags: ['packages']
-
     - block:
         - name: installing
           debug:
             msg: "Installing...."
 
-        # - name: packages
-        #   aur:
-        #     use: paru
-        #     name: "{{ item }}"
-        #     state: present
-        #     extra_args: "--overwrite '*'"
-        #   with_items:
-        #     - "{{ _packages }}"
-        #     - autofs
+        - name: include vars
+          include_vars:
+            dir: vars/packages/{{ ansible_distribution }}
+            name: packages
+          tags: ['testing']
+
+        - name: print package list
+          debug:
+            msg: "{{ packages  | to_yaml }}"
+          when: debugging is defined
+          tags: ['testing']
 
         - name: install packages
-          script: "/usr/bin/uxterm -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }}"
+          script: "{{ ansible_home }}/bin/ohmanni.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
           delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
+          environment:
+            DISPLAY: ":0"
+          register: output
           when: newInstall is defined
 
+        - name: print package list
+          debug:
+            msg: "{{ output }}"
+          tags: ['testing']
+
       rescue:
-        - name: install packages
-          script: "{{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }} update"
+        - name: install packages rescue
+          script: "{{ ansible_home }}/bin/ohmanni.rb {{ ansible_distribution }} update"
           delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
           when: newInstall is defined
 
       become_user: "{{ user.name }}"
-      tags: ['packages']
-
-
-    # - name: Check on an async task
-    #   async_status:
-    #     jid: "{{ package_install.ansible_job_id }}"
-    #   register: job_result
-    #   until: job_result.finished
-    #   retries: 100
-    #   delay: 10
-    #   become_user: "{{ user.name }}"
-    #   tags: ['testing']
-
-    # #TODO: add task to watch long running task
-
-    #
+      tags: ['testing']

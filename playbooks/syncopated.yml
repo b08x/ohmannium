@@ -1,7 +1,7 @@
 ---
 
 - hosts: all
-  tags: ['base', 'ui', 'shell', 'packages', 'testing']
+  tags: ['base', 'ui', 'shell', 'packages']
   become: True
   gather_subset:
     - hardware
@@ -10,9 +10,6 @@
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
-
-  vars_files:
-    - "vars/user.yml"
 
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
@@ -33,6 +30,7 @@
     - name: set ansible_home
       set_fact:
         ansible_home: "{{ lookup('env','HOME') }}/Workspace/syncopated"
+      tags: ['testing']
 
     - block:
         - name: print output

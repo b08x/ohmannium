@@ -86,6 +86,11 @@ BOOTSTRAP_PKGS=(
   'zsh'
 )
 
+say "hello\n" $GREEN
+
+# clean cache
+sudo pacman -Scc --noconfirm > /dev/null
+
 # install repository keys
 if [[ ! -z "$(pacman-key --list-keys | grep syncopated 2>/dev/null)" ]];
 then
@@ -108,9 +113,6 @@ else
   sudo pacman-key --lsign-key 762AE5DB2B38786364BD81C4B9141BCC62D38EE5 > /dev/null
   sudo pacman -Sy --noconfirm > /dev/null
 fi
-
-# clean cache
-sudo pacman -Scc --noconfirm > /dev/null
 
 # install pre-requisite packages
 sudo pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
@@ -166,7 +168,7 @@ else
   cd $ANSIBLE_HOME
 fi
 
-git checkout development && git fetch && git pull
+git checkout feature/cli && git fetch && git pull
 
 git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
