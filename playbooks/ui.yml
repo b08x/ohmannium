@@ -2,7 +2,7 @@
 
 - name: configure user specific stuff
   hosts: all
-  # tags: ['i3']
+  tags: ['ui']
   become: True
   gather_subset:
     - hardware
@@ -35,8 +35,16 @@
 
   tasks:
 
+    - name: include vars
+      include_vars:
+        file: vars/distro/{{ ansible_distribution }}.yml
+
+    - name: include user vars
+      include_vars:
+        dir: vars
+        depth: 1
+
     - import_tasks: tasks/ui/main.yml
-      tags: ['ui']
 
   post_tasks:
 

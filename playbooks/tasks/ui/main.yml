@@ -1,14 +1,5 @@
 ---
 
-- name: include vars
-  include_vars:
-    file: vars/distro/{{ ansible_distribution }}.yml
-
-- name: include user vars
-  include_vars:
-    dir: vars
-    depth: 1
-
 - block:
     - name: install input-remapper
       pip:
