@@ -158,16 +158,10 @@
 
     - name: remove pipewire
       pacman:
-        name: "{{ item }}"
+        name: "pipewire-alsa,pipewire-audio,pipewire-jack,pipewire-pulse,wireplumber"
         state: absent
         force: yes
         extra_args: --noconfirm
-      with_items:
-        - pipewire-alsa
-        - pipewire-audio
-        - pipewire-jack
-        - pipewire-pulse
-        - wireplumber
       when: use_jack|default(true)|bool == true
       ignore_errors: True
       tags: ['packages']
