@@ -168,7 +168,7 @@ else
   cd $ANSIBLE_HOME
 fi
 
-git checkout feature/cli && git fetch && git pull
+git checkout devlopment && git fetch && git pull
 
 git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
