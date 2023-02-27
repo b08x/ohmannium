@@ -1,11 +1,10 @@
-# Syncopated Linux
+# syncopated
 
-An exercise in configuration management for an audio production environment.
-
+An exercise in configuration management. 
 
 # Install
 
-At current this works with ArchLabs. with some adjustments this could be used with most distributions.
+At current this is being used with ArchLabs, however this was designed with to accommodate linux in general with minimal alteration.
 
 ```bash
 $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
@@ -503,17 +502,3 @@ ansible-playbook -i inventory.yml syncopated.yml --limit soundbot,ninjabot --tag
 # to setup an autofs client
 ansible-playbook -i inventory.yml syncopated.yml --limit soundbot --tags autofs
 ```
-
-
-
-# About
-
-```yaml
-become = True
-```
-
-## PAQ { possibly asked questions }
-
-> There are so many ways to go about doing all of this...you picked this one?
-
-Sort of.
