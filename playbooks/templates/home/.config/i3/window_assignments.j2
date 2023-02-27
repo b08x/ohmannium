@@ -2,9 +2,11 @@
 #----------------------------- Workspace Outputs ---------------------------#
 #############################################################################
 
-{% for ws in workspaces %}
+{% if i3.workspaces != 'default' %}
+{% for ws in i3.workspaces %}
 workspace {{ ws }}
 {% endfor %}
+{% endif %}
 
 #############################################################################
 #----------------------------- Workspace Assignments -----------------------#
@@ -39,10 +41,19 @@ assign [class="Mixxx"] $ws7
 assign [class="Jack_mixer"] $ws8
 assign [class="Non-Mixer"] $ws8
 
-{% for app in assignments %}
+{% if i3.assignments != 'default' %}
+{% for app in i3.assignments %}
 assign {{ app }}
 {% endfor %}
-
+{% else %}
+assign [class="Jalv.gtk" title="Helm"] $ws6
+assign [class="qmidiarp"] $ws6
+assign [class="REAPER"] $ws9
+assign [class="Qsampler"] $ws10
+assign [class="^Patchage"] $ws10
+assign [class="Jalv.select"] $ws10
+assign [class="^RaySession$"] $ws10
+{% endif %}
 #############################################################################
 #----------------------------- Window Assignments -----------------------#
 #############################################################################

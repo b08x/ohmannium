@@ -101,9 +101,11 @@ bar {
         workspace_min_width 60
 
         height 24
-
-        tray_output "{{ tray_output }}"
-
+{% if i3.tray_output != 'default' %}
+        tray_output "{{ i3.tray_output }}"
+{% else %}
+        tray_output primary
+{% endif %}
         tray_padding 2
 }
 

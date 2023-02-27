@@ -18,6 +18,8 @@ $exec "input-remapper-control --command autoload;sleep 1"
 
 $exec_always "$localbin/reload-sxhkd.sh"
 
-{% for a in autostart %}
+{% if i3.autostart != 'default' %}
+{% for a in i3.autostart %}
 $exec {{ a }}
 {% endfor %}
+{% endif %}

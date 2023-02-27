@@ -3,18 +3,11 @@
 all:
   vars:
     ansible_user: b08x
-    tray_output: "primary"
-    workspaces:
-      - "$ws1 output primary"
-      - "$ws2 output primary"
-      - "$ws3 output primary"
-      - "$ws4 output primary"
-      - "$ws5 output primary"
-      - "$ws6 output primary"
-      - "$ws7 output primary"
-      - "$ws8 output primary"
-      - "$ws9 output primary"
-      - "$ws10 output primary"
+    i3:
+      tray_output: default
+      workspaces: default
+      assignments: default
+      autostart: default
 
   hosts:
     ninjabot:
