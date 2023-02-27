@@ -151,14 +151,15 @@
       tags: ['packages']
 
     - block:
-        - name: installing
-          debug:
-            msg: "Installing...."
 
-        - name: include vars
+        - name: include package vars
           include_vars:
             dir: vars/packages/{{ ansible_distribution }}
             name: packages
+
+        - name: installing packages
+          debug:
+            msg: "Installing packages...."
 
         - name: print package list
           debug:
