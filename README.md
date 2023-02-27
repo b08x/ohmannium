@@ -5,6 +5,8 @@ An exercise in configuration management for an audio production environment.
 
 # Install
 
+At current this works with ArchLabs. with some adjustments this could be used with most distributions.
+
 ```bash
 $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
 ```

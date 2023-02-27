@@ -30,7 +30,6 @@ system:
   - bluez-utils
   - boost
   - brightnessctl
-  - btrfsmaintenance
   - ccache
   - cmake
   - cppunit

@@ -7,6 +7,14 @@
   when: "'btrfs' in item.fstype"
   tags: ['btrfs']
 
+- name: install btrfsmaintenance
+  aur:
+    use: auto
+    name: btrfsmaintenance
+    state: present
+  when: btrfs_exists|default(false)|bool == true
+  tags: ['btrfs']
+
 - block:
     - name: Enable zstd compression in mkinitcpio
       template:
