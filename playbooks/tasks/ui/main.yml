@@ -50,9 +50,9 @@
 
 - name: set misc profile vars
   template:
-    src: etc/profile.d/misc.sh.j2
-    dest: /etc/profile.d/misc.sh
-    mode: '0755'
+    src: usr/lib/environment.d/51-misc-environment.conf.j2
+    dest: /usr/lib/environment.d/51-misc-environment.conf
+    mode: '0644'
     backup: yes
   tags: ['env']
 
