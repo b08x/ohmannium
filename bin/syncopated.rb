@@ -93,6 +93,8 @@ module Soundbot
               Command.tty("paru -S --noconfirm --needed --batchinstall #{pkgs}")
             rescue StandardError => e
               $logger.warn "#{e}"
+              puts ColorizedString["initial attempt failed, trying again"].colorize(:red)
+              sleep 2
               Command.tty("yes | paru -S --needed --batchinstall --overwrite '*' #{pkgs}")
             end
 
