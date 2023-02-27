@@ -4,9 +4,9 @@
   debug:
     msg: "Starting network tasks"
 
-- include_tasks: networkmanager.yml
+- import_tasks: networkmanager.yml
   tags: ['networkmanager']
 
-- include_tasks: autofs.yml
+- import_tasks: autofs.yml
   when: autofs_client is defined
   tags: ['autofs']

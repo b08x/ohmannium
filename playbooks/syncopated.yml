@@ -1,7 +1,7 @@
 ---
 
 - hosts: all
-  tags: ['base', 'ui', 'shell', 'packages']
+  tags: ['base', 'ui', 'packages']
   become: True
   gather_subset:
     - hardware
@@ -18,7 +18,7 @@
     DISPLAY: ":0"
 
   pre_tasks:
-    - name: include vars
+    - name: include distro vars
       include_vars:
         file: vars/distro/{{ ansible_distribution }}.yml
 
@@ -33,9 +33,12 @@
       tags: ['testing']
 
     - block:
-        - name: print output
+        - name: print keyserver hostname
           debug:
             msg: "{{ keyserver }}"
+          when:
+            - debugging is defined
+            - keyserver is defined
 
         - name: check if keys are present
           stat:

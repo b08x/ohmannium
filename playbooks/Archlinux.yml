@@ -74,7 +74,7 @@
       register: paru
       tags: ['paru', 'packages']
 
-    - name: install paru
+    - name: install paru if not installed
       block:
         - name: install paru
           pacman:
@@ -157,7 +157,7 @@
             dir: vars/packages/{{ ansible_distribution }}
             name: packages
 
-        - name: installing packages
+        - name: prepare pacage list
           debug:
             msg: "Installing packages...."
 
@@ -175,7 +175,7 @@
           register: output
           when: newInstall is defined
 
-        - name: print package list
+        - name: print results
           debug:
             msg: "{{ output }}"
           when: debugging is defined
