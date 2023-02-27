@@ -92,6 +92,7 @@ all:
           docker:
       hosts:
         lapbot:
+          ansible_connection: local
 
     webhost:
       vars:
