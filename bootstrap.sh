@@ -204,6 +204,7 @@ say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
 for playbook in ${playbooks[@]}; do
   ansible-playbook -K -c local -i localhost, "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
                    -e "newInstall=true" \
+                   -e "update_mirrors=true" \
                    -e "cleanup=true" \
                    -e "keyserver=${KEYSERVER}"
 done
