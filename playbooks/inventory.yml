@@ -7,6 +7,31 @@ all:
   hosts:
     ninjabot:
       ansible_connection: local
+      autostart:
+        - "guake"
+        - "tilda -g ~/.config/tilda/config_0"
+        - "barrier"
+        - "hexchat --minimize=2"
+      tray_output: "HDMI1"
+      assignments:
+        - '[class="Jalv.gtk" title="Helm"] $ws6'
+        - '[class="qmidiarp"] $ws6'
+        - '[class="REAPER"] $ws9'
+        - '[class="Qsampler"] $ws10'
+        - '[class="^Patchage"] $ws10'
+        - '[class="Jalv.select"] $ws10'
+        - '[class="^RaySession$"] $ws10'
+      workspaces:
+        - "$ws1 output HDMI1"
+        - "$ws2 output HDMI1"
+        - "$ws3 output HDMI1"
+        - "$ws4 output HDMI2"
+        - "$ws5 output HDMI2"
+        - "$ws6 output HDMI2"
+        - "$ws7 output HDMI2"
+        - "$ws8 output HDMI2"
+        - "$ws9 output HDMI2"
+        - "$ws10 output HDMI2"
 
   children:
     nas:
@@ -23,6 +48,30 @@ all:
           install:
             libvirt:
               qemu_full: True
+          autostart:
+            - "guake"
+            - "tilda -g ~/.config/tilda/config_0"
+            - "barrier"
+          tray_output: "primary"
+          assignments:
+            - '[class="Jalv.gtk" title="Helm"] $ws6'
+            - '[class="qmidiarp"] $ws6'
+            - '[class="REAPER"] $ws9'
+            - '[class="Qsampler"] $ws10'
+            - '[class="^Patchage"] $ws10'
+            - '[class="Jalv.select"] $ws10'
+            - '[class="^RaySession$"] $ws10'
+          workspaces:
+            - "$ws1 output eDP1"
+            - "$ws2 output eDP1"
+            - "$ws3 output eDP1"
+            - "$ws4 output HDMI1"
+            - "$ws5 output HDMI1"
+            - "$ws6 output HDMI1"
+            - "$ws7 output HDMI1"
+            - "$ws8 output HDMI1"
+            - "$ws9 output HDMI1"
+            - "$ws10 output HDMI1"
         ninjabot:
 
     staging:

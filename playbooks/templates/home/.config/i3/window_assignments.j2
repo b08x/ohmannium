@@ -1,30 +1,11 @@
 #############################################################################
 #----------------------------- Workspace Outputs ---------------------------#
 #############################################################################
-{% if ansible_hostname == 'ninjabot' %}
-workspace $ws1 output HDMI1
-workspace $ws2 output HDMI1
-workspace $ws3 output HDMI1
-workspace $ws4 output HDMI2
-workspace $ws5 output HDMI2
-workspace $ws6 output HDMI2
-workspace $ws7 output HDMI2
-workspace $ws8 output HDMI2
-workspace $ws9 output HDMI2
-workspace $ws10 output HDMI2
-{% endif %}
-{% if ansible_hostname == 'soundbot' %}
-workspace $ws1 output eDP1
-workspace $ws2 output eDP1
-workspace $ws3 output eDP1
-workspace $ws4 output HDMI1
-workspace $ws5 output HDMI1
-workspace $ws6 output HDMI1
-workspace $ws7 output HDMI1
-workspace $ws8 output HDMI1
-workspace $ws9 output HDMI1
-workspace $ws10 output HDMI1
-{% endif %}
+
+{% for ws in workspaces %}
+workspace {{ ws }}
+{% endfor %}
+
 #############################################################################
 #----------------------------- Workspace Assignments -----------------------#
 #############################################################################
@@ -58,16 +39,9 @@ assign [class="Mixxx"] $ws7
 assign [class="Jack_mixer"] $ws8
 assign [class="Non-Mixer"] $ws8
 
-
-{% if ansible_hostname == 'ninjabot' %}
-assign [class="Jalv.gtk" title="Helm"] $ws6
-assign [class="qmidiarp"] $ws6
-assign [class="REAPER"] $ws9
-assign [class="Qsampler"] $ws10
-assign [class="^Patchage"] $ws10
-assign [class="Jalv.select"] $ws10
-assign [class="^RaySession$"] $ws10
-{% endif %}
+{% for app in assignments %}
+assign {{ app }}
+{% endfor %}
 
 #############################################################################
 #----------------------------- Window Assignments -----------------------#
@@ -108,11 +82,7 @@ for_window [class="^RaySession$" title="(?i)Add Application"] floating enable, r
 ######################################
 for_window [class="changelog"] move to workspace 1, focus
 for_window [class="notepad"] floating enable, resize set 998 1035, move position 2071px 11, focus
-{% if ansible_hostname == 'ninjabot' %}
-for_window [class="noteinfo"] floating enable, resize set 1055 923, move position 2598px 62, focus
-{% else %}
 for_window [class="noteinfo"] floating enable, resize set 586 687, move position center, focus
-{% endif %}
 for_window [class="soundcheck"] floating enable, move to workspace 5, resize set 1756 844, move position 1667px 1389, focus
 for_window [class="timer"] floating enable, move to workspace 5, resize set 439 175, move position 3538px 2338, sticky enable, focus
 for_window [class="checklog"] floating enable, move to workspace 5, resize set 2449 1353, move position center, focus

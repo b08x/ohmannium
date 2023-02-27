@@ -102,7 +102,7 @@ bar {
 
         height 24
 
-        tray_output "{% if ansible_hostname == 'ninjabot' %}HDMI1{% else %}primary{% endif %}"
+        tray_output "{{ tray_output }}"
 
         tray_padding 2
 }

@@ -2,6 +2,7 @@
 
 - name: configure user specific stuff
   hosts: all
+  # tags: ['i3']
   become: True
   gather_subset:
     - hardware
@@ -10,10 +11,6 @@
     path:
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
-  vars_files:
-    - "vars/distro/{{ ansible_distribution }}.yml"
-    - "vars/user.yml"
-    - "vars/ui.yml"
 
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
@@ -21,6 +18,16 @@
     DISPLAY: ":0"
 
   pre_tasks:
+
+    - name: include vars
+      include_vars:
+        file: vars/distro/{{ ansible_distribution }}.yml
+
+    - name: include user vars
+      include_vars:
+        dir: vars
+        depth: 1
+      tags: ['i3']
 
     - name: ensure usr local directories exist
       file:
