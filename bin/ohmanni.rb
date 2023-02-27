@@ -93,12 +93,13 @@ module Ohmanni
           puts ColorizedString["installing #{group[0]} packages:"].colorize(:green)
           puts ColorizedString["#{pkgs}"].colorize(:blue)
           puts ColorizedString["check /tmp/syncopated-packageinstall.log for details"].colorize(:yellow)
-          puts ColorizedString["----------------------------------------------------"].colorize(:green)
 
           Command.tty("paru -S --noconfirm --needed --batchinstall --overwrite '*' #{pkgs}")
           sleep 2
 
           puts ColorizedString["#{group[0]} packages install successfully"].colorize(:green)
+          puts ColorizedString["----------------------------------------------------"].colorize(:green)
+          puts "\n"
         rescue StandardError => e
           $logger.warn "#{e}"
           puts ColorizedString["initial attempt failed, trying again"].colorize(:red)
