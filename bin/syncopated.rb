@@ -38,10 +38,8 @@ module Command
 
     cmd = TTY::Command.new(output: $logger, uuid: false, timeout: 60)
 
-    begin
-      cmd.run(args.join(' '), only_output_on_error: false, pty: true)
-    rescue TTY::Command::ExitError => e
-      $logger.debug "#{args} failed with #{e.message}"
+    cmd.run(args.join(' '), only_output_on_error: false, pty: true)
+
     rescue TTY::Command::TimeoutExceeded => e
       $logger.debug "#{args} timeout exceeded"
     end
@@ -95,7 +93,7 @@ module Soundbot
               Command.tty("paru -S --noconfirm --needed --batchinstall #{pkgs}")
             rescue StandardError => e
               $logger.warn "#{e}"
-              Command.tty("yes | paru -S --needed --batchinstall #{pkgs}")
+              Command.tty("yes | paru -S --needed --batchinstall --overwrite '*' #{pkgs}")
             end
 
           end
