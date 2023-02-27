@@ -1,10 +1,10 @@
 # syncopated
 
-An exercise in configuration management. 
+An exercise in configuration management.
 
 # Install
 
-At current this is being used with ArchLabs, however this was designed with to accommodate linux in general with minimal alteration.
+At current this is being used with [ArchLabs](https://archlabslinux.com/) however this was designed to accommodate most major distributions with minimal alteration.
 
 ```bash
 $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
