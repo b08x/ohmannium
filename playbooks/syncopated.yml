@@ -88,7 +88,7 @@
             architecture: "x86-64"
           when: supported_march.stdout_lines[0] == 'x86-64-v2'
 
-      ignore_errors: "{{ ansible_check_mode }}"
+      check_mode: False
       tags: ['flags', 'repo', 'packages']
 
     - debug:
