@@ -1,10 +1,12 @@
-# syncopated
+# Syncopated
 
 An exercise in configuration management.
 
-# Install
+## requirements
 
-At current this is being used with [ArchLabs](https://archlabslinux.com/) however this was designed to accommodate most major distributions with minimal alteration.
+At current [ArchLabs](https://archlabslinux.com/) is used as the base OS
+
+## install
 
 ```bash
 $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
@@ -13,7 +15,7 @@ $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
 [insert screencast]
 
 
-# Variables
+## Variables
 
 Depending on the use-case, variables can be set in several different files.
 
