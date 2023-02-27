@@ -92,7 +92,7 @@ module Ohmanni
         begin
           puts ColorizedString["installing #{group[0]} packages:"].colorize(:green)
           puts ColorizedString["#{pkgs}"].colorize(:blue)
-          puts ColorizedString["check /tmp/syncopated-packageinstall.log for details"].colorize(:yellow)
+          puts ColorizedString["output logged to #{$logfile}"].colorize(:yellow)
 
           Command.tty("paru -S --noconfirm --needed --batchinstall --overwrite '*' #{pkgs}")
           sleep 2
