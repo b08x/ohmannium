@@ -21,12 +21,6 @@
 
   pre_tasks:
 
-    - name: set perms on /tmp/ansible.log
-      file:
-        path: /tmp/ansible.log
-        mode: '0777'
-      ignore_errors: True
-
     - name: symlink os-release
       file:
         src: /etc/os-release
