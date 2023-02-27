@@ -18,7 +18,7 @@ $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
 
 Depending on the use-case, variables can be set in several different files.
 
-Variables can be set in [inventory.yml](inventory.yml)
+Variables can be set in [inventory.yml](playbooks/inventory.yml)
 
 Set variables that can applied all hosts under
 `all:
@@ -68,7 +68,7 @@ Variables set for a host will override those set for all.
         - "$ws10 output HDMI2"
 ```
 
-Variables can also be set within files located in the [vars/](vars/) directory then included either in a playbook or task file. Variables set within a playbook or task will override variables set in inventory.
+Variables can also be set within files located in the [vars/](playbooks/vars/) directory then included either in a playbook or task file. Variables set within a playbook or task will override variables set in inventory.
 
 
 
@@ -82,170 +82,170 @@ Variables can also be set within files located in the [vars/](vars/) directory t
 ```yaml
 playbook: syncopated.yml
 
-  play #1 (all): all	TAGS: [base,ui,packages]
+  play #1 (all): all
     tasks:
-      include distro vars	TAGS: [base, packages, ui]
-      include user vars	TAGS: [base, packages, ui]
-      set ansible_home	TAGS: [base, packages, testing, ui]
-      print keyserver hostname	TAGS: [base, packages, ssh, ui]
-      check if keys are present	TAGS: [base, packages, ssh, ui]
-      copy keys from remote host	TAGS: [base, keys, packages, ssh, ui]
-      enable ssh daemon	TAGS: [base, packages, ssh, ui]
-      set admin_group variable	TAGS: [base, packages, sudoers, ui]
-      add user to groups defined in playbook	TAGS: [base, packages, sudoers, ui]
-      disable requiretty for user so automation can run without interruption	TAGS: [base, packages, sudoers, ui]
-      ensure /etc/sudoers.d exists	TAGS: [base, packages, sudoers, ui]
-      set NOPASSWD for user in sudoers	TAGS: [base, packages, sudoers, ui]
-      set NOPASSWD for user in polkit	TAGS: [base, packages, sudoers, ui]
-      remove existing sudoers if there is one	TAGS: [base, packages, sudoers, ui]
-      check -march support	TAGS: [base, flags, packages, repo, ui]
-      check output from grep command	TAGS: [base, flags, packages, repo, ui]
-      set architecture	TAGS: [base, flags, packages, repo, ui]
-      set architecture	TAGS: [base, flags, packages, repo, ui]
-      debug	TAGS: [base, packages, ui]
+      include distro vars
+      include user vars
+      set ansible_home
+      print keyserver hostname
+      check if keys are present
+      copy keys from remote host
+      enable ssh daemon
+      set admin_group variable
+      add user to groups defined in playbook
+      disable requiretty for user so automation can run without interruption
+      ensure /etc/sudoers.d exists
+      set NOPASSWD for user in sudoers
+      set NOPASSWD for user in polkit
+      remove existing sudoers if there is one
+      check -march support
+      check output from grep command
+      set architecture
+      set architecture
+      debug
 
-  play #2 (all): setup repositories and install packages	TAGS: [packages,testing]
+  play #2 (all): setup repositories and install packages
     tasks:
-      add syncopated repo key	TAGS: [packages, repo, testing]
-      add archaudio repo key	TAGS: [packages, repo, testing]
-      adjust pacman, paru and makepkg configs	TAGS: [makepkg, packages, pacman, paru, repo, testing]
-      update cache	TAGS: [packages, testing]
-      check if paru installed	TAGS: [packages, paru, testing]
-      install paru	TAGS: [packages, paru, testing]
-      check if mirrors have been updated within the past 24h	TAGS: [mirrors, packages, testing]
-      print output	TAGS: [mirrors, packages, testing]
-      update mirrors	TAGS: [mirrors, packages, testing]
-      update and upgrade	TAGS: [packages, testing]
-      remove pipewire	TAGS: [packages, testing]
-      include package vars	TAGS: [packages, testing]
-      prepare pacage list	TAGS: [packages, testing]
-      print package list	TAGS: [packages, testing]
-      install packages	TAGS: [packages, testing]
-      print results	TAGS: [packages, testing]
+      add syncopated repo key
+      add archaudio repo key
+      adjust pacman, paru and makepkg configs
+      update cache
+      check if paru installed
+      install paru
+      check if mirrors have been updated within the past 24h
+      print output
+      update mirrors
+      update and upgrade
+      remove pipewire
+      include package vars
+      prepare pacage list
+      print package list
+      install packages
+      print results
 
-  play #3 (all): all	TAGS: []
+  play #3 (all): all
     tasks:
-      symlink os-release	TAGS: []
-      install systemd configs	TAGS: [logging]
-      set system log level config	TAGS: [logging]
-      set user log level config	TAGS: [logging]
-      reload systemd	TAGS: [logging]
-      set root shell	TAGS: [shell]
-      sync zsh functions	TAGS: [shell, zsh]
-      ensure /usr/local/share/zsh has correct owner/group	TAGS: [shell, zsh]
-      create group for user	TAGS: [user]
-      set user primary group	TAGS: [user]
-      ensure user ownership of home directory	TAGS: [user]
-      install yadm	TAGS: [user, yadm]
-      copy clonedots script into user home	TAGS: [user, yadm]
-      copy ld config file	TAGS: []
-      run ldconfig	TAGS: []
-      starting network tasks	TAGS: [autofs, firewall, netork]
-      disable systemd-networkd service	TAGS: [autofs, firewall, netork, networkmanager]
-      ensure networkmanager connection check is enabled	TAGS: [autofs, firewall, netork, networkmanager]
-      enable and start networkmanager	TAGS: [autofs, firewall, netork, networkmanager]
-      set ntp servers in timesyncd.conf	TAGS: [autofs, firewall, netork, networkmanager]
-      set autofs config folder	TAGS: [autofs, firewall, netork]
-      create mount directory folder if it doesn't already exist	TAGS: [autofs, firewall, netork]
-      install autofs configs	TAGS: [autofs, firewall, netork]
-      starting audio role tasks	TAGS: [alsa, audio, jack, pulseaudio]
-      add modprobe for alsa card order	TAGS: [alsa, audio, jack, modprobe, pulseaudio]
-      ensure user belongs to audio group	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      ensure /etc/security/limits.d directory exists	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      install jack limits file	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      install timer permissions file	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      set vm.swappiness to 10 to ensure swap isn't overly used	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      set vm.dirty_background_bytes to 100000000	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      set fs.inotify.max_user_watches	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      set dev.hpet.max-user-freq=3072	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      enable tuned service	TAGS: [alsa, audio, jack, pulseaudio, tuned, tuning]
-      create tuned profile folder	TAGS: [alsa, audio, jack, pulseaudio, tuned, tuning]
-      install realtime-modified profile	TAGS: [alsa, audio, jack, pulseaudio, tuned, tuning]
-      install rtirq defaults	TAGS: [alsa, audio, jack, pulseaudio, rtirq, rtkit, tuning]
-      install rtkit.conf	TAGS: [alsa, audio, jack, pulseaudio, rtirq, rtkit, tuning]
-      install rtkit systemd file	TAGS: [alsa, audio, jack, pulseaudio, rtirq, rtkit, tuning]
-      install cpucpower defaults	TAGS: [alsa, audio, cpupower, jack, pulseaudio, tuning]
-      enable cpupower service	TAGS: [alsa, audio, cpupower, jack, pulseaudio, tuning]
-      disable irqbalance service	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      create environment file for jack_control.service	TAGS: [alsa, audio, jack, pulseaudio]
-      install jack_control service file	TAGS: [alsa, audio, jack, pulseaudio]
-      ensure pulse config directory exists	TAGS: [alsa, audio, jack, pulseaudio]
-      update pulseaudio configs	TAGS: [alsa, audio, jack, pulseaudio]
-      ensure /etc/pulse/default.pa.d exists	TAGS: [alsa, audio, jack, pulseaudio]
-      install pulseaudio bluetooth config	TAGS: [alsa, audio, jack, pulseaudio]
-      adjust pulseaudio.service file	TAGS: [alsa, audio, jack, pulseaudio]
-      enable and start firewalld	TAGS: [firewall]
-      permit traffic to common services	TAGS: [firewall, nfs, ntp, rsyncd, ssh]
-      permit traffic to jacktrip, barrier and qmidinet	TAGS: [firewall]
-      check if the btrfs filesystem is being used	TAGS: [btrfs, filesystem]
-      install btrfsmaintenance	TAGS: [btrfs, filesystem]
-      Enable zstd compression in mkinitcpio	TAGS: [filesystem, initram]
-      Rebuild ramdisk environment if a change was made.	TAGS: [filesystem, initram]
-      enable and/or start btrfs-scrub@-.timer	TAGS: [btrfs, filesystem]
-      check if fstrim will be necessary	TAGS: [filesystem, trim]
-      debug	TAGS: [filesystem, trim]
-      ensure fstrim.timer is enabled	TAGS: [filesystem, trim]
-      sync folder syncopated utility scripts	TAGS: [utils]
-      ensure files in /usr/local/bin are executable	TAGS: [utils]
-      set directories to not be indexed	TAGS: [updatedb]
-      run updatedb	TAGS: [updatedb]
-      create getty@tty1.service.d directory	TAGS: [autologin]
-      create systemd drop-in file for virtual console autologin	TAGS: [autologin]
-      install lightdm	TAGS: [autologin, lightdm]
-      ensure group autologin exists	TAGS: [autologin, lightdm]
-      add user to autologin group	TAGS: [autologin, lightdm]
-      install xsession file to /etc/lightdm/xsession	TAGS: [autologin, lightdm]
-      update lightdm.conf	TAGS: [autologin, lightdm]
-      update pam	TAGS: [autologin, lightdm, pam]
-      set dmrc to i3	TAGS: [autologin]
-      install modified starfield theme	TAGS: [grub]
-      set kernel cmdline params in grub	TAGS: [grub]
-      remake grub if changes were made	TAGS: [grub]
-      remake grub if changes were made	TAGS: [grub]
-      reboot host if grub was modified	TAGS: [grub]
-      wait for host to reboot	TAGS: [grub]
-      reboot host	TAGS: []
-      wait for host to reboot	TAGS: []
+      symlink os-release
+      install systemd configs
+      set system log level config
+      set user log level config
+      reload systemd
+      set root shell
+      sync zsh functions
+      ensure /usr/local/share/zsh has correct owner/group
+      create group for user
+      set user primary group
+      ensure user ownership of home directory
+      install yadm
+      copy clonedots script into user home
+      copy ld config file
+      run ldconfig
+      starting network tasks
+      disable systemd-networkd service
+      ensure networkmanager connection check is enabled
+      enable and start networkmanager
+      set ntp servers in timesyncd.conf
+      set autofs config folder
+      create mount directory folder if it doesn't already exist
+      install autofs configs
+      starting audio role tasks
+      add modprobe for alsa card order
+      ensure user belongs to audio group
+      ensure /etc/security/limits.d directory exists
+      install jack limits file
+      install timer permissions file
+      set vm.swappiness to 10 to ensure swap isn't overly used
+      set vm.dirty_background_bytes to 100000000
+      set fs.inotify.max_user_watches
+      set dev.hpet.max-user-freq=3072
+      enable tuned service
+      create tuned profile folder
+      install realtime-modified profile
+      install rtirq defaults
+      install rtkit.conf
+      install rtkit systemd file
+      install cpucpower defaults
+      enable cpupower service
+      disable irqbalance service
+      create environment file for jack_control.service
+      install jack_control service file
+      ensure pulse config directory exists
+      update pulseaudio configs
+      ensure /etc/pulse/default.pa.d exists
+      install pulseaudio bluetooth config
+      adjust pulseaudio.service file
+      enable and start firewalld
+      permit traffic to common services
+      permit traffic to jacktrip, barrier and qmidinet
+      check if the btrfs filesystem is being used
+      install btrfsmaintenance
+      Enable zstd compression in mkinitcpio
+      Rebuild ramdisk environment if a change was made.
+      enable and/or start btrfs-scrub@-.timer
+      check if fstrim will be necessary
+      debug
+      ensure fstrim.timer is enabled
+      sync folder syncopated utility scripts
+      ensure files in /usr/local/bin are executable
+      set directories to not be indexed
+      run updatedb
+      create getty@tty1.service.d directory
+      create systemd drop-in file for virtual console autologin
+      install lightdm
+      ensure group autologin exists
+      add user to autologin group
+      install xsession file to /etc/lightdm/xsession
+      update lightdm.conf
+      update pam
+      set dmrc to i3
+      install modified starfield theme
+      set kernel cmdline params in grub
+      remake grub if changes were made
+      remake grub if changes were made
+      reboot host if grub was modified
+      wait for host to reboot
+      reboot host
+      wait for host to reboot
 
-  play #4 (all): configure user specific stuff	TAGS: []
+  play #4 (all): configure user specific stuff
     tasks:
-      include vars	TAGS: []
-      include user vars	TAGS: [i3]
-      ensure usr local directories exist	TAGS: [folders]
-      install input-remapper	TAGS: [ui]
-      enable input-remapper service	TAGS: [ui]
-      set XDG env vars	TAGS: [env, ui, xdg]
-      set misc profile vars	TAGS: [env, ui]
-      install Thunar actions	TAGS: [thunar, ui]
-      set Thunar as default for opening directories	TAGS: [thunar, ui]
-      ensure these directories exist	TAGS: [home, ui]
-      syncronize templates - shell	TAGS: [alias, home, profile, shell, ui, zsh]
-      syncronize templates - x11	TAGS: [home, profile, ui, x11]
-      syncronize templates - wm	TAGS: [dunst, home, i3, picom, ui]
-      syncronize templates - keybindings	TAGS: [home, i3, keybindings, sxhkd, ui]
-      syncronize templates - terminal	TAGS: [alacritty, home, kitty, terminal, tilda, ui]
-      syncronize templates - gtk	TAGS: [gtk, home, ui]
-      syncronize templates - qt	TAGS: [home, qt, ui]
-      syncronize templates - applications	TAGS: [home, htop, qutebrowser, sonicpi, ui, zim]
-      ensure .xinitrc is executable	TAGS: [home, profile, ui, x11]
-      reload i3	TAGS: [dunst, home, i3, keybindings, picom, sxhkd, ui]
-      ensure xorg.conf.d exists	TAGS: [ui, x11]
-      install input config	TAGS: [ui, x11]
-      install intel config	TAGS: [i965, intel, ui, x11]
-      uninstall mesa in favor of mesa-amber	TAGS: [i965, intel, ui, x11]
-      install i965 libs (mesa-amber)	TAGS: [i965, intel, ui, x11]
-      install icons	TAGS: [icons, theme, ui]
-      extract soundbot theme icons into /usr/local/share/icons	TAGS: [icons, theme, ui]
-      update the icon cache	TAGS: [icons, theme, ui]
-      extract fonts to /usr/local/share/fonts	TAGS: [fonts, theme, ui]
-      update font-cache	TAGS: [fonts, theme, ui]
-      install backgrounds	TAGS: [backgrounds, theme, ui]
-      extract soundbot theme into /usr/local/share/themes	TAGS: [theme, ui]
-      include_tasks	TAGS: [menu, ui, xdg]
-      ensure these directories exist	TAGS: [jgmenu, menu, rofi, ui]
-      install jgmenu menus	TAGS: [jgmenu, menu, ui]
-      syncronize templates - rofi	TAGS: [menu, rofi, ui]
-      cleanup old backup files	TAGS: [cleanup]
+      include vars
+      include user vars
+      ensure usr local directories exist
+      install input-remapper
+      enable input-remapper service
+      set XDG env vars
+      set misc profile vars
+      install Thunar actions
+      set Thunar as default for opening directories
+      ensure these directories exist
+      syncronize templates - shell
+      syncronize templates - x11
+      syncronize templates - wm
+      syncronize templates - keybindings
+      syncronize templates - terminal
+      syncronize templates - gtk
+      syncronize templates - qt
+      syncronize templates - applications
+      ensure .xinitrc is executable
+      reload i3
+      ensure xorg.conf.d exists
+      install input config
+      install intel config
+      uninstall mesa in favor of mesa-amber
+      install i965 libs (mesa-amber)
+      install icons
+      extract soundbot theme icons into /usr/local/share/icons
+      update the icon cache
+      extract fonts to /usr/local/share/fonts
+      update font-cache
+      install backgrounds
+      extract soundbot theme into /usr/local/share/themes
+      include_tasks
+      ensure these directories exist
+      install jgmenu menus
+      syncronize templates - rofi
+      cleanup old backup files
 ```
 </details>
 
@@ -261,42 +261,42 @@ playbook: syncopated.yml
 ```yaml
 playbook: syncopated.yml
 
-  play #1 (all): all	TAGS: [ui,base,packages]
+  play #1 (all): all
     tasks:
 
-  play #2 (all): setup repositories and install packages	TAGS: [packages,testing]
+  play #2 (all): setup repositories and install packages
     tasks:
 
-  play #3 (all): all	TAGS: []
+  play #3 (all): all
     tasks:
-      starting audio role tasks	TAGS: [alsa, audio, jack, pulseaudio]
-      add modprobe for alsa card order	TAGS: [alsa, audio, jack, modprobe, pulseaudio]
-      ensure user belongs to audio group	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      ensure /etc/security/limits.d directory exists	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      install jack limits file	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      install timer permissions file	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      set vm.swappiness to 10 to ensure swap isn't overly used	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      set vm.dirty_background_bytes to 100000000	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      set fs.inotify.max_user_watches	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      set dev.hpet.max-user-freq=3072	TAGS: [alsa, audio, jack, pulseaudio, sysctl, tuning]
-      enable tuned service	TAGS: [alsa, audio, jack, pulseaudio, tuned, tuning]
-      create tuned profile folder	TAGS: [alsa, audio, jack, pulseaudio, tuned, tuning]
-      install realtime-modified profile	TAGS: [alsa, audio, jack, pulseaudio, tuned, tuning]
-      install rtirq defaults	TAGS: [alsa, audio, jack, pulseaudio, rtirq, rtkit, tuning]
-      install rtkit.conf	TAGS: [alsa, audio, jack, pulseaudio, rtirq, rtkit, tuning]
-      install rtkit systemd file	TAGS: [alsa, audio, jack, pulseaudio, rtirq, rtkit, tuning]
-      install cpucpower defaults	TAGS: [alsa, audio, cpupower, jack, pulseaudio, tuning]
-      enable cpupower service	TAGS: [alsa, audio, cpupower, jack, pulseaudio, tuning]
-      disable irqbalance service	TAGS: [alsa, audio, jack, pulseaudio, tuning]
-      create environment file for jack_control.service	TAGS: [alsa, audio, jack, pulseaudio]
-      install jack_control service file	TAGS: [alsa, audio, jack, pulseaudio]
-      ensure pulse config directory exists	TAGS: [alsa, audio, jack, pulseaudio]
-      update pulseaudio configs	TAGS: [alsa, audio, jack, pulseaudio]
-      ensure /etc/pulse/default.pa.d exists	TAGS: [alsa, audio, jack, pulseaudio]
-      install pulseaudio bluetooth config	TAGS: [alsa, audio, jack, pulseaudio]
-      adjust pulseaudio.service file	TAGS: [alsa, audio, jack, pulseaudio]
+      starting audio role tasks
+      add modprobe for alsa card order
+      ensure user belongs to audio group
+      ensure /etc/security/limits.d directory exists
+      install jack limits file
+      install timer permissions file
+      set vm.swappiness to 10 to ensure swap isn't overly used
+      set vm.dirty_background_bytes to 100000000
+      set fs.inotify.max_user_watches
+      set dev.hpet.max-user-freq=3072
+      enable tuned service
+      create tuned profile folder
+      install realtime-modified profile
+      install rtirq defaults
+      install rtkit.conf
+      install rtkit systemd file
+      install cpucpower defaults
+      enable cpupower service
+      disable irqbalance service
+      create environment file for jack_control.service
+      install jack_control service file
+      ensure pulse config directory exists
+      update pulseaudio configs
+      ensure /etc/pulse/default.pa.d exists
+      install pulseaudio bluetooth config
+      adjust pulseaudio.service file
 
-  play #4 (all): configure user specific stuff	TAGS: []
+  play #4 (all): configure user specific stuff
     tasks:
 ```
 </details>
@@ -312,35 +312,35 @@ playbook: syncopated.yml
 ```yaml
 playbook: syncopated.yml
 
-  play #1 (all): all	TAGS: [ui,base,packages,shell]
+  play #1 (all): all
     tasks:
-      include distro vars	TAGS: [base, packages, shell, ui]
-      include user vars	TAGS: [base, packages, shell, ui]
-      set ansible_home	TAGS: [base, packages, shell, testing, ui]
-      print keyserver hostname	TAGS: [base, packages, shell, ssh, ui]
-      check if keys are present	TAGS: [base, packages, shell, ssh, ui]
-      copy keys from remote host	TAGS: [base, keys, packages, shell, ssh, ui]
-      enable ssh daemon	TAGS: [base, packages, shell, ssh, ui]
-      set admin_group variable	TAGS: [base, packages, shell, sudoers, ui]
-      add user to groups defined in playbook	TAGS: [base, packages, shell, sudoers, ui]
-      disable requiretty for user so automation can run without interruption	TAGS: [base, packages, shell, sudoers, ui]
-      ensure /etc/sudoers.d exists	TAGS: [base, packages, shell, sudoers, ui]
-      set NOPASSWD for user in sudoers	TAGS: [base, packages, shell, sudoers, ui]
-      set NOPASSWD for user in polkit	TAGS: [base, packages, shell, sudoers, ui]
-      remove existing sudoers if there is one	TAGS: [base, packages, shell, sudoers, ui]
-      check -march support	TAGS: [base, flags, packages, repo, shell, ui]
-      check output from grep command	TAGS: [base, flags, packages, repo, shell, ui]
-      set architecture	TAGS: [base, flags, packages, repo, shell, ui]
-      set architecture	TAGS: [base, flags, packages, repo, shell, ui]
-      debug	TAGS: [base, packages, shell, ui]
+      include distro vars
+      include user vars
+      set ansible_home
+      print keyserver hostname
+      check if keys are present
+      copy keys from remote host
+      enable ssh daemon
+      set admin_group variable
+      add user to groups defined in playbook
+      disable requiretty for user so automation can run without interruption
+      ensure /etc/sudoers.d exists
+      set NOPASSWD for user in sudoers
+      set NOPASSWD for user in polkit
+      remove existing sudoers if there is one
+      check -march support
+      check output from grep command
+      set architecture
+      set architecture
+      debug
 
-  play #2 (all): setup repositories and install packages	TAGS: [testing,packages]
-    tasks:
-
-  play #3 (all): all	TAGS: []
+  play #2 (all): setup repositories and install packages
     tasks:
 
-  play #4 (all): configure user specific stuff	TAGS: []
+  play #3 (all): all
+    tasks:
+
+  play #4 (all): configure user specific stuff
     tasks:
 ```
 </details>
@@ -356,69 +356,69 @@ playbook: syncopated.yml
 ```yaml
 playbook: syncopated.yml
 
-  play #1 (all): all	TAGS: [packages,ui,shell,base]
+  play #1 (all): all
     tasks:
-      include distro vars	TAGS: [base, packages, shell, ui]
-      include user vars	TAGS: [base, packages, shell, ui]
-      set ansible_home	TAGS: [base, packages, shell, testing, ui]
-      print keyserver hostname	TAGS: [base, packages, shell, ssh, ui]
-      check if keys are present	TAGS: [base, packages, shell, ssh, ui]
-      copy keys from remote host	TAGS: [base, keys, packages, shell, ssh, ui]
-      enable ssh daemon	TAGS: [base, packages, shell, ssh, ui]
-      set admin_group variable	TAGS: [base, packages, shell, sudoers, ui]
-      add user to groups defined in playbook	TAGS: [base, packages, shell, sudoers, ui]
-      disable requiretty for user so automation can run without interruption	TAGS: [base, packages, shell, sudoers, ui]
-      ensure /etc/sudoers.d exists	TAGS: [base, packages, shell, sudoers, ui]
-      set NOPASSWD for user in sudoers	TAGS: [base, packages, shell, sudoers, ui]
-      set NOPASSWD for user in polkit	TAGS: [base, packages, shell, sudoers, ui]
-      remove existing sudoers if there is one	TAGS: [base, packages, shell, sudoers, ui]
-      check -march support	TAGS: [base, flags, packages, repo, shell, ui]
-      check output from grep command	TAGS: [base, flags, packages, repo, shell, ui]
-      set architecture	TAGS: [base, flags, packages, repo, shell, ui]
-      set architecture	TAGS: [base, flags, packages, repo, shell, ui]
-      debug	TAGS: [base, packages, shell, ui]
+      include distro vars
+      include user vars
+      set ansible_home
+      print keyserver hostname
+      check if keys are present
+      copy keys from remote host
+      enable ssh daemon
+      set admin_group variable
+      add user to groups defined in playbook
+      disable requiretty for user so automation can run without interruption
+      ensure /etc/sudoers.d exists
+      set NOPASSWD for user in sudoers
+      set NOPASSWD for user in polkit
+      remove existing sudoers if there is one
+      check -march support
+      check output from grep command
+      set architecture
+      set architecture
+      debug
 
-  play #2 (all): setup repositories and install packages	TAGS: [packages,testing]
-    tasks:
-
-  play #3 (all): all	TAGS: []
+  play #2 (all): setup repositories and install packages
     tasks:
 
-  play #4 (all): configure user specific stuff	TAGS: []
+  play #3 (all): all
     tasks:
-      install input-remapper	TAGS: [ui]
-      enable input-remapper service	TAGS: [ui]
-      set XDG env vars	TAGS: [env, ui, xdg]
-      set misc profile vars	TAGS: [env, ui]
-      install Thunar actions	TAGS: [thunar, ui]
-      set Thunar as default for opening directories	TAGS: [thunar, ui]
-      ensure these directories exist	TAGS: [home, ui]
-      syncronize templates - shell	TAGS: [alias, home, profile, shell, ui, zsh]
-      syncronize templates - x11	TAGS: [home, profile, ui, x11]
-      syncronize templates - wm	TAGS: [dunst, home, i3, picom, ui]
-      syncronize templates - keybindings	TAGS: [home, i3, keybindings, sxhkd, ui]
-      syncronize templates - terminal	TAGS: [alacritty, home, kitty, terminal, tilda, ui]
-      syncronize templates - gtk	TAGS: [gtk, home, ui]
-      syncronize templates - qt	TAGS: [home, qt, ui]
-      syncronize templates - applications	TAGS: [home, htop, qutebrowser, sonicpi, ui, zim]
-      ensure .xinitrc is executable	TAGS: [home, profile, ui, x11]
-      reload i3	TAGS: [dunst, home, i3, keybindings, picom, sxhkd, ui]
-      ensure xorg.conf.d exists	TAGS: [ui, x11]
-      install input config	TAGS: [ui, x11]
-      install intel config	TAGS: [i965, intel, ui, x11]
-      uninstall mesa in favor of mesa-amber	TAGS: [i965, intel, ui, x11]
-      install i965 libs (mesa-amber)	TAGS: [i965, intel, ui, x11]
-      install icons	TAGS: [icons, theme, ui]
-      extract soundbot theme icons into /usr/local/share/icons	TAGS: [icons, theme, ui]
-      update the icon cache	TAGS: [icons, theme, ui]
-      extract fonts to /usr/local/share/fonts	TAGS: [fonts, theme, ui]
-      update font-cache	TAGS: [fonts, theme, ui]
-      install backgrounds	TAGS: [backgrounds, theme, ui]
-      extract soundbot theme into /usr/local/share/themes	TAGS: [theme, ui]
-      include_tasks	TAGS: [menu, ui, xdg]
-      ensure these directories exist	TAGS: [jgmenu, menu, rofi, ui]
-      install jgmenu menus	TAGS: [jgmenu, menu, ui]
-      syncronize templates - rofi	TAGS: [menu, rofi, ui]
+
+  play #4 (all): configure user specific stuff
+    tasks:
+      install input-remapper
+      enable input-remapper service
+      set XDG env vars
+      set misc profile vars
+      install Thunar actions
+      set Thunar as default for opening directories
+      ensure these directories exist
+      syncronize templates - shell
+      syncronize templates - x11
+      syncronize templates - wm
+      syncronize templates - keybindings
+      syncronize templates - terminal
+      syncronize templates - gtk
+      syncronize templates - qt
+      syncronize templates - applications
+      ensure .xinitrc is executable
+      reload i3
+      ensure xorg.conf.d exists
+      install input config
+      install intel config
+      uninstall mesa in favor of mesa-amber
+      install i965 libs (mesa-amber)
+      install icons
+      extract soundbot theme icons into /usr/local/share/icons
+      update the icon cache
+      extract fonts to /usr/local/share/fonts
+      update font-cache
+      install backgrounds
+      extract soundbot theme into /usr/local/share/themes
+      include_tasks
+      ensure these directories exist
+      install jgmenu menus
+      syncronize templates - rofi
 ```
 </details>
 
@@ -433,21 +433,21 @@ playbook: syncopated.yml
 ```yaml
 playbook: syncopated.yml
 
-  play #1 (all): all	TAGS: [ui,packages,shell,base]
+  play #1 (all): all
     tasks:
 
-  play #2 (all): setup repositories and install packages	TAGS: [packages,testing]
+  play #2 (all): setup repositories and install packages
     tasks:
 
-  play #3 (all): all	TAGS: []
+  play #3 (all): all
     tasks:
 
-  play #4 (all): configure user specific stuff	TAGS: []
+  play #4 (all): configure user specific stuff
     tasks:
-      include user vars	TAGS: [i3]
-      syncronize templates - wm	TAGS: [dunst, home, i3, picom, ui]
-      syncronize templates - keybindings	TAGS: [home, i3, keybindings, sxhkd, ui]
-      reload i3	TAGS: [dunst, home, i3, keybindings, picom, sxhkd, ui]
+      include user vars
+      syncronize templates - wm
+      syncronize templates - keybindings
+      reload i3
 ```
 </details>
 
@@ -463,28 +463,28 @@ playbook: syncopated.yml
 ```yaml
 playbook: syncopated.yml
 
-  play #1 (all): all	TAGS: [base,packages,ui]
+  play #1 (all): all
     tasks:
 
-  play #2 (all): setup repositories and install packages	TAGS: [packages,testing]
+  play #2 (all): setup repositories and install packages
     tasks:
 
-  play #3 (all): all	TAGS: []
+  play #3 (all): all
     tasks:
 
-  play #4 (all): configure user specific stuff	TAGS: []
+  play #4 (all): configure user specific stuff
     tasks:
-      ensure these directories exist	TAGS: [home, ui]
-      syncronize templates - shell	TAGS: [alias, home, profile, shell, ui, zsh]
-      syncronize templates - x11	TAGS: [home, profile, ui, x11]
-      syncronize templates - wm	TAGS: [dunst, home, i3, picom, ui]
-      syncronize templates - keybindings	TAGS: [home, i3, keybindings, sxhkd, ui]
-      syncronize templates - terminal	TAGS: [alacritty, home, kitty, terminal, tilda, ui]
-      syncronize templates - gtk	TAGS: [gtk, home, ui]
-      syncronize templates - qt	TAGS: [home, qt, ui]
-      syncronize templates - applications	TAGS: [home, htop, qutebrowser, sonicpi, ui, zim]
-      ensure .xinitrc is executable	TAGS: [home, profile, ui, x11]
-      reload i3	TAGS: [dunst, home, i3, keybindings, picom, sxhkd, ui]
+      ensure these directories exist
+      syncronize templates - shell
+      syncronize templates - x11
+      syncronize templates - wm
+      syncronize templates - keybindings
+      syncronize templates - terminal
+      syncronize templates - gtk
+      syncronize templates - qt
+      syncronize templates - applications
+      ensure .xinitrc is executable
+      reload i3
 
 ```
 </details>
