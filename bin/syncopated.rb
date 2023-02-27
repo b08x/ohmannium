@@ -39,7 +39,7 @@ module Command
     cmd = TTY::Command.new(output: $logger, uuid: false, timeout: 60)
 
     begin
-      cmd.run(args.join(' '), only_output_on_error: false, pty: false)
+      cmd.run(args.join(' '), only_output_on_error: false, pty: true)
     rescue TTY::Command::ExitError => e
       $logger.debug "#{args} failed with #{e.message}"
     rescue TTY::Command::TimeoutExceeded => e
@@ -88,8 +88,9 @@ module Soundbot
 
             begin
               $logger.info "installing #{group[0]} packages"
-              Command.run("yes | paru -S --noconfirm --useask  --needed --batchinstall #{pkgs}")
+              Command.tty("yes | paru -S --needed --batchinstall #{pkgs}")
             rescue StandardError => e
+              Command.tty("paru -S --noconfirm --useask  --needed --batchinstall #{pkgs}")
               $logger.warn "#{e}"
             end
 

@@ -1,6 +1,5 @@
 ---
 
-
 wm:
   - i3-wm
   - i3status-rust

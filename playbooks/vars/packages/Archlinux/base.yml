@@ -1,7 +1,5 @@
 ---
 
-
-
 kernel:
   - linux-rt-lts
   - linux-rt-lts-headers
@@ -15,13 +13,12 @@ bluetooth:
   - bluetooth-autoconnect
 system:
   # - lightdm
-  - pandoc
-  - autofs
-  - autojump
   - aria2
   - aribb24
   - atool
   - autoconf
+  - autofs
+  - autojump
   - automake
   - base-devel
   - bat
@@ -115,6 +112,7 @@ system:
   - openssl
   - openssl-1.1
   - pacman
+  - pandoc
   - patch
   - pcsclite
   - pkgconf
@@ -139,9 +137,9 @@ system:
   - sudo
   - suil
   - taglib
-  - timeshift
   - tesseract
   - texinfo
+  - timeshift
   - tuned
   - udisks2
   - usbutils
