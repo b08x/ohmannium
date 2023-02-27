@@ -22,7 +22,7 @@ require 'logging'
 require 'tty-command'
 require 'yaml'
 
-$logger = Logging.logger(File.join("/tmp", "#{progname}-#{Time.now.strftime("%Y-%m-%d")}.log"))
+$logger = Logging.logger(File.join("/tmp", "#{progname}-packageinstall.log"))
 
 module Command
   module_function
@@ -87,7 +87,10 @@ module Soundbot
             next if pkgs.empty?
 
             begin
-              $logger.info "installing #{group[0]} packages"
+              puts ColorizedString["installing #{group[0]} packages"].colorize(:green)
+              puts ColorizedString["check /tmp/syncopated-packageinstall.log for details"].colorize(:yellow)
+              puts ColorizedString["----------------------------------------------------"].colorize(:green)
+
               Command.tty("yes | paru -S --needed --batchinstall #{pkgs}")
             rescue StandardError => e
               Command.tty("paru -S --noconfirm --useask  --needed --batchinstall #{pkgs}")
