@@ -6,7 +6,7 @@
  */
 
 * {
-    font-family: 'Verdana', sans-serif;
+  font-family: 'Source Code Pro', monospace;
 	margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
@@ -15,18 +15,18 @@
 }
 
 html {
-	color: #61666c;
+	background-color: #000000;
 	font-weight: 300;
 	font-size: 1em;
 	line-height: 2em;
 }
 
 body {
+  max-width: 80%;
 	margin: 0 auto;
 	padding-top: 20px;
-	max-width: 800px;
-	background-color: #2f343f;
-	color: #FFFFFF
+	background-color: #000000;
+	color: #d18e1a:
 }
 
 thead {
@@ -133,6 +133,7 @@ table {
 	font-size: 0.9em;
 	max-width: 100%;
 	margin: 20px auto 0;
+  color: #23a5d7;
 }
 
 tr {
@@ -140,7 +141,7 @@ tr {
 	border: 0;
 }
 tr:hover td {
-	color: #FFFFFF;	
+	color: #FFFFFF;
 	background: #3D4351;
 }
 tr td:first-of-type {

@@ -1,4 +1,5 @@
 ---
+
 nginx_redhat_pkg:
   - nginx
 

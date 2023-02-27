@@ -25,6 +25,19 @@
     - pcre2
   when: ansible_distribution == 'Archlinux'
 
+- name: create nginx group
+  group:
+    name: nginx
+    state: present
+    system: True
+
+- name: create nginx user
+  user:
+    name: nginx
+    state: present
+    group: nginx
+    system: True
+
 - name: fetch nginx source
   get_url:
     url: http://nginx.org/download/nginx-1.22.1.tar.gz
@@ -48,7 +61,7 @@
 
 - name: configure nginx with modules
   shell: |
-    ./configure --prefix=/usr --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --pid-path=/run/nginx.pid --conf-path=/etc/nginx/nginx.conf --modules-path=/usr/share/nginx/modules --add-module=../ngx-fancyindex --with-http_addition_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module
+    ./configure --prefix=/usr --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --pid-path=/run/nginx.pid --conf-path=/etc/nginx/nginx.conf --modules-path=/usr/share/nginx/modules --add-module=../ngx-fancyindex --with-http_addition_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_ssl_module
   args:
     chdir: /tmp/nginx-1.22.1
 
@@ -57,17 +70,3 @@
       make && make install
   args:
     chdir: /tmp/nginx-1.22.1
-
-- name: sync fancyindex theme
-  synchronize:
-    src: usr/share/nginx/html/fancyindex/Nginx-Fancyindex-Theme-dark
-    dest: /usr/share/nginx/html/
-    recursive: yes
-    mode: push
-    delete: no
-    checksum: yes
-    perms: no
-    rsync_opts:
-      - "--update"
-      - "--omit-dir-times"
-  tags: ['fancyindex']

@@ -25,6 +25,7 @@
 
 - include_tasks: installation.source.yml
   when: nginx_installation_type == "source"
+  tags: ['nginx_source']
 
 - include_tasks: ensure-dirs.yml
 
@@ -38,17 +39,34 @@
 
 - include_tasks: configuration.yml
 
+- name: sync fancyindex theme
+  synchronize:
+    src: usr/share/nginx/html/fancyindex/Nginx-Fancyindex-Theme-dark
+    dest: "{{ webroot }}/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--update"
+      - "--omit-dir-times"
+  when: use_fancy_index is defined
+  notify: reload nginx - without service
+  tags: ['fancyindex']
+
 - name: create blank index.html for default traffic
-  copy: >
-    src=index.html
-    dest=/usr/share/nginx/html/index.html
-    backup=yes
-    owner=root
-    group=root
-    mode=0644
-  when: nginx_create_blank_index
+  copy:
+    src: index.html
+    dest: "{{ webroot }}/index.html"
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  when: nginx_create_blank_index|bool
 
 - include: selinux.yml
+  when: ansible_selinux.status == 'enabled'
   tags: ['selinux']
 
 - name: Start the nginx service

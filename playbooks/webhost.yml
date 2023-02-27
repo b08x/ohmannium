@@ -7,10 +7,6 @@
     - hardware
     - network
   vars:
-    path:
-      - "{{ lookup('env','HOME') }}/.local/bin"
-      - "{{ lookup('env','HOME') }}/.cargo/bin"
-
     nginx_redhat_pkg:
       - nginx
 
@@ -85,7 +81,7 @@
       00_default:
         - listen 80 default_server
         - server_name _
-        - root "{% if ansible_os_family == 'FreeBSD' %}/usr/local/www/nginx-dist{% else %}/usr/share/nginx/html{% endif %}"
+        - root "{% if ansible_hostname == 'bender' %}/backup/website{% else %}/usr/share/nginx/html{% endif %}"
         - index index.html
         - autoindex on
     nginx_remove_sites: []
@@ -121,14 +117,32 @@
 
     nginx_daemon_mode: "on"
 
-    nginx_create_blank_index: True
 
-  environment:
-    PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
-    PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
-    ZSH: "/usr/local/share/oh-my-zsh"
+  pre_tasks:
+
+    - name: Print all available facts
+      debug:
+        var: ansible_facts
+      when: debugging is defined
+      tags: ['facts']
 
   roles:
+
     - role: nginx
-      become: True
       tags: ['nginx']
+
+  post_tasks:
+
+    - name: permit http/https traffic
+      firewalld:
+        service: "{{ item }}"
+        state: enabled
+        permanent: yes
+      with_items:
+        - http
+        - https
+      tags: ['firewall']
+
+    - name: reload firewalld
+      shell: "firewall-cmd --reload"
+      tags: ['firewall']

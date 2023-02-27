@@ -14,6 +14,11 @@
     - check nginx configuration
     - reload nginx - after config check
 
+- name: reload nginx - without service
+  shell: "{{ nginx_binary_name }} -s reload"
+  register: result
+  changed_when: "result.rc != 0"
+
 - name: check nginx configuration
   shell: "{{ nginx_binary_name }} -t"
   register: result

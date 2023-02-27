@@ -4,3 +4,4 @@ roles/repo/files/devtools/pacman-*
 roles/repo/files/pkgbuilds/.*
 pkgbuilds/
 logs/
+playbooks/facts/

@@ -12,3 +12,17 @@
 
   become: True
   notify: restart nginx
+
+- block:
+    - name: Allow nginx to read files in syncopated webroot
+      sefcontext:
+        target: '/backup/packages(/.*)?'
+        setype: httpd_sys_content_t
+        state: present
+
+    - name: Apply new SELinux file context to filesystem
+      command: restorecon -iRv /backup/packages/
+
+  become: True
+  when: ansible_hostname == 'bender'
+  notify: restart nginx

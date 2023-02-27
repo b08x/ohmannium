@@ -34,7 +34,13 @@ all:
 
     webhost:
       vars:
-        ansible_user: ec2-user
-        remote_user: root
       hosts:
+        bender:
+          webroot: /backup/website
+          use_fancy_index: True
+          nginx_create_blank_index: False
         soundbot.hopto.org:
+          ansible_user: ec2-user
+          remote_user: root
+          webroot: /usr/share/nginx/html
+          use_fancy_index: True
