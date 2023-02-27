@@ -159,13 +159,11 @@
           include_vars:
             dir: vars/packages/{{ ansible_distribution }}
             name: packages
-          tags: ['testing']
 
         - name: print package list
           debug:
             msg: "{{ packages  | to_yaml }}"
           when: debugging is defined
-          tags: ['testing']
 
         - name: install packages
           script: "{{ ansible_home }}/bin/ohmanni.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
@@ -179,7 +177,7 @@
         - name: print package list
           debug:
             msg: "{{ output }}"
-          tags: ['testing']
+          when: debugging is defined
 
       rescue:
         - name: install packages rescue
@@ -189,4 +187,4 @@
           when: newInstall is defined
 
       become_user: "{{ user.name }}"
-      tags: ['testing']
+      tags: ['packages']

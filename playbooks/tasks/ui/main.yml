@@ -1,22 +1,5 @@
 ---
 
-- import_tasks: home.yml
-  tags: ['home']
-
-- name: ensure usr local directories exist
-  file:
-    path: "{{ item  }}"
-    state: directory
-    mode: '0755'
-    recurse: False
-  with_items:
-    - "/usr/local/share/fonts/"
-    - "/usr/local/share/icons"
-    - "/usr/local/share/pixmaps/"
-    - "/usr/local/share/themes"
-    - "/usr/share/backgrounds/syncopated"
-  tags: ['folders']
-
 - block:
     - name: install input-remapper
       pip:
@@ -70,6 +53,9 @@
   shell: xdg-mime default thunar.desktop inode/directory
   become_user: "{{ user.name }}"
   tags: ['thunar']
+
+- import_tasks: home.yml
+  tags: ['home']
 
 - import_tasks: x11.yml
   tags: ['x11']

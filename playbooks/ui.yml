@@ -22,6 +22,20 @@
 
   pre_tasks:
 
+    - name: ensure usr local directories exist
+      file:
+        path: "{{ item  }}"
+        state: directory
+        mode: '0755'
+        recurse: False
+      with_items:
+        - "/usr/local/share/fonts/"
+        - "/usr/local/share/icons"
+        - "/usr/local/share/pixmaps/"
+        - "/usr/local/share/themes"
+        - "/usr/share/backgrounds/syncopated"
+      tags: ['folders']
+
   tasks:
 
     - import_tasks: tasks/ui/main.yml
