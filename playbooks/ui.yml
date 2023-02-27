@@ -19,16 +19,6 @@
 
   pre_tasks:
 
-    - name: include vars
-      include_vars:
-        file: vars/distro/{{ ansible_distribution }}.yml
-
-    - name: include user vars
-      include_vars:
-        dir: vars
-        depth: 1
-      tags: ['i3']
-
     - name: ensure usr local directories exist
       file:
         path: "{{ item  }}"
