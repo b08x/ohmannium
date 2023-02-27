@@ -225,8 +225,7 @@
         #     - autofs
 
         - name: install packages
-          script: |
-            /usr/bin/uxterm -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }}
+          script: "/usr/bin/uxterm -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }}"
           delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
           when: newInstall is defined

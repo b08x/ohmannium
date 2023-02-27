@@ -120,6 +120,7 @@ echo "gem: --no-user-install --no-document" | sudo tee /etc/gemrc
 
 GEMS=(
   'colorize'
+  'logging'
   'ruport'
   'tty-command'
   'yaml'
@@ -165,7 +166,7 @@ else
   cd $ANSIBLE_HOME
 fi
 
-git checkout development
+git checkout development && git fetch && git pull
 
 git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
