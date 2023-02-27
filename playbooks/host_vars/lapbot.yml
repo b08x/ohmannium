@@ -3,16 +3,3 @@
 install:
   libvirt:
     qemu_full: True
-autostart:
-  - "guake"
-  - "tilda -g ~/.config/tilda/config_0"
-  - "barrier"
-tray_output: "primary"
-assignments:
-  - '[class="Jalv.gtk" title="Helm"] $ws6'
-  - '[class="qmidiarp"] $ws6'
-  - '[class="REAPER"] $ws9'
-  - '[class="Qsampler"] $ws10'
-  - '[class="^Patchage"] $ws10'
-  - '[class="Jalv.select"] $ws10'
-  - '[class="^RaySession$"] $ws10'

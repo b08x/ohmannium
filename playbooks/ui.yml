@@ -43,6 +43,7 @@
       include_vars:
         dir: vars
         depth: 1
+      tags: ['home', 'x11', 'shell', 'i3', 'theme', 'terminal']
 
     - import_tasks: tasks/ui/main.yml
 

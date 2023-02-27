@@ -133,7 +133,7 @@
     - .config/gtk-3.0/settings.ini
     - .config/gtk-4.0/settings.ini
     - .gtkrc-2.0
-  tags: ['gtk']
+  tags: ['gtk', 'theme']
 
 - name: syncronize templates - qt
   template:
@@ -149,7 +149,7 @@
     - .config/qt5ct/qt5ct.conf
     - .config/qt6ct/colors/syncopated.conf
     - .config/qt6ct/qt6ct.conf
-  tags: ['qt']
+  tags: ['qt', 'theme']
 
 - name: syncronize templates - applications
   template:
@@ -171,7 +171,7 @@
     - .config/zim/style.conf
     - .local/share/zim/templates/plugins/quicknote.txt
     - .sonic-pi/config/colour-theme.properties
-  tags: ['htop', 'zim', 'qutebrowser', 'sonicpi']
+  tags: ['htop', 'zim', 'qutebrowser', 'sonicpi', 'theme']
 
 - name: ensure .xinitrc is executable
   file:

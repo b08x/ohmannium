@@ -30,18 +30,12 @@ Set variables that can applied all hosts under
 all:
   vars:
     ansible_user: b08x
-    tray_output: "primary"
-    workspaces:
-      - "$ws1 output primary"
-      - "$ws2 output primary"
-      - "$ws3 output primary"
-      - "$ws4 output primary"
-      - "$ws5 output primary"
-      - "$ws6 output primary"
-      - "$ws7 output primary"
-      - "$ws8 output primary"
-      - "$ws9 output primary"
-      - "$ws10 output primary"
+    i3:
+      tray_output: default
+      workspaces: default
+      assignments: default
+      autostart: default
+
   hosts:
     ninjabot:
       ...
@@ -52,10 +46,24 @@ Variables set in the inventory file can also be set per host.
 Variables set for a host will override those set for all.
 
 ```yaml
-  hosts:
-    ninjabot:
-      ansible_connection: local
+hosts:
+  ninjabot:
+    ansible_connection: local
+    i3:
+      autostart:
+        - "guake"
+        - "tilda -g ~/.config/tilda/config_0"
+        - "barrier"
+        - "hexchat --minimize=2"
       tray_output: "HDMI1"
+      assignments:
+        - '[class="Jalv.gtk" title="Helm"] $ws6'
+        - '[class="qmidiarp"] $ws6'
+        - '[class="REAPER"] $ws9'
+        - '[class="Qsampler"] $ws10'
+        - '[class="^Patchage"] $ws10'
+        - '[class="Jalv.select"] $ws10'
+        - '[class="^RaySession$"] $ws10'
       workspaces:
         - "$ws1 output HDMI1"
         - "$ws2 output HDMI1"
@@ -67,6 +75,8 @@ Variables set for a host will override those set for all.
         - "$ws8 output HDMI2"
         - "$ws9 output HDMI2"
         - "$ws10 output HDMI2"
+   soundbot:
+     ...
 ```
 
 Variables can also be set within files located in the [vars/](playbooks/vars/) directory then included either in a playbook or task file. Variables set within a playbook or task will override variables set in inventory.
