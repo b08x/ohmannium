@@ -18,9 +18,10 @@ require 'logging'
 require 'tty-command'
 require 'yaml'
 
-$logger = Logging.logger(File.join("/tmp", "#{progname}-packageinstall.log"))
+$logfile = File.join("/tmp", "#{progname}-#{Time.now.strftime("%Y-%m-%d")}-packageinstall.log")
+$logger = Logging.logger($logfile)
 #$logger = Logging.logger(STDOUT)
-$logger.level = :warn
+$logger.level = :debug
 
 module Command
   module_function
@@ -39,6 +40,12 @@ module Command
       cmd.run(args.join(' '), only_output_on_error: false, pty: true)
     rescue TTY::Command::TimeoutExceeded => e
       $logger.warn "#{args} timeout exceeded"
+    end
+  end
+
+  def forkoff(command)
+    fork do
+      exec(command)
     end
   end
 
@@ -104,6 +111,12 @@ module Ohmanni
 end #end Soundbot module
 
 if ARGV.any?
+  $logger.info "starting package install"
+  $logger.info "display: #{ENV['DISPLAY']}"
+  unless ENV['DISPLAY'].nil?
+    tailpid = Command.forkoff("/usr/bin/uxterm -e tail -f #{$logfile}")
+    sleep 2
+  end
   begin
       distro = ARGV[0]
       packages = YAML::load(ARGV[1])
@@ -113,6 +126,8 @@ if ARGV.any?
     $logger.warn "#{e.message}"
     printf "#{e}"
   ensure
+    sleep 5
+    Command.run("kill -9 #{tailpid}")
     printf "package install...."
     exit
   end

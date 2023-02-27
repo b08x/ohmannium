@@ -167,8 +167,8 @@
           when: debugging is defined
 
         - name: install packages
-          script: "{{ ansible_home }}/bin/ohmanni.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
-          delegate_to: 127.0.0.1
+          script: "/usr/bin/uxterm -e {{ ansible_home }}/bin/ohmanni.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
+          # delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
           environment:
             DISPLAY: ":0"
@@ -183,9 +183,9 @@
       rescue:
         - name: install packages rescue
           script: "{{ ansible_home }}/bin/ohmanni.rb {{ ansible_distribution }} update"
-          delegate_to: 127.0.0.1
+          # delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
           when: newInstall is defined
 
       become_user: "{{ user.name }}"
-      tags: ['packages']
+      tags: ['testing']
