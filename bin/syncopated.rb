@@ -35,11 +35,10 @@ module Command
 
   # use this if captured output is desired...
   def tty(*args)
-
     cmd = TTY::Command.new(output: $logger, uuid: false, timeout: 60)
 
-    cmd.run(args.join(' '), only_output_on_error: false, pty: true)
-
+    begin
+      cmd.run(args.join(' '), only_output_on_error: false, pty: true)
     rescue TTY::Command::TimeoutExceeded => e
       $logger.debug "#{args} timeout exceeded"
     end
