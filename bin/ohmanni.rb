@@ -20,7 +20,6 @@ require 'yaml'
 
 $logfile = File.join("/tmp", "#{progname}-#{Time.now.strftime("%Y-%m-%d")}-packageinstall.log")
 $logger = Logging.logger($logfile)
-#$logger = Logging.logger(STDOUT)
 $logger.level = :debug
 
 module Command
@@ -34,12 +33,13 @@ module Command
 
   # use this if captured output is desired...
   def tty(*args)
-    cmd = TTY::Command.new(output: $logger, uuid: false, timeout: 600)
+    cmd = TTY::Command.new(output: $logger, uuid: false, timeout: 300)
 
     begin
       cmd.run(args.join(' '), only_output_on_error: false, pty: true)
     rescue TTY::Command::TimeoutExceeded => e
-      $logger.warn "#{args} timeout exceeded"
+      $logger.fatal "#{args} timeout exceeded"
+      exit(0)
     end
   end
 
@@ -84,6 +84,7 @@ module Ohmanni
         pkgs = group[1].keep_if {|pkg| ! currently_installed.include?(pkg) }.join(" ")
 
         if pkgs.empty?
+          puts ColorizedString["#{group[0]} packages already installed"].colorize(:magenta)
           $logger.info "#{group[0]} packages already installed"
           next
         end
@@ -96,6 +97,8 @@ module Ohmanni
 
           Command.tty("paru -S --noconfirm --needed --batchinstall --overwrite '*' #{pkgs}")
           sleep 2
+
+          puts ColorizedString["#{group[0]} packages install successfully"].colorize(:green)
         rescue StandardError => e
           $logger.warn "#{e}"
           puts ColorizedString["initial attempt failed, trying again"].colorize(:red)
