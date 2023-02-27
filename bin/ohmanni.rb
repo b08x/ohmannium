@@ -11,11 +11,7 @@ ANSIBLE_PLAYBOOKS = File.join(APP_ROOT, "playbooks")
 ANSIBLE_VARS = File.join(ANSIBLE_PLAYBOOKS, "vars")
 ANSIBLE_TASKS = File.join(ANSIBLE_PLAYBOOKS, "tasks")
 
-def progname; "syncopated"; end
-
-module Syncopated
-  VERSION = "0.9.8"
-end
+def progname; "ohmanni"; end
 
 require 'colorized_string'
 require 'logging'
@@ -47,7 +43,7 @@ module Command
 end
 
 
-module Soundbot
+module Ohmanni
 
   class Packages
     attr_accessor :distro, :packages
@@ -74,14 +70,22 @@ module Soundbot
 
     def install
       update_mirrors if ARGV[1] == 'update'
+      $logger.info "installing packages"
 
       currently_installed = `paru -Q | awk '{print $1}'`.split("\n")
 
+      
+      $logger.debug "#{@packages}"
+
       @packages.each do |pkggroup|
+        $logger.debug "#{pkggroup}"
           pkggroup.each do |group|
             pkgs = group[1].keep_if {|pkg| ! currently_installed.include?(pkg) }.join(" ")
 
-            next if pkgs.empty?
+            if pkgs.empty?
+              $logger.info "#{group[0]} packages already installed"
+              next
+            end
 
             begin
               puts ColorizedString["installing #{group[0]} packages:"].colorize(:green)
@@ -105,5 +109,12 @@ module Soundbot
 end #end Soundbot module
 
 if ARGV.any?
-  Soundbot::Packages.new(ARGV[0]).install
+  begin
+      Ohmanni::Packages.new(ARGV[0]).install
+  rescue StandardError => e
+    printf "#{e}"
+  ensure
+    printf "package install...."
+  end
+
 end

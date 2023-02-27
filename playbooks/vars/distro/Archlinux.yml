@@ -1,5 +1,5 @@
 ---
 
-autofs_dir: /etc/autofs
-
 admin_group: wheel
+
+autofs_dir: /etc/autofs
