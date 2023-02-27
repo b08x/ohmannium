@@ -157,7 +157,7 @@
             dir: vars/packages/{{ ansible_distribution }}
             name: packages
 
-        - name: prepare pacage list
+        - name: prepare package list
           debug:
             msg: "Installing packages...."
 

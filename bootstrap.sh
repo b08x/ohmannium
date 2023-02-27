@@ -202,7 +202,8 @@ if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
 
 for playbook in ${playbooks[@]}; do
-  ansible-playbook -K -c local -i $(uname -n), "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
+  ansible-playbook -K -i inventory.yml "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
+                   --limit $(uname -n) \
                    -e "newInstall=true" \
                    -e "update_mirrors=true" \
                    -e "cleanup=true" \
