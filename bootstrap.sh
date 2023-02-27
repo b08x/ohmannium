@@ -121,6 +121,7 @@ echo "gem: --no-user-install --no-document" | sudo tee /etc/gemrc
 GEMS=(
   'colorize'
   'ruport'
+  'tty-command'
   'yaml'
 )
 

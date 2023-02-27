@@ -226,20 +226,17 @@
 
         - name: install packages
           script: |
-            /usr/bin/uxterm -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/bin/syncopated.rb setup {{ ansible_distribution }}
+            /usr/bin/uxterm -e /usr/bin/env DISPLAY=:0 {{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }}
           delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
           when: newInstall is defined
-          tags: ['testing']
 
       rescue:
-        - name: packages
-          shell: |
-            # export pkgs=({{ packages }})
-            # for p in ${pkgs[@]};do
-            #   yes | paru -S --noconfirm --needed --cleanafter --useask $(echo $p | sed 's/,//') || continue
-            # done
-            echo "placeholder"
+        - name: install packages
+          script: {{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }} update
+          delegate_to: 127.0.0.1
+          become_user: "{{ user.name }}"
+          when: newInstall is defined
 
       become_user: "{{ user.name }}"
       tags: ['packages']

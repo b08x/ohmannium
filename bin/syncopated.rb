@@ -17,11 +17,12 @@ module Syncopated
   VERSION = "0.9.8"
 end
 
-require "logor"
-require "packageinstaller"
-
-require "cli"
+require 'colorized_string'
+require 'logging'
 require 'tty-command'
+require 'yaml'
+
+$logger = Logging.logger(File.join("/tmp", "#{progname}-#{Time.now.strftime("%Y-%m-%d")}.log"))
 
 module Command
   module_function
@@ -49,7 +50,56 @@ module Command
 end
 
 
+module Soundbot
+
+  class Packages
+    attr_accessor :distro, :packages
+
+    def initialize(distro)
+      @packages = []
+      @distro = distro
+      load_vars
+    end
+
+    def load_vars
+      varfiles = Dir.glob(File.join(ANSIBLE_VARS, "packages", @distro, "*.yml"))
+      varfiles.each do |varfile|
+        @packages << YAML.load_file(varfile)
+      end
+    end
+
+    def update_mirrors
+      Command.run("sudo reflector --download-timeout 3 --protocol https \
+                             --latest 20 --sort rate --score 10 --fastest 8 \
+                             --save /etc/pacman.d/mirrorlist")
+      Command.run("paru -Scc --noconfirm && paru -Sy")
+    end
+
+    def install
+      update_mirrors if ARGV[1] == 'update'
+
+      currently_installed = `paru -Q | awk '{print $1}'`.split("\n")
+
+      @packages.each do |pkggroup|
+          pkggroup.each do |group|
+            pkgs = group[1].keep_if {|pkg| ! currently_installed.include?(pkg) }.join(" ")
+
+            next if pkgs.empty?
+
+            begin
+              $logger.info "installing #{group[0]} packages"
+              Command.run("yes | paru -S --noconfirm --useask  --needed --batchinstall #{pkgs}")
+            rescue StandardError => e
+              $logger.warn "#{e}"
+            end
+
+          end
+      end
+    end # end of install method
+
+  end # end Packages class
+end #end Soundbot module
 
 if ARGV.any?
-  Drydock.run!(ARGV, $stdin) if Drydock.run? && !Drydock.has_run?
+  Soundbot::Packages.new(ARGV[0]).install
 end
