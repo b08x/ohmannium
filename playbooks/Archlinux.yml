@@ -233,7 +233,7 @@
 
       rescue:
         - name: install packages
-          script: {{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }} update
+          script: "{{ ansible_home }}/bin/syncopated.rb {{ ansible_distribution }} update"
           delegate_to: 127.0.0.1
           become_user: "{{ user.name }}"
           when: newInstall is defined
