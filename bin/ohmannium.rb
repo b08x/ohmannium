@@ -106,6 +106,9 @@ module Ohmanni
           sleep 2
           Command.tty("yes | paru -S --needed --batchinstall --overwrite '*' #{pkgs}")
           sleep 2
+          puts ColorizedString["#{group[0]} packages install successfully"].colorize(:green)
+          puts ColorizedString["----------------------------------------------------"].colorize(:green)
+          puts "\n"
         end
 
       end
