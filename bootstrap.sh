@@ -104,9 +104,10 @@ else
 fi
 
 #########################################################################
-wipe="trur"
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 
+wipe="true"
+
+if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "-------------------\n" $GREEN
 
 declare -rx WORKSPACE="${HOME}/Workspace"
@@ -134,6 +135,8 @@ git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
 sleep 1 && chown -R $USER $WORKSPACE
 
+#########################################################################
+
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "-------------------------" $YELLOW
 
@@ -150,10 +153,11 @@ else
   KEYSERVER=""
 fi
 
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
+#########################################################################
 
-say "select playbook to run" $GREEN
+if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "-------------------------\n" $YELLOW
+say "select playbook to run" $GREEN
 
 playbooks=$(gum choose --no-limit "ohmannium" "base" "ui" "nas" )
 
@@ -162,11 +166,13 @@ runas_user=$(gum choose $USER)
 say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
 sleep 1
 
+#######################################################################################
 # if any host has ansible_connection set to local (usually ninjabot), set to ssh
 sed -i 's/      ansible_connection: local/      ansible_connection: ssh/' $INVENTORY
 
 # set global ansible_connection to local
 sed -i 's/    ansible_connection: ssh/    ansible_connection: local/' $INVENTORY
+########################################################################################
 
 for playbook in ${playbooks[@]}; do
   ansible-playbook -K -i $INVENTORY "${PLAYBOOKS}/${playbook}.yml" \
@@ -176,6 +182,8 @@ for playbook in ${playbooks[@]}; do
                    -e "cleanup=true" \
                    -e "keyserver=${KEYSERVER}"
 done
+
+#########################################################################
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 2; fi
 
@@ -194,6 +202,8 @@ if command -v yadm &>/dev/null; then
 else
   echo "it appears that yadm is not installed..."
 fi
+
+#########################################################################
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 
