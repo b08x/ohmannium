@@ -26,8 +26,8 @@
         dest: /etc/system-release
         state: link
 
-    - import_tasks: tasks/logging.yml
-      tags: ['logging']
+    # - import_tasks: tasks/logging.yml
+    #   tags: ['logging']
 
     - import_tasks: tasks/zshell.yml
       tags: ['shell']
