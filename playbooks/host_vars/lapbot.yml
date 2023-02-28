@@ -1,5 +1,1 @@
 ---
-
-install:
-  libvirt:
-    qemu_full: True
