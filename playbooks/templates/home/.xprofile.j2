@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-declare -rx BACKGROUNDS="/usr/share/backgrounds/syncopated"
+declare -rx BACKGROUNDS="{{ backgrounds }}"
 
 if [ -d /usr/share/fonts/75dpi ]; then
     xset +fp /usr/share/fonts/75dpi
@@ -31,10 +31,10 @@ else
   echo "autorandr not found"
 fi
 
+
 #note: "~"" does not expand in quotes
 if [ -f ~/.fehbg ]; then
   ~/.fehbg
 else
   feh --recursive --bg-fill --randomize $BACKGROUNDS/*
 fi
-

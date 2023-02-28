@@ -48,6 +48,11 @@
         depth: 1
       tags: ['home', 'x11', 'shell', 'i3', 'theme', 'terminal', 'menu', 'keybindings']
 
+    - name: set background location variable
+      set_fact:
+        backgrounds: "/usr/share/backgrounds/ohmannium"
+      tags: ['theme']
+
     - import_tasks: tasks/ui/main.yml
 
     - import_tasks: tasks/ui/home.yml
