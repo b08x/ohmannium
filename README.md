@@ -21,6 +21,8 @@ Depending on the use-case, variables can be set in several different files.
 
 Variables can be set in [inventory.yml](playbooks/inventory.yml)
 
+Adjust host names and host variables to suit the environment.
+
 Set variables that can applied all hosts under
 `all:
   vars:
@@ -29,7 +31,8 @@ Set variables that can applied all hosts under
 ```yaml
 all:
   vars:
-    ansible_user: b08x
+    ansible_user: "{{ lookup('env','USER') }}"
+    ansible_connection: ssh
     i3:
       tray_output: default
       workspaces: default

@@ -115,8 +115,6 @@
     - .config/kitty/kitty.conf
     - .config/kitty/open-actions.conf
     - .config/kitty/start.conf
-#    - .config/tilda/config_0
-#    - .config/tilda/config_1
   tags: ['terminal', 'alacritty', 'kitty', 'tilda']
 
 - name: syncronize templates - gtk
