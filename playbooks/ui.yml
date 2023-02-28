@@ -12,6 +12,9 @@
       - "{{ lookup('env','HOME') }}/.local/bin"
       - "{{ lookup('env','HOME') }}/.cargo/bin"
 
+  vars_files:
+    - "vars/user.yml"
+
   environment:
     PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
     ZSH: "/usr/local/share/oh-my-zsh"
