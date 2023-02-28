@@ -1,9 +1,5 @@
 ---
 
-- name: set admin_group variable
-  set_fact:
-    admin_group: "{{ admin_group }}"
-
 - name: add user to groups defined in playbook
   user:
     name: "{{ user.name }}"

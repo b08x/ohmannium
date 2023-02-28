@@ -19,9 +19,23 @@
 
   pre_tasks:
 
+    - name: include vars
+      include_vars:
+        file: vars/distro/{{ ansible_distribution }}.yml
+
+    - name: include user vars
+      include_vars:
+        dir: vars
+        depth: 1
+      tags: ['ssh', 'repo', 'packages', 'sudoers', 'ruby']
+
     - name: set ansible_home
       set_fact:
         ansible_home: "{{ lookup('env','HOME') }}/Workspace/ohmannium"
+
+    - name: set admin_group variable
+      set_fact:
+        admin_group: "{{ admin_group }}"
 
     - block:
         - name: print keyserver hostname
