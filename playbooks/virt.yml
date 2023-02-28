@@ -1,14 +1,18 @@
 ---
 
 - name: setup libvirt and docker hosts
-  hosts: devel
+  hosts: virt
   become: True
   gather_subset:
     - hardware
     - network
   vars_files:
-    - "vars/distro/{{ ansible_distribution }}.yml"
     - "vars/user.yml"
+
+  pre_tasks:
+    - name: include distribution vars
+      include_vars:
+        file: vars/distro/{{ ansible_distribution }}.yml
   roles:
     - role: virt
       tags: ['virt']
