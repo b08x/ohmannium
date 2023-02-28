@@ -11,7 +11,7 @@ ANSIBLE_PLAYBOOKS = File.join(APP_ROOT, "playbooks")
 ANSIBLE_VARS = File.join(ANSIBLE_PLAYBOOKS, "vars")
 ANSIBLE_TASKS = File.join(ANSIBLE_PLAYBOOKS, "tasks")
 
-def progname; "ohmanni"; end
+def progname; "ohmannium"; end
 
 require 'colorized_string'
 require 'logging'

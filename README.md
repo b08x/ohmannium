@@ -1,4 +1,4 @@
-# Syncopated
+# Ohmannium
 
 An exercise in configuration management.
 
@@ -91,11 +91,11 @@ Variables can also be set within files located in the [vars/](playbooks/vars/) d
 ```bash
 # after adjusting environment variables
 
-ansible-playbook -i inventory.yml syncopated.yml --limit soundbot,ninjabot,lapbot --tags env
+ansible-playbook -i inventory.yml ohmannium.yml --limit soundbot,ninjabot,lapbot --tags env
 ```
 <details>
 <summary> list tasks </summary>
-playbook: syncopated.yml
+playbook: ohmannium.yml
 
   play #1 (all): all	TAGS: [base,packages]
     tasks:
@@ -118,11 +118,11 @@ playbook: syncopated.yml
 
 ## all tasks
 <details>
-  <summary>`ansible-playbook -C -i inventory.yml syncopated.yml --list-tasks`</summary>
+  <summary>`ansible-playbook -C -i inventory.yml ohmannium.yml --list-tasks`</summary>
 
 
 ```yaml
-playbook: syncopated.yml
+playbook: ohmannium.yml
 
   play #1 (all): all
     tasks:
@@ -148,7 +148,7 @@ playbook: syncopated.yml
 
   play #2 (all): setup repositories and install packages
     tasks:
-      add syncopated repo key
+      add ohmannium repo key
       add archaudio repo key
       adjust pacman, paru and makepkg configs
       update cache
@@ -227,7 +227,7 @@ playbook: syncopated.yml
       check if fstrim will be necessary
       debug
       ensure fstrim.timer is enabled
-      sync folder syncopated utility scripts
+      sync folder ohmannium utility scripts
       ensure files in /usr/local/bin are executable
       set directories to not be indexed
       run updatedb
@@ -297,11 +297,11 @@ playbook: syncopated.yml
 
 <details>
   <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags audio --list-tasks`
+    `ansible-playbook -C -i inventory.yml ohmannium.yml --tags audio --list-tasks`
   </summary>
 
 ```yaml
-playbook: syncopated.yml
+playbook: ohmannium.yml
 
   play #1 (all): all
     tasks:
@@ -348,11 +348,11 @@ playbook: syncopated.yml
 ### base tasks
 <details>
   <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags base --list-tasks`
+    `ansible-playbook -C -i inventory.yml ohmannium.yml --tags base --list-tasks`
   </summary>
 
 ```yaml
-playbook: syncopated.yml
+playbook: ohmannium.yml
 
   play #1 (all): all
     tasks:
@@ -392,11 +392,11 @@ playbook: syncopated.yml
 ### ui tasks
 <details>
   <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags ui --list-tasks`
+    `ansible-playbook -C -i inventory.yml ohmannium.yml --tags ui --list-tasks`
   </summary>
 
 ```yaml
-playbook: syncopated.yml
+playbook: ohmannium.yml
 
   play #1 (all): all
     tasks:
@@ -469,11 +469,11 @@ playbook: syncopated.yml
 ### i3 tasks
 <details>
   <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags i3 --list-tasks`
+    `ansible-playbook -C -i inventory.yml ohmannium.yml --tags i3 --list-tasks`
   </summary>
 
 ```yaml
-playbook: syncopated.yml
+playbook: ohmannium.yml
 
   play #1 (all): all
     tasks:
@@ -499,11 +499,11 @@ playbook: syncopated.yml
 
 <details>
   <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags home --list-tasks`
+    `ansible-playbook -C -i inventory.yml ohmannium.yml --tags home --list-tasks`
   </summary>
 
 ```yaml
-playbook: syncopated.yml
+playbook: ohmannium.yml
 
   play #1 (all): all
     tasks:
@@ -538,10 +538,10 @@ playbook: syncopated.yml
 
 ```bash
 # to update mirrors
-ansible-playbook -i inventory.yml syncopated.yml --limit soundbot,ninjabot --tags packages,repo,mirrors -e "update_mirrors=true"
+ansible-playbook -i inventory.yml ohmannium.yml --limit soundbot,ninjabot --tags packages,repo,mirrors -e "update_mirrors=true"
 ```
 
 ```bash
 # to setup an autofs client
-ansible-playbook -i inventory.yml syncopated.yml --limit soundbot --tags autofs
+ansible-playbook -i inventory.yml ohmannium.yml --limit soundbot --tags autofs
 ```

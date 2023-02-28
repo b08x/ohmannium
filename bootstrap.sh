@@ -151,7 +151,7 @@ declare -rx WORKSPACE="${HOME}/Workspace"
 
 if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
-declare -rx ANSIBLE_HOME="${WORKSPACE}/syncopated"
+declare -rx ANSIBLE_HOME="${WORKSPACE}/ohmannium"
 declare -rx PLAYBOOKS="${ANSIBLE_HOME}/playbooks"
 declare -rx INVENTORY="${PLAYBOOKS}/inventory.yml"
 
@@ -160,7 +160,7 @@ declare -rx INVENTORY="${PLAYBOOKS}/inventory.yml"
 if [ ! -d $ANSIBLE_HOME ]; then
   say "------------------\n" $GREEN
   say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
-  clone https://gitlab.com/b08x/syncopated.git $ANSIBLE_HOME
+  clone https://gitlab.com/b08x/ohmannium.git $ANSIBLE_HOME
   cd $ANSIBLE_HOME
 else
   cd $ANSIBLE_HOME
@@ -193,7 +193,7 @@ if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "select playbook to run" $GREEN
 say "-------------------------\n" $YELLOW
 
-playbooks=$(gum choose --no-limit "syncopated" "base" "ui" "nas" )
+playbooks=$(gum choose --no-limit "ohmannium" "base" "ui" "nas" )
 
 runas_user=$(gum choose $USER)
 
