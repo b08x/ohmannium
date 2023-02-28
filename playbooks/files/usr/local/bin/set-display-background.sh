@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-declare -rx BACKGROUNDS="/usr/share/backgrounds/syncopated"
+declare -rx BACKGROUNDS="/usr/share/backgrounds/ohmannium"
 
 if [ -x "$(command -v autorandr)" ]; then
   profile=$(autorandr --detected)
@@ -15,6 +15,6 @@ sleep 1
 if [ -f ~/.fehbg ]; then
   ~/.fehbg
 else
-  #feh --no-fehbg --bg-scale $BACKGROUNDS/crescendo_01.png $BACKGROUNDS/str_01_03_bw_01.png 
+  #feh --no-fehbg --bg-scale $BACKGROUNDS/crescendo_01.png $BACKGROUNDS/str_01_03_bw_01.png
   feh --recursive --bg-fill --randomize $BACKGROUNDS/*
 fi

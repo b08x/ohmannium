@@ -30,8 +30,8 @@
         - "/usr/local/share/icons"
         - "/usr/local/share/pixmaps/"
         - "/usr/local/share/themes"
-        - "/usr/share/backgrounds/syncopated"
-      tags: ['folders']
+        - "/usr/share/backgrounds/ohmannium"
+      tags: ['theme']
 
   tasks:
 
@@ -43,9 +43,21 @@
       include_vars:
         dir: vars
         depth: 1
-      tags: ['home', 'x11', 'shell', 'i3', 'theme', 'terminal']
+      tags: ['home', 'x11', 'shell', 'i3', 'theme', 'terminal', 'menu', 'keybindings']
 
     - import_tasks: tasks/ui/main.yml
+
+    - import_tasks: tasks/ui/home.yml
+      tags: ['home']
+
+    - import_tasks: tasks/ui/x11.yml
+      tags: ['x11']
+
+    - import_tasks: tasks/ui/theme.yml
+      tags: ['theme']
+
+    - import_tasks: tasks/ui/menu.yml
+      tags: ['menu']
 
   post_tasks:
 

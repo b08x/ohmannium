@@ -34,8 +34,8 @@
 
 - name: install backgrounds
   synchronize:
-    src: "files/usr/share/backgrounds/syncopated/"
-    dest: "/usr/share/backgrounds/syncopated/"
+    src: "files/usr/share/backgrounds/ohmannium/"
+    dest: "/usr/share/backgrounds/ohmannium/"
     recursive: yes
     mode: push
     delete: no

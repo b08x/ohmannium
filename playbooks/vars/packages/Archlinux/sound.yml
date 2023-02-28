@@ -54,15 +54,15 @@ metering:
   - jnoisemeter
 midi:
   - jack-keyboard
-  - vmpk
   - non-sequencer
-  - qmidiarp
-  - stochas
-  - tonespace
   - osc2midi
+  - qmidiarp
   - rtmidi
   - sendmidi
+  - stochas
   - timidity++
+  - tonespace
+  - vmpk
 mixer:
   - jack_mixer
   - non-mixer-lv2-git
@@ -74,34 +74,34 @@ patchbay:
   - patchage
   # - patchance
 plugin:
-  - carla
-  - guitarix
-  # - jack-rack
-  - jalv-select-git
-  - ladspa
-  - swh-plugins
   - ams-lv2
   - calf
   - caps-lv2-git
+  - carla
   - cmt
   - distrho-ports
+  - dpf-plugins-vst3
+  - guitarix
   - intersect.lv2-git
+  - ingen-git
   - ir.lv2
+  - jalv-select-git
+  - ladspa
   - lsp-plugins
   - lv2
   - lv2-c++-tools
   - lv2file
   - noise-repellent
   - swh-lv2-git
+  - swh-plugins
   - tap-plugins-lv2-git
   - x42-plugins
-  - dpf-plugins-vst3
 pulseaudio:
+  - pavucontrol
   - pulseaudio-alsa
   - pulseaudio-bluetooth
   - pulseaudio-jack
   - pulsemixer
-  - pavucontrol
 reverb:
   - dragonfly-reverb
   - jconvolver
@@ -109,6 +109,7 @@ reverb:
 sampler:
   - linuxsampler
   - qsampler
+  - mixxx
   - sfizz
 sequencer:
   - hydrogen-git

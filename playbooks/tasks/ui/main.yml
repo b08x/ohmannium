@@ -1,20 +1,11 @@
 ---
 
-- block:
-    - name: install input-remapper
-      pip:
-        name: git+https://github.com/sezanzeb/input-remapper.git
-        extra_args: "--no-binary :all:"
-        executable: pip3
-
-    - name: enable input-remapper service
-      systemd:
-        name: input-remapper
-        daemon_reload: yes
-        enabled: True
-        state: started
-
-  ignore_errors: "{{ ansible_check_mode }}"
+- name: enable input-remapper service
+  systemd:
+    name: input-remapper
+    daemon_reload: yes
+    enabled: True
+    state: started
 
 - name: set XDG env vars
   copy:
@@ -53,15 +44,3 @@
   shell: xdg-mime default thunar.desktop inode/directory
   become_user: "{{ user.name }}"
   tags: ['thunar']
-
-- import_tasks: home.yml
-  tags: ['home']
-
-- import_tasks: x11.yml
-  tags: ['x11']
-
-- import_tasks: theme.yml
-  tags: ['theme']
-
-- import_tasks: menu.yml
-  tags: ['menu']

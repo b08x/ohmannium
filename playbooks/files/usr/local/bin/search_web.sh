@@ -41,14 +41,14 @@ case "$(echo $input | cut -d " " -f 1)" in
 		query=$(echo "$input" | cut -c 3- | xargs -0)
 	  exec devdocs-desktop "$(echo $query)" &> /dev/null &
 	  ;;
-	dic)
+	w)
 		# Search dictionary
 		append_new_term
-		query=$(echo "$input" | cut -c 4- | xargs -0)
+		query=$(echo "$input" | cut -c 2- | xargs -0)
 		echo $query
 		if ! [ -z $query ]
 		then
-			exec $BROWSER "$SEARCH_URL=Define+$query" &> /dev/null &
+			exec $BROWSER "$GOOGLE_SEARCH_URL=Define+$query" &> /dev/null &
 		fi
 		;;
 	*)
@@ -57,17 +57,17 @@ case "$(echo $input | cut -d " " -f 1)" in
 	  query=$(echo "$input" | cut -c 1- | xargs -0)
 		if ! [[ -z $query ]]
 		then
-			exec $BROWSER "$GOOGLE_SEARCH_URL=$query" &> /dev/null &
+			exec $BROWSER "$BRAVE_SEARCH_URL=$query" &> /dev/null &
 			sleep 0.25
 			exec $BROWSER "$NEEVA_SEARCH_URL=$query" &> /dev/null &
 			sleep 0.25
-			exec $BROWSER "$BRAVE_SEARCH_URL=site+stackoverflow.com+$query" &> /dev/null &
+			exec $BROWSER "$GOOGLE_SEARCH_URL=site+stackoverflow.com+$query" &> /dev/null &
 			sleep 0.25
-			exec $BROWSER "$BRAVE_SEARCH_URL=site+%22unix.stackexchange.com%22+$query" &> /dev/null &
+			exec $BROWSER "$GOOGLE_SEARCH_URL=site+%22unix.stackexchange.com%22+$query" &> /dev/null &
 			sleep 0.25
-			exec $BROWSER "$BRAVE_SEARCH_URL=site+gist.github.com+$query" &> /dev/null &
-			sleep 0.5
-			exec $BROWSER "$BRAVE_SEARCH_URL=$query" &> /dev/null &
+			exec $BROWSER "$GOOGLE_SEARCH_URL=site+gist.github.com+$query" &> /dev/null &
+			sleep 0.25
+			exec $BROWSER "$GOOGLE_SEARCH_URL=$query" &> /dev/null &
 		fi
 	  ;;
 

@@ -13,46 +13,46 @@
     recurse: False
   with_items:
     - .config/jgmenu
-    - .config/rofi/applets
-    - .config/rofi/applets/bin
-    - .config/rofi/applets/shared
-    - .config/rofi/applets/type-1
-    - .config/rofi/applets/type-2
-    - .config/rofi/applets/type-3
-    - .config/rofi/applets/type-4
-    - .config/rofi/applets/type-5
+    # - .config/rofi/applets
+    # - .config/rofi/applets/bin
+    # - .config/rofi/applets/shared
+    # - .config/rofi/applets/type-1
+    # - .config/rofi/applets/type-2
+    # - .config/rofi/applets/type-3
+    # - .config/rofi/applets/type-4
+    # - .config/rofi/applets/type-5
     - .config/rofi/colors
     - .config/rofi/images
     - .config/rofi/launchers
     - .config/rofi/launchers/type-1/shared
-    - .config/rofi/launchers/type-2/shared
+    # - .config/rofi/launchers/type-2/shared
     - .config/rofi/launchers/type-3/shared
     - .config/rofi/launchers/type-4/shared
-    - .config/rofi/launchers/type-5/shared
-    - .config/rofi/launchers/type-6/shared
-    - .config/rofi/launchers/type-7/shared
-    - .config/rofi/powermenu
-    - .config/rofi/powermenu/type-1/shared
-    - .config/rofi/powermenu/type-2/shared
-    - .config/rofi/powermenu/type-3/shared
-    - .config/rofi/powermenu/type-4/shared
-    - .config/rofi/powermenu/type-5/shared
-    - .config/rofi/powermenu/type-6/shared
+    # - .config/rofi/launchers/type-5/shared
+    # - .config/rofi/launchers/type-6/shared
+    # - .config/rofi/launchers/type-7/shared
+    # - .config/rofi/powermenu
+    # - .config/rofi/powermenu/type-1/shared
+    # - .config/rofi/powermenu/type-2/shared
+    # - .config/rofi/powermenu/type-3/shared
+    # - .config/rofi/powermenu/type-4/shared
+    # - .config/rofi/powermenu/type-5/shared
+    # - .config/rofi/powermenu/type-6/shared
     - .config/rofi/scripts
   tags: ['jgmenu', 'rofi']
 
-- name: install jgmenu menus
-  template:
-    src: "home/.config/jgmenu/{{ item }}.j2"
-    dest: "{{ user.home }}/.config/jgmenu/{{ item }}"
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-    mode: '0644'
-    backup: yes
-  with_items:
-    - jgmenurc
-    - apps.csv
-  tags: ['jgmenu']
+# - name: install jgmenu menus
+#   template:
+#     src: "home/.config/jgmenu/{{ item }}.j2"
+#     dest: "{{ user.home }}/.config/jgmenu/{{ item }}"
+#     owner: "{{ user.name }}"
+#     group: "{{ user.group }}"
+#     mode: '0644'
+#     backup: yes
+#   with_items:
+#     - jgmenurc
+#     - apps.csv
+#   tags: ['jgmenu']
 
 - name: syncronize templates - rofi
   template:
@@ -68,7 +68,16 @@
     - .config/rofi/gruvbox-dark-hard.rasi
     - .config/rofi/colors/onedark.rasi
     - .config/rofi/scripts/launcher_main.sh
+    - .config/rofi/scripts/launcher_t1.sh
+    - .config/rofi/scripts/launcher_t4.sh
+    - .config/rofi/launchers/type-1/shared/colors.rasi
+    - .config/rofi/launchers/type-1/shared/fonts.rasi
+    - .config/rofi/launchers/type-1/style-8.rasi
+    - .config/rofi/launchers/type-1/style-10.rasi
     - .config/rofi/launchers/type-3/shared/colors.rasi
     - .config/rofi/launchers/type-3/shared/fonts.rasi
     - .config/rofi/launchers/type-3/style-4.rasi
+    - .config/rofi/launchers/type-4/shared/colors.rasi
+    - .config/rofi/launchers/type-4/shared/fonts.rasi
+    - .config/rofi/launchers/type-4/style-6.rasi
   tags: ['rofi']

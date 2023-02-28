@@ -4,6 +4,7 @@ all:
   vars:
     ansible_user: "{{ lookup('env','USER') }}"
     ansible_connection: ssh
+    paths: default
     i3:
       tray_output: default
       workspaces: default
@@ -15,9 +16,8 @@ all:
       ansible_connection: local
       i3:
         autostart:
-          - "guake"
+          - "/usr/bin/barriers -f --no-tray --debug INFO --name ninjabot --disable-crypto --disable-client-cert-checking -c ~/.config/Debauchee/ninjabot.conf --address :24800"
           - "tilda -g ~/.config/tilda/config_0"
-          - "barrier"
           - "hexchat --minimize=2"
         tray_output: "HDMI1"
         assignments:
@@ -41,14 +41,15 @@ all:
           - "$ws10 output HDMI2"
 
     soundbot:
+      paths:
+          - "export PATH=$PATH:$HOME/Workspace/pkgbuilder/devtools"
       install:
         libvirt:
           qemu_full: True
       i3:
         autostart:
-          - "guake"
+          - "barrierc -f --debug INFO --name soundbot --disable-crypto [ninjabot]:24800"
           - "tilda -g ~/.config/tilda/config_0"
-          - "barrier"
         tray_output: "primary"
         assignments:
           - '[class="Jalv.gtk" title="Helm"] $ws6'

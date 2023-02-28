@@ -2,14 +2,14 @@
  *
  * Author : Aditya Shakya (adi1090x)
  * Github : @adi1090x
- * 
+ *
  * Rofi Theme File
  * Rofi Version: 1.7.3
  **/
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run";
+	modi:                       "drun";
     show-icons:                 false;
     display-drun:               "";
     display-run:                "";
@@ -53,12 +53,12 @@ configuration {
 window {
     /* properties for window widget */
     transparency:                "real";
-    location:                    north;
-    anchor:                      north;
+    location:                    center;
+    anchor:                      center;
     fullscreen:                  false;
-    width:                       100%;
-    x-offset:                    0px;
-    y-offset:                    0px;
+    width:                       80%;
+    x-offset:                    50px;
+    y-offset:                    50px;
 
     children:                    [ horibox ];
 
@@ -66,7 +66,7 @@ window {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      0px solid;
+    border:                      1px solid;
     border-radius:               0px;
     border-color:                @border-colour;
     cursor:                      "default";
@@ -180,7 +180,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     10px;
     margin:                      0px;
     padding:                     0px;

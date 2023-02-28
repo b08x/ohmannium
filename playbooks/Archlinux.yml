@@ -188,4 +188,4 @@
           when: newInstall is defined
 
       become_user: "{{ user.name }}"
-      tags: ['testing']
+      tags: ['packages']

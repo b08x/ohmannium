@@ -53,3 +53,9 @@ export GUM_CHOOSE_SELECTED_FOREGROUND=027
 export GUM_CONFIRM_PROMPT_FOREGROUND=027
 export GUM_CONFIRM_SELECTED_FOREGROUND=064
 export GUM_CONFIRM_UNSELECTED_FOREGROUND=010
+
+{% if paths != 'default' %}
+{% for p in paths %}
+{{ p }}
+{% endfor %}
+{% endif %}

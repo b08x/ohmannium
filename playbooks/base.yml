@@ -26,15 +26,6 @@
         dest: /etc/system-release
         state: link
 
-    # - import_tasks: tasks/logging.yml
-    #   tags: ['logging']
-
-    - import_tasks: tasks/zshell.yml
-      tags: ['shell']
-
-    - import_tasks: tasks/user.yml
-      tags: ['user']
-
     - name: copy ld config file
       copy:
         src: etc/ld.so.conf
@@ -44,6 +35,27 @@
 
     - name: run ldconfig
       shell: /sbin/ldconfig
+
+  tasks:
+
+    - name: include vars
+      include_vars:
+        file: vars/distro/{{ ansible_distribution }}.yml
+
+    - name: include user vars
+      include_vars:
+        dir: vars
+        depth: 1
+      tags: ['shell', 'user', 'network', 'audio', 'firewall', 'filesystem', 'utils', 'autologin', 'grub']
+
+    # - import_tasks: tasks/logging.yml
+    #   tags: ['logging']
+
+    - import_tasks: tasks/zshell.yml
+      tags: ['shell']
+
+    - import_tasks: tasks/user.yml
+      tags: ['user']
 
   roles:
 

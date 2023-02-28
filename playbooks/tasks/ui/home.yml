@@ -78,27 +78,15 @@
   with_items:
     - .config/dunst/dunstrc
     - .config/i3/autostart
+    - .config/i3/bindings
     - .config/i3/config
     - .config/i3/window_assignments
     - .config/i3status-rust/config.toml
     - .config/i3status-rust/themes/syncopated.toml
     - .config/picom/picom.conf
-  register: wm_config
-  tags: ['i3', 'dunst', 'picom']
-
-- name: syncronize templates - keybindings
-  template:
-    src: "home/{{ item }}.j2"
-    dest: "{{ user.home }}/{{ item }}"
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-    mode: '0644'
-    backup: yes
-  with_items:
-    - .config/i3/bindings
     - .config/sxhkd/sxhkdrc
-  register: keybinding
-  tags: ['keybindings', 'i3', 'sxhkd']
+  register: wmconfig
+  tags: ['i3', 'dunst', 'picom', 'keybindings']
 
 - name: syncronize templates - terminal
   template:
@@ -181,8 +169,6 @@
 - name: reload i3
   command: bash -lc "i3-msg -s /run/user/{{ user.uid }}/i3/ipc-socket.* reload"
   become_user: "{{ user.name }}"
-  when:
-    - wm_config.changed
-    - keybinding.changed
+  when: wmconfig
   ignore_errors: True
   tags: ['i3', 'dunst', 'picom', 'keybindings', 'sxhkd']

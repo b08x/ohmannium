@@ -91,7 +91,7 @@ Variables can also be set within files located in the [vars/](playbooks/vars/) d
 ```bash
 # after adjusting environment variables
 
-ansible-playbook -i inventory.yml ohmannium.yml --limit soundbot,ninjabot,lapbot --tags env
+ansible-playbook ohmannium.yml --limit soundbot,ninjabot,lapbot --tags env
 ```
 <details>
 <summary> list tasks </summary>
@@ -113,7 +113,17 @@ playbook: ohmannium.yml
 </details>
 
 
+```bash
+# updates to utility scripts
 
+ansible-playbook ohmannium.yml --limit lapbot,soundbot,ninjabot --tags utils
+```
+
+```bash
+# updates to shell configs or functions
+
+ansible-playbook ohmannium.yml --limit lapbot,soundbot,ninjabot --tags shell
+```
 
 
 ## all tasks
