@@ -1,13 +1,12 @@
 rga-fzf() {
-	TYPE=$1
-	QUERY=$2
+	QUERY=$1
 
-	RG_PREFIX="rga --files-with-matches -t ${TYPE}"
+	RG_PREFIX="rga --files-with-matches"
 	local file
 	file="$(
 		FZF_DEFAULT_COMMAND="$RG_PREFIX '${QUERY}'" \
 			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
-				--phony -q "${2}" \
+				--phony -q "${1}" \
 				--bind "change:reload:$RG_PREFIX {q}" \
 				--bind 'return:execute(/usr/bin/micro {})' \
 				--preview-window="60%:wrap"
