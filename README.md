@@ -85,6 +85,34 @@ Variables can also be set within files located in the [vars/](playbooks/vars/) d
 
 # Usage
 
+```bash
+# after adjusting environment variables
+
+ansible-playbook -i inventory.yml syncopated.yml --limit soundbot,ninjabot,lapbot --tags env
+```
+<details>
+<summary> list tasks </summary>
+playbook: syncopated.yml
+
+  play #1 (all): all	TAGS: [base,packages]
+    tasks:
+
+  play #2 (all): setup repositories and install packages	TAGS: [testing,packages]
+    tasks:
+
+  play #3 (all): all	TAGS: []
+    tasks:
+
+  play #4 (all): configure user specific stuff	TAGS: [ui]
+    tasks:
+      set XDG env vars	TAGS: [env, ui, xdg]
+      set misc profile vars	TAGS: [env, ui]
+</details>
+
+
+
+
+
 ## all tasks
 <details>
   <summary>`ansible-playbook -C -i inventory.yml syncopated.yml --list-tasks`</summary>

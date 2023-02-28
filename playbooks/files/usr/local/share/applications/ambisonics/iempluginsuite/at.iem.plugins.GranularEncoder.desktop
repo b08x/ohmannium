@@ -1,10 +1,10 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=MultiEQ
-GenericName=Multichannel Equalizer
-Comment=A simple multi-channel equalizer, filtering up to 64 audio channels.
-Exec=MultiEQ
+Name=GranularEncoder
+GenericName=Ambisonic Synthesizer
+Comment=An Ambisonic granular synthesis plug-in
+Exec=GranularEncoder
 Icon=IEMPluginSuite
 Terminal=false
 StartupNotify=false
