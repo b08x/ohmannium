@@ -1,7 +1,7 @@
 ---
 
 - hosts: all
-  tags: ['base', 'ui', 'packages']
+  tags: ['base', 'packages']
   become: True
   gather_subset:
     - hardware
@@ -18,19 +18,21 @@
     DISPLAY: ":0"
 
   pre_tasks:
-    - name: include distro vars
-      include_vars:
-        file: vars/distro/{{ ansible_distribution }}.yml
+    - block:
+        - name: include distro vars
+          include_vars:
+            file: vars/distro/{{ ansible_distribution }}.yml
 
-    - name: include user vars
-      include_vars:
-        dir: vars
-        depth: 1
+        - name: include user vars
+          include_vars:
+            dir: vars
+            depth: 1
+
+      tags: ['logging', 'shell', 'user', 'network', 'firewall', 'autofs', 'filesystem', 'utils', 'updatedb', 'autologin', 'grub', 'ssh', 'sudoers', 'repo', 'packages']
 
     - name: set ansible_home
       set_fact:
         ansible_home: "{{ lookup('env','HOME') }}/Workspace/syncopated"
-      tags: ['testing']
 
     - block:
         - name: print keyserver hostname
