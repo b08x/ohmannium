@@ -33,6 +33,7 @@
       - bcrypt_pbkdf
       - childprocess
       - clipboard
+      - colorize
       - coltrane
       - ed25519
       - eventmachine
@@ -56,6 +57,7 @@
       - rdoc
       - rexml
       - rouge
+      - ruport
       - sync
       - sys-proctable
       - treetop
@@ -63,3 +65,4 @@
       - tty-command
       - tty-prompt
       - tty-screen
+      - yaml

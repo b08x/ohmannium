@@ -96,6 +96,9 @@
       check_mode: False
       tags: ['flags', 'repo', 'packages']
 
+    - import_tasks: tasks/ruby.yml
+      tags: ['ruby']
+
     - debug:
         msg: "test"
 
