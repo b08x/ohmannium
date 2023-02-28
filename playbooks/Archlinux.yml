@@ -181,11 +181,17 @@
           when: debugging is defined
 
       rescue:
-        - name: install packages rescue
-          script: "{{ ansible_home }}/bin/ohmannium.rb {{ ansible_distribution }} update"
-          # delegate_to: 127.0.0.1
-          become_user: "{{ user.name }}"
-          when: newInstall is defined
+
+        - name: ensure at least these packages are installed
+          pacman:
+            name: "{{ item }}"
+            state: present
+            force: yes
+            extra_args: --noconfirm
+          with_items:
+            - autofs
+            - sxhkd
+          tags: ['packages']
 
       become_user: "{{ user.name }}"
       tags: ['packages']

@@ -54,9 +54,6 @@
     - import_tasks: tasks/zshell.yml
       tags: ['shell']
 
-    - import_tasks: tasks/user.yml
-      tags: ['user']
-
   roles:
 
     - role: network
