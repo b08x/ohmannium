@@ -91,6 +91,29 @@ say "hello\n" $GREEN
 # clean cache
 sudo pacman -Scc --noconfirm > /dev/null
 
+# install repository keys
+if [[ ! -z "$(pacman-key --list-keys | grep syncopated 2>/dev/null)" ]];
+then
+  printf "key already installed"
+else
+  printf "adding syncopated gpg to pacman db"
+  sleep 0.5
+  curl -s http://soundbot.hopto.org/syncopated.gpg | sudo pacman-key --add -
+  sudo pacman-key --lsign-key 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A > /dev/null
+  sudo pacman -Sy --noconfirm > /dev/null
+fi
+
+if [[ ! -z "$(pacman-key --list-keys | grep proaudio 2>/dev/null)" ]];
+then
+  printf "key already installed"
+else
+  printf "adding OSAMC gpg to pacman db"
+  sleep 0.5
+  curl -s https://arch.osamc.de/proaudio/osamc.gpg | sudo pacman-key --add -
+  sudo pacman-key --lsign-key 762AE5DB2B38786364BD81C4B9141BCC62D38EE5 > /dev/null
+  sudo pacman -Sy --noconfirm > /dev/null
+fi
+
 # install pre-requisite packages
 sudo pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
 
