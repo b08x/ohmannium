@@ -1,6 +1,6 @@
 ---
 
-- name: configure user specific stuff
+- name: configure ui
   hosts: all
   tags: ['ui']
   become: True

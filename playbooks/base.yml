@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- name: configure system
+  hosts: all
   become: True
   gather_subset:
     - hardware
@@ -58,6 +59,7 @@
 
     - role: network
       tags: ['netork', 'firewall', 'autofs']
+
     - role: audio
       tags: ['audio', 'alsa', 'jack', 'pulseaudio']
 
