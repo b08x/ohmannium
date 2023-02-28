@@ -19,7 +19,7 @@ Depending on the use-case, variables can be set in several places.
 
 Currently, group and host variables are set in [inventory.yml](playbooks/inventory.yml)
 
-Variables that apply all hosts are set under
+Variables that apply to all hosts are set under
 `all:
   vars:
 `
@@ -192,7 +192,6 @@ playbook: ohmannium.yml
       Gather list of installed gems
       Set list of gems to install
       Install ruby gems
-      debug
 
   play #2 (all): setup repositories and install packages
     tasks:
@@ -283,10 +282,7 @@ playbook: ohmannium.yml
       Install modified starfield theme
       Set kernel cmdline params in grub
       Remake grub if changes were made
-      Remake grub if changes were made
       Reboot host if grub was modified
-      Wait for host to reboot
-      Reboot host
       Wait for host to reboot
 
   play #4 (all): configure ui
