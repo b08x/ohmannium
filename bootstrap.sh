@@ -142,20 +142,18 @@ else
 fi
 
 #########################################################################
-wipe="false"
+wipe="trur"
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 
 say "-------------------\n" $GREEN
 
-declare -rx user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}' | xargs)
-
-say "\nuid 1000 is assigned to ${user}\n" $YELLOW
-
-declare -rx WORKSPACE="/home/${user}/Workspace"
+declare -rx WORKSPACE="${HOME}/Workspace"
 
 if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
-declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
+declare -rx ANSIBLE_HOME="${WORKSPACE}/syncopated"
+declare -rx PLAYBOOKS="${ANSIBLE_HOME}/playbooks"
+declare -rx INVENTORY="${PLAYBOOKS}/inventory.yml"
 
 #########################################################################
 
@@ -172,17 +170,10 @@ git checkout release/ohmannium && git fetch && git pull
 
 git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
-sleep 1 && chown -R ${user} $WORKSPACE
+sleep 1 && chown -R $USER $WORKSPACE
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "-------------------------" $YELLOW
-
-say "select playbook to run" $GREEN
-say "-------------------------\n" $YELLOW
-
-playbooks=$(gum choose --no-limit "syncopated" "base" "ui" "nas" )
-
-runas_user=$(gum choose $user)
 
 gum confirm "copy ssh keys from a remote host?" && say "ok" $GREEN
 
@@ -199,10 +190,24 @@ fi
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 
+say "select playbook to run" $GREEN
+say "-------------------------\n" $YELLOW
+
+playbooks=$(gum choose --no-limit "syncopated" "base" "ui" "nas" )
+
+runas_user=$(gum choose $USER)
+
 say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
+sleep 1
+
+# if any host has ansible_connection set to local (usually ninjabot), set to ssh
+sed -i 's/      ansible_connection: local/      ansible_connection: ssh/' $INVENTORY
+
+# set global ansible_connection to local
+sed -i 's/    ansible_connection: ssh/    ansible_connection: local/' $INVENTORY
 
 for playbook in ${playbooks[@]}; do
-  ansible-playbook -K -i "${ANSIBLE_HOME}/playbooks/inventory.yml" "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
+  ansible-playbook -K -i $INVENTORY "${PLAYBOOKS}/${playbook}.yml" \
                    --limit $(uname -n) \
                    -e "newInstall=true" \
                    -e "update_mirrors=true" \
@@ -212,4 +217,10 @@ done
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 
-say "bootstrap complete\!" $GREEN && sleep 2
+say "bootstrap complete\!" $GREEN
+
+if [[ $wipe == 'true' ]]; then wipe && sleep 2; fi
+
+say "rebooting in 10 seconds...exit CTRL+C to cancel" $RED && sleep 10
+
+sudo shutdown -r now
