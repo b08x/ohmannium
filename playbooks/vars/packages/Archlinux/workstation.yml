@@ -35,7 +35,7 @@ viewer:
   - sxiv
 input:
   - antimicrox
-  - input-remapper
+  - input-remapper-git
 screencasting:
   - obs-studio
   - simplescreenrecorder
