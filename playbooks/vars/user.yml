@@ -1,11 +1,11 @@
 ---
 
 user:
-  name: "{{ lookup('env','USER') }}"
-  group: "{{ user.name }}"
+  name: b08x
+  group:
   uid: 1000
   gid: 1000
-  home: "{{ lookup('env','HOME') }}"
+  home: /home/b08x
   secondary_groups: "input,video,audio"
   shell: /usr/bin/zsh
   email: rwpannick@gmail.com
