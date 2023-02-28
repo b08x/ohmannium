@@ -1,6 +1,6 @@
 ---
 
-- name: add user to groups defined in playbook
+- name: Add user to groups defined in playbook
   user:
     name: "{{ user.name }}"
     groups: "{{ item }}"
@@ -14,7 +14,7 @@
 # to allow for ansible pipelining functionality
 # https://docs.ansible.com/ansible/2.4/intro_configuration.html#pipelining
 # while this requirement was removed in RHEL, many other distros leave this option enabled
-- name: disable requiretty for user so automation can run without interruption
+- name: Disable requiretty for user so automation can run without interruption
   lineinfile:
     dest: /etc/sudoers
     regexp: "^Defaults    requiretty"
@@ -23,12 +23,12 @@
     backup: yes
     validate: 'visudo -cf %s'
 
-- name: ensure /etc/sudoers.d exists
+- name: Ensure /etc/sudoers.d exists
   file:
     path: /etc/sudoers.d
     state: directory
 
-- name: set NOPASSWD for user in sudoers
+- name: Set NOPASSWD for user in sudoers
   lineinfile:
     path: /etc/sudoers.d/020_nopasswd
     line: '{{ user.name }} ALL=(ALL:ALL) NOPASSWD: ALL'
@@ -36,14 +36,14 @@
     create: yes
     backup: yes
 
-- name: set NOPASSWD for user in polkit
+- name: Set NOPASSWD for user in polkit
   template:
     src: etc/polkit-1/rules.d/49-nopasswd_global.rules.j2
     dest: /etc/polkit-1/rules.d/49-nopasswd_global.rules
     mode: '644'
     backup: no
 
-- name: remove existing sudoers if there is one
+- name: Remove existing sudoers if there is one
   file:
     path: /etc/sudoers.d/10-installer
     state: absent

@@ -1,13 +1,13 @@
 ---
 
 - block:
-    - name: enable and start firewalld
+    - name: Enable and start firewalld
       systemd:
         name: firewalld
         state: started
         enabled: yes
 
-    - name: permit traffic to common services
+    - name: Permit traffic to common services
       firewalld:
         service: "{{ item }}"
         state: enabled
@@ -19,7 +19,7 @@
       notify: reload firewalld
       tags: ['nfs', 'ntp', 'rsyncd', 'ssh']
 
-    - name: permit traffic to jacktrip, barrier and qmidinet
+    - name: Permit traffic to jacktrip, barrier and qmidinet
       firewalld:
         port: "{{ item }}"
         state: enabled

@@ -1,12 +1,12 @@
 ---
 
-- name: ensure xorg.conf.d exists
+- name: Ensure xorg.conf.d exists
   file:
     path: "/etc/X11/xorg.conf.d/"
     state: directory
     mode: '0755'
 
-- name: install input config
+- name: Install input config
   template:
     src: etc/X11/xorg.conf.d/00-input.conf.j2
     dest: /etc/X11/xorg.conf.d/00-input.conf
@@ -16,13 +16,13 @@
 - block:
     - block:
 
-        - name: install intel config
+        - name: Install intel config
           template:
             src: etc/X11/xorg.conf.d/20-intel.conf.j2
             dest: /etc/X11/xorg.conf.d/20-intel.conf
             mode: '0644'
 
-        - name: uninstall mesa in favor of mesa-amber
+        - name: Uninstall mesa in favor of mesa-amber
           pacman:
             name: mesa
             state: absent
@@ -30,7 +30,7 @@
             extra_args: --noconfirm
 
 
-        - name: install i965 libs (mesa-amber)
+        - name: Install i965 libs (mesa-amber)
           aur:
             use: auto
             name: "{{ item }}"

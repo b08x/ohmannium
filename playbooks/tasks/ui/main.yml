@@ -1,13 +1,13 @@
 ---
 
-- name: enable input-remapper service
+- name: Enable input-remapper service
   systemd:
     name: input-remapper
     daemon_reload: yes
     enabled: True
     state: started
 
-- name: set XDG env vars
+- name: Set XDG env vars
   copy:
     content: |
       # -*- mode: shell-script -*-
@@ -22,7 +22,7 @@
     dest: /usr/lib/environment.d/50-xdg-environment.conf
   tags: ['env', 'xdg']
 
-- name: set misc profile vars
+- name: Set misc profile vars
   template:
     src: usr/lib/environment.d/51-misc-environment.conf.j2
     dest: /usr/lib/environment.d/51-misc-environment.conf
@@ -30,7 +30,7 @@
     backup: yes
   tags: ['env']
 
-- name: install Thunar actions
+- name: Install Thunar actions
   copy:
     src: "files/etc/xdg/Thunar/{{ item }}"
     dest: "/etc/xdg/Thunar/{{ item }}"
@@ -40,7 +40,7 @@
     - uca.xml
   tags: ['thunar']
 
-- name: set Thunar as default for opening directories
+- name: Set Thunar as default for opening directories
   shell: xdg-mime default thunar.desktop inode/directory
   become_user: "{{ user.name }}"
   tags: ['thunar']

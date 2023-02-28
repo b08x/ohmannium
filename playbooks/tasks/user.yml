@@ -1,18 +1,18 @@
 ---
 
 - block:
-    - name: create group for user
+    - name: Create group for user
       group:
         name: "{{ user.group }}"
         state: present
         gid: "{{ user.gid }}"
 
-    - name: set user primary group
+    - name: Set user primary group
       user:
         name: "{{ user.name }}"
         group: "{{ user.group }}"
 
-    - name: ensure user ownership of home directory
+    - name: Ensure user ownership of home directory
       file:
         path: "{{ user.home }}"
         state: directory
@@ -22,7 +22,7 @@
   ignore_errors: "{{ ansible_check_mode }}"
   tags: ['user']
 
-- name: install yadm
+- name: Install yadm
   get_url:
     url: "https://github.com/TheLocehiliosan/yadm/raw/master/yadm"
     dest: "/usr/local/bin"

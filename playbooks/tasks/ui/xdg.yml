@@ -1,6 +1,6 @@
 ---
 
-- name: create /etc/xdg/menus and /usr/share/desktop-entries
+- name: Create /etc/xdg/menus and /usr/share/desktop-entries
   file:
     path: "{{ item }}"
     state: directory
@@ -9,7 +9,7 @@
     - /etc/xdg/menus
     - /usr/share/desktop-directories
 
-- name: install application menu
+- name: Install application menu
   copy:
     src: "files/etc/xdg/menus/arch-applications.menu"
     dest: "/etc/xdg/menus/arch-applications.menu"
@@ -17,7 +17,7 @@
     backup: yes
   tags: ['menu']
 
-- name: install menus
+- name: Install menus
   copy:
     src: "files/etc/xdg/menus/applications-merged/{{ item }}"
     dest: "/etc/xdg/menus/applications-merged/{{ item }}"
@@ -30,7 +30,7 @@
     - mcfx.menu
   tags: ['menu']
 
-- name: install directory entries
+- name: Install directory entries
   copy:
     src: "files/usr/local/share/desktop-directories/{{ item }}"
     dest: "/usr/share/desktop-directories/{{ item }}"
@@ -46,7 +46,7 @@
     - mcfx.directory
   tags: ['menu']
 
-- name: install desktop entries
+- name: Install desktop entries
   synchronize:
     src: "files/usr/local/share/applications/{{ item }}/"
     dest: "/usr/share/applications/"
@@ -66,7 +66,7 @@
     - x42
   tags: ['desktop']
 
-# - name: install mcfx entries
+# - name: Install mcfx entries
 #   copy:
 #     src: "usr/local/share/applications/ambisonics/mcfx/{{ item }}"
 #     dest: "/usr/share/applications/{{ item }}"
@@ -90,7 +90,7 @@
 #       - mcfx_meter_o5.desktop
 #   tags: ['mcfx', 'ambix']
 #
-# - name: install iempluginsuite entries
+# - name: Install iempluginsuite entries
 #   copy:
 #     src: "usr/local/share/applications/ambisonics/iempluginsuite/{{ item }}"
 #     dest: "/usr/share/applications/{{ item }}"
@@ -120,7 +120,7 @@
 #     - at.iem.plugins.ToolBox.desktop
 #   tags: ['iempluginsuite']
 #
-# - name: install x42 entries
+# - name: Install x42 entries
 #   copy:
 #     src: "usr/local/share/applications/x42/{{ item }}"
 #     dest: "/usr/share/applications/{{ item }}"
@@ -161,7 +161,7 @@
 #     - com.x42_plugins.x42_tuna_1.desktop
 #   tags: ['x42']
 #
-# - name: install Dragonfly entries
+# - name: Install Dragonfly entries
 #   copy:
 #     src: "usr/local/share/applications/dragonfly/{{ item }}"
 #     dest: "/usr/share/applications/{{ item }}"
@@ -174,7 +174,7 @@
 #     - io.github.michaelwillis.DragonflyRoomReverb.desktop
 #   tags: ['dragonfly']
 
-- name: comment out keywords in lsp desktop entries
+- name: Comment out keywords in lsp desktop entries
   lineinfile:
     dest: "/usr/share/applications/in.lsp_plug.lsp_plugins_{{ item }}"
     regexp: "^Keywords="
@@ -318,7 +318,7 @@
     - trigger_stereo.desktop
   tags: ['lsp']
 
-- name: install desktop entries
+- name: Install desktop entries
   copy:
     src: "files/usr/local/share/applications/{{ item }}"
     dest: "/usr/share/applications/{{ item }}"
@@ -380,5 +380,5 @@
 #     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
 #   become_user: "{{ user.name }}"
 
-- name: update desktop database
+- name: Update desktop database
   command: bash -lc "update-desktop-database"

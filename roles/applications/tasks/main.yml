@@ -1,10 +1,10 @@
 ---
 
-- name: starting application tasks
+- name: Starting application tasks
   debug:
     msg: "starting application tasks"
 
-- name: copy raysession default scripts
+- name: Copy raysession default scripts
   copy:
     src: "usr/local/share/raysession/session_templates/scripted/ray-scripts/{{ item }}"
     dest: "/usr/share/raysession/session_templates/scripted/ray-scripts/{{ item }}"
@@ -16,7 +16,7 @@
     - save.sh
   tags: ['raysession']
 
-- include_tasks: pulsar.yml
+- include_tasks: Pulsar.yml
   when: install_pulsar|default(false)|bool == true
   tags: ['pulsar']
 
@@ -26,7 +26,7 @@
 - include_tasks: mixxx.yml
   tags: ['mixxx']
 
-- name: install vmpk keymap
+- name: Install vmpk keymap
   copy:
     src: usr/share/vmpk/qwerty_extended.xml
     dest: /usr/share/vmpk/qwerty_extended.xml

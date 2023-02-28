@@ -1,6 +1,6 @@
 ---
 
-- name: install systemd configs
+- name: Install systemd configs
   copy:
     src: "files/etc/systemd/{{ item }}"
     dest: "/etc/systemd/{{ item }}"
@@ -11,7 +11,7 @@
     - logind.conf
   register: systemd_config
 
-- name: set system log level config
+- name: Set system log level config
   template:
     src: etc/systemd/system.conf.j2
     dest: /etc/systemd/system.conf
@@ -19,7 +19,7 @@
     backup: yes
   register: systemd_logging_system
 
-- name: set user log level config
+- name: Set user log level config
   template:
     src: etc/systemd/user.conf.j2
     dest: /etc/systemd/user.conf
@@ -34,7 +34,7 @@
     #     scope: user
     #   become_user: "{{ user.name }}"
 
-    - name: reload systemd
+    - name: Reload systemd
       systemd:
         daemon_reload: yes
 

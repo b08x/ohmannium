@@ -1,12 +1,12 @@
 ---
 
-- name: set root shell
+- name: Set root shell
   user:
     name: root
     shell: /usr/bin/zsh
 
 
-- name: sync zsh functions
+- name: Sync zsh functions
   synchronize:
     src: "files/usr/local/share/zsh"
     dest: "/usr/local/share"
@@ -20,7 +20,7 @@
       - "--omit-dir-times"
   tags: ['zsh']
 
-- name: ensure /usr/local/share/zsh has correct owner/group
+- name: Ensure /usr/local/share/zsh has correct owner/group
   file:
     path: "/usr/local/share/zsh"
     state: directory

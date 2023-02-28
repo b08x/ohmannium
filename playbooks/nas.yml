@@ -42,7 +42,7 @@
 
   post_tasks:
 
-    - name: reload firewalld
+    - name: Reload firewalld
       shell: "firewall-cmd --reload"
       when: fw_nfs.changed
       ignore_errors: True

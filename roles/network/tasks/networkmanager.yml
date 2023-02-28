@@ -1,40 +1,37 @@
 ---
 
-- block:
-    # - name: populate /etc/resolv with local dns info
-    #   template:
-    #       src: etc/resolv.conf.j2
-    #       dest: /etc/resolv.conf
+# - name: populate /etc/resolv with local dns info
+#   template:
+#       src: etc/resolv.conf.j2
+#       dest: /etc/resolv.conf
 
-    - name: disable systemd-networkd service
-      systemd:
-        name: systemd-networkd
-        enabled: no
-        state: stopped
-      ignore_errors: True
+- name: Disable systemd-networkd service
+  systemd:
+    name: systemd-networkd
+    enabled: no
+    state: stopped
+  ignore_errors: True
 
-    - name: ensure networkmanager connection check is enabled
-      copy:
-        content: |
-          [connectivity]
-          enabled=true
-        dest: "/etc/NetworkManager/conf.d/20-connectivity.conf"
-        owner: root
+- name: Ensure networkmanager connection check is enabled
+  copy:
+    content: |
+      [connectivity]
+      enabled=true
+    dest: "/etc/NetworkManager/conf.d/20-connectivity.conf"
+    owner: root
 
-    - name: enable and start networkmanager
-      systemd:
-        name: NetworkManager
-        enabled: yes
-        state: started
+- name: Enable and start networkmanager
+  systemd:
+    name: NetworkManager
+    enabled: yes
+    state: started
 
-    # - include_tasks: interfaces.yml
+# - include_tasks: interfaces.yml
 
-    # - name: set ntp servers in timesyncd.conf
-    #   copy:
-    #     src: etc/systemd/timesyncd.conf
-    #     dest: /etc/systemd/timesyncd.conf
-    #     mode: '0644'
-    #     backup: yes
-    #   notify: enable systemd-timesyncd service
-
-  become: True
+# - name: set ntp servers in timesyncd.conf
+#   copy:
+#     src: etc/systemd/timesyncd.conf
+#     dest: /etc/systemd/timesyncd.conf
+#     mode: '0644'
+#     backup: yes
+#   notify: enable systemd-timesyncd service

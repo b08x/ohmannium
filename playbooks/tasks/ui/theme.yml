@@ -1,6 +1,6 @@
 ---
 
-- name: install icons
+- name: Install icons
   copy:
     src: "files/usr/local/share/pixmaps/"
     dest: "/usr/local/share/pixmaps/"
@@ -8,31 +8,31 @@
     mode: '644'
   tags: ['icons']
 
-- name: extract soundbot theme icons into /usr/local/share/icons
+- name: Extract soundbot theme icons into /usr/local/share/icons
   unarchive:
     src: files/usr/local/share/icons/oomox-soundbot_icons.tar.xz
     dest: "/usr/share/icons"
   tags: ['icons']
 
-- name: update the icon cache
+- name: Update the icon cache
   command: bash -lc "gtk-update-icon-cache"
   register: icon_cache
   changed_when: icon_cache.rc !=0
   tags: ['icons']
 
-- name: extract fonts to /usr/local/share/fonts
+- name: Extract fonts to /usr/local/share/fonts
   unarchive:
     src: files/usr/local/share/fonts.tar.xz
     dest: "/usr/local/share/"
   tags: ['fonts']
 
-- name: update font-cache
+- name: Update font-cache
   command: fc-cache -fv
   register: font_cache
   changed_when: font_cache.rc != 0
   tags: ['fonts']
 
-- name: install backgrounds
+- name: Install backgrounds
   synchronize:
     src: "files/usr/share/backgrounds/ohmannium/"
     dest: "/usr/share/backgrounds/ohmannium/"
@@ -42,7 +42,7 @@
     rsync_opts: "--update"
   tags: ['backgrounds']
 
-- name: extract soundbot theme into /usr/local/share/themes
+- name: Extract soundbot theme into /usr/local/share/themes
   unarchive:
     src: files/usr/local/share/themes/oomox-soundbot.tar.xz
     dest: "/usr/share/themes"

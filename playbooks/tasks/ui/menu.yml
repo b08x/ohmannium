@@ -3,7 +3,7 @@
 - include_tasks: xdg.yml
   tags: ['xdg']
 
-- name: ensure these directories exist
+- name: Ensure these directories exist
   file:
     path: "{{ user.home }}/{{ item }}"
     state: directory
@@ -54,7 +54,7 @@
 #     - apps.csv
 #   tags: ['jgmenu']
 
-- name: syncronize templates - rofi
+- name: Syncronize templates - rofi
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"

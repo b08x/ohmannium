@@ -1,6 +1,6 @@
 ---
 
-- name: set directories to not be indexed
+- name: Set directories to not be indexed
   template:
     src: etc/updatedb.conf.j2
     dest: /etc/updatedb.conf
@@ -10,7 +10,7 @@
     backup: yes
   tags: ['updatedb']
 
-- name: run updatedb
+- name: Run updatedb
   command: "updatedb"
   ignore_errors: True
   tags: ['updatedb']

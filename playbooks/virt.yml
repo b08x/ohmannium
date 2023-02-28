@@ -10,7 +10,7 @@
     - "vars/user.yml"
 
   pre_tasks:
-    - name: include distribution vars
+    - name: Include distro vars
       include_vars:
         file: vars/distro/{{ ansible_distribution }}.yml
   roles:

@@ -1,8 +1,8 @@
-- name: starting docker tasks
+- name: Starting docker tasks
   debug:
     msg: "Starting docker tasks"
 
-- name: install docker packages
+- name: Install docker packages
   aur:
     use: auto
     name: "{{ docker.packages }}"
@@ -11,7 +11,7 @@
   notify: docker service
   tags: ['packages']
 
-- name: add user to docker group
+- name: Add user to docker group
   user:
     name: "{{ user.name }}"
     groups: docker
@@ -19,14 +19,14 @@
   check_mode: no
   ignore_errors: yes
 
-- name: set docker storage location
+- name: Set docker storage location
   lineinfile:
     path: "/usr/lib/systemd/system/docker.service"
     regexp: "^ExecStart=/usr/bin/dockerd -H fd://"
     line: "ExecStart=/usr/bin/dockerd --data-root {{ docker.storage }} -H fd:// --containerd=/run/containerd/containerd.sock"
   notify: reload systemd daemon
 
-- name: create docker config directory
+- name: Create docker config directory
   file:
     path: /etc/docker
     state: directory
@@ -34,7 +34,7 @@
     group: root
     mode: '0755'
 
-- name: enable experimental features in docker
+- name: Enable experimental features in docker
   copy:
     content: |
       {
@@ -44,7 +44,7 @@
     dest: "/etc/docker/daemon.json"
     owner: root
 
-- name: disable overlay redirect
+- name: Disable overlay redirect
   copy:
     content: |
       options overlay metacopy=off redirect_dir=off

@@ -1,6 +1,6 @@
 ---
 
-- name: ensure these directories exist
+- name: Ensure these directories exist
   file:
     path: "{{ user.home }}/{{ item }}"
     state: directory
@@ -32,7 +32,7 @@
     - .guake
     - .sonic-pi/config
 
-- name: syncronize templates - shell
+- name: Syncronize templates - shell
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
@@ -51,7 +51,7 @@
     - .zshrc.local
   tags: ['zsh', 'shell', 'profile', 'alias']
 
-- name: syncronize templates - x11
+- name: Syncronize templates - x11
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
@@ -67,7 +67,7 @@
   register: x_config
   tags: ['x11', 'profile']
 
-- name: syncronize templates - wm
+- name: Syncronize templates - wm
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
@@ -88,7 +88,7 @@
   register: wmconfig
   tags: ['i3', 'dunst', 'picom', 'keybindings']
 
-- name: syncronize templates - terminal
+- name: Syncronize templates - terminal
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
@@ -105,7 +105,7 @@
     - .config/kitty/start.conf
   tags: ['terminal', 'alacritty', 'kitty', 'tilda']
 
-- name: syncronize templates - gtk
+- name: Syncronize templates - gtk
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
@@ -121,7 +121,7 @@
     - .gtkrc-2.0
   tags: ['gtk', 'theme']
 
-- name: syncronize templates - qt
+- name: Syncronize templates - qt
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
@@ -137,7 +137,7 @@
     - .config/qt6ct/qt6ct.conf
   tags: ['qt', 'theme']
 
-- name: syncronize templates - applications
+- name: Syncronize templates - applications
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
@@ -159,14 +159,14 @@
     - .sonic-pi/config/colour-theme.properties
   tags: ['htop', 'zim', 'qutebrowser', 'sonicpi', 'theme']
 
-- name: ensure .xinitrc is executable
+- name: Ensure .xinitrc is executable
   file:
     path: "{{ user.home }}/.xinitrc"
     mode: '0755'
   when: x_config.changed
   tags: ['x11', 'profile']
 
-- name: reload i3
+- name: Reload i3
   command: bash -lc "i3-msg -s /run/user/{{ user.uid }}/i3/ipc-socket.* reload"
   become_user: "{{ user.name }}"
   when: wmconfig

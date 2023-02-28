@@ -1,14 +1,14 @@
 ---
 
 - block:
-    - name: ensure group nobody exists
+    - name: Ensure group nobody exists
       group:
         name: nobody
         gid: 65534
         non_unique: True
         system: True
 
-    - name: ensure user nobody exists
+    - name: Ensure user nobody exists
       user:
         name: nobody
         system: True
@@ -17,7 +17,7 @@
         uid: 65534
         group: nobody
 
-    - name: install nfs configs
+    - name: Install nfs configs
       template:
         src: "etc/{{ item }}.j2"
         dest: "/etc/{{ item }}"
@@ -27,7 +27,7 @@
         - idmapd.conf
         - nfs.conf
 
-    - name: ensure nfs/rpc services are enabled and started
+    - name: Ensure nfs/rpc services are enabled and started
       service:
         name: "{{ item }}"
         state: restarted
@@ -38,7 +38,7 @@
         - nfs-idmapd
         - rpcbind
 
-    - name: permit traffic to rpcbind
+    - name: Permit traffic to rpcbind
       firewalld:
         port: "{{ item }}"
         permanent: yes

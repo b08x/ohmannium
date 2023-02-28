@@ -22,7 +22,7 @@
 
   pre_tasks:
 
-    - name: ensure usr local directories exist
+    - name: Ensure usr local directories exist
       file:
         path: "{{ item  }}"
         state: directory
@@ -38,17 +38,17 @@
 
   tasks:
 
-    - name: include vars
+    - name: Include distro vars
       include_vars:
         file: vars/distro/{{ ansible_distribution }}.yml
 
-    - name: include user vars
+    - name: Include user vars
       include_vars:
         dir: vars
         depth: 1
       tags: ['home', 'x11', 'shell', 'i3', 'theme', 'terminal', 'menu', 'keybindings']
 
-    - name: set background location variable
+    - name: Set background location variable
       set_fact:
         backgrounds: "/usr/share/backgrounds/ohmannium"
       tags: ['theme']
@@ -69,7 +69,7 @@
 
   post_tasks:
 
-      - name: cleanup old backup files
+      - name: Cleanup old backup files
         script: /usr/local/bin/cleanup.sh
         when: cleanup is defined
         tags: ['cleanup']

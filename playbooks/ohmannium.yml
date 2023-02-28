@@ -19,38 +19,36 @@
 
   pre_tasks:
 
-    - name: include vars
+    - name: Include distro vars
       include_vars:
         file: vars/distro/{{ ansible_distribution }}.yml
 
-    - name: include user vars
+    - name: Include user vars
       include_vars:
         dir: vars
         depth: 1
       tags: ['ssh', 'repo', 'packages', 'sudoers', 'ruby']
 
-    - name: set ansible_home
+    - name: Set ansible_home
       set_fact:
         ansible_home: "{{ lookup('env','HOME') }}/Workspace/ohmannium"
 
-    - name: set admin_group variable
+    - name: Set admin_group variable
       set_fact:
         admin_group: "{{ admin_group }}"
 
     - block:
-        - name: print keyserver hostname
+        - name: Print keyserver hostname
           debug:
             msg: "{{ keyserver }}"
-          when:
-            - debugging is defined
-            - keyserver is defined
+          when: ( debugging is defined or keyserver is defined )
 
-        - name: check if keys are present
+        - name: Check if keys are present
           stat:
             path: "{{ user.home }}/.ssh/id_rsa"
           register: keys
 
-        - name: copy keys from remote host
+        - name: Copy keys from remote host
           delegate_to: 127.0.0.1
           run_once: True
           become_user: "{{ user.name }}"
@@ -65,7 +63,7 @@
             - keyserver is defined
           tags: ['keys']
 
-        - name: enable ssh daemon
+        - name: Enable ssh daemon
           service:
             name: sshd
             enabled: True
@@ -74,20 +72,20 @@
       tags: ['ssh']
 
     - block:
-        - name: check -march support
+        - name: Check -march support
           shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
           register: supported_march
 
-        - name: check output from grep command
+        - name: Check output from grep command
           debug:
             msg: "{{ supported_march }}"
 
-        - name: set architecture
+        - name: Set architecture
           set_fact:
             architecture: "x86-64-v3"
           when: supported_march.stdout_lines[0] == 'x86-64-v3'
 
-        - name: set architecture
+        - name: Set architecture
           set_fact:
             architecture: "x86-64"
           when: supported_march.stdout_lines[0] == 'x86-64-v2'

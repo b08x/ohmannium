@@ -133,7 +133,7 @@
 
   post_tasks:
 
-    - name: permit http/https traffic
+    - name: Permit http/https traffic
       firewalld:
         service: "{{ item }}"
         state: enabled
@@ -143,6 +143,6 @@
         - https
       tags: ['firewall']
 
-    - name: reload firewalld
+    - name: Reload firewalld
       shell: "firewall-cmd --reload"
       tags: ['firewall']

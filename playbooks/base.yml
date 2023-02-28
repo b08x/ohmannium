@@ -21,29 +21,29 @@
 
   pre_tasks:
 
-    - name: symlink os-release
+    - name: Symlink os-release
       file:
         src: /etc/os-release
         dest: /etc/system-release
         state: link
 
-    - name: copy ld config file
+    - name: Copy ld config file
       copy:
         src: etc/ld.so.conf
         dest: /etc/ld.so.conf
         mode: '0644'
         backup: yes
 
-    - name: run ldconfig
+    - name: Run ldconfig
       shell: /sbin/ldconfig
 
   tasks:
 
-    - name: include vars
+    - name: Include distro vars
       include_vars:
         file: vars/distro/{{ ansible_distribution }}.yml
 
-    - name: include user vars
+    - name: Include user vars
       include_vars:
         dir: vars
         depth: 1
@@ -84,14 +84,14 @@
       tags: ['grub']
 
     # Reset is not implemented local connection
-    - name: reboot host
+    - name: Reboot host
       ansible.builtin.reboot:
       async: 1
       poll: 0
       ignore_errors: True
       when: reboot is defined
 
-    - name: wait for host to reboot
+    - name: Wait for host to reboot
       wait_for_connection:
         connect_timeout: 20
         sleep: 5

@@ -1,14 +1,14 @@
 ---
 
 - block:
-    - name: create getty@tty1.service.d directory
+    - name: Create getty@tty1.service.d directory
       file:
         path: "/etc/systemd/system/getty@tty1.service.d"
         state: directory
         owner: root
         group: root
 
-    - name: create systemd drop-in file for virtual console autologin
+    - name: Create systemd drop-in file for virtual console autologin
       template:
         src: "etc/systemd/system/getty@tty1.service.d/autologin.conf.j2"
         dest: "/etc/systemd/system/getty@tty1.service.d/autologin.conf"
@@ -20,26 +20,26 @@
   when: shell_login|default(True) == True
 
 - block:
-    - name: install lightdm
+    - name: Install lightdm
       aur:
         use: auto
         name: lightdm
         state: present
       become_user: "{{ user.name }}"
 
-    - name: ensure group autologin exists
+    - name: Ensure group autologin exists
       group:
         name: autologin
         state: present
         system: yes
 
-    - name: add user to autologin group
+    - name: Add user to autologin group
       user:
         name: "{{ user.name }}"
         groups: autologin
         append: yes
 
-    - name: install xsession file to /etc/lightdm/xsession
+    - name: Install xsession file to /etc/lightdm/xsession
       copy:
         src: etc/lightdm/Xsession
         dest: /etc/lightdm/Xsession
@@ -48,7 +48,7 @@
         group: root
         mode: '0755'
 
-    - name: update lightdm.conf
+    - name: Update lightdm.conf
       template:
         src: etc/lightdm/lightdm.conf.j2
         dest: /etc/lightdm/lightdm.conf
@@ -57,7 +57,7 @@
         group: root
         backup: yes
 
-    - name: update pam
+    - name: Update pam
       copy:
         src: "etc/pam.d/{{ item }}"
         dest: "/etc/pam.d/{{ item }}"
@@ -74,7 +74,7 @@
   tags: ['lightdm']
 
 # if this file does not exist, lightdm will fail to start
-- name: set dmrc to i3
+- name: Set dmrc to i3
   copy:
     content: |
       [Desktop]

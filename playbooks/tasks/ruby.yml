@@ -2,7 +2,7 @@
 
 #TODO: add task to install rubygems, ruby-devel, git
 - block:
-    - name: set --no-user-install in gemrc
+    - name: Set --no-user-install in gemrc
       copy:
         content: |
           gem: --no-user-install --no-document
@@ -10,17 +10,17 @@
         dest: "/etc/gemrc"
         owner: root
 
-    - name: gather list of installed gems
+    - name: Gather list of installed gems
       shell: "gem list | awk '{ print $1 }'"
       register: gemlist
       changed_when: gemlist.rc != 0
       ignore_errors: "{{ ansible_check_mode }}"
 
-    - name: set list of gems to install
+    - name: Set list of gems to install
       set_fact:
         _gems: "{{ gems|difference(gemlist.stdout) }}"
 
-    - name: install ruby gems
+    - name: Install ruby gems
       shell: "gem install {{ item }}"
       with_items:
         - "{{ _gems }}"
