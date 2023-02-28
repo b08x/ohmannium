@@ -168,7 +168,7 @@ else
   cd $ANSIBLE_HOME
 fi
 
-git checkout devlopment && git fetch && git pull
+git checkout release/ohmannium && git fetch && git pull
 
 git lfs install && git lfs checkout && git lfs fetch && git lfs pull
 
