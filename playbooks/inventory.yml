@@ -42,7 +42,7 @@ all:
 
     soundbot:
       paths:
-          - "export PATH=$PATH:$HOME/Workspace/pkgbuilder/devtools"
+          - "export PATH=$PATH:$HOME/Workspace/pkgrr/devtools"
       install:
         libvirt:
           qemu_full: True

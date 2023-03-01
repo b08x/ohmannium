@@ -1,5 +1,6 @@
 # Ohmannium
 { loosley adapted mantra for }
+
 An exercise in Configuration Management and Task Automation.
 
 Comprised of Ansible roles and playbooks with [ArchLabs](https://archlabslinux.com/) as the base operating system.
