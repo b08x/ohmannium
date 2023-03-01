@@ -84,11 +84,11 @@ all:
     webhost:
       hosts:
         bender:
-          webroot: /backup/website
+          webroot: /usr/share/nginx/html
           use_fancy_index: True
           nginx_create_blank_index: False
         soundbot.hopto.org:
           ansible_user: ec2-user
-          remote_user: root
           webroot: /usr/share/nginx/html
+          remote_user: root
           use_fancy_index: True

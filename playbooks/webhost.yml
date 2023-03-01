@@ -81,7 +81,7 @@
       00_default:
         - listen 80 default_server
         - server_name _
-        - root "{% if ansible_hostname == 'bender' %}/backup/website{% else %}/usr/share/nginx/html{% endif %}"
+        - root "/usr/share/nginx/html"
         - index index.html
         - autoindex on
     nginx_remove_sites: []
