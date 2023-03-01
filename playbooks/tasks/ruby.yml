@@ -48,6 +48,7 @@
       - minitest
       - mocha
       - multi_json
+      - neovim
       - net-ssh
       - parallel
       - pastel

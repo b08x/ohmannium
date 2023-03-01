@@ -26,6 +26,16 @@
     dest: "/usr/local/share/"
   tags: ['fonts']
 
+- name: Install fonts.conf
+  copy:
+    src: home/.config/fontconfig/fonts.conf
+    dest: "{{ user.home }}/.config/fontconfig/fonts.conf"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'
+    backup: yes
+  tags: ['fonts']
+
 - name: Update font-cache
   command: fc-cache -fv
   register: font_cache
