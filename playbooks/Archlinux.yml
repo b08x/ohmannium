@@ -163,21 +163,25 @@
 
         - name: Print package list
           debug:
-            msg: "{{ packages  | to_yaml }}"
+            msg: "{{ packages  | to_json }}"
           when: debugging is defined
+        #
+        # - name: Install packages
+        #   script: "/usr/bin/uxterm -e {{ ansible_home }}/bin/ohmannium.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
+        #   # delegate_to: 127.0.0.1
+        #   become_user: "{{ user.name }}"
+        #   environment:
+        #     DISPLAY: ":0"
+        #   register: output
+        #   when: newInstall is defined
 
-        - name: Install packages
-          script: "/usr/bin/uxterm -e {{ ansible_home }}/bin/ohmannium.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
-          # delegate_to: 127.0.0.1
-          become_user: "{{ user.name }}"
-          environment:
-            DISPLAY: ":0"
-          register: output
-          when: newInstall is defined
+        - name: test new module
+          action: ohmannium packages="{{ packages | to_json }}"
+          register: action_output
 
         - name: Print results
           debug:
-            msg: "{{ output }}"
+            msg: "{{ action_output }}"
           when: debugging is defined
 
       rescue:

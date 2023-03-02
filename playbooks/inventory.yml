@@ -4,7 +4,6 @@ all:
   vars:
     ansible_user: "{{ lookup('env','USER') }}"
     ansible_connection: ssh
-    paths: default
     i3:
       tray_output: default
       workspaces: default
@@ -41,8 +40,6 @@ all:
           - "$ws10 output HDMI2"
 
     soundbot:
-      paths:
-          - "export PATH=$PATH:$HOME/Workspace/pkgrr/devtools"
       install:
         libvirt:
           qemu_full: True
@@ -81,6 +78,10 @@ all:
     nas:
       hosts:
         bender:
+    devel:
+      hosts:
+        ninjabot:
+        soundbot:
     webhost:
       hosts:
         bender:

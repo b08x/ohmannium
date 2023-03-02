@@ -7,10 +7,10 @@ alias shutdown="sudo shutdown -h now"
 # list input devices
 alias lsin="sudo libinput list-devices"
 
-# alias for history
-alias h="history 1"
-# alias for clear
+alias h="history"
+
 alias cl="tput clear && tput cup 1"
+
 # confirm before overwriting something
 alias cp="cp -i"
 # confirm before overwriting something
@@ -81,18 +81,11 @@ alias cpu-min='tuned-adm profile laptop-battery-powersave'
 # load it in .xprofile
 alias alsastore="alsactl store -f ~/.asound.state"
 
-# alias for ssh
-alias connect="ssh"
-
 # turn off monitors
 alias monitoroff="xset dpms force off"
 
 # shortcut for ranger
 alias ra="ranger"
-
-# sampler
-alias sampler="fd -e flac -e wav -e opus -e mp3 --strip-cwd-prefix .  | fzf --preview='mpv {}' --preview-window=30% --tac --reverse -m --cycle --bind 'return:execute(play {})'"
-alias samplerv2="fd -e flac -e wav -e opus -e mp3 . '/home/b08x'  | fzf --preview='mpv {}' --preview-window '~3,follow' --tac --reverse -m --cycle   --bind 'ctrl-/:toggle-preview' --bind 'return:execute(mpv {}),ctrl-y:change-preview-window(down|hidden|)'"
 
 # download
 alias dl="aria2c"
