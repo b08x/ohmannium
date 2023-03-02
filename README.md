@@ -1,11 +1,25 @@
 # Ohmannium
-{ loosley adapted mantra for }
 
-An exercise in Configuration Management and Task Automation.
+{ a loosley adapted mantra for }
 
-Comprised of Ansible roles and playbooks with [ArchLabs](https://archlabslinux.com/) as the base operating system.
+An exercise in Configuration Management and Task Automation for an Audio Production workflow that comprises of FOSS applications on Linux based devices.
 
-### Installation
+Designed to be a flexible framework to manage the variety of tasks and configurations required when working within a networked environment. Ansible is used for this purpose, and can be adapted in any number of ways accomdate
+
+"Host" or "Hosts" will be defined here as any device from which you can install a Linux variant and make a sound. The idea is to have the term become synononous with "Instrument"
+
+For example;
+
+Host A (helm synth) [jacktrip client ] --------------> Host B (reaper/non-mixer) [jacktrip server]
+
+
+
+[ArchLabs](https://archlabslinux.com/) is used as the base operating system.
+
+
+### Setup
+
+ yadm is used to bootstrap
 
 ```bash
 $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
@@ -13,6 +27,13 @@ $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
 
 [insert screencast]
 
+```mermaid
+graph TD;
+    base-->ui;
+    ui<---C;
+    B-->D;
+    C-->D;
+```
 
 ### Setting Variables
 
