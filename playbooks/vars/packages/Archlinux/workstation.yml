@@ -13,6 +13,7 @@ design:
   - gpick
   - gimp
 development:
+  - mdbook
   - micro
   - zim
   - asp
