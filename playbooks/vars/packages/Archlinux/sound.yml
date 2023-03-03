@@ -10,8 +10,11 @@ alsa:
 ambisonic:
   - ambix-o1
   - ambix-o3
+  - ambix-o5
   - iempluginsuite-git
-  - mcfx
+  - mcfx-o1
+  - mcfx-o3
+  - mcfx-o5
   - sparta-plugins
 analysis:
   - baudline-bin
