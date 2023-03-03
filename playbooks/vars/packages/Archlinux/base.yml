@@ -104,6 +104,7 @@ system:
   - most
   - ncdu
   - ncurses
+  - neovim-symlinks
   - net-tools
   - nfs-utils
   - npm
@@ -150,3 +151,4 @@ system:
   - xdg-user-dirs
   - xz
   - zlib
+  - zoxide
