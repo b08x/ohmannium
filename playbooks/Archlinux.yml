@@ -165,15 +165,6 @@
           debug:
             msg: "{{ packages  | to_json }}"
           when: debugging is defined
-        #
-        # - name: Install packages
-        #   script: "/usr/bin/uxterm -e {{ ansible_home }}/bin/ohmannium.rb '{{ ansible_distribution }}' '{{ packages | to_yaml }}'"
-        #   # delegate_to: 127.0.0.1
-        #   become_user: "{{ user.name }}"
-        #   environment:
-        #     DISPLAY: ":0"
-        #   register: output
-        #   when: newInstall is defined
 
         - name: test new module
           action: ohmannium packages="{{ packages | to_json }}"
@@ -183,19 +174,19 @@
           debug:
             msg: "{{ action_output }}"
           when: debugging is defined
-
-      rescue:
-
-        - name: Ensure at least these packages are installed
-          pacman:
-            name: "{{ item }}"
-            state: present
-            force: yes
-            extra_args: --noconfirm
-          with_items:
-            - autofs
-            - sxhkd
-          tags: ['packages']
+      # 
+      # rescue:
+      #
+      #   - name: Ensure at least these packages are installed
+      #     pacman:
+      #       name: "{{ item }}"
+      #       state: present
+      #       force: yes
+      #       extra_args: --noconfirm
+      #     with_items:
+      #       - autofs
+      #       - sxhkd
+      #     tags: ['packages']
 
       become_user: "{{ user.name }}"
       tags: ['packages']

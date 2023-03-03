@@ -21,12 +21,9 @@ def explicitlyInstall(*args)
   require 'open3'
   options = args[-1].is_a?(Hash) ? args.pop : {}
 
-
-  fork do
-    stdin, stdout, stderr = Open3.popen3(*args)
-    x = options[:error] ? stderr.read : stdout.read
-    $logger.debug "#{x}"
-  end
+  stdin, stdout, stderr = Open3.popen3(*args)
+  x = options[:error] ? stderr.read : stdout.read
+  $logger.debug "#{x}"
 
 end
 
@@ -40,7 +37,7 @@ JSON.parse(packages).each do |group|
 
     $logger.info "installing packages from #{group[0]}" unless pkgs.empty?
 
-    p explicitlyInstall "paru -S --noconfirm --needed --batchinstall --overwrite '*' #{pkgs}"
+    explicitlyInstall "paru -S --noconfirm --needed --batchinstall --overwrite '*' #{pkgs}"
 
   rescue StandardError => e
 
