@@ -1,5 +1,10 @@
 ---
 
+- name: Collect only selected facts
+  ansible.builtin.setup:
+    filter:
+      - 'ansible_mounts'
+
 - name: Check if the btrfs filesystem is being used
   set_fact:
     btrfs_exists: true

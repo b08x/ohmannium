@@ -1,6 +1,7 @@
 ---
 
 autologin: True
+journal_level: notice
 shell_login: True
 
 font:
@@ -20,6 +21,12 @@ theme:
   cursor: xcursor-breeze
   kvantum: KvGnomeDark
   qtstyle: fusion
+
+i3:
+  tray_output: default
+  workspaces: default
+  assignments: default
+  autostart: default
 
 colors:
   sonic:

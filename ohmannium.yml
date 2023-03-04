@@ -23,11 +23,11 @@
       include_vars:
         file: vars/distro/{{ ansible_distribution }}.yml
 
-    - name: Include user vars
-      include_vars:
-        dir: vars
-        depth: 1
-      tags: ['ssh', 'repo', 'packages', 'sudoers', 'ruby']
+    - name: Symlink os-release
+      file:
+        src: /etc/os-release
+        dest: /etc/system-release
+        state: link
 
     - name: Set ansible_home
       set_fact:
@@ -93,7 +93,24 @@
       check_mode: False
       tags: ['repo', 'packages']
 
-  tasks:
+    - name: Ensure usr local directories exist
+      file:
+        path: "{{ item  }}"
+        state: directory
+        mode: '0755'
+        recurse: False
+      with_items:
+        - "/usr/local/share/fonts/"
+        - "/usr/local/share/icons"
+        - "/usr/local/share/pixmaps/"
+        - "/usr/local/share/themes"
+        - "/usr/share/backgrounds/ohmannium"
+      tags: ['theme']
+
+    - name: Set background location variable
+      set_fact:
+        backgrounds: "/usr/share/backgrounds/ohmannium"
+      tags: ['x11', 'theme']
 
     - import_tasks: tasks/user.yml
       tags: ['user']
@@ -104,14 +121,44 @@
     - import_tasks: tasks/ruby.yml
       tags: ['ruby']
 
+    - import_tasks: tasks/zshell.yml
+      tags: ['zsh']
+
     - debug:
         msg: "test"
 
-- name: include archlinux playbook
-  import_playbook: Archlinux.yml
+    - include_tasks: "tasks/distro/{{ ansible_distribution }}.yml"
 
-- name: include base playbook
-  import_playbook: base.yml
+  roles:
 
-- name: include ui playbook
-  import_playbook: ui.yml
+    - role: network
+      tags: ['netork']
+
+    - role: audio
+      tags: ['audio']
+
+    - role: system
+      tags: ['system']
+
+  post_tasks:
+
+      - name: Cleanup old backup files
+        script: /usr/local/bin/cleanup.sh
+        when: cleanup is defined
+        tags: ['cleanup']
+
+      # Reset is not implemented local connection
+      - name: Reboot host
+        ansible.builtin.reboot:
+        async: 1
+        poll: 0
+        ignore_errors: True
+        when: reboot is defined
+
+      - name: Wait for host to reboot
+        wait_for_connection:
+          connect_timeout: 20
+          sleep: 5
+          delay: 5
+          timeout: 120
+        when: reboot is defined

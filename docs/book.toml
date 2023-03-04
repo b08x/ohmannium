@@ -1,0 +1,6 @@
+[book]
+authors = ["b08x"]
+language = "en"
+multilingual = false
+src = "src"
+title = "ohmannium"

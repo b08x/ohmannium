@@ -1,0 +1,36 @@
+---
+
+all:
+  vars:
+    ansible_user: "{{ lookup('env','USER') }}"
+    ansible_connection: ssh
+
+  hosts:
+    ninjabot:
+      ansible_connection: local
+    soundbot:
+    lapbot:
+    archlabs:
+
+  children:
+    virt:
+      hosts:
+        soundbot:
+    nas:
+      hosts:
+        bender:
+    devel:
+      hosts:
+        ninjabot:
+        soundbot:
+    webhost:
+      vars:
+        webroot: /usr/share/nginx/html
+      hosts:
+        bender:
+          use_fancy_index: True
+          nginx_create_blank_index: False
+        soundbot.hopto.org:
+          ansible_user: ec2-user
+          remote_user: root
+          use_fancy_index: True

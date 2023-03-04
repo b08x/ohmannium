@@ -1,5 +1,10 @@
 ---
 
+- name: Collect only selected facts
+  ansible.builtin.setup:
+    filter:
+      - 'ansible_processor'
+
 - name: Enable input-remapper service
   systemd:
     name: input-remapper

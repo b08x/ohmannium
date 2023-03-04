@@ -138,8 +138,7 @@ declare -rx WORKSPACE="${HOME}/Workspace"
 if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
 
 declare -rx ANSIBLE_HOME="${WORKSPACE}/ohmannium"
-declare -rx PLAYBOOKS="${ANSIBLE_HOME}/playbooks"
-declare -rx INVENTORY="${PLAYBOOKS}/inventory.yml"
+declare -rx INVENTORY="${ANSIBLE_HOME}/inventory.yml"
 
 #########################################################################
 
@@ -182,7 +181,7 @@ if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "-------------------------\n" $YELLOW
 say "select playbook to run" $GREEN
 
-playbooks=$(gum choose --no-limit "ohmannium" "base" "ui" "nas" )
+playbooks=$(gum choose --no-limit "base" "nas" "virt" "webhost" )
 
 runas_user=$(gum choose $USER)
 
@@ -198,7 +197,7 @@ sed -i 's/    ansible_connection: ssh/    ansible_connection: local/' $INVENTORY
 ########################################################################################
 
 for playbook in ${playbooks[@]}; do
-  ansible-playbook -K -i $INVENTORY "${PLAYBOOKS}/${playbook}.yml" \
+  ansible-playbook -K -i $INVENTORY "${ANSIBLE_HOME}/${playbook}.yml" \
                    --limit $(uname -n) \
                    -e "newInstall=true" \
                    -e "update_mirrors=true" \

@@ -37,14 +37,15 @@
     backup: yes
 
 - name: Set NOPASSWD for user in polkit
-  template:
-    src: etc/polkit-1/rules.d/49-nopasswd_global.rules.j2
-    dest: /etc/polkit-1/rules.d/49-nopasswd_global.rules
-    mode: '644'
-    backup: no
-
-- name: Remove existing sudoers if there is one
-  file:
-    path: /etc/sudoers.d/10-installer
-    state: absent
-  ignore_errors: True
+  copy:
+    content: |
+      /* Allow members of the wheel group to execute any actions
+       * without password authentication, similar to "sudo NOPASSWD:"
+       */
+      polkit.addRule(function(action, subject) {
+      	if (subject.isInGroup("{{ admin_group }}")) {
+      		return polkit.Result.YES;
+      	}
+      });
+    dest: "/etc/polkit-1/rules.d/49-nopasswd_global.rules"
+    mode: '0644'

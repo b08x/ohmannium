@@ -38,7 +38,6 @@ editor:
   - gigedit
   - ocenaudio-bin
   - polyphone
-  - reaper
   - sound-gambit
   - sox
 filter:

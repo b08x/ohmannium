@@ -1,0 +1,176 @@
+---
+
+- name: Add syncopated repo key
+  shell: |
+    if [[ -z "$(pacman-key --list-keys | grep syncopated 2>/dev/null)" ]];
+    then
+      echo "key already installed"
+    else
+      curl http://soundbot.hopto.org/syncopated/syncopated.gpg | pacman-key --add -
+      pacman-key --lsign-key 36A6ECD355DB42B296C0CEE2157CA2FC56ECC96A
+    fi
+  register: syncopated_keys
+  until: "syncopated_keys is not failed"
+  retries: 10
+  delay: 10
+  check_mode: False
+  tags: ['repo']
+
+- name: Add archaudio repo key
+  shell: |
+    if [[ -z "$(pacman-key --list-keys | grep OSAMC 2>/dev/null)" ]];
+    then
+      echo "key already installed"
+    else
+      curl https://arch.osamc.de/proaudio/osamc.gpg | pacman-key --add -
+      pacman-key --lsign-key 762AE5DB2B38786364BD81C4B9141BCC62D38EE5
+    fi
+  register: archaudio_keys
+  until: "archaudio_keys is not failed"
+  retries: 10
+  delay: 10
+  check_mode: False
+  tags: ['repo']
+
+- name: Adjust pacman, paru and makepkg configs
+  template:
+    src: "roles/system/templates/etc/{{ item }}.j2"
+    dest: "/etc/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  with_items:
+    - pacman.conf
+    - paru.conf
+    - makepkg.conf
+  tags: ['makepkg', 'pacman', 'paru', 'packages', 'repo']
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Update cache
+  pacman:
+    update_cache: True
+    upgrade: False
+  tags: ['packages']
+
+- name: Check if paru installed
+  stat: path="/usr/bin/paru"
+  register: paru
+  tags: ['paru', 'packages']
+
+- name: Install paru if not installed
+  block:
+    - name: Install paru
+      pacman:
+        name: paru-bin
+        state: present
+        force: yes
+        extra_args: --noconfirm
+      register: paru_package
+      until: "paru_package is not failed"
+      retries: 2
+      delay: 10
+
+  rescue:
+    - name: Clone paru
+      git:
+        repo: "https://aur.archlinux.org/paru.git"
+        dest: "/tmp/paru"
+        accept_hostkey: yes
+        update: yes
+        force: no
+      become_user: "{{ user.name }}"
+
+    - name: Make and install paru
+      shell: "makepkg -si --noconfirm --needed"
+      args:
+        chdir: "/tmp/paru"
+      become_user: "{{ user.name }}"
+
+    - name: clean and update package cache
+      shell: |
+        paru -Sc --noconfirm && paru -Syy
+      become_user: "{{ user.name }}"
+
+  when: not paru.stat.exists
+  tags: ['paru', 'packages']
+
+- name: Check if mirrors have been updated within the past 24h
+  shell: "fd --changed-within 24hours --search-path=/etc/pacman.d"
+  register: mirror_status
+  tags: ['mirrors', 'packages']
+
+- name: Print mirror file status
+  debug:
+    msg: "{{ mirror_status }}"
+  when:
+    - ( mirror_status.stdout_lines | length < 0 or update_mirrors is defined )
+    - debugging is defined
+  tags: ['mirrors', 'packages']
+
+- name: Update mirrors
+  shell: |
+    reflector --download-timeout 3 --protocol https \
+    --latest 20 --sort rate --score 10 --fastest 8 \
+    --save /etc/pacman.d/mirrorlist
+  when: ( mirror_status.stdout_lines | length < 0 or update_mirrors is defined )
+  register: mirror_update
+  tags: ['mirrors', 'packages']
+
+- name: Update cache
+  pacman:
+    update_cache: True
+    upgrade: False
+  when: mirror_update.changed
+  tags: ['packages']
+
+- name: Remove pipewire
+  pacman:
+    name: "pipewire-alsa,pipewire-audio,pipewire-jack,pipewire-pulse,wireplumber"
+    state: absent
+    force: yes
+    extra_args: --noconfirm
+  when: use_jack|default(true)|bool == true
+  ignore_errors: True
+  tags: ['packages']
+
+- block:
+
+    - name: Include package vars
+      include_vars:
+        dir: ../../vars/packages/{{ ansible_distribution }}
+        name: packages
+
+    - name: Prepare package list
+      debug:
+        msg: "Installing packages...."
+
+    - name: Print package list
+      debug:
+        msg: "{{ packages  | to_json }}"
+      when: debugging is defined
+
+    - name: test new module
+      action: ohmannium packages="{{ packages | to_json }}"
+      register: action_output
+
+    - name: Print results
+      debug:
+        msg: "{{ action_output }}"
+      when: debugging is defined
+  #
+  # rescue:
+  #
+  #   - name: Ensure at least these packages are installed
+  #     pacman:
+  #       name: "{{ item }}"
+  #       state: present
+  #       force: yes
+  #       extra_args: --noconfirm
+  #     with_items:
+  #       - autofs
+  #       - sxhkd
+  #     tags: ['packages']
+
+  become_user: "{{ user.name }}"
+  tags: ['packages']

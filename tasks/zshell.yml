@@ -8,7 +8,7 @@
 
 - name: Sync zsh functions
   synchronize:
-    src: "files/usr/local/share/zsh"
+    src: "roles/system/files/usr/local/share/zsh"
     dest: "/usr/local/share"
     recursive: yes
     mode: push

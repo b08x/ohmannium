@@ -1,5 +1,11 @@
 ---
 
+- name: Collect only selected facts
+  ansible.builtin.setup:
+    filter:
+      - 'ansible_processor'
+      - 'ansible_system_vendor'
+
 - name: Ensure xorg.conf.d exists
   file:
     path: "/etc/X11/xorg.conf.d/"
@@ -15,7 +21,6 @@
 
 - block:
     - block:
-
         - name: Install intel config
           template:
             src: etc/X11/xorg.conf.d/20-intel.conf.j2
