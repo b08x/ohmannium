@@ -142,7 +142,7 @@ gum confirm "copy ssh keys from a remote host?" && say "ok" $GREEN
 if [ $? = '0' ]; then
   say "Enter the fqdn or ip of the remote host" $GREEN
 
-  read KEYSERVER
+  read -e KEYSERVER
 
   say "setting ${KEYSERVER} as remote host keyserver\n"
 
