@@ -7,7 +7,44 @@ require 'open3'
 require 'rubygems'
 
 $logfile = File.join("/tmp", "ohmannium-#{Time.now.strftime("%Y-%m-%d")}-packageinstall.log")
-$logger = Logging.logger($logfile)
+
+Logging.color_scheme( 'bright',
+  :levels => {
+    :info  => :green,
+    :warn  => :yellow,
+    :error => :red,
+    :fatal => [:white, :on_red]
+  },
+  :date => :blue,
+  :logger => :cyan,
+  :message => :magenta
+)
+
+Logging.appenders.stdout(
+  'stdout',
+  :layout => Logging.layouts.pattern(
+    :pattern => '[%d] %-5l %c: %m\n',
+    :color_scheme => 'bright'
+  ),
+  :level => :debug
+)
+
+Logging.appenders.file(
+  log_file,
+  :layout => Logging.layouts.pattern(
+    :pattern => '[%d] %-5l %c: %m\n',
+    :color_scheme => 'bright'
+  ),
+  :level => :debug
+)
+
+$logger = Logging.logger['Happy::Colors']
+
+$logger.add_appenders(
+        Logging.appenders.stdout,
+        Logging.appenders.file($logfile))
+
+$logger = Logging.logger['Happy::Colors']
 $logger.level = :info
 
 currently_installed_packages = `paru -Q | awk '{print $1}'`.split("\n")
