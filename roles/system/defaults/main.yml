@@ -1,8 +1,8 @@
 ---
 
 autologin: True
-journal_level: notice
 shell_login: True
+journal_level: notice
 
 font:
   primary:
@@ -29,7 +29,7 @@ i3:
   autostart: default
 
 colors:
-  sonic:
+  syntax:
     ScrollBar: "#8A1F14"
     Foreground: "#2177a7"
     Background: "#09090d"
@@ -59,7 +59,7 @@ colors:
     LogBackground: "#0a0a0a"
     CuePathForeground: "#585858"
     CuePathBackground: "#0a0a0a"
-  zim:
+  css:
     background: '#0D0D0D'
     foreground: '#a29e9e'
     strong: '#c7d524'

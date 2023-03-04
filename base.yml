@@ -1,7 +1,6 @@
 ---
 
 - hosts: all
-  tags: ['base', 'packages']
   become: True
   gather_subset:
     - hardware
