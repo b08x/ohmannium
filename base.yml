@@ -141,6 +141,9 @@
     - role: system
       tags: ['system']
 
+    - role: applications
+      tags: ['applications']
+
   post_tasks:
 
       - name: Cleanup old backup files
