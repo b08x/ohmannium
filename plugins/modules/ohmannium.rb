@@ -8,7 +8,7 @@ require 'rubygems'
 
 $logfile = File.join("/tmp", "ohmannium-#{Time.now.strftime("%Y-%m-%d")}-packageinstall.log")
 $logger = Logging.logger($logfile)
-$logger.level = :debug
+$logger.level = :info
 
 currently_installed_packages = `paru -Q | awk '{print $1}'`.split("\n")
 
@@ -23,7 +23,7 @@ def explicitlyInstall(*args)
 
   stdin, stdout, stderr = Open3.popen3(*args)
   x = options[:error] ? stderr.read : stdout.read
-  $logger.debug "#{x}"
+  $logger.info "#{x}"
 
 end
 
@@ -41,7 +41,7 @@ JSON.parse(packages).each do |group|
 
   rescue StandardError => e
 
-    $logger.warn "package install failed. probably just a package conflict "
+    $logger.warn "package install failed. probably just a package name conflict "
     $logger.warn "#{e}"
     $logger.warn "trying again"
 
