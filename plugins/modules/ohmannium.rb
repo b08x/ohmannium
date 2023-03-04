@@ -38,7 +38,7 @@ Logging.appenders.file(
   :level => :debug
 )
 
-$logger = Logging.logger['Happy::Colors']
+$logger = Logging.logger['ohmannium::packageInstall']
 
 $logger.add_appenders(
         Logging.appenders.stdout,
