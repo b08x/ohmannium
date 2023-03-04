@@ -66,6 +66,7 @@ BOOTSTRAP_PKGS=(
   'ansible'
   'aria2'
   'base-devel'
+  'bat'
   'bc'
   'ccache'
   'cmake'
