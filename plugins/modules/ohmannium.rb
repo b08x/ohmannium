@@ -26,7 +26,7 @@ Logging.appenders.stdout(
     :pattern => '[%d] %-5l %c: %m\n',
     :color_scheme => 'bright'
   ),
-  :level => :debug
+  :level => :info
 )
 
 Logging.appenders.file(
@@ -35,7 +35,7 @@ Logging.appenders.file(
     :pattern => '[%d] %-5l %c: %m\n',
     :color_scheme => 'bright'
   ),
-  :level => :debug
+  :level => :info
 )
 
 $logger = Logging.logger['ohmannium::packageInstall']
