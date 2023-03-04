@@ -52,8 +52,6 @@
       check_mode: no
       ignore_errors: True
 
-    - debug: msg="{{ fstrim_supported }}"
-
     - name: Ensure fstrim.timer is enabled
       systemd:
         name: fstrim.timer

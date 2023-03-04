@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: devel
   become: True
   gather_subset:
     - hardware
@@ -21,20 +21,24 @@
     - name: Include distro vars
       include_vars:
         file: vars/distro/{{ ansible_distribution }}.yml
+      tags: ['base']
 
     - name: Symlink os-release
       file:
         src: /etc/os-release
         dest: /etc/system-release
         state: link
+      tags: ['base']
 
     - name: Set ansible_home
       set_fact:
         ansible_home: "{{ lookup('env','HOME') }}/Workspace/ohmannium"
+      tags: ['base']
 
     - name: Set admin_group variable
       set_fact:
         admin_group: "{{ admin_group }}"
+      tags: ['base']
 
     - block:
         - name: Print keyserver hostname
@@ -90,7 +94,7 @@
           when: supported_march.stdout_lines[0] == 'x86-64-v2'
 
       check_mode: False
-      tags: ['repo', 'packages']
+      tags: ['base', 'repo', 'packages']
 
     - name: Ensure usr local directories exist
       file:
@@ -112,21 +116,19 @@
       tags: ['x11', 'theme']
 
     - import_tasks: tasks/user.yml
-      tags: ['user']
+      tags: ['base', 'user']
 
     - import_tasks: tasks/sudoers.yml
-      tags: ['sudoers']
+      tags: ['base', 'sudoers']
 
     - import_tasks: tasks/ruby.yml
-      tags: ['ruby']
+      tags: ['base', 'ruby']
 
     - import_tasks: tasks/zshell.yml
       tags: ['zsh']
 
-    - debug:
-        msg: "test"
-
     - include_tasks: "tasks/distro/{{ ansible_distribution }}.yml"
+      tags: ['base', 'repo', 'packages', 'mirrors']
 
   roles:
 

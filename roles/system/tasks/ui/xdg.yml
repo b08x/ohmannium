@@ -46,7 +46,7 @@
     - mcfx.directory
   tags: ['menu']
 
-- name: Install desktop entries
+- name: Install Ambisonics desktop entries
   synchronize:
     src: "files/usr/local/share/applications/{{ item }}/"
     dest: "/usr/share/applications/"
@@ -318,14 +318,13 @@
 #     - trigger_stereo.desktop
 #   tags: ['lsp']
 
-- name: Install desktop entries
-  copy:
-    src: "files/usr/local/share/applications/{{ item }}"
-    dest: "/usr/share/applications/{{ item }}"
-    mode: '0644'
-    backup: no
-  with_items:
-    - sononym.desktop
+# - name: Install desktop entries
+#   copy:
+#     src: "files/usr/local/share/applications/{{ item }}"
+#     dest: "/usr/share/applications/{{ item }}"
+#     mode: '0644'
+#     backup: no
+#   with_items:
     # - audacity.desktop
     # - baudline.desktop
     # - bipscript-ide.desktop

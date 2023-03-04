@@ -141,7 +141,7 @@
         dir: ../../vars/packages/{{ ansible_distribution }}
         name: packages
 
-    - name: Prepare package list
+    - name: Installing packages
       debug:
         msg: "Installing packages...."
 
@@ -150,7 +150,7 @@
         msg: "{{ packages  | to_json }}"
       when: debugging is defined
 
-    - name: test new module
+    - name: Install packages
       action: ohmannium packages="{{ packages | to_json }}"
       register: action_output
 

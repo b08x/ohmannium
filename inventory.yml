@@ -5,13 +5,6 @@ all:
     ansible_user: "{{ lookup('env','USER') }}"
     ansible_connection: ssh
 
-  hosts:
-    ninjabot:
-      ansible_connection: local
-    soundbot:
-    lapbot:
-    archlabs:
-
   children:
     virt:
       hosts:
@@ -22,7 +15,9 @@ all:
     devel:
       hosts:
         ninjabot:
+          ansible_connection: local
         soundbot:
+        lapbot:
     webhost:
       vars:
         webroot: /usr/share/nginx/html

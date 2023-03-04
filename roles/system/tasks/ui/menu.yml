@@ -51,7 +51,7 @@
 #     - apps.csv
 #   tags: ['jgmenu']
 
-- name: Syncronize templates - rofi
+- name: Synchronize templates - rofi
   template:
     src: "home/{{ item }}.j2"
     dest: "{{ user.home }}/{{ item }}"
