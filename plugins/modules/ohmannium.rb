@@ -38,13 +38,12 @@ Logging.appenders.file(
   :level => :info
 )
 
-$logger = Logging.logger['ohmannium::packageInstall']
+$logger = Logging.logger['ohm::pkgInstall']
 
 $logger.add_appenders(
         Logging.appenders.stdout,
         Logging.appenders.file($logfile))
 
-$logger = Logging.logger['Happy::Colors']
 $logger.level = :info
 
 currently_installed_packages = `paru -Q | awk '{print $1}'`.split("\n")
