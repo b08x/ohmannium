@@ -58,10 +58,12 @@ def explicitlyInstall(*args)
   require 'open3'
   options = args[-1].is_a?(Hash) ? args.pop : {}
 
-  stdin, stdout, stderr = Open3.popen3(*args)
-  x = options[:error] ? stderr.read : stdout.read
-  $logger.info "#{x}"
-
+  Open3.popen3 *args do | stdin, stdout, stderr, thread|
+    while line = stdout.gets
+      $logger.info "#{line}"
+    end
+    $logger.warn "#{stderr.read}"
+  end
 end
 
 changed = false
