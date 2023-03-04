@@ -4,8 +4,6 @@
 
 An exercise in Configuration Management and Task Automation for an Audio Production workflow that comprises of FOSS applications on Linux based devices.
 
-Designed to be a flexible framework to manage a variety of tasks and configurations. Ansible is used for this purpose, and can be adapted in any number of ways accomdate.
-
 ### Setup
 
 [ArchLabs](https://archlabslinux.com/) is used as the base operating system.
@@ -25,7 +23,7 @@ in order of least to greatest precedence:
 2. [nginx role defaults](roles/nginx/defaults/main.yml)
 3. [network role defaults](roles/network/defaults/main.yml)
 4. [audio role defaults](roles/audio/defaults/main.yml)
-5. [application role defaults](roles/application/defaults/main.yml)
+5. [applications role defaults](roles/applications/defaults/main.yml)
 6. [inventory.yml](inventory.yml)
 7. group_vars
 8. host_vars
@@ -44,42 +42,49 @@ Use `--limit $hostanme(s)` to apply changes only to certain hosts
 
 <details>
   <summary>ansible-playbook -C -i inventory.yml base.yml --list-tags</summary>
-```yaml
-  playbook: base.yml
 
-    play #1 (devel): devel	TAGS: []
-        TASK TAGS: [alacritty, alias, audio, autofs, autologin, backgrounds, base, btrfs, cleanup, cpupower, desktop, dunst, env, filesystem, firewall, fonts, grub, gtk, home, htop, i3, i965, icons, initram, intel, jack, jgmenu, keybindings, keys, kitty, lightdm, menu, mirrors, modprobe, netork, networkmanager, nfs, ntp, packages, pam, picom, profile, pulseaudio, qt, qutebrowser, repo, rofi, rsyncd, rtirq, rtkit, ruby, shell, sonicpi, ssh, sudoers, sxhkd, sysctl, system, terminal, theme, thunar, tilda, trim, tuned, tuning, ui, updatedb, user, utils, x11, xdg, yadm, zim, zsh]
+```yaml
+playbook: base.yml
+
+  play #1 (devel): devel	TAGS: []
+  TASK TAGS:
+    [ alacritty, alias, audio, autofs, autologin, backgrounds,
+    base, btrfs, cleanup, cpupower, desktop, dunst, env, filesystem,
+    firewall, fonts, grub, gtk, home, htop, i3, i965, icons, initram,
+    intel, jack, jgmenu, keybindings, keys, kitty, lightdm, menu,
+    mirrors, modprobe, netork, networkmanager, nfs, ntp, packages,
+    pam, picom, profile, pulseaudio, qt, qutebrowser, repo, rofi,
+    rsyncd, rtirq, rtkit, ruby, shell, sonicpi, ssh, sudoers, sxhkd,
+    sysctl, system, terminal, theme, thunar, tilda, trim, tuned, tuning,
+    ui, updatedb, user, utils, x11, xdg, yadm, zim, zsh]
 ```
+
 </details>
+
 
 
 ```bash
 # to update environment variables
-
 ansible-playbook base.yml --tags env
 ```
 
 ```bash
 # to update changes to utility scripts
-
 ansible-playbook base.yml --tags utils
 ```
 
 ```bash
 # to update changes to shell configs or functions
-
 ansible-playbook base.yml --tags shell
 ```
 
 ```bash
 # to update changes to i3 configurations
-
 ansible-playbook base.yml --tags i3
 ```
 
 ```bash
 # to update mirrors
-
 ansible-playbook base.yml --tags mirrors -e "update_mirrors=true"
 ```
 
@@ -87,6 +92,7 @@ List tasks that would be run against a given tag. For example:
 
 <details>
   <summary>ansible-playbook -C base.yml --tags audio --list-tasks</summary>
+
 ```yaml
   playbook: base.yml
 
@@ -119,6 +125,7 @@ List tasks that would be run against a given tag. For example:
         audio : Install pulseaudio bluetooth config	TAGS: [audio, pulseaudio]
         audio : Adjust pulseaudio.service file	TAGS: [audio, pulseaudio]
 ```
+
 </details>
 
 ### Task List
