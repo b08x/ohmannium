@@ -90,7 +90,7 @@ BOOTSTRAP_PKGS=(
   'zsh'
 )
 
-say "hello\n" $GREEN
+say "hello.\n" $GREEN
 
 # clean cache
 sudo pacman -Scc --noconfirm > /dev/null
@@ -136,7 +136,7 @@ sudo chmod a+x /usr/local/bin/yadm
 export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
-say "-------------------------" $YELLOW
+say "-------------------------------------------" $YELLOW
 
 gum confirm "copy ssh keys from a remote host?" && say "ok" $GREEN
 
