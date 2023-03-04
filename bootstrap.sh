@@ -190,7 +190,7 @@ sleep 1
 
 #######################################################################################
 # if any host has ansible_connection set to local (usually ninjabot), set to ssh
-sed -i 's/      ansible_connection: local/      ansible_connection: ssh/' $INVENTORY
+sed -i 's/      ansible_connection: local//' $INVENTORY
 
 # set global ansible_connection to local
 sed -i 's/    ansible_connection: ssh/    ansible_connection: local/' $INVENTORY
