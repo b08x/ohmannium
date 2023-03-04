@@ -157,4 +157,8 @@ else
   say "ok then" $RED
 fi
 
-cd $HOME && yadm clone $dotsrepo
+if [ ! $HOME/.local/share/yadm/repo.git ]; then
+  cd $HOME && yadm clone $dotsrepo
+else
+  cd $HOME && yadm fetch && yadm pull
+fi
