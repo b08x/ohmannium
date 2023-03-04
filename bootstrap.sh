@@ -161,4 +161,5 @@ if [ ! $HOME/.local/share/yadm/repo.git ]; then
   cd $HOME && yadm clone $dotsrepo
 else
   cd $HOME && yadm fetch && yadm pull
+  yadm bootstrap
 fi
