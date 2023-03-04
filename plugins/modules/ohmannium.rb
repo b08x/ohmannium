@@ -30,7 +30,7 @@ Logging.appenders.stdout(
 )
 
 Logging.appenders.file(
-  log_file,
+  $logfile,
   :layout => Logging.layouts.pattern(
     :pattern => '[%d] %-5l %c: %m\n',
     :color_scheme => 'bright'
