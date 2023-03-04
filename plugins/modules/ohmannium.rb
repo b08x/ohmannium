@@ -60,7 +60,7 @@ def explicitlyInstall(*args)
 
   Open3.popen3 *args do | stdin, stdout, stderr, thread|
     while line = stdout.gets
-      $logger.info "#{line}"
+      $logger.info "#{line.strip.chomp}"
     end
     $logger.warn "#{stderr.read}"
   end
