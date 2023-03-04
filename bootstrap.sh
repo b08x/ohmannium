@@ -5,7 +5,7 @@ set -e
 VER=0.5-beta
 
 ctrl_c() {
-        echo "** Exiting the program. The end."
+        echo "** End."
         sleep 1
 }
 
