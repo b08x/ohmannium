@@ -18,7 +18,7 @@ if [[ "${EUID}" -eq 0 ]]; then
   exit
 fi
 
-export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+declare -rx dotsrepo="git@github.com:b08x/dots.git"
 
 #########################################################################
 #                             set colors                                #
@@ -55,6 +55,8 @@ clear
 cup 20
 !
 }
+
+wipe="true"
 
 #########################################################################
 #                        install dependencies                           #
@@ -126,38 +128,10 @@ else
   sudo env ZSH="/usr/local/share/oh-my-zsh" /tmp/ohmyzsh/tools/install.sh --unattended
 fi
 
-#########################################################################
+sudo curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
+sudo chmod a+x /usr/local/bin/yadm
 
-wipe="true"
-
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
-say "-------------------\n" $GREEN
-
-declare -rx WORKSPACE="${HOME}/Workspace"
-
-if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
-
-declare -rx ANSIBLE_HOME="${WORKSPACE}/ohmannium"
-declare -rx INVENTORY="${ANSIBLE_HOME}/inventory.yml"
-
-#########################################################################
-
-if [ ! -d $ANSIBLE_HOME ]; then
-  say "------------------\n" $GREEN
-  say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
-  clone https://gitlab.com/b08x/ohmannium.git $ANSIBLE_HOME
-  cd $ANSIBLE_HOME
-else
-  cd $ANSIBLE_HOME
-fi
-
-git checkout release/ohmannium && git fetch && git pull
-
-git lfs install && git lfs checkout && git lfs fetch && git lfs pull
-
-sleep 1 && chown -R $USER $WORKSPACE
-
-#########################################################################
+export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
 say "-------------------------" $YELLOW
@@ -171,68 +145,14 @@ if [ $? = '0' ]; then
 
   say "setting ${KEYSERVER} as remote host keyserver\n"
 
-else
-  KEYSERVER=""
-fi
+  rsync -avP $KEYSERVER:~/.ssh $HOME/
 
-#########################################################################
-
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
-say "-------------------------\n" $YELLOW
-say "select playbook to run" $GREEN
-
-playbooks=$(gum choose --no-limit "base" "nas" "virt" "webhost" )
-
-runas_user=$(gum choose $USER)
-
-say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
-sleep 1
-
-#######################################################################################
-# if any host has ansible_connection set to local (usually ninjabot), set to ssh
-sed -i 's/      ansible_connection: local//' $INVENTORY
-
-# set global ansible_connection to local
-sed -i 's/    ansible_connection: ssh/    ansible_connection: local/' $INVENTORY
-########################################################################################
-
-for playbook in ${playbooks[@]}; do
-  ansible-playbook -K -i $INVENTORY "${ANSIBLE_HOME}/${playbook}.yml" \
-                   --limit $(uname -n) \
-                   -e "newInstall=true" \
-                   -e "update_mirrors=true" \
-                   -e "cleanup=true" \
-                   -e "keyserver=${KEYSERVER}"
-done
-
-#########################################################################
-
-if [[ $wipe == 'true' ]]; then wipe && sleep 2; fi
-
-if command -v yadm &>/dev/null; then
-  gum confirm --selected.background="#ddb31f" --default=yes "clone a dots repository?"
-
-  if [ $? = 0 ]; then
-    echo "enter repository address"
-    dotsrepo=$(gum input --placeholder "git@github.com:<user>/dots.git")
-
-    cd $HOME && yadm clone $dotsrepo
-
-  else
-    echo "ok then. we're all set"
+  if [ ! $? = 0 ]; then
+    say "key copy failed....do something about it."
+    exit
   fi
 else
-  echo "it appears that yadm is not installed..."
+  say "ok then" $RED
 fi
 
-#########################################################################
-
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
-
-say "bootstrap complete\!" $GREEN
-
-if [[ $wipe == 'true' ]]; then wipe && sleep 2; fi
-
-say "rebooting in 10 seconds...exit CTRL+C to cancel" $RED && sleep 10
-
-sudo shutdown -r now
+cd $HOME && yadm clone $dotsrepo
