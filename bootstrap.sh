@@ -75,6 +75,7 @@ BOOTSTRAP_PKGS=(
   'git-lfs'
   'gum'
   'htop'
+  'lnav'
   'neovim'
   'net-tools'
   'openssh'
