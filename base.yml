@@ -1,6 +1,6 @@
 ---
 
-- hosts: localhost,devel
+- hosts: devel
   become: True
   gather_subset:
     - hardware
