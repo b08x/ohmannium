@@ -1,0 +1,12 @@
+---
+
+- name: Starting network tasks
+  debug:
+    msg: "Starting network tasks"
+
+- import_tasks: networkmanager.yml
+  tags: ['networkmanager']
+
+- import_tasks: autofs.yml
+  when: autofs_client is defined
+  tags: ['autofs']

@@ -1,0 +1,34 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+<Menu>
+  <Name>Applications</Name>
+  <Menu>
+    <Name>Ambisonics</Name>
+    <Menu>
+      <Name>IEMPluginSuite</Name>
+      <Directory>iempluginsuite.directory</Directory>
+      <Include>
+         <Filename>at.iem.plugins.AllRADecoder.desktop</Filename>
+         <Filename>at.iem.plugins.BinauralDecoder.desktop</Filename>
+         <Filename>at.iem.plugins.CoordinateConverter.desktop</Filename>
+         <Filename>at.iem.plugins.DirectionalCompressor.desktop</Filename>
+         <Filename>at.iem.plugins.DirectivityShaper.desktop</Filename>
+         <Filename>at.iem.plugins.DistanceCompensator.desktop</Filename>
+         <Filename>at.iem.plugins.DualDelay.desktop</Filename>
+         <Filename>at.iem.plugins.EnergyVisualizer.desktop</Filename>
+         <Filename>at.iem.plugins.FdnReverb.desktop</Filename>
+         <Filename>at.iem.plugins.MatrixMultiplier.desktop</Filename>
+         <Filename>at.iem.plugins.MultiBandCompressor.desktop</Filename>
+         <Filename>at.iem.plugins.MultiEncoder.desktop</Filename>
+         <Filename>at.iem.plugins.MultiEQ.desktop</Filename>
+         <Filename>at.iem.plugins.OmniCompressor.desktop</Filename>
+         <Filename>at.iem.plugins.PluginTemplate.desktop</Filename>
+         <Filename>at.iem.plugins.ProbeDecoder.desktop</Filename>
+         <Filename>at.iem.plugins.RoomEncoder.desktop</Filename>
+         <Filename>at.iem.plugins.SceneRotator.desktop</Filename>
+         <Filename>at.iem.plugins.SimpleDecoder.desktop</Filename>
+         <Filename>at.iem.plugins.StereoEncoder.desktop</Filename>
+         <Filename>at.iem.plugins.ToolBox.desktop</Filename>
+      </Include>
+    </Menu>
+  </Menu>
+</Menu>

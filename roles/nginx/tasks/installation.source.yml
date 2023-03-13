@@ -1,0 +1,72 @@
+---
+
+- name: install nginx dependencies
+  dnf:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - git
+    - "@Development Tools"
+    - pcre2-devel
+    - pcre-devel
+  when: ansible_distribution == 'Fedora'
+
+- name: install nginx dependencies
+  pacman:
+    name: "{{ item }}"
+    state: present
+    force: yes
+    extra_args: --noconfirm
+  with_items:
+    - base-devel
+    - git
+    - pcre
+    - pcre2
+  when: ansible_distribution == 'Archlinux'
+
+- name: create nginx group
+  group:
+    name: nginx
+    state: present
+    system: True
+
+- name: create nginx user
+  user:
+    name: nginx
+    state: present
+    group: nginx
+    system: True
+
+- name: fetch nginx source
+  get_url:
+    url: http://nginx.org/download/nginx-1.22.1.tar.gz
+    dest: "/tmp"
+    validate_certs: no
+
+- name: extract nginx source
+  unarchive:
+    src: /tmp/nginx-1.22.1.tar.gz
+    dest: "/tmp"
+    remote_src: yes
+
+- name: clone fancyindex
+  git:
+    repo: "https://github.com/aperezdc/ngx-fancyindex.git"
+    dest: "/tmp/ngx-fancyindex"
+    accept_hostkey: yes
+    update: no
+    force: no
+    recursive: yes
+
+- name: configure nginx with modules
+  shell: |
+    ./configure --prefix=/usr --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --pid-path=/run/nginx.pid --conf-path=/etc/nginx/nginx.conf --modules-path=/usr/share/nginx/modules --add-module=../ngx-fancyindex --with-http_addition_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_ssl_module
+  args:
+    chdir: /tmp/nginx-1.22.1
+
+- name: make and install nginx
+  shell: |
+      make && make install
+  args:
+    chdir: /tmp/nginx-1.22.1

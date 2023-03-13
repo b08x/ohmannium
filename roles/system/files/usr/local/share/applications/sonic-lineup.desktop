@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Sonic-Lineup
+Comment=Sonic-Lineup
+Categories=Audio;Video;AudioVideo;AudioVideoEditing;Editors;
+Exec="/usr/local/bin/sonic-lineup" %F
+Icon=sonicelineup

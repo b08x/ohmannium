@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Protokol
+Comment=Protokol
+Categories=Audio;Video;AudioVideo;AudioVideoEditing;Editors;
+Exec="/usr/local/bin/Protokol" %F
+Icon=protokol.png

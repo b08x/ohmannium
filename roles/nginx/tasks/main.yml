@@ -1,0 +1,75 @@
+---
+
+- include_tasks: tasks/ssl.yml
+  when: use_ssl is defined
+  tags: ['ssl']
+
+- name: copy rsyslog config for nginx
+  copy: >
+    src=90-nginx_rsyslog.conf
+    dest=/etc/rsyslog.d/90-nginx_rsyslog.conf
+    owner=root
+    group=root
+    mode=0644
+  notify: restart rsyslog
+  tags: [configuration,nginx]
+
+- include_tasks: nginx-official-repo.yml
+  when: nginx_official_repo == True
+
+- include_tasks: passenger-phusion-repo.yml
+  when: nginx_passenger == True
+
+- include_tasks: installation.packages.yml
+  when: nginx_installation_type == "packages"
+
+- include_tasks: installation.source.yml
+  when: nginx_installation_type == "source"
+  tags: ['nginx_source']
+
+- include_tasks: ensure-dirs.yml
+
+- include_tasks: remove-defaults.yml
+  when: not keep_only_specified
+
+- include_tasks: remove-extras.yml
+  when: keep_only_specified
+
+- include_tasks: remove-unwanted.yml
+
+- include_tasks: configuration.yml
+
+- name: sync fancyindex theme
+  synchronize:
+    src: usr/share/nginx/html/fancyindex/Nginx-Fancyindex-Theme-dark
+    dest: "{{ webroot }}/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--update"
+      - "--omit-dir-times"
+  when: use_fancy_index is defined
+  notify: reload nginx - without service
+  tags: ['fancyindex']
+
+- name: create blank index.html for default traffic
+  copy:
+    src: index.html
+    dest: "{{ webroot }}/index.html"
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  when: nginx_create_blank_index|bool
+
+- include: selinux.yml
+  when: ansible_selinux.status == 'enabled'
+  tags: ['selinux']
+
+- name: Start the nginx service
+  service: name={{ nginx_service_name }} state=started enabled=yes
+  when: nginx_installation_type in nginx_installation_types_using_service and nginx_daemon_mode == "on"
+  tags: [service,nginx]

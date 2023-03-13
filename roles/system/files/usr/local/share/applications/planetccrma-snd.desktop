@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Snd
+Comment=the Snd sound editor
+Icon=snd
+Type=Application
+Exec=snd
+Terminal=false
+Encoding=UTF-8
+X-Desktop-File-Install-Version=0.26
+Categories=Application;AudioVideo;Audio;X-Jack;X-Editors;

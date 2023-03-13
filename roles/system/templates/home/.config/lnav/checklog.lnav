@@ -1,0 +1,9 @@
+#!/usr/bin/lnav -nf
+
+:filter-out INFO pam_unix\(sudo:session\)
+:filter-out dbus-org.freedesktop.home1.service
+
+#;select * from logline
+
+#:write-view-to -
+

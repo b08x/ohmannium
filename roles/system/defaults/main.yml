@@ -1,0 +1,184 @@
+---
+
+autologin: True
+shell_login: True
+journal_level: notice
+
+font:
+  primary:
+    name: Hack Nerd Font
+    size: 12
+    hintstyle: hintsfull
+  glyphs:
+    name: Font Awesome 6 Free Regular
+  mono:
+    name: mononoki NFM
+
+# theme options
+theme:
+  name: oomox-soundbot
+  icons: ArchLabs-Dark
+  cursor: xcursor-breeze
+  kvantum: KvGnomeDark
+  qtstyle: fusion
+
+i3:
+  tray_output: default
+  workspaces: default
+  assignments: default
+  autostart: default
+
+colors:
+  syntax:
+    ScrollBar: "#8A1F14"
+    Foreground: "#2177a7"
+    Background: "#09090d"
+    HighlightedForeground: "#3B2352"
+    HighlightedBackground: "#3B2352"
+    WindowBackground: "#09090d"
+    ErrorBackground: "#636363"
+    DefaultBackground: "#09090d"
+    NumberForeground: "#69e62e"
+    FunctionMethodNameForeground: "#df2828"
+    KeywordForeground: "#e08f23"
+    SymbolForeground: "#a143af"
+    ModuleNameForeground: "#0fa4c4"
+    InstanceVariableForeground : "#d51b7f"
+    ClassVariableForeground: "#859900"
+    DoubleQuotedStringForeground: "#ba2290"
+    SingleQuotedStringForeground: "#22acba"
+    RegexForeground: "#e8448e"
+    SelectionForeground: "#292828"
+    SelectionBackground: "#b1701e"
+    MatchedBraceForeground: "#91a707"
+    MatchedBraceBackground: "#3a1f4a"
+    BraceForeground: ""
+    Scope: "#C4580F"
+    LogInfoForeground: "#585858"
+    LogInfoBackground: "#0a0a0a"
+    LogBackground: "#0a0a0a"
+    CuePathForeground: "#585858"
+    CuePathBackground: "#0a0a0a"
+  css:
+    background: '#0D0D0D'
+    foreground: '#a29e9e'
+    strong: '#c7d524'
+    emphasis: '#108E1A'
+    mark:
+      foreground: '#010101'
+      background: '#811d47'
+    strike: '#282828'
+    pre: '#d14242'
+    link: '#066592'
+    tag: '#838d6e'
+    h1: '#108E1A'
+    h2: '#343434'
+    h3: '#14a8f0'
+    h4: '#b8b8b8'
+    h5: '#e9f10a'
+    sub: '#d28215'
+    sup: '#1D7981'
+  primary:
+    background: '#000000'
+    foreground: '#838d6e'
+    cursor: '#a38e1d'
+    status: '#794794'
+    separator: '#282828'
+  normal:
+    black:   '#000000'
+    red:     '#c9363f'
+    green:   '#99C794'
+    yellow:  '#c68c49'
+    blue:    '#dad82d'
+    magenta: '#982ac6'
+    cyan:    '#c66242'
+    white:   '#ebdbb2'
+  bright:
+    black:   '#343d46'
+    red:     '#EC5f67'
+    green:   '#42bb34'
+    yellow:  '#fa8419'
+    blue:    '#3152a7'
+    magenta: '#af3455'
+    cyan:    '#32768f'
+    white:   '#ebdbb2'
+  selection:
+    foreground: '#292828'
+    background: '#b1701e'
+  workspace:
+    background: '#3149a7'
+    border: '#3149a7'
+    text: '#ebdbb2'
+  focused:
+    border: '#3149a7'
+    background: '#000000'
+    text: '#ebdbb2'
+    indicator: '#735E0D'
+    child_border: '#3149a7'
+  unfocused:
+    border: '#2a2a2a'
+    background: '#000000'
+    text: '#4a4d44'
+    indicator: '#735E0D'
+    child_border: '#2a2a2a'
+  active:
+    border: '#2a2a2a'
+    background: '#000000'
+    text: '#4a4d44'
+    indicator: '#735E0D'
+    child_border: '#3149a7'
+  inactive:
+    border: '#2a2a2a'
+    background: '#000000'
+    text: '#4a4d44'
+    indicator: '#735E0D'
+    child_border: '#2a2a2a'
+  urgent:
+    border: '#2a8e10'
+    background: '#000000'
+    text: '#4a4d44'
+    indicator: '#735E0D'
+    child_border: '#2a2a2a'
+  placeholder:
+    border: '#2a2a2a'
+    background: '#249043'
+    text: '#4a4d44'
+    indicator: '#735E0D'
+    child_border: '#2a2a2a'
+
+# colors:
+#   active_border: "#8f350a"
+#   background: "#000000"
+#   background_alt: "#00000099"
+#   black0: "#000000"
+#   black1: "#000000"
+#   black: "#030303"
+#   blue0: "#838d6e"
+#   blue1: "#475ebd"
+#   border: "#b52525"
+#   charcoal: "#0f1110"
+#   cursor: "#e0aa7c"
+#   cyan0: "#6e576f"
+#   cyan1: "#f07d14"
+#   dark_plum: "#4d0c28"
+#   foreground: "#a3a3a3"
+#   foreground_alt: "#859900"
+#   green0: "#97e023"
+#   green1: "#97e023"
+#   inactive_border: "#292828"
+#   magenta0: "#96363c"
+#   magenta1: "#e04b5a"
+#   orange0: "#e3870e"
+#   red0: "#b50047"
+#   red1: "#be004a"
+#   royal_blue: "#2424aa"
+#   selection_background: "#b1701e"
+#   selection_foreground: "#292828"
+#   separator: "#505050"
+#   shit_green: "#8a8d2d"
+#   slate_blue: "#01495d"
+#   text: "#fffacd"
+#   white0: "#ffffff"
+#   white1: "#efecf4"
+#   yellow0: "#fa8419"
+#   yellow1: "#c3b624"

@@ -1,0 +1,50 @@
+---
+
+- name: check if TouchOSC is already installed
+  stat:
+    path: /usr/local/bin/TouchOSC
+  register: result
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+    - name: fetch TouchOSC
+      get_url:
+        url: "{{ touchosc.url }}/{{ touchosc.file }}"
+        dest: "/tmp"
+
+    - name: extract and install TouchOSC
+      shell: |
+        unzip {{ touchosc.file }}
+        mv TouchOSC /usr/local/bin/TouchOSC
+      args:
+        chdir: "/tmp"
+
+  when: not result.stat.exists
+  tags: ['touchosc']
+
+- name: check if Protokol is already installed
+  stat:
+    path: /usr/local/bin/Protokol
+  register: result
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+    - name: fetch Protokol
+      get_url:
+        url: "{{ protokol.url }}/{{ protokol.file }}"
+        dest: "/tmp"
+
+    - name: extract and install Protokol
+      shell: |
+        unzip {{ protokol.file }}
+        mv Protokol /usr/local/bin/Protokol
+      args:
+        chdir: "/tmp"
+
+  when: not result.stat.exists
+  tags: ['protokol']
+
+- name: enable avahi service
+  systemd:
+    name: avahi-daemon
+    enabled: yes

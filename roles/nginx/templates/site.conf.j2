@@ -1,0 +1,20 @@
+#{{ ansible_managed }}
+server {
+{% for v in nginx_sites[item] %}
+{% if v.find('\n') != -1 %}
+   {{v.replace("\n","\n   ")}}
+{% else %}
+   {% if v != "" %}{{ v.replace(";",";\n      ").replace(" {"," {\n      ").replace(" }"," \n   }\n") }}{% if v.find('{') == -1%};
+{% endif %}{% endif %}{% endif %}
+{% endfor %}
+  location / {
+    fancyindex on;
+    fancyindex_localtime on;
+    fancyindex_exact_size off;
+    fancyindex_header "/Nginx-Fancyindex-Theme-dark/header.html";
+    fancyindex_footer "/Nginx-Fancyindex-Theme-dark/footer.html";
+    fancyindex_ignore "HEADER.md";
+    fancyindex_ignore "README.md";
+    fancyindex_ignore "Nginx-Fancyindex-Theme-dark";
+  }
+}

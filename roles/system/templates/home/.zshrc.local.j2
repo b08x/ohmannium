@@ -1,0 +1,25 @@
+
+export WORKSPACE="$HOME/Workspace"
+
+export SOUNDS="$HOME/Library/sounds"
+export SOUNDFONTS="$HOME/Library/soundfonts"
+
+{% if inventory_hostname in groups.get('devel', []) %}
+export ANSIBLE_HOME="$WORKSPACE/ohmannium"
+export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
+export INVENTORY="$ANSIBLE_HOME/inventory.yml"
+export PLAYBOOKS="$ANSIBLE_HOME"
+
+export PKGBUILDS="$WORKSPACE/pkgrr/pkgbuilds"
+export PACKAGES="$HOME/Packages"
+
+export CHROOT="/mnt/chroots/arch"
+export DEVTOOLS="${WORKSPACE}/pkgrr/devtools"
+export pacman_conf="${DEVTOOLS}/pacman-x86_64.conf"
+export makepkg_conf="${DEVTOOLS}/makepkg-x86_64.conf"
+
+export REPOSITORY_LOCAL="$HOME/Repository"
+export REPOSITORY_MIRRORS=("ec2-user@soundbot.hopto.org" "bender.syncopated.net")
+
+export PATH="$PATH:${DEVTOOLS}"
+{% endif %}

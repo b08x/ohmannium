@@ -1,0 +1,54 @@
+---
+
+- name: Starting application tasks
+  debug:
+    msg: "starting application tasks"
+
+- name: Copy raysession default scripts
+  copy:
+    src: "usr/local/share/raysession/session_templates/scripted/ray-scripts/{{ item }}"
+    dest: "/usr/share/raysession/session_templates/scripted/ray-scripts/{{ item }}"
+    mode: '0755'
+    backup: yes
+  with_items:
+    - close.sh
+    - load.sh
+    - save.sh
+  tags: ['raysession']
+
+- include_tasks: Pulsar.yml
+  when: install_pulsar|default(false)|bool == true
+  tags: ['pulsar']
+
+- include_tasks: vamp.yml
+  tags: ['vamp']
+
+- include_tasks: mixxx.yml
+  tags: ['mixxx']
+
+- name: Install vmpk keymap
+  copy:
+    src: usr/share/vmpk/qwerty_extended.xml
+    dest: /usr/share/vmpk/qwerty_extended.xml
+    mode: '0644'
+  tags: ['vmpk']
+
+- include_tasks: reaper.yml
+  when: install_reaper|default(true)|bool == true
+  tags: ['reaper']
+
+- include_tasks: sonicannotator.yml
+  when: install_annotator|default(true)|bool == true
+  tags: ['sonicannotator']
+
+- include_tasks: soniclineup.yml
+  when: install_soniclineup|default(true)|bool == true
+  tags: ['soniclineup']
+
+- include_tasks: tony.yml
+  when: install_tony|default(true)|bool == true
+  tags: ['tony']
+
+- include_tasks: touchosc.yml
+  when: install_touchosc|default(true)|bool == true
+  tags: ['touchosc']

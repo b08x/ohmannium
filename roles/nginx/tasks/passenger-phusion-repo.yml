@@ -1,0 +1,14 @@
+---
+- name: Ensure RPM passenger-phusion key
+  rpm_key: key=https://packagecloud.io/gpg.key validate_certs=yes
+  when: ansible_os_family == 'RedHat'
+  tags: [configuration,nginx]
+
+- name: Ensure passenger yum repo file exists
+  template: src=nginx.repo.j2 dest=/etc/yum.repos.d/passenger.repo
+  when: ansible_os_family == 'RedHat'
+  tags: [configuration,nginx]
+
+- name: force yum to import gpgkey
+  shell: yum -qy repolist
+  tags: [configuration,nginx]

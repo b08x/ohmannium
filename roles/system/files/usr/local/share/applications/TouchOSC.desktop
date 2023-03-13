@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=TouchOSC
+Comment=TouchOSC
+Categories=Audio;Video;AudioVideo;AudioVideoEditing;Editors;
+Exec="/usr/local/bin/TouchOSC" %F
+Icon=touchosc
+MimeType=application/x-reaper-project;application/x-reaper-project-backup;application/x-reaper-theme
+StartupWMClass=WhateverSomeoneMayorMaynotWant

@@ -1,0 +1,744 @@
+@search,,3,3,150,20,2,left,top,auto,#000000 0,Type to Search
+^sep()
+Terminal,terminator,utilities-terminal
+File manager,thunar,system-file-manager
+^sep()
+
+Accessories,^checkout(Accessories),gnome-util
+Education,^checkout(Education),package_edutainment
+Graphics,^checkout(Graphics),gnome-graphics
+Internet,^checkout(Internet),gnome-globe
+Office,^checkout(Office),gnome-applications
+Other,^checkout(Other),gnome-other
+Accessibility,^checkout(Accessibility),accessibility-directory
+Sound &amp; Video,^checkout(Sound & Video),gnome-multimedia
+^sep()
+Lock,i3lock-fancy -p,system-lock-screen
+Exit,^checkout(exit),system-shutdown
+^tag(exit)
+Suspend,systemctl -i suspend,system-log-out
+Reboot,systemctl -i reboot,system-reboot
+Poweroff,systemctl -i poweroff,system-shutdown
+
+
+# /usr/share/desktop-directories/Arch-Accessories.directory
+submenu,^tag(Accessories)
+Back,^back(),go-previous
+# /usr/share/applications/xfce4-about.desktop
+About Xfce,xfce4-about,org.xfce.about
+# /usr/share/applications/barrier.desktop
+Barrier,barrier,barrier
+# /usr/share/applications/thunar-bulk-rename.desktop
+Bulk Rename,thunar --bulk-rename ,org.xfce.thunar
+# /usr/share/applications/guake.desktop
+Guake Terminal,guake,guake
+# /usr/share/applications/org.keepassxc.KeePassXC.desktop
+KeePassXC,keepassxc ,keepassxc
+# /usr/share/applications/kvantummanager.desktop
+Kvantum Manager,kvantummanager,kvantum
+# /usr/share/applications/nvim.desktop
+Neovim,^term(nvim),nvim
+# /usr/share/applications/redshift-gtk.desktop
+Redshift,redshift-gtk,redshift
+# /usr/share/applications/terminator.desktop
+Terminator,terminator,terminator
+# /usr/share/applications/thunar.desktop
+Thunar File Manager,thunar ,org.xfce.thunar
+# /usr/share/applications/tilda.desktop
+Tilda,/usr/bin/tilda,tilda
+# /usr/share/applications/xarchiver.desktop
+Xarchiver,xarchiver ,xarchiver
+# /usr/share/applications/zim.desktop
+Zim Desktop Wiki,zim ,zim
+# /usr/share/applications/picom.desktop
+picom,picom,picom
+# /usr/share/applications/ranger.desktop
+ranger,^term(ranger),utilities-terminal
+
+# /usr/share/desktop-directories/Arch-Education.directory
+submenu,^tag(Education)
+Back,^back(),go-previous
+# /usr/share/applications/r.desktop
+R,^term(R),/usr/share/pixmaps/r.png
+
+# /usr/share/desktop-directories/Arch-Graphics.directory
+submenu,^tag(Graphics)
+Back,^back(),go-previous
+# /usr/share/applications/darktable.desktop
+Darktable,/usr/bin/darktable ,darktable
+# /usr/share/applications/org.gpick.gpick.desktop
+Gpick,gpick ,gpick
+# /usr/share/applications/xdot.desktop
+XDot,xdot ,application-x-executable
+# /usr/share/applications/xdvi.desktop
+XDvi,xdvi ,application-x-executable
+# /usr/share/applications/xzgv.desktop
+xzgv Picture Viewer,xzgv,xzgv
+
+# /usr/share/desktop-directories/Arch-Internet.directory
+submenu,^tag(Internet)
+Back,^back(),go-previous
+# /usr/share/applications/bssh.desktop
+Avahi SSH Server Browser,/usr/bin/bssh,network-wired
+# /usr/share/applications/bvnc.desktop
+Avahi VNC Server Browser,/usr/bin/bvnc,network-wired
+# /usr/share/applications/google-chrome.desktop
+Google Chrome,/usr/bin/google-chrome-stable ,google-chrome
+# /usr/share/applications/io.github.Hexchat.desktop
+HexChat,hexchat --existing ,io.github.Hexchat
+# /usr/share/applications/lftp.desktop
+lftp,^term(lftp),lftp-icon
+# /usr/share/applications/org.qutebrowser.qutebrowser.desktop
+qutebrowser,qutebrowser --untrusted-args ,qutebrowser
+
+# /usr/share/desktop-directories/Arch-Office.directory
+submenu,^tag(Office)
+Back,^back(),go-previous
+# /usr/share/applications/qpdfview.desktop
+qpdfview,qpdfview --unique ,qpdfview
+
+# /usr/share/desktop-directories/Arch-Other.directory
+submenu,^tag(Other)
+Back,^back(),go-previous
+# /usr/share/applications/in.lsp_plug.lsp_plugins_spectrum_analyzer_x12.desktop
+12 Channel Spectrum Analyzer,lsp-plugins-spectrum-analyzer-x12,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_spectrum_analyzer_x16.desktop
+16 Channel Spectrum Analyzer,lsp-plugins-spectrum-analyzer-x16,lsp-plugins
+# /usr/share/applications/Alacritty.desktop
+Alacritty,alacritty,Alacritty
+# /usr/share/applications/in.lsp_plug.lsp_plugins_art_delay_mono.desktop
+Artistic Delay Mono,lsp-plugins-art-delay-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_art_delay_stereo.desktop
+Artistic Delay Stereo,lsp-plugins-art-delay-stereo,lsp-plugins
+# /usr/share/applications/avahi-discover.desktop
+Avahi Zeroconf Browser,/usr/bin/avahi-discover,network-wired
+# /usr/share/applications/cmake-gui.desktop
+CMake,cmake-gui ,CMakeSetup
+# /usr/share/applications/in.lsp_plug.lsp_plugins_multisampler_x12_do.desktop
+Direct Out 12 Instrument Sample Player,lsp-plugins-multisampler-x12-do,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_multisampler_x24_do.desktop
+Direct Out 24 Instrument Sample Player,lsp-plugins-multisampler-x24-do,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_multisampler_x48_do.desktop
+Direct out 48 Instrument Sample Player,lsp-plugins-multisampler-x48-do,lsp-plugins
+# /usr/share/applications/io.github.michaelwillis.DragonflyHallReverb.desktop
+DragonflyHallReverb,DragonflyHallReverb,dragonfly
+# /usr/share/applications/io.github.michaelwillis.DragonflyPlateReverb.desktop
+DragonflyPlateReverb,DragonflyPlateReverb,dragonfly
+# /usr/share/applications/io.github.michaelwillis.DragonflyRoomReverb.desktop
+DragonflyRoomReverb,DragonflyRoomReverb,dragonfly
+# /usr/share/applications/in.lsp_plug.lsp_plugins_spectrum_analyzer_x8.desktop
+Eight Channel Spectrum Analyzer,lsp-plugins-spectrum-analyzer-x8,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_spectrum_analyzer_x4.desktop
+Four Channel Spectrum Analyzer,lsp-plugins-spectrum-analyzer-x4,lsp-plugins
+# /usr/share/applications/grsync.desktop
+Grsync,/usr/bin/grsync -i ,grsync
+# /usr/share/applications/lstopo.desktop
+Hardware Locality lstopo,lstopo,hwloc
+# /usr/share/applications/htop.desktop
+Htop,^term(htop),htop
+# /usr/share/applications/org.jacktrip.JackTrip.desktop
+JackTrip,/bin/bash -c "if [ -z ""\$"1" ]; then jacktrip; else jacktrip --gui --deeplink ""\$"1"; fi" /bin/bash ,org.jacktrip.JackTrip
+# /usr/share/applications/in.lsp_plug.lsp_plugins_latency_meter.desktop
+Latency Meter,lsp-plugins-latency-meter,lsp-plugins
+# /usr/share/applications/cups.desktop
+Manage Printing,xdg-open http://localhost:631/,cups
+# /usr/share/applications/in.lsp_plug.lsp_plugins_crossover_ms.desktop
+Mid-Side Crossover,lsp-plugins-crossover-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_compressor_ms.desktop
+Mid-Side Split Multiband Compressor,lsp-plugins-mb-compressor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_expander_ms.desktop
+Mid-Side Split Multiband Expander,lsp-plugins-mb-expander-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_gate_ms.desktop
+Mid-Side Split Multiband Gate,lsp-plugins-mb-gate-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_expander_ms.desktop
+Mid-Side Split Multiband Sidechain Expander,lsp-plugins-sc-mb-expander-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_gate_ms.desktop
+Mid-Side Split Multiband Sidechain Gate,lsp-plugins-sc-mb-gate-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_compressor_ms.desktop
+Mid-Side Split Stereo Compressor,lsp-plugins-compressor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x16_ms.desktop
+Mid-Side Stereo 16 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x16-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x16_ms.desktop
+Mid-Side Stereo 16 Band Parametric Equalizer,lsp-plugins-para-equalizer-x16-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x32_ms.desktop
+Mid-Side Stereo 32 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x32-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x32_ms.desktop
+Mid-Side Stereo 32 Band Parametric Equalizer,lsp-plugins-para-equalizer-x32-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_dyna_processor_ms.desktop
+Mid-Side Stereo Dynamic Processor,lsp-plugins-dyna-processor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_dyna_processor_ms.desktop
+Mid-Side Stereo Dynamic Sidechain Processor,lsp-plugins-sc-dyna-processor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_expander_ms.desktop
+Mid-Side Stereo Expander,lsp-plugins-expander-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_gate_ms.desktop
+Mid-Side Stereo Gate,lsp-plugins-gate-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_expander_ms.desktop
+Mid-Side Stereo Sidechain Expander,lsp-plugins-sc-expander-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_gate_ms.desktop
+Mid-Side Stereo Sidechain Gate,lsp-plugins-sc-gate-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_compressor_ms.desktop
+Mid-Side Stereo Sidechain Multiband Compressor,lsp-plugins-sc-mb-compressor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_compressor_ms.desktop
+Mid-Side Stero Sidechain Compressor,lsp-plugins-sc-compressor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x32_mono.desktop
+Mono 16 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x32-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x16_mono.desktop
+Mono 16 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x16-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x16_mono.desktop
+Mono 16 Band Parametric Equalizer,lsp-plugins-para-equalizer-x16-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x32_mono.desktop
+Mono 32 Band Parametric Equalizer,lsp-plugins-para-equalizer-x32-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_profiler_mono.desktop
+Mono Audio Profiler,lsp-plugins-profiler-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_trigger_mono.desktop
+Mono Audio Trigger,lsp-plugins-trigger-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_compressor_mono.desktop
+Mono Compressor,lsp-plugins-compressor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_impulse_reverb_mono.desktop
+Mono Convolution Reverb,lsp-plugins-impulse-reverb-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_crossover_mono.desktop
+Mono Crossover,lsp-plugins-crossover-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_comp_delay_mono.desktop
+Mono Delay Compensator,lsp-plugins-comp-delay-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_dyna_processor_mono.desktop
+Mono Dynamic Processor,lsp-plugins-dyna-processor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_dyna_processor_mono.desktop
+Mono Dynamic Sidechain Processor,lsp-plugins-sc-dyna-processor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_expander_mono.desktop
+Mono Expander,lsp-plugins-expander-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_gate_mono.desktop
+Mono Gate,lsp-plugins-gate-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_impulse_responses_mono.desktop
+Mono Impulse Responses,lsp-plugins-impulse-responses-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_limiter_mono.desktop
+Mono Limiter,lsp-plugins-limiter-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_loud_comp_mono.desktop
+Mono Loudness Compensator,lsp-plugins-loud-comp-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sampler_mono.desktop
+Mono MIDI Sample Player,lsp-plugins-sampler-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_trigger_midi_mono.desktop
+Mono MIDI Trigger,lsp-plugins-trigger-midi-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_compressor_mono.desktop
+Mono Multiband Compressor,lsp-plugins-mb-compressor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_expander_mono.desktop
+Mono Multiband Expander,lsp-plugins-mb-expander-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_gate_mono.desktop
+Mono Multiband Gate,lsp-plugins-mb-gate-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_expander_mono.desktop
+Mono Multiband Sidechain Expander,lsp-plugins-sc-mb-expander-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_gate_mono.desktop
+Mono Multiband Sidechain Gate,lsp-plugins-sc-mb-gate-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_room_builder_mono.desktop
+Mono Room Impulse Response Builder,lsp-plugins-room-builder-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_compressor_mono.desktop
+Mono Sidechain Compressor,lsp-plugins-sc-compressor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_expander_mono.desktop
+Mono Sidechain Expander,lsp-plugins-sc-expander-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_gate_mono.desktop
+Mono Sidechain Gate,lsp-plugins-sc-gate-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_limiter_mono.desktop
+Mono Sidechain Limiter,lsp-plugins-sc-limiter-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_compressor_mono.desktop
+Mono Sidechain Multiband Compressor,lsp-plugins-sc-mb-compressor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_oscillator_mono.desktop
+Mono Signal Generator,lsp-plugins-oscillator-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_slap_delay_mono.desktop
+Mono Slap Delay,lsp-plugins-slap-delay-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_surge_filter_mono.desktop
+Mono Surge Filter,lsp-plugins-surge-filter-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_dyna_processor_ms.desktop
+Multiband Mid-Side Split Stereo Dynamic Processor,lsp-plugins-mb-dyna-processor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_dyna_processor_ms.desktop
+Multiband Mid-Side Stero Sidechain Dynamic Processor,lsp-plugins-sc-mb-dyna-processor-ms,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_dyna_processor_mono.desktop
+Multiband Mono Dynamic Processor,lsp-plugins-mb-dyna-processor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_dyna_processor_mono.desktop
+Multiband Mono Sidechain Dynamic Processor,lsp-plugins-sc-mb-dyna-processor-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_dyna_processor_lr.desktop
+Multiband Split Stereo Dynamic Processor,lsp-plugins-mb-dyna-processor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_dyna_processor_lr.desktop
+Multiband Split Stereo Sidechain Dynamic Processor,lsp-plugins-sc-mb-dyna-processor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_dyna_processor_stereo.desktop
+Multiband Stereo Dynamic Processor,lsp-plugins-mb-dyna-processor-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_dyna_processor_stereo.desktop
+Multiband Stero Sidechain Dynamic Processor,lsp-plugins-sc-mb-dyna-processor-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_noise_generator_x1.desktop
+Noise Generator x1,lsp-plugins-noise-generator-x1,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_noise_generator_x2.desktop
+Noise Generator x2,lsp-plugins-noise-generator-x2,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_noise_generator_x4.desktop
+Noise Generator x4,lsp-plugins-noise-generator-x4,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_spectrum_analyzer_x1.desktop
+One Channel Spectrum Analyzer,lsp-plugins-spectrum-analyzer-x1,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_oscilloscope_x1.desktop
+Oscilloscope 1 Channel,lsp-plugins-oscilloscope-x1,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_oscilloscope_x2.desktop
+Oscilloscope 2 Channels,lsp-plugins-oscilloscope-x2,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_oscilloscope_x4.desktop
+Oscilloscope 4 Channels,lsp-plugins-oscilloscope-x4,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_phase_detector.desktop
+Phase Detector,lsp-plugins-phase-detector,lsp-plugins
+# /usr/share/applications/pulsar.desktop
+Pulsar,/opt/Pulsar/pulsar ,pulsar
+# /usr/share/applications/assistant.desktop
+Qt Assistant,assistant,assistant
+# /usr/share/applications/designer.desktop
+Qt Designer,designer ,QtProject-designer
+# /usr/share/applications/linguist.desktop
+Qt Linguist,linguist ,linguist
+# /usr/share/applications/qdbusviewer6.desktop
+Qt QDBusViewer ,/usr/lib/qt6/bin/qdbusviewer,qdbusviewer
+# /usr/share/applications/qdbusviewer.desktop
+Qt QDBusViewer ,qdbusviewer,qdbusviewer
+# /usr/share/applications/assistant6.desktop
+Qt6 Assistant,/usr/lib/qt6/bin/assistant,assistant
+# /usr/share/applications/designer6.desktop
+Qt6 Designer,/usr/lib/qt6/bin/designer ,QtProject-designer
+# /usr/share/applications/linguist6.desktop
+Qt6 Linguist,/usr/lib/qt6/bin/linguist ,linguist
+# /usr/share/applications/rofi.desktop
+Rofi,rofi -show,rofi
+# /usr/share/applications/rofi-theme-selector.desktop
+Rofi Theme Selector,rofi-theme-selector,rofi
+# /usr/share/applications/in.lsp_plug.lsp_plugins_crossover_lr.desktop
+Split Crossover,lsp-plugins-crossover-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_compressor_lr.desktop
+Split Multiband Compressor,lsp-plugins-mb-compressor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_expander_lr.desktop
+Split Multiband Expander,lsp-plugins-mb-expander-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_gate_lr.desktop
+Split Multiband Gate,lsp-plugins-mb-gate-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_expander_lr.desktop
+Split Multiband Sidechain Expander,lsp-plugins-sc-mb-expander-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_gate_lr.desktop
+Split Multiband Sidechain Gate,lsp-plugins-sc-mb-gate-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x16_lr.desktop
+Split Stereo 16 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x16-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x16_lr.desktop
+Split Stereo 16 Band Parametric Equalizer,lsp-plugins-para-equalizer-x16-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x32_lr.desktop
+Split Stereo 32 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x32-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x32_lr.desktop
+Split Stereo 32 Band Parametric Equalizer,lsp-plugins-para-equalizer-x32-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_compressor_lr.desktop
+Split Stereo Compressor,lsp-plugins-compressor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_comp_delay_x2_stereo.desktop
+Split Stereo Delay Compensator,lsp-plugins-comp-delay-x2-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_dyna_processor_lr.desktop
+Split Stereo Dynamic Processor,lsp-plugins-dyna-processor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_dyna_processor_lr.desktop
+Split Stereo Dynamic Sidechain Processor,lsp-plugins-sc-dyna-processor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_expander_lr.desktop
+Split Stereo Expander,lsp-plugins-expander-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_gate_lr.desktop
+Split Stereo Gate,lsp-plugins-gate-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_compressor_lr.desktop
+Split Stereo Sidechain Compressor,lsp-plugins-sc-compressor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_expander_lr.desktop
+Split Stereo Sidechain Expander,lsp-plugins-sc-expander-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_gate_lr.desktop
+Split Stereo Sidechain Gate,lsp-plugins-sc-gate-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_compressor_lr.desktop
+Split Stereo Sidechain Multiband Compressor,lsp-plugins-sc-mb-compressor-lr,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_multisampler_x12.desktop
+Stereo 12 Instrument Sample Player,lsp-plugins-multisampler-x12,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x16_stereo.desktop
+Stereo 16 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x16-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x16_stereo.desktop
+Stereo 16 Band Parametric Equalizer,lsp-plugins-para-equalizer-x16-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_multisampler_x24.desktop
+Stereo 24 Instrument Sample Player,lsp-plugins-multisampler-x24,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_graph_equalizer_x32_stereo.desktop
+Stereo 32 Band Graphic Equalizer,lsp-plugins-graph-equalizer-x32-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_para_equalizer_x32_stereo.desktop
+Stereo 32 Band Parametric Equalizer,lsp-plugins-para-equalizer-x32-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_multisampler_x48.desktop
+Stereo 48 Instrument Sample Player,lsp-plugins-multisampler-x48,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_profiler_stereo.desktop
+Stereo Audio Profiler,lsp-plugins-profiler-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_trigger_stereo.desktop
+Stereo Audio Trigger,lsp-plugins-trigger-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_compressor_stereo.desktop
+Stereo Compressor,lsp-plugins-compressor-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_impulse_reverb_stereo.desktop
+Stereo Convolution Reverb,lsp-plugins-impulse-reverb-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_crossover_stereo.desktop
+Stereo Crossover,lsp-plugins-crossover-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_comp_delay_stereo.desktop
+Stereo Delay Compensator,lsp-plugins-comp-delay-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_dyna_processor_stereo.desktop
+Stereo Dynamic Processor,lsp-plugins-dyna-processor-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_dyna_processor_stereo.desktop
+Stereo Dynamic Sidechain Processor,lsp-plugins-sc-dyna-processor-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_expander_stereo.desktop
+Stereo Expander,lsp-plugins-expander-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_gate_stereo.desktop
+Stereo Gate,lsp-plugins-gate-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_impulse_responses_stereo.desktop
+Stereo Impulse Responses,lsp-plugins-impulse-responses-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_limiter_stereo.desktop
+Stereo Limiter,lsp-plugins-limiter-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_loud_comp_stereo.desktop
+Stereo Loudness Compensator,lsp-plugins-loud-comp-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sampler_stereo.desktop
+Stereo MIDI Sample Player,lsp-plugins-sampler-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_trigger_midi_stereo.desktop
+Stereo MIDI Trigger,lsp-plugins-trigger-midi-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_compressor_stereo.desktop
+Stereo Multiband Compressor,lsp-plugins-mb-compressor-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_expander_stereo.desktop
+Stereo Multiband Expander,lsp-plugins-mb-expander-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_mb_gate_stereo.desktop
+Stereo Multiband Gate,lsp-plugins-mb-gate-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_expander_stereo.desktop
+Stereo Multiband Sidechain Expander,lsp-plugins-sc-mb-expander-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_gate_stereo.desktop
+Stereo Multiband Sidechain Gate,lsp-plugins-sc-mb-gate-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_room_builder_stereo.desktop
+Stereo Room Impulse Response Builder,lsp-plugins-room-builder-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_expander_stereo.desktop
+Stereo Sidechain Expander,lsp-plugins-sc-expander-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_gate_stereo.desktop
+Stereo Sidechain Gate,lsp-plugins-sc-gate-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_limiter_stereo.desktop
+Stereo Sidechain Limiter,lsp-plugins-sc-limiter-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_mb_compressor_stereo.desktop
+Stereo Sidechain Multiband Compressor,lsp-plugins-sc-mb-compressor-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_slap_delay_stereo.desktop
+Stereo Slap Delay,lsp-plugins-slap-delay-stereo,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_surge_filter_stereo.desktop
+Stereo Surge Filter,lsp-plugins-surge-filter-mono,lsp-plugins
+# /usr/share/applications/in.lsp_plug.lsp_plugins_sc_compressor_stereo.desktop
+Stero Sidechain Compressor,lsp-plugins-sc-compressor-stereo,lsp-plugins
+# /usr/share/applications/timeshift-gtk.desktop
+Timeshift,timeshift-launcher,timeshift
+# /usr/share/applications/in.lsp_plug.lsp_plugins_spectrum_analyzer_x2.desktop
+Two Channel Spectrum Analyzer,lsp-plugins-spectrum-analyzer-x2,lsp-plugins
+# /usr/share/applications/uxterm.desktop
+UXTerm,uxterm,xterm-color_48x48
+# /usr/share/applications/xterm.desktop
+XTerm,xterm,xterm-color_48x48
+# /usr/share/applications/jgmenu.desktop
+jgmenu,jgmenu_run,jgmenu
+# /usr/share/applications/kitty.desktop
+kitty,kitty,kitty
+# /usr/share/applications/xkill-shortcut.desktop
+xKill,xkill,application-exit
+
+# /usr/share/desktop-directories/Arch-Accessibility.directory
+submenu,^tag(Accessibility)
+Back,^back(),go-previous
+# /usr/share/applications/arandr.desktop
+ARandR,arandr,display
+# /usr/share/applications/nm-connection-editor.desktop
+Advanced Network Configuration,nm-connection-editor,preferences-system-network
+# /usr/share/applications/lxappearance.desktop
+Customize Look and Feel,lxappearance,preferences-desktop-theme
+# /usr/share/applications/thunar-settings.desktop
+File Manager Settings,thunar-settings,org.xfce.thunar
+# /usr/share/applications/firewall-config.desktop
+Firewall,/usr/bin/firewall-config,firewall-config
+# /usr/share/applications/guake-prefs.desktop
+Guake Preferences,guake -p,guake
+# /usr/share/applications/input-remapper.desktop
+Input Remapper,input-remapper-gtk,/usr/share/input-remapper/input-remapper.svg
+# /usr/share/applications/org.gnome.seahorse.Application.desktop
+Passwords and Keys,seahorse ,org.gnome.seahorse.Application
+# /usr/share/applications/qt5ct.desktop
+Qt5 Settings,qt5ct,preferences-desktop-theme
+# /usr/share/applications/thunar-volman-settings.desktop
+Removable Drives and Media,thunar-volman-settings,org.xfce.volman
+# /usr/share/applications/stoken-gui.desktop
+Software Token,stoken-gui,stoken-gui
+# /usr/share/applications/stoken-gui-small.desktop
+Software Token (small),stoken-gui --small,stoken-gui
+# /usr/share/applications/nitrogen.desktop
+nitrogen,nitrogen,nitrogen
+# /usr/share/applications/tuned-gui.desktop
+tuned-gui,/usr/sbin/tuned-gui,tuned
+
+# /usr/share/desktop-directories/Arch-Multimedia.directory
+submenu,^tag(Sound & Video)
+Back,^back(),go-previous
+# /usr/share/applications/at.iem.plugins.AllRADecoder.desktop
+AllRADecoder,AllRADecoder,iempluginsuite
+# /usr/share/applications/ardour7.desktop
+Ardour,ardour7,ardour7
+# /usr/share/applications/audacity.desktop
+Audacity,env UBUNTU_MENUPROXY=0 audacity ,audacity
+# /usr/share/applications/at.iem.plugins.BinauralDecoder.desktop
+BinauralDecoder,BinauralDecoder,iempluginsuite
+# /usr/share/applications/org.cleveraudio.clap-host.desktop
+CLAP Host,clap-example-host,org.cleveraudio.clap-host
+# /usr/share/applications/calf.desktop
+Calf Plugin Pack for JACK,calfjackhost,calf
+# /usr/share/applications/carla.desktop
+Carla,carla ,carla
+# /usr/share/applications/carla-control.desktop
+Carla Control,carla-control ,carla-control
+# /usr/share/applications/at.iem.plugins.CoordinateConverter.desktop
+CoordinateConverter,CoordinateConverter,iempluginsuite
+# /usr/share/applications/at.iem.plugins.DirectionalCompressor.desktop
+DirectionalCompressor,DirectionalCompressor,iempluginsuite
+# /usr/share/applications/at.iem.plugins.DirectivityShaper.desktop
+DirectivityShaper,DirectivityShaper,iempluginsuite
+# /usr/share/applications/at.iem.plugins.DistanceCompensator.desktop
+DistanceCompensator,DistanceCompensator,iempluginsuite
+# /usr/share/applications/io.github.michaelwillis.DragonflyEarlyReflections.desktop
+DragonflyEarlyReflections,DragonflyEarlyReflections,dragonfly
+# /usr/share/applications/net.sourceforge.drumstick-guiplayer.desktop
+Drumstick ALSA MIDI Player,drumstick-guiplayer ,drumstick
+# /usr/share/applications/net.sourceforge.drumstick-drumgrid.desktop
+Drumstick Drum Grid,drumstick-drumgrid,drumstick
+# /usr/share/applications/net.sourceforge.drumstick-vpiano.desktop
+Drumstick Virtual Piano,drumstick-vpiano,drumstick
+# /usr/share/applications/at.iem.plugins.DualDelay.desktop
+DualDelay,DualDelay,iempluginsuite
+# /usr/share/applications/echomixer.desktop
+Echomixer,echomixer,echomixer
+# /usr/share/applications/at.iem.plugins.EnergyVisualizer.desktop
+EnergyVisualizer,EnergyVisualizer,iempluginsuite
+# /usr/share/applications/envy24control.desktop
+Envy24 Control,envy24control,envy24control
+# /usr/share/applications/fmit.desktop
+FMIT,fmit,fmit
+# /usr/share/applications/at.iem.plugins.FdnReverb.desktop
+FdnReverb,FdnReverb,iempluginsuite
+# /usr/share/applications/hdajackretask.desktop
+HDAJackRetask,hdajackretask,application-x-executable
+# /usr/share/applications/hdspconf.desktop
+HDSPConf,hdspconf,hdspconf
+# /usr/share/applications/hdspmixer.desktop
+HDSPMixer,hdspmixer,hdspmixer
+# /usr/share/applications/helm-synth.desktop
+Helm,helm-synth,helm-synth
+# /usr/share/applications/hwmixvolume.desktop
+Hwmixvolume,hwmixvolume,hwmixvolume
+# /usr/share/applications/org.hydrogenmusic.Hydrogen.desktop
+Hydrogen,hydrogen ,org.hydrogenmusic.Hydrogen
+# /usr/share/applications/jack-keyboard.desktop
+JACK Keyboard,jack-keyboard,jack-keyboard
+# /usr/share/applications/jack-rack.desktop
+JACK Rack,jack-rack,jack-rack-icon.png
+# /usr/share/applications/japa.desktop
+JAPA,japa,japa
+# /usr/share/applications/jack_mixer.desktop
+Jack Mixer,jack_mixer,jack_mixer
+# /usr/share/applications/jalv.desktop
+Jalv,/usr/bin/jalv.gtk3,application-x-executable
+# /usr/share/applications/at.iem.plugins.MatrixMultiplier.desktop
+MatrixMultiplier,MatrixMultiplier,iempluginsuite
+# /usr/share/applications/org.mixxx.Mixxx.desktop
+Mixxx,sh -c "pasuspender -- mixxx -platform xcb || mixxx -platform xcb",mixxx
+# /usr/share/applications/at.iem.plugins.MultiBandCompressor.desktop
+MultiBandCompressor,MultiBandCompressor,iempluginsuite
+# /usr/share/applications/at.iem.plugins.MultiEQ.desktop
+MultiEQ,MultiEQ,iempluginsuite
+# /usr/share/applications/at.iem.plugins.MultiEncoder.desktop
+MultiEncoder,MultiEncoder,iempluginsuite
+# /usr/share/applications/non-sequencer.desktop
+Non Sequencer,/usr/bin/non-sequencer,non-sequencer
+# /usr/share/applications/com.obsproject.Studio.desktop
+OBS Studio,obs,com.obsproject.Studio
+# /usr/share/applications/at.iem.plugins.OmniCompressor.desktop
+OmniCompressor,OmniCompressor,iempluginsuite
+# /usr/share/applications/patchage.desktop
+Patchage,/usr/bin/patchage,patchage
+# /usr/share/applications/at.iem.plugins.PluginTemplate.desktop
+PluginTemplate,PluginTemplate,iempluginsuite
+# /usr/share/applications/com.polyphone_soundfonts.polyphone.desktop
+Polyphone,polyphone ,polyphone
+# /usr/share/applications/at.iem.plugins.ProbeDecoder.desktop
+ProbeDecoder,ProbeDecoder,iempluginsuite
+# /usr/share/applications/pavucontrol.desktop
+PulseAudio Volume Control,pavucontrol,multimedia-volume-control
+# /usr/share/applications/qmidiarp.desktop
+QMidiArp,qmidiarp ,qmidiarp
+# /usr/share/applications/org.rncbc.qmidinet.desktop
+QmidiNet,qmidinet,org.rncbc.qmidinet
+# /usr/share/applications/org.rncbc.qsampler.desktop
+Qsampler,qsampler ,org.rncbc.qsampler
+# /usr/share/applications/qv4l2.desktop
+Qt V4L2 test Utility,qv4l2,qv4l2
+# /usr/share/applications/qvidcap.desktop
+Qt V4L2 video capture utility,qvidcap,qvidcap
+# /usr/share/applications/cockos-reaper.desktop
+REAPER,"/opt/REAPER/reaper" ,cockos-reaper
+# /usr/share/applications/raysession.desktop
+RaySession,raysession,raysession
+# /usr/share/applications/at.iem.plugins.RoomEncoder.desktop
+RoomEncoder,RoomEncoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.SceneRotator.desktop
+SceneRotator,SceneRotator,iempluginsuite
+# /usr/share/applications/at.iem.plugins.SimpleDecoder.desktop
+SimpleDecoder,SimpleDecoder,iempluginsuite
+# /usr/share/applications/simplescreenrecorder.desktop
+SimpleScreenRecorder,simplescreenrecorder --logfile,simplescreenrecorder
+# /usr/share/applications/sonic-visualiser.desktop
+Sonic Visualiser,sonic-visualiser ,sonic-visualiser
+# /usr/share/applications/sononym.desktop
+Sononym,sononym,sononym
+# /usr/share/applications/net.essej.sooperlooper.desktop
+SooperLooper,slgui,net.essej.sooperlooper
+# /usr/share/applications/smjack.desktop
+SpectMorph Jack Client,smjack ,smjack.png
+# /usr/share/applications/at.iem.plugins.StereoEncoder.desktop
+StereoEncoder,StereoEncoder,iempluginsuite
+# /usr/share/applications/SuperColliderIDE.desktop
+SuperCollider IDE,scide ,sc_ide
+# /usr/share/applications/at.iem.plugins.ToolBox.desktop
+ToolBox,ToolBox,iempluginsuite
+# /usr/share/applications/net.sourceforge.VMPK.desktop
+VMPK,vmpk,vmpk
+# /usr/share/applications/volumeicon.desktop
+Volume Icon,volumeicon,multimedia-volume-control
+# /usr/share/applications/ambix_binaural_o1.desktop
+ambix_binaural_o1,ambix_binaural_o1,mcfx
+# /usr/share/applications/ambix_binaural_o3.desktop
+ambix_binaural_o3,ambix_binaural_o3,mcfx
+# /usr/share/applications/ambix_converter_o1.desktop
+ambix_converter_o1,ambix_converter_o1,mcfx
+# /usr/share/applications/ambix_converter_o3.desktop
+ambix_converter_o3,ambix_converter_o3,mcfx
+# /usr/share/applications/ambix_decoder_o1.desktop
+ambix_decoder_o1,ambix_decoder_o1,mcfx
+# /usr/share/applications/ambix_decoder_o3.desktop
+ambix_decoder_o3,ambix_decoder_o3,mcfx
+# /usr/share/applications/ambix_directional_loudness_o1.desktop
+ambix_directional_loudness_o1,ambix_directional_loudness_o1,mcfx
+# /usr/share/applications/ambix_directional_loudness_o3.desktop
+ambix_directional_loudness_o3,ambix_directional_loudness_o3,mcfx
+# /usr/share/applications/ambix_encoder_o1.desktop
+ambix_encoder_o1,ambix_encoder_o1,mcfx
+# /usr/share/applications/ambix_encoder_o3.desktop
+ambix_encoder_o3,ambix_encoder_o3,mcfx
+# /usr/share/applications/ambix_mirror_o1.desktop
+ambix_mirror_o1,ambix_mirror_o1,mcfx
+# /usr/share/applications/ambix_mirror_o3.desktop
+ambix_mirror_o3,ambix_mirror_o3,mcfx
+# /usr/share/applications/ambix_rotator_o1.desktop
+ambix_rotator_o1,ambix_rotator_o1,mcfx
+# /usr/share/applications/ambix_rotator_o3.desktop
+ambix_rotator_o3,ambix_rotator_o3,mcfx
+# /usr/share/applications/ambix_vmic_o1.desktop
+ambix_vmic_o1,ambix_vmic_o1,mcfx
+# /usr/share/applications/ambix_vmic_o3.desktop
+ambix_vmic_o3,ambix_vmic_o3,mcfx
+# /usr/share/applications/ams.desktop
+ams,ams,ams_32.xpm
+# /usr/share/applications/baudline.desktop
+baudline,baudline,baudline
+# /usr/share/applications/baudline_jack.desktop
+baudline_jack,baudline_jack -jack -palette /usr/share/baudline/palettes/rainbow,baudline_jack
+# /usr/share/applications/gigedit.desktop
+gigedit,gigedit,gigedit
+# /usr/share/applications/jalv.select.desktop
+jalv.select,jalv.select,lv2
+# /usr/share/applications/mcfx_convolver_o1.desktop
+mcfx_convolver_o1,mcfx_convolver_o1,mcfx
+# /usr/share/applications/mcfx_convolver_o3.desktop
+mcfx_convolver_o3,mcfx_convolver_o3,mcfx
+# /usr/share/applications/mcfx_convolver_o5.desktop
+mcfx_convolver_o5,mcfx_convolver_o5,mcfx
+# /usr/share/applications/mcfx_delay_o1.desktop
+mcfx_delay_o1,mcfx_delay_o1,mcfx
+# /usr/share/applications/mcfx_delay_o3.desktop
+mcfx_delay_o3,mcfx_delay_o3,mcfx
+# /usr/share/applications/mcfx_delay_o5.desktop
+mcfx_delay_o5,mcfx_delay_o5,mcfx
+# /usr/share/applications/mcfx_filter_o1.desktop
+mcfx_filter_o1,mcfx_filter_o1,mcfx
+# /usr/share/applications/mcfx_filter_o3.desktop
+mcfx_filter_o3,mcfx_filter_o3,mcfx
+# /usr/share/applications/mcfx_filter_o5.desktop
+mcfx_filter_o5,mcfx_filter_o5,mcfx
+# /usr/share/applications/mcfx_gain_delay_o1.desktop
+mcfx_gain_delay_o1,mcfx_gain_delay_o1,mcfx
+# /usr/share/applications/mcfx_gain_delay_o3.desktop
+mcfx_gain_delay_o3,mcfx_gain_delay_o3,mcfx
+# /usr/share/applications/mcfx_gain_delay_o5.desktop
+mcfx_gain_delay_o5,mcfx_gain_delay_o5,mcfx
+# /usr/share/applications/mcfx_meter_o1.desktop
+mcfx_meter_o1,mcfx_meter_o1,mcfx
+# /usr/share/applications/mcfx_meter_o3.desktop
+mcfx_meter_o3,mcfx_meter_o3,mcfx
+# /usr/share/applications/mcfx_meter_o5.desktop
+mcfx_meter_o5,mcfx_meter_o5,mcfx
+# /usr/share/applications/mpv.desktop
+mpv Media Player,mpv --player-operation-mode=pseudo-gui -- ,mpv
+# /usr/share/applications/ocenaudio.desktop
+ocenaudio,/usr/bin/ocenaudio ,ocenaudio
+# /usr/share/applications/sonic-pi.desktop
+sonic-pi,sonic-pi,sonic-pi
+# /usr/share/applications/com.github.pdesaulniers.wolf-shaper.desktop
+wolf-shaper,wolf-shaper,com.github.pdesaulniers.wolf-shaper
+# /usr/share/applications/com.x42_plugins.x42_darc.desktop
+x42-darc,x42-darc,x42-darc
+# /usr/share/applications/com.x42_plugins.x42_dpl.desktop
+x42-dpl,x42-dpl,x42-dpl
+# /usr/share/applications/com.x42_plugins.x42_fat1.desktop
+x42-fat1,x42-fat1,x42-fat1
+# /usr/share/applications/com.x42_plugins.x42_fil4.desktop
+x42-fil4,x42-fil4,x42-fil4
+# /usr/share/applications/com.x42_plugins.x42_matrixmixer8x8.desktop
+x42-matrixmixer8x8,x42-matrixmixer8x8,x42-matrixmixer8x8
+# /usr/share/applications/com.x42_plugins.x42_meter_15.desktop
+x42-meter 1/3 Octave Spectrum Analyzer,x42-meter 15,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_5.desktop
+x42-meter BBC M-6,x42-meter 5,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_4.desktop
+x42-meter BBC Meter (Stereo),x42-meter 4,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_18.desktop
+x42-meter Bit Meter,x42-meter 18,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_6.desktop
+x42-meter DIN Meter (Stereo),x42-meter 6,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_11.desktop
+x42-meter DR-14 - Crest Factor Loudness Range Meter,x42-meter 11,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_7.desktop
+x42-meter EBU Meter (Stereo),x42-meter 7,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_0.desktop
+x42-meter EBU R128 Meter,x42-meter 0,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_13.desktop
+x42-meter Goniometer,x42-meter 13,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_3.desktop
+x42-meter K12/RMS Meter (Stereo),x42-meter 3,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_2.desktop
+x42-meter K14/RMS Meter (Stereo),x42-meter 2,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_1.desktop
+x42-meter K20/RMS Meter (Stereo),x42-meter 1,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_8.desktop
+x42-meter Nordic Meter (Stereo),x42-meter 8,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_14.desktop
+x42-meter Phase/Frequency Wheel,x42-meter 14,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_17.desktop
+x42-meter Signal Distribution Histogram,x42-meter 17,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_12.desktop
+x42-meter Stereo Phase-Correlation Meter,x42-meter 12,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_16.desktop
+x42-meter Stereo/Frequency Scope,x42-meter 16,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_19.desktop
+x42-meter Surround Level 8,x42-meter 19,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_10.desktop
+x42-meter True-Peak and RMS Meter (Stereo),x42-meter 10,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_9.desktop
+x42-meter VU Meter (Stereo),x42-meter 9,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_mixtri.desktop
+x42-mixtri,x42-mixtri,x42-mixtri
+# /usr/share/applications/com.x42_plugins.x42_phaserotate.desktop
+x42-phaserotate,x42-phaserotate,x42-phaserotate
+# /usr/share/applications/com.x42_plugins.x42_scope.desktop
+x42-scope,x42-scope,x42-scope
+# /usr/share/applications/com.x42_plugins.x42_spectr.desktop
+x42-spectr,x42-spectr,x42-spectr
+# /usr/share/applications/com.x42_plugins.x42_stepseq.desktop
+x42-stepseq,x42-stepseq,x42-stepseq
+# /usr/share/applications/com.x42_plugins.x42_tuna_0.desktop
+x42-tuna Instrument Tuner,x42-tuna 0,x42-tuna
+# /usr/share/applications/com.x42_plugins.x42_tuna_1.desktop
+x42-tuna Instrument Tuner (Spectrum),x42-tuna 1,x42-tuna
+# /usr/share/applications/zita-dpl1.desktop
+zita-dpl1,zita-dpl1,zita-dpl1
+# /usr/share/applications/zita-mu1.desktop
+zita-mu1,zita-mu1,zita-mu1
+# /usr/share/applications/zita-rev1.desktop
+zita-rev1,zita-rev1,zita-rev1

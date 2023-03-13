@@ -1,0 +1,135 @@
+---
+
+alsa:
+  - a2jmidid
+  - alsa-lib
+  - alsa-plugins
+  - alsa-tools
+  - alsa-utils
+  - zita-alsa-pcmi
+ambisonic:
+  - ambix-o1
+  - ambix-o3
+  - ambix-o5
+  - iempluginsuite-git
+  - mcfx-o1
+  - mcfx-o3
+  - mcfx-o5
+  - sparta-plugins
+analysis:
+  - baudline-bin
+  - jaaa
+  - japa
+  - sonic-visualiser-git
+  - vamp-plugin-sdk
+codec:
+  - gst-libav
+  - gst-plugins-bad
+  - opus
+  - opusfile
+  - vorbis-tools
+  - wavpack
+development:
+  - bipscript
+  - bipscript-ide
+editor:
+  - audacity
+  - ecasound
+  - gigedit
+  - ocenaudio-bin
+  - polyphone
+  - sound-gambit
+  - sox
+filter:
+  - zita-dpl1
+  - zita-lrx
+jack:
+  - jack2-dbus
+  - jack-example-tools
+  - jack_capture
+  - jack_utils
+looper:
+  - sooperlooper-git
+metering:
+  - jkmeter
+  - jmeters
+  - jnoisemeter
+midi:
+  - jack-keyboard
+  - non-sequencer
+  - osc2midi
+  - qmidiarp
+  - rtmidi
+  - sendmidi
+  - stochas
+  - timidity++
+  - tonespace
+  - vmpk
+mixer:
+  - jack_mixer
+  - non-mixer-lv2-git
+network:
+  - jacktrip
+  - qmidinet
+patchbay:
+  - njconnect
+  - patchage
+  # - patchance
+plugin:
+  - ams-lv2
+  - calf
+  - caps-lv2-git
+  - carla
+  - cmt
+  - distrho-ports
+  - dpf-plugins-vst3
+  - guitarix
+  - intersect.lv2-git
+  - ingen-git
+  - ir.lv2
+  - jalv-select-git
+  - ladspa
+  - lsp-plugins
+  - lv2
+  - lv2-c++-tools
+  - lv2file
+  - noise-repellent
+  - swh-lv2-git
+  - swh-plugins
+  - tap-plugins-lv2-git
+  - x42-plugins
+pulseaudio:
+  - pavucontrol
+  - pulseaudio-alsa
+  - pulseaudio-bluetooth
+  - pulseaudio-jack
+  - pulsemixer
+reverb:
+  - dragonfly-reverb
+  - jconvolver
+  - zita-rev1
+sampler:
+  - linuxsampler
+  - qsampler
+  - mixxx
+  - sfizz
+sequencer:
+  - hydrogen-git
+session:
+  - jack_snapshot
+  - raysession-git
+  - zita-ajbridge
+  - zita-mu1
+synth:
+  - ams
+  - espeak-ng
+  - helm-synth
+  - sonic-pi-git
+  - spectmorph
+  - vital-synth
+  - wolf-shaper
+theory:
+  - scala-music
+  - scala-music-scales
+tuner:
+  - fmit

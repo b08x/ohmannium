@@ -1,0 +1,168 @@
+---
+
+- hosts: devel
+  become: True
+  gather_subset:
+    - hardware
+    - network
+  vars:
+    path:
+      - "{{ lookup('env','HOME') }}/.local/bin"
+      - "{{ lookup('env','HOME') }}/.cargo/bin"
+
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/sbin:/bin:{{ path|join(':') }}"
+    PKG_CONFIG_PATH: "/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
+    ZSH: "/usr/local/share/oh-my-zsh"
+    DISPLAY: ":0"
+
+  pre_tasks:
+
+    - name: Include distro vars
+      include_vars:
+        file: vars/distro/{{ ansible_distribution }}.yml
+      tags: ['base']
+
+    - name: Symlink os-release
+      file:
+        src: /etc/os-release
+        dest: /etc/system-release
+        state: link
+      tags: ['base']
+
+    - name: Set ansible_home
+      set_fact:
+        ansible_home: "{{ lookup('env','HOME') }}/Workspace/ohmannium"
+      tags: ['base']
+
+    - name: Set admin_group variable
+      set_fact:
+        admin_group: "{{ admin_group }}"
+      tags: ['base']
+
+    - block:
+        - name: Print keyserver hostname
+          debug:
+            msg: "{{ keyserver }}"
+          when: ( debugging is defined or keyserver is defined )
+
+        - name: Check if keys are present
+          stat:
+            path: "{{ user.home }}/.ssh/id_rsa"
+          register: keys
+
+        - name: Copy keys from remote host
+          delegate_to: 127.0.0.1
+          run_once: True
+          become_user: "{{ user.name }}"
+          shell: "scp {{ user.name }}@{{ keyserver }}:~/.ssh/{{ item }} {{ user.home }}/.ssh/{{ item }}"
+          args:
+            chdir: "{{ user.home }}"
+          with_items:
+            - id_rsa
+            - id_rsa.pub
+          when:
+            - not keys.stat.exists
+            - keyserver is defined
+          tags: ['keys']
+
+        - name: Enable ssh daemon
+          service:
+            name: sshd
+            enabled: True
+
+      ignore_errors: "{{ ansible_check_mode }}"
+      tags: ['ssh']
+
+    - block:
+        - name: Check -march support
+          shell: /lib/ld-linux-x86-64.so.2 --help | grep supported|xargs|awk '{print $1}'
+          register: supported_march
+
+        - name: Check output from grep command
+          debug:
+            msg: "{{ supported_march }}"
+
+        - name: Set architecture
+          set_fact:
+            architecture: "x86-64-v3"
+          when: supported_march.stdout_lines[0] == 'x86-64-v3'
+
+        - name: Set architecture
+          set_fact:
+            architecture: "x86-64"
+          when: supported_march.stdout_lines[0] == 'x86-64-v2'
+
+      check_mode: False
+      tags: ['base', 'repo', 'packages']
+
+    - name: Ensure usr local directories exist
+      file:
+        path: "{{ item  }}"
+        state: directory
+        mode: '0755'
+        recurse: False
+      with_items:
+        - "/usr/local/share/fonts/"
+        - "/usr/local/share/icons"
+        - "/usr/local/share/pixmaps/"
+        - "/usr/local/share/themes"
+        - "/usr/share/backgrounds/ohmannium"
+      tags: ['theme']
+
+    - name: Set background location variable
+      set_fact:
+        backgrounds: "/usr/share/backgrounds/ohmannium"
+      tags: ['x11', 'theme']
+
+    - import_tasks: tasks/user.yml
+      tags: ['base', 'user']
+
+    - import_tasks: tasks/sudoers.yml
+      tags: ['base', 'sudoers']
+
+    - import_tasks: tasks/ruby.yml
+      tags: ['base', 'ruby']
+
+    - import_tasks: tasks/zshell.yml
+      tags: ['zsh']
+
+    - include_tasks: "tasks/distro/{{ ansible_distribution }}.yml"
+      tags: ['base', 'repo', 'packages', 'mirrors']
+
+  roles:
+
+    - role: network
+      tags: ['netork']
+
+    - role: audio
+      tags: ['audio']
+
+    - role: system
+      tags: ['system']
+
+    - role: applications
+      tags: ['applications']
+
+  post_tasks:
+
+      - name: Cleanup old backup files
+        script: /usr/local/bin/cleanup.sh
+        when: cleanup is defined
+        tags: ['cleanup']
+
+      # Reset is not implemented local connection
+      - name: Reboot host
+        ansible.builtin.reboot:
+        async: 1
+        poll: 0
+        ignore_errors: True
+        when: reboot is defined
+
+      - name: Wait for host to reboot
+        wait_for_connection:
+          connect_timeout: 20
+          sleep: 5
+          delay: 5
+          timeout: 120
+        when: reboot is defined

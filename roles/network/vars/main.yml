@@ -1,0 +1,9 @@
+---
+
+lan:
+  gateway: 192.168.41.1
+  dns:
+    nameserver: 192.168.41.1
+    search: syncopated.net
+  wireless:
+    ssid: invisiblemagic

@@ -1,0 +1,54 @@
+---
+
+# - name: Set jack engine parameters
+#   shell: |
+#    jack_control eps driver {{ jack.eps.driver }}
+#   environment:
+#     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ user.uid }}/bus"
+#   register: result
+#   changed_when: result.rc != 0
+#   become_user: "{{ user.name }}"
+#
+# - name: Set jack driver parameters
+#   shell: |
+#     jack_control dps device {{ jack.dps.device }}
+#     jack_control dps midi-driver {{ jack.dps.mididriver }}
+#     jack_control dps monitor {{ jack.dps.monitor }}
+#     jack_control dps period {{ jack.dps.period }}
+#   environment:
+#     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ user.uid }}/bus"
+#   register: result
+#   changed_when: result.rc != 0
+#   become_user: "{{ user.name }}"
+
+- name: Create environment file for jack_control.service
+  copy:
+    content: |
+      DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+    dest: "/etc/default/jack_control"
+#
+# - name: Create systemd user directory
+#   file:
+#     path: "{{ user.home }}/.config/systemd/user"
+#     state: directory
+#     owner: "{{ user.name }}"
+#     group: "{{ user.group }}"
+#     mode: '0755'
+
+- name: Install jack_control service file
+  copy:
+    src: "usr/lib/systemd/user/jack_control.service"
+    dest: "/usr/lib/systemd/user/jack_control.service"
+    mode: '0644'
+
+# - name: enable jack services
+#   systemd:
+#     name: jack_control
+#     enabled: yes
+#     state: started
+#     scope: user
+#     daemon_reload: yes
+#   environment:
+#     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+#   become_user: "{{ user.name }}"
+#   ignore_errors: "{{ ansible_check_mode }}"

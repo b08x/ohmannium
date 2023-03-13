@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ambix_binaural_o3
+GenericName=Binaural Decoder o3
+Comment= o3
+Exec=ambix_binaural_o3
+Icon=ambix
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics

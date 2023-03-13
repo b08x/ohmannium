@@ -1,0 +1,29 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+<Menu>
+  <Name>Applications</Name>
+  <Menu>
+    <Name>Ambisonics</Name>
+    <Menu>
+      <Name>ambix</Name>
+      <Directory>ambix.directory</Directory>
+      <Include>
+         <Filename>ambix_binaural_o1.desktop</Filename>
+         <Filename>ambix_binaural_o3.desktop</Filename>
+         <Filename>ambix_converter_o1.desktop</Filename>
+         <Filename>ambix_converter_o3.desktop</Filename>
+         <Filename>ambix_decoder_o1.desktop</Filename>
+         <Filename>ambix_decoder_o3.desktop</Filename>
+         <Filename>ambix_directional_loudness_o1.desktop</Filename>
+         <Filename>ambix_directional_loudness_o3.desktop</Filename>
+         <Filename>ambix_encoder_o1.desktop</Filename>
+         <Filename>ambix_encoder_o3.desktop</Filename>
+         <Filename>ambix_mirror_o1.desktop</Filename>
+         <Filename>ambix_mirror_o3.desktop</Filename>
+         <Filename>ambix_rotator_o1.desktop</Filename>
+         <Filename>ambix_rotator_o3.desktop</Filename>
+         <Filename>ambix_vmic_o1.desktop</Filename>
+         <Filename>ambix_vmic_o3.desktop</Filename>
+      </Include>
+    </Menu>
+  </Menu>
+</Menu>

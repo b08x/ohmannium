@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=mcfx_convolver_o5
+Comment=mcfx_convolver_o5
+Exec=mcfx_convolver_o5
+Icon=mcfx
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics
+
