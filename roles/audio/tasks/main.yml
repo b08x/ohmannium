@@ -1,10 +1,10 @@
 ---
 
-- name: starting audio role tasks
+- name: Starting audio role tasks
   debug:
     msg: "Starting audio tasks"
 
-- name: add modprobe for alsa card order
+- name: Add modprobe for alsa card order
   lineinfile:
     path: /etc/modprobe.d/10-alsa_usb.conf
     line: "options snd slots=snd-hda-intel,snd-usb-audio"

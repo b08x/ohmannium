@@ -1,8 +1,0 @@
-{% if ansible_processor[1] == "GenuineIntel" %}
-export LIBVA_DRIVER_NAME="i965"
-{% endif %}
-# fix for missing font glyphs in GTK applications
-export COGL_ATLAS_DEFAULT_BLIT_MODE="framebuffer"
-export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/local/lib/pkgconfig"
-export NODE_PATH="/usr/lib/node_modules"
-export VAMP_PATH="/usr/local/share/vamp"

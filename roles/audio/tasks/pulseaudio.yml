@@ -1,13 +1,13 @@
 ---
 
-- name: ensure pulse config directory exists
+- name: Ensure pulse config directory exists
   file:
     path: "{{ user.home }}/.config/pulse"
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
 
-- name: update pulseaudio configs
+- name: Update pulseaudio configs
   copy:
     src: "etc/pulse/{{ item }}"
     dest: "{{ user.home }}/.config/pulse/{{ item }}"
@@ -21,19 +21,19 @@
     - default.pa
     - system.pa
 
-- name: ensure /etc/pulse/default.pa.d exists
+- name: Ensure /etc/pulse/default.pa.d exists
   file:
     path: /etc/pulse/default.pa.d
     state: directory
 
-- name: install pulseaudio bluetooth config
+- name: Install pulseaudio bluetooth config
   copy:
     src: etc/pulse/default.pa.d/bluetooth.pa
     dest: /etc/pulse/default.pa.d/bluetooth.pa
     mode: '0644'
   when: use_bluetooth is defined
 
-- name: adjust pulseaudio.service file
+- name: Adjust pulseaudio.service file
   lineinfile:
     path: /usr/lib/systemd/user/pulseaudio.service
     insertafter: '^Description'

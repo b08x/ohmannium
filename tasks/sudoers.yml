@@ -1,0 +1,51 @@
+---
+
+- name: Add user to groups defined in playbook
+  user:
+    name: "{{ user.name }}"
+    groups: "{{ item }}"
+    append: yes
+  with_items:
+    - audio
+    - input
+    - video
+    - "{{ admin_group }}"
+
+# to allow for ansible pipelining functionality
+# https://docs.ansible.com/ansible/2.4/intro_configuration.html#pipelining
+# while this requirement was removed in RHEL, many other distros leave this option enabled
+- name: Disable requiretty for user so automation can run without interruption
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "^Defaults    requiretty"
+    line: "Defaults:{{ user.name }}    !requiretty"
+    backrefs: yes
+    backup: yes
+    validate: 'visudo -cf %s'
+
+- name: Ensure /etc/sudoers.d exists
+  file:
+    path: /etc/sudoers.d
+    state: directory
+
+- name: Set NOPASSWD for user in sudoers
+  lineinfile:
+    path: /etc/sudoers.d/020_nopasswd
+    line: '{{ user.name }} ALL=(ALL:ALL) NOPASSWD: ALL'
+    validate: '/usr/sbin/visudo -cf %s'
+    create: yes
+    backup: yes
+
+- name: Set NOPASSWD for user in polkit
+  copy:
+    content: |
+      /* Allow members of the wheel group to execute any actions
+       * without password authentication, similar to "sudo NOPASSWD:"
+       */
+      polkit.addRule(function(action, subject) {
+      	if (subject.isInGroup("{{ admin_group }}")) {
+      		return polkit.Result.YES;
+      	}
+      });
+    dest: "/etc/polkit-1/rules.d/49-nopasswd_global.rules"
+    mode: '0644'

@@ -1,0 +1,69 @@
+---
+
+backup:
+  - grsync
+browser:
+  - google-chrome
+  - python-adblock
+  - qutebrowser
+chat:
+  - hexchat
+design:
+  - darktable
+  - gpick
+  - gimp
+development:
+  - mdbook
+  - micro
+  - zim
+  - asp
+  - devdocs-desktop
+  - gitflow-avh
+  - gitflow-zshcompletion-avh
+  - github-cli
+  - gnuplot
+  - gtksourceview3
+  - gtksourceview4
+  - xdot
+filemanger:
+  - thunar
+  - thunar-archive-plugin
+  - thunar-volman
+viewer:
+  - feh
+  - ffmpegthumbnailer
+  - imv
+  - sxiv
+input:
+  - antimicrox
+  - input-remapper-git
+screencasting:
+  - obs-studio
+  - simplescreenrecorder
+  - teiler-git
+  - v4l2loopback-dkms
+terminal:
+  - asciiquarium
+  - figlet
+  - guake
+  - termdown
+  - terminator
+  - tilda
+  - xterm
+util:
+  - aspell-en
+  - barrier
+  - epson-inkjet-printer-escpr2
+  - gtkspell3
+  - patat-bin
+  - pdfjs
+  - redshift
+  - seahorse
+  - stunnel
+  - xarchiver
+  - xdot
+media:
+  - moc
+  - mpv
+  - mpv-plugin-excerpt-git
+  - youtube-dl

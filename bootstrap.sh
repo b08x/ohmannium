@@ -5,7 +5,7 @@ set -e
 VER=0.5-beta
 
 ctrl_c() {
-        echo "** Exiting the program. The end."
+        echo "** End."
         sleep 1
 }
 
@@ -18,7 +18,7 @@ if [[ "${EUID}" -eq 0 ]]; then
   exit
 fi
 
-export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+declare -rx dotsrepo="git@github.com:b08x/dots.git"
 
 #########################################################################
 #                             set colors                                #
@@ -56,6 +56,8 @@ cup 20
 !
 }
 
+wipe="true"
+
 #########################################################################
 #                        install dependencies                           #
 #########################################################################
@@ -64,6 +66,7 @@ BOOTSTRAP_PKGS=(
   'ansible'
   'aria2'
   'base-devel'
+  'bat'
   'bc'
   'ccache'
   'cmake'
@@ -73,6 +76,7 @@ BOOTSTRAP_PKGS=(
   'git-lfs'
   'gum'
   'htop'
+  'lnav'
   'neovim'
   'net-tools'
   'openssh'
@@ -86,7 +90,7 @@ BOOTSTRAP_PKGS=(
   'zsh'
 )
 
-say "hello\n" $GREEN
+say "hello.\n" $GREEN
 
 # clean cache
 sudo pacman -Scc --noconfirm > /dev/null
@@ -117,21 +121,6 @@ fi
 # install pre-requisite packages
 sudo pacman -Sy --noconfirm --needed "${BOOTSTRAP_PKGS[@]}"
 
-# configure ruby to install gems as root and without docs
-echo "gem: --no-user-install --no-document" | sudo tee /etc/gemrc
-
-GEMS=(
-  'colorize'
-  'logging'
-  'ruport'
-  'tty-command'
-  'yaml'
-)
-
-for gem in "${GEMS[@]}"; do
-  sudo gem install "$gem" || continue
-done
-
 # install oh-my-zsh
 if [ -d "/usr/local/share/oh-my-zsh" ]; then
   echo "oh-my-zsh already installed"
@@ -141,74 +130,36 @@ else
   sudo env ZSH="/usr/local/share/oh-my-zsh" /tmp/ohmyzsh/tools/install.sh --unattended
 fi
 
-#########################################################################
-wipe="false"
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
+sudo curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
+sudo chmod a+x /usr/local/bin/yadm
 
-say "-------------------\n" $GREEN
-
-declare -rx user=$(getent passwd | grep 1000 | awk -F ":" '{print $1}' | xargs)
-
-say "\nuid 1000 is assigned to ${user}\n" $YELLOW
-
-declare -rx WORKSPACE="/home/${user}/Workspace"
-
-if [ ! -d $WORKSPACE ]; then mkdir -pv $WORKSPACE; fi
-
-declare -rx ANSIBLE_HOME="$WORKSPACE/syncopated"
-
-#########################################################################
-
-if [ ! -d $ANSIBLE_HOME ]; then
-  say "------------------\n" $GREEN
-  say "project will be cloned to ${ANSIBLE_HOME}" $BLUE
-  clone https://gitlab.com/b08x/syncopated.git $ANSIBLE_HOME
-  cd $ANSIBLE_HOME
-else
-  cd $ANSIBLE_HOME
-fi
-
-git checkout devlopment && git fetch && git pull
-
-git lfs install && git lfs checkout && git lfs fetch && git lfs pull
-
-sleep 1 && chown -R ${user} $WORKSPACE
+export PATH+=":/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
-say "-------------------------" $YELLOW
-
-say "select playbook to run" $GREEN
-say "-------------------------\n" $YELLOW
-
-playbooks=$(gum choose --no-limit "syncopated" "base" "ui" "nas" )
-
-runas_user=$(gum choose $user)
+say "-------------------------------------------" $YELLOW
 
 gum confirm "copy ssh keys from a remote host?" && say "ok" $GREEN
 
 if [ $? = '0' ]; then
   say "Enter the fqdn or ip of the remote host" $GREEN
 
-  read KEYSERVER
+  read -e KEYSERVER
 
   say "setting ${KEYSERVER} as remote host keyserver\n"
 
+  rsync -avP $KEYSERVER:~/.ssh $HOME/
+
+  if [ ! $? = 0 ]; then
+    say "key copy failed....do something about it."
+    exit
+  fi
 else
-  KEYSERVER=""
+  say "ok then" $RED
 fi
 
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
-
-say "\nrunning ${playbooks} playbook as ${runas_user}\n" $BLUE
-
-for playbook in ${playbooks[@]}; do
-  ansible-playbook -K -c local -i localhost, "${ANSIBLE_HOME}/playbooks/${playbook}.yml" \
-                   -e "newInstall=true" \
-                   -e "update_mirrors=true" \
-                   -e "cleanup=true" \
-                   -e "keyserver=${KEYSERVER}"
-done
-
-if [[ $wipe == 'true' ]]; then wipe && sleep 1; fi
-
-say "bootstrap complete\!" $GREEN && sleep 2
+if [ ! -d $HOME/.local/share/yadm/repo.git ]; then
+  cd $HOME && yadm clone $dotsrepo
+else
+  cd $HOME && yadm fetch && yadm pull
+  yadm bootstrap
+fi

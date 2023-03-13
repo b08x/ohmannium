@@ -1,6 +1,6 @@
 ---
 
-# - name: set jack engine parameters
+# - name: Set jack engine parameters
 #   shell: |
 #    jack_control eps driver {{ jack.eps.driver }}
 #   environment:
@@ -9,7 +9,7 @@
 #   changed_when: result.rc != 0
 #   become_user: "{{ user.name }}"
 #
-# - name: set jack driver parameters
+# - name: Set jack driver parameters
 #   shell: |
 #     jack_control dps device {{ jack.dps.device }}
 #     jack_control dps midi-driver {{ jack.dps.mididriver }}
@@ -21,13 +21,13 @@
 #   changed_when: result.rc != 0
 #   become_user: "{{ user.name }}"
 
-- name: create environment file for jack_control.service
+- name: Create environment file for jack_control.service
   copy:
     content: |
       DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
     dest: "/etc/default/jack_control"
 #
-# - name: create systemd user directory
+# - name: Create systemd user directory
 #   file:
 #     path: "{{ user.home }}/.config/systemd/user"
 #     state: directory
@@ -35,7 +35,7 @@
 #     group: "{{ user.group }}"
 #     mode: '0755'
 
-- name: install jack_control service file
+- name: Install jack_control service file
   copy:
     src: "usr/lib/systemd/user/jack_control.service"
     dest: "/usr/lib/systemd/user/jack_control.service"

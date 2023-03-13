@@ -1,0 +1,30 @@
+---
+
+- name: Set root shell
+  user:
+    name: root
+    shell: /usr/bin/zsh
+
+
+- name: Sync zsh functions
+  synchronize:
+    src: "roles/system/files/usr/local/share/zsh"
+    dest: "/usr/local/share"
+    recursive: yes
+    mode: push
+    delete: yes
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--update"
+      - "--omit-dir-times"
+  tags: ['zsh']
+
+- name: Ensure /usr/local/share/zsh has correct owner/group
+  file:
+    path: "/usr/local/share/zsh"
+    state: directory
+    owner: root
+    group: root
+    recurse: True
+  tags: ['zsh']

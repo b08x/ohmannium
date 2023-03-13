@@ -1,0 +1,6 @@
+# blacklist for usb autosuspend
+#
+# daskeyboard
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="04d9", ATTR{idProduct}=="2013", ATTR{power/autosuspend}="-1"
+# Logitech G402 Mouse
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="c07e", ATTR{power/autosuspend}="-1"

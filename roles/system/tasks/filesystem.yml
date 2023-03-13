@@ -1,0 +1,62 @@
+---
+
+- name: Collect only selected facts
+  ansible.builtin.setup:
+    filter:
+      - 'ansible_mounts'
+
+- name: Check if the btrfs filesystem is being used
+  set_fact:
+    btrfs_exists: true
+  loop: "{{ ansible_mounts }}"
+  when: "'btrfs' in item.fstype"
+  tags: ['btrfs']
+
+- name: Install btrfsmaintenance
+  aur:
+    use: auto
+    name: btrfsmaintenance
+    state: present
+  when: btrfs_exists|default(false)|bool == true
+  tags: ['btrfs']
+
+- block:
+    - name: Enable zstd compression in mkinitcpio
+      template:
+        src: "etc/mkinitcpio.conf.j2"
+        dest: "/etc/mkinitcpio.conf"
+        owner: root
+        group: root
+        mode: '644'
+        backup: yes
+      register: mkinit
+      tags: ['initram']
+
+    - name: Rebuild ramdisk environment if a change was made.
+      shell: |
+        mkinitcpio -P
+      when: mkinit.changed
+      tags: ['initram']
+
+    - name: Enable and/or start btrfs-scrub@-.timer
+      systemd: enabled=yes state=started daemon_reload=yes name=btrfs-scrub.timer
+      when: btrfs_exists|default(false)|bool == true
+      tags: ['btrfs']
+
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+    - name: Check if fstrim will be necessary
+      shell: cat /sys/block/sda/queue/discard_max_bytes
+      register: fstrim_supported
+      check_mode: no
+      ignore_errors: True
+
+    - name: Ensure fstrim.timer is enabled
+      systemd:
+        name: fstrim.timer
+        enabled: yes
+      when: fstrim_supported.stdout != 0
+
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags: ['trim']

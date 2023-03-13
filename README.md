@@ -1,506 +1,281 @@
-# Syncopated
+# Ohmannium
 
-An exercise in configuration management.
+{ a loosley adapted mantra for }
 
-## requirements
+An exercise in Configuration Management and Task Automation for an Audio Production workflow that comprises of FOSS applications on Linux based devices.
 
-At current [ArchLabs](https://archlabslinux.com/) is used as the base OS
+### Setup
 
-## install
+[ArchLabs](https://archlabslinux.com/) is used as the base operating system.
+
+[yadm](https://yadm.io/) is used to bootstrap
 
 ```bash
 $ bash <(curl -s http://soundbot.hopto.org/bootstrap.sh)
 ```
 
-[insert screencast]
+### Setting Variables
+
+In this use case variables can be set in the following areas,
+in order of least to greatest precedence:
+
+1. [system role defaults](roles/system/defaults/main.yml)
+2. [nginx role defaults](roles/nginx/defaults/main.yml)
+3. [network role defaults](roles/network/defaults/main.yml)
+4. [audio role defaults](roles/audio/defaults/main.yml)
+5. [applications role defaults](roles/applications/defaults/main.yml)
+6. [inventory.yml](inventory.yml)
+7. group_vars
+8. host_vars
+9. [vars/distro](vars/distro)
+10. [vars/packages](vars/packages)
+10. [network role variables](roles/network/vars/main.yml)
 
 
-## Variables
-
-Depending on the use-case, variables can be set in several different files.
-
-Variables can be set in [inventory.yml](playbooks/inventory.yml)
-
-Set variables that can applied all hosts under
-`all:
-  vars:
-`
-
-```yaml
-all:
-  vars:
-    ansible_user: b08x
-    tray_output: "primary"
-    workspaces:
-      - "$ws1 output primary"
-      - "$ws2 output primary"
-      - "$ws3 output primary"
-      - "$ws4 output primary"
-      - "$ws5 output primary"
-      - "$ws6 output primary"
-      - "$ws7 output primary"
-      - "$ws8 output primary"
-      - "$ws9 output primary"
-      - "$ws10 output primary"
-  hosts:
-    ninjabot:
-      ...
-```
-
-Variables set in the inventory file can also be set per host.
-
-Variables set for a host will override those set for all.
-
-```yaml
-  hosts:
-    ninjabot:
-      ansible_connection: local
-      tray_output: "HDMI1"
-      workspaces:
-        - "$ws1 output HDMI1"
-        - "$ws2 output HDMI1"
-        - "$ws3 output HDMI1"
-        - "$ws4 output HDMI2"
-        - "$ws5 output HDMI2"
-        - "$ws6 output HDMI2"
-        - "$ws7 output HDMI2"
-        - "$ws8 output HDMI2"
-        - "$ws9 output HDMI2"
-        - "$ws10 output HDMI2"
-```
-
-Variables can also be set within files located in the [vars/](playbooks/vars/) directory then included either in a playbook or task file. Variables set within a playbook or task will override variables set in inventory.
+group_vars and host_vars are managed with yadm and are symlinked to $ANSIBLE_HOME
 
 
 
-# Usage
+# Running Tasks with Tags
 
-## all tasks
-<details>
-  <summary>`ansible-playbook -C -i inventory.yml syncopated.yml --list-tasks`</summary>
-
-
-```yaml
-playbook: syncopated.yml
-
-  play #1 (all): all
-    tasks:
-      include distro vars
-      include user vars
-      set ansible_home
-      print keyserver hostname
-      check if keys are present
-      copy keys from remote host
-      enable ssh daemon
-      set admin_group variable
-      add user to groups defined in playbook
-      disable requiretty for user so automation can run without interruption
-      ensure /etc/sudoers.d exists
-      set NOPASSWD for user in sudoers
-      set NOPASSWD for user in polkit
-      remove existing sudoers if there is one
-      check -march support
-      check output from grep command
-      set architecture
-      set architecture
-      debug
-
-  play #2 (all): setup repositories and install packages
-    tasks:
-      add syncopated repo key
-      add archaudio repo key
-      adjust pacman, paru and makepkg configs
-      update cache
-      check if paru installed
-      install paru
-      check if mirrors have been updated within the past 24h
-      print output
-      update mirrors
-      update and upgrade
-      remove pipewire
-      include package vars
-      prepare pacage list
-      print package list
-      install packages
-      print results
-
-  play #3 (all): all
-    tasks:
-      symlink os-release
-      install systemd configs
-      set system log level config
-      set user log level config
-      reload systemd
-      set root shell
-      sync zsh functions
-      ensure /usr/local/share/zsh has correct owner/group
-      create group for user
-      set user primary group
-      ensure user ownership of home directory
-      install yadm
-      copy clonedots script into user home
-      copy ld config file
-      run ldconfig
-      starting network tasks
-      disable systemd-networkd service
-      ensure networkmanager connection check is enabled
-      enable and start networkmanager
-      set ntp servers in timesyncd.conf
-      set autofs config folder
-      create mount directory folder if it doesn't already exist
-      install autofs configs
-      starting audio role tasks
-      add modprobe for alsa card order
-      ensure user belongs to audio group
-      ensure /etc/security/limits.d directory exists
-      install jack limits file
-      install timer permissions file
-      set vm.swappiness to 10 to ensure swap isn't overly used
-      set vm.dirty_background_bytes to 100000000
-      set fs.inotify.max_user_watches
-      set dev.hpet.max-user-freq=3072
-      enable tuned service
-      create tuned profile folder
-      install realtime-modified profile
-      install rtirq defaults
-      install rtkit.conf
-      install rtkit systemd file
-      install cpucpower defaults
-      enable cpupower service
-      disable irqbalance service
-      create environment file for jack_control.service
-      install jack_control service file
-      ensure pulse config directory exists
-      update pulseaudio configs
-      ensure /etc/pulse/default.pa.d exists
-      install pulseaudio bluetooth config
-      adjust pulseaudio.service file
-      enable and start firewalld
-      permit traffic to common services
-      permit traffic to jacktrip, barrier and qmidinet
-      check if the btrfs filesystem is being used
-      install btrfsmaintenance
-      Enable zstd compression in mkinitcpio
-      Rebuild ramdisk environment if a change was made.
-      enable and/or start btrfs-scrub@-.timer
-      check if fstrim will be necessary
-      debug
-      ensure fstrim.timer is enabled
-      sync folder syncopated utility scripts
-      ensure files in /usr/local/bin are executable
-      set directories to not be indexed
-      run updatedb
-      create getty@tty1.service.d directory
-      create systemd drop-in file for virtual console autologin
-      install lightdm
-      ensure group autologin exists
-      add user to autologin group
-      install xsession file to /etc/lightdm/xsession
-      update lightdm.conf
-      update pam
-      set dmrc to i3
-      install modified starfield theme
-      set kernel cmdline params in grub
-      remake grub if changes were made
-      remake grub if changes were made
-      reboot host if grub was modified
-      wait for host to reboot
-      reboot host
-      wait for host to reboot
-
-  play #4 (all): configure user specific stuff
-    tasks:
-      include vars
-      include user vars
-      ensure usr local directories exist
-      install input-remapper
-      enable input-remapper service
-      set XDG env vars
-      set misc profile vars
-      install Thunar actions
-      set Thunar as default for opening directories
-      ensure these directories exist
-      syncronize templates - shell
-      syncronize templates - x11
-      syncronize templates - wm
-      syncronize templates - keybindings
-      syncronize templates - terminal
-      syncronize templates - gtk
-      syncronize templates - qt
-      syncronize templates - applications
-      ensure .xinitrc is executable
-      reload i3
-      ensure xorg.conf.d exists
-      install input config
-      install intel config
-      uninstall mesa in favor of mesa-amber
-      install i965 libs (mesa-amber)
-      install icons
-      extract soundbot theme icons into /usr/local/share/icons
-      update the icon cache
-      extract fonts to /usr/local/share/fonts
-      update font-cache
-      install backgrounds
-      extract soundbot theme into /usr/local/share/themes
-      include_tasks
-      ensure these directories exist
-      install jgmenu menus
-      syncronize templates - rofi
-      cleanup old backup files
-```
-</details>
-
-<br>
-
-### audio tasks
+Use `--limit $hostanme(s)` to apply changes only to certain hosts
 
 <details>
-  <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags audio --list-tasks`
-  </summary>
+  <summary>ansible-playbook -C -i inventory.yml base.yml --list-tags</summary>
 
 ```yaml
-playbook: syncopated.yml
+playbook: base.yml
 
-  play #1 (all): all
-    tasks:
-
-  play #2 (all): setup repositories and install packages
-    tasks:
-
-  play #3 (all): all
-    tasks:
-      starting audio role tasks
-      add modprobe for alsa card order
-      ensure user belongs to audio group
-      ensure /etc/security/limits.d directory exists
-      install jack limits file
-      install timer permissions file
-      set vm.swappiness to 10 to ensure swap isn't overly used
-      set vm.dirty_background_bytes to 100000000
-      set fs.inotify.max_user_watches
-      set dev.hpet.max-user-freq=3072
-      enable tuned service
-      create tuned profile folder
-      install realtime-modified profile
-      install rtirq defaults
-      install rtkit.conf
-      install rtkit systemd file
-      install cpucpower defaults
-      enable cpupower service
-      disable irqbalance service
-      create environment file for jack_control.service
-      install jack_control service file
-      ensure pulse config directory exists
-      update pulseaudio configs
-      ensure /etc/pulse/default.pa.d exists
-      install pulseaudio bluetooth config
-      adjust pulseaudio.service file
-
-  play #4 (all): configure user specific stuff
-    tasks:
+  play #1 (devel): devel	TAGS: []
+  TASK TAGS:
+    [ alacritty, alias, audio, autofs, autologin, backgrounds,
+    base, btrfs, cleanup, cpupower, desktop, dunst, env, filesystem,
+    firewall, fonts, grub, gtk, home, htop, i3, i965, icons, initram,
+    intel, jack, jgmenu, keybindings, keys, kitty, lightdm, menu,
+    mirrors, modprobe, netork, networkmanager, nfs, ntp, packages,
+    pam, picom, profile, pulseaudio, qt, qutebrowser, repo, rofi,
+    rsyncd, rtirq, rtkit, ruby, shell, sonicpi, ssh, sudoers, sxhkd,
+    sysctl, system, terminal, theme, thunar, tilda, trim, tuned, tuning,
+    ui, updatedb, user, utils, x11, xdg, yadm, zim, zsh]
 ```
+
 </details>
 
-<br>
 
-### base tasks
-<details>
-  <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags base --list-tasks`
-  </summary>
 
-```yaml
-playbook: syncopated.yml
-
-  play #1 (all): all
-    tasks:
-      include distro vars
-      include user vars
-      set ansible_home
-      print keyserver hostname
-      check if keys are present
-      copy keys from remote host
-      enable ssh daemon
-      set admin_group variable
-      add user to groups defined in playbook
-      disable requiretty for user so automation can run without interruption
-      ensure /etc/sudoers.d exists
-      set NOPASSWD for user in sudoers
-      set NOPASSWD for user in polkit
-      remove existing sudoers if there is one
-      check -march support
-      check output from grep command
-      set architecture
-      set architecture
-      debug
-
-  play #2 (all): setup repositories and install packages
-    tasks:
-
-  play #3 (all): all
-    tasks:
-
-  play #4 (all): configure user specific stuff
-    tasks:
+```bash
+# to update environment variables
+ansible-playbook base.yml --tags env
 ```
-</details>
 
-<br>
-
-### ui tasks
-<details>
-  <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags ui --list-tasks`
-  </summary>
-
-```yaml
-playbook: syncopated.yml
-
-  play #1 (all): all
-    tasks:
-      include distro vars
-      include user vars
-      set ansible_home
-      print keyserver hostname
-      check if keys are present
-      copy keys from remote host
-      enable ssh daemon
-      set admin_group variable
-      add user to groups defined in playbook
-      disable requiretty for user so automation can run without interruption
-      ensure /etc/sudoers.d exists
-      set NOPASSWD for user in sudoers
-      set NOPASSWD for user in polkit
-      remove existing sudoers if there is one
-      check -march support
-      check output from grep command
-      set architecture
-      set architecture
-      debug
-
-  play #2 (all): setup repositories and install packages
-    tasks:
-
-  play #3 (all): all
-    tasks:
-
-  play #4 (all): configure user specific stuff
-    tasks:
-      install input-remapper
-      enable input-remapper service
-      set XDG env vars
-      set misc profile vars
-      install Thunar actions
-      set Thunar as default for opening directories
-      ensure these directories exist
-      syncronize templates - shell
-      syncronize templates - x11
-      syncronize templates - wm
-      syncronize templates - keybindings
-      syncronize templates - terminal
-      syncronize templates - gtk
-      syncronize templates - qt
-      syncronize templates - applications
-      ensure .xinitrc is executable
-      reload i3
-      ensure xorg.conf.d exists
-      install input config
-      install intel config
-      uninstall mesa in favor of mesa-amber
-      install i965 libs (mesa-amber)
-      install icons
-      extract soundbot theme icons into /usr/local/share/icons
-      update the icon cache
-      extract fonts to /usr/local/share/fonts
-      update font-cache
-      install backgrounds
-      extract soundbot theme into /usr/local/share/themes
-      include_tasks
-      ensure these directories exist
-      install jgmenu menus
-      syncronize templates - rofi
+```bash
+# to update changes to utility scripts
+ansible-playbook base.yml --tags utils
 ```
-</details>
 
-<br>
-
-### i3 tasks
-<details>
-  <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags i3 --list-tasks`
-  </summary>
-
-```yaml
-playbook: syncopated.yml
-
-  play #1 (all): all
-    tasks:
-
-  play #2 (all): setup repositories and install packages
-    tasks:
-
-  play #3 (all): all
-    tasks:
-
-  play #4 (all): configure user specific stuff
-    tasks:
-      include user vars
-      syncronize templates - wm
-      syncronize templates - keybindings
-      reload i3
+```bash
+# to update changes to shell configs or functions
+ansible-playbook base.yml --tags shell
 ```
-</details>
 
-<br>
-
-### home tasks
-
-<details>
-  <summary>
-    `ansible-playbook -C -i inventory.yml syncopated.yml --tags home --list-tasks`
-  </summary>
-
-```yaml
-playbook: syncopated.yml
-
-  play #1 (all): all
-    tasks:
-
-  play #2 (all): setup repositories and install packages
-    tasks:
-
-  play #3 (all): all
-    tasks:
-
-  play #4 (all): configure user specific stuff
-    tasks:
-      ensure these directories exist
-      syncronize templates - shell
-      syncronize templates - x11
-      syncronize templates - wm
-      syncronize templates - keybindings
-      syncronize templates - terminal
-      syncronize templates - gtk
-      syncronize templates - qt
-      syncronize templates - applications
-      ensure .xinitrc is executable
-      reload i3
-
+```bash
+# to update changes to i3 configurations
+ansible-playbook base.yml --tags i3
 ```
-</details>
-
-<br>
-
-
-#### other tasks
 
 ```bash
 # to update mirrors
-ansible-playbook -i inventory.yml syncopated.yml --limit soundbot,ninjabot --tags packages,repo,mirrors -e "update_mirrors=true"
+ansible-playbook base.yml --tags mirrors -e "update_mirrors=true"
 ```
 
-```bash
-# to setup an autofs client
-ansible-playbook -i inventory.yml syncopated.yml --limit soundbot --tags autofs
+List tasks that would be run against a given tag. For example:
+
+<details>
+  <summary>ansible-playbook -C base.yml --tags audio --list-tasks</summary>
+
+```yaml
+  playbook: base.yml
+
+    play #1 (devel): devel	TAGS: []
+      tasks:
+        audio : Starting audio role tasks	TAGS: [audio]
+        audio : Add modprobe for alsa card order	TAGS: [audio, modprobe]
+        audio : Ensure user belongs to audio group	TAGS: [audio, tuning]
+        audio : Ensure /etc/security/limits.d directory exists	TAGS: [audio, tuning]
+        audio : Install jack limits file	TAGS: [audio, tuning]
+        audio : Install timer permissions file	TAGS: [audio, tuning]
+        audio : Set vm.swappiness to 10 to Ensure swap isn't overly used	TAGS: [audio, sysctl, tuning]
+        audio : Set vm.dirty_background_bytes to 100000000	TAGS: [audio, sysctl, tuning]
+        audio : Set fs.inotify.max_user_watches	TAGS: [audio, sysctl, tuning]
+        audio : Set dev.hpet.max-user-freq=3072	TAGS: [audio, sysctl, tuning]
+        audio : Enable tuned service	TAGS: [audio, tuned, tuning]
+        audio : Create tuned profile folder	TAGS: [audio, tuned, tuning]
+        audio : Install realtime-modified profile	TAGS: [audio, tuned, tuning]
+        audio : Install rtirq defaults	TAGS: [audio, rtirq, rtkit, tuning]
+        audio : Install rtkit.conf	TAGS: [audio, rtirq, rtkit, tuning]
+        audio : Install rtkit systemd file	TAGS: [audio, rtirq, rtkit, tuning]
+        audio : Install cpucpower defaults	TAGS: [audio, cpupower, tuning]
+        audio : Enable cpupower service	TAGS: [audio, cpupower, tuning]
+        audio : Disable irqbalance service	TAGS: [audio, tuning]
+        audio : Create environment file for jack_control.service	TAGS: [audio, jack]
+        audio : Install jack_control service file	TAGS: [audio, jack]
+        audio : Ensure pulse config directory exists	TAGS: [audio, pulseaudio]
+        audio : Update pulseaudio configs	TAGS: [audio, pulseaudio]
+        audio : Ensure /etc/pulse/default.pa.d exists	TAGS: [audio, pulseaudio]
+        audio : Install pulseaudio bluetooth config	TAGS: [audio, pulseaudio]
+        audio : Adjust pulseaudio.service file	TAGS: [audio, pulseaudio]
 ```
+
+</details>
+
+### Task List
+
+A listing of all tasks performed when a full run is executed.
+
+<details>
+  <summary>ansible-playbook -C -i inventory.yml base.yml --list-tasks</summary>
+
+
+```yaml
+playbook: base.yml
+
+  play #1 (all): all	TAGS: []
+    tasks:
+      Include distro vars	TAGS: [base]
+      Symlink os-release	TAGS: [base]
+      Set ansible_home	TAGS: [base]
+      Set admin_group variable	TAGS: [base]
+      Print keyserver hostname	TAGS: [ssh]
+      Check if keys are present	TAGS: [ssh]
+      Copy keys from remote host	TAGS: [keys, ssh]
+      Enable ssh daemon	TAGS: [ssh]
+      Check -march support	TAGS: [base, packages, repo]
+      Check output from grep command	TAGS: [base, packages, repo]
+      Set architecture	TAGS: [base, packages, repo]
+      Set architecture	TAGS: [base, packages, repo]
+      Ensure usr local directories exist	TAGS: [theme]
+      Set background location variable	TAGS: [theme, x11]
+      Create group for user	TAGS: [base, user]
+      Set user primary group	TAGS: [base, user]
+      Ensure user ownership of home directory	TAGS: [base, user]
+      Install yadm	TAGS: [base, user, yadm]
+      Add user to groups defined in playbook	TAGS: [base, sudoers]
+      Disable requiretty for user so automation can run without interruption	TAGS: [base, sudoers]
+      Ensure /etc/sudoers.d exists	TAGS: [base, sudoers]
+      Set NOPASSWD for user in sudoers	TAGS: [base, sudoers]
+      Set NOPASSWD for user in polkit	TAGS: [base, sudoers]
+      Set --no-user-install in gemrc	TAGS: [base, ruby]
+      Gather list of installed gems	TAGS: [base, ruby]
+      Set list of gems to install	TAGS: [base, ruby]
+      Install ruby gems	TAGS: [base, ruby]
+      Set root shell	TAGS: [zsh]
+      Sync zsh functions	TAGS: [zsh]
+      Ensure /usr/local/share/zsh has correct owner/group	TAGS: [zsh]
+      include_tasks	TAGS: [base]
+      network : Starting network tasks	TAGS: [netork]
+      network : Disable systemd-networkd service	TAGS: [netork, networkmanager]
+      network : Ensure networkmanager connection check is enabled	TAGS: [netork, networkmanager]
+      network : Enable and start networkmanager	TAGS: [netork, networkmanager]
+      network : Set autofs config folder	TAGS: [autofs, netork]
+      network : Create mount directory folder if it doesn't already exist	TAGS: [autofs, netork]
+      network : Install autofs configs	TAGS: [autofs, netork]
+      audio : Starting audio role tasks	TAGS: [audio]
+      audio : Add modprobe for alsa card order	TAGS: [audio, modprobe]
+      audio : Ensure user belongs to audio group	TAGS: [audio, tuning]
+      audio : Ensure /etc/security/limits.d directory exists	TAGS: [audio, tuning]
+      audio : Install jack limits file	TAGS: [audio, tuning]
+      audio : Install timer permissions file	TAGS: [audio, tuning]
+      audio : Set vm.swappiness to 10 to Ensure swap isn't overly used	TAGS: [audio, sysctl, tuning]
+      audio : Set vm.dirty_background_bytes to 100000000	TAGS: [audio, sysctl, tuning]
+      audio : Set fs.inotify.max_user_watches	TAGS: [audio, sysctl, tuning]
+      audio : Set dev.hpet.max-user-freq=3072	TAGS: [audio, sysctl, tuning]
+      audio : Enable tuned service	TAGS: [audio, tuned, tuning]
+      audio : Create tuned profile folder	TAGS: [audio, tuned, tuning]
+      audio : Install realtime-modified profile	TAGS: [audio, tuned, tuning]
+      audio : Install rtirq defaults	TAGS: [audio, rtirq, rtkit, tuning]
+      audio : Install rtkit.conf	TAGS: [audio, rtirq, rtkit, tuning]
+      audio : Install rtkit systemd file	TAGS: [audio, rtirq, rtkit, tuning]
+      audio : Install cpucpower defaults	TAGS: [audio, cpupower, tuning]
+      audio : Enable cpupower service	TAGS: [audio, cpupower, tuning]
+      audio : Disable irqbalance service	TAGS: [audio, tuning]
+      audio : Create environment file for jack_control.service	TAGS: [audio, jack]
+      audio : Install jack_control service file	TAGS: [audio, jack]
+      audio : Ensure pulse config directory exists	TAGS: [audio, pulseaudio]
+      audio : Update pulseaudio configs	TAGS: [audio, pulseaudio]
+      audio : Ensure /etc/pulse/default.pa.d exists	TAGS: [audio, pulseaudio]
+      audio : Install pulseaudio bluetooth config	TAGS: [audio, pulseaudio]
+      audio : Adjust pulseaudio.service file	TAGS: [audio, pulseaudio]
+      system : Enable and start firewalld	TAGS: [firewall, system]
+      system : Permit traffic to common services	TAGS: [firewall, nfs, ntp, rsyncd, ssh, system]
+      system : Permit traffic to jacktrip, barrier and qmidinet	TAGS: [firewall, system]
+      system : Collect only selected facts	TAGS: [filesystem, system]
+      system : Check if the btrfs filesystem is being used	TAGS: [btrfs, filesystem, system]
+      system : Install btrfsmaintenance	TAGS: [btrfs, filesystem, system]
+      system : Enable zstd compression in mkinitcpio	TAGS: [filesystem, initram, system]
+      system : Rebuild ramdisk environment if a change was made.	TAGS: [filesystem, initram, system]
+      system : Enable and/or start btrfs-scrub@-.timer	TAGS: [btrfs, filesystem, system]
+      system : Check if fstrim will be necessary	TAGS: [filesystem, system, trim]
+      system : Ensure fstrim.timer is enabled	TAGS: [filesystem, system, trim]
+      system : Sync folder syncopated utility scripts	TAGS: [system, utils]
+      system : Ensure files in /usr/local/bin are executable	TAGS: [system, utils]
+      system : Set directories to not be indexed	TAGS: [system, updatedb]
+      system : Run updatedb	TAGS: [system, updatedb]
+      system : Create getty@tty1.service.d directory	TAGS: [autologin, system]
+      system : Create systemd drop-in file for virtual console autologin	TAGS: [autologin, system]
+      system : Install lightdm	TAGS: [autologin, lightdm, system]
+      system : Ensure group autologin exists	TAGS: [autologin, lightdm, system]
+      system : Add user to autologin group	TAGS: [autologin, lightdm, system]
+      system : Install xsession file to /etc/lightdm/xsession	TAGS: [autologin, lightdm, system]
+      system : Update lightdm.conf	TAGS: [autologin, lightdm, system]
+      system : Update pam	TAGS: [autologin, lightdm, pam, system]
+      system : Set dmrc to i3	TAGS: [autologin, system]
+      system : Install modified starfield theme	TAGS: [grub, system]
+      system : Set kernel cmdline params in grub	TAGS: [grub, system]
+      system : Remake grub if changes were made	TAGS: [grub, system]
+      system : Remake grub if changes were made	TAGS: [grub, system]
+      system : Reboot host if grub was modified	TAGS: [grub, system]
+      system : Wait for host to reboot	TAGS: [grub, system]
+      system : Collect only selected facts	TAGS: [system, ui]
+      system : Enable input-remapper service	TAGS: [system, ui]
+      system : Set XDG env vars	TAGS: [env, system, ui, xdg]
+      system : Set misc profile vars	TAGS: [env, system, ui]
+      system : Install Thunar actions	TAGS: [system, thunar, ui]
+      system : Set Thunar as default for opening directories	TAGS: [system, thunar, ui]
+      system : Ensure these directories exist	TAGS: [home, system]
+      system : Synchronize templates - shell	TAGS: [alias, home, profile, shell, system, zsh]
+      system : Synchronize templates - x11	TAGS: [home, profile, system, x11]
+      system : Synchronize templates - wm	TAGS: [dunst, home, i3, keybindings, picom, system]
+      system : Synchronize templates - terminal	TAGS: [alacritty, home, kitty, system, terminal, tilda]
+      system : Synchronize templates - gtk	TAGS: [gtk, home, system, theme]
+      system : Synchronize templates - qt	TAGS: [home, qt, system, theme]
+      system : Synchronize templates - applications	TAGS: [home, htop, qutebrowser, sonicpi, system, theme, zim]
+      system : Ensure .xinitrc is executable	TAGS: [home, profile, system, x11]
+      system : Reload i3	TAGS: [dunst, home, i3, keybindings, picom, sxhkd, system]
+      system : Collect only selected facts	TAGS: [system, x11]
+      system : Ensure xorg.conf.d exists	TAGS: [system, x11]
+      system : Install input config	TAGS: [system, x11]
+      system : Install intel config	TAGS: [i965, intel, system, x11]
+      system : Uninstall mesa in favor of mesa-amber	TAGS: [i965, intel, system, x11]
+      system : Install i965 libs (mesa-amber)	TAGS: [i965, intel, system, x11]
+      system : Install icons	TAGS: [icons, system, theme]
+      system : Extract soundbot theme icons into /usr/local/share/icons	TAGS: [icons, system, theme]
+      system : Update the icon cache	TAGS: [icons, system, theme]
+      system : Extract fonts to /usr/local/share/fonts	TAGS: [fonts, system, theme]
+      system : Install fonts.conf	TAGS: [fonts, system, theme]
+      system : Update font-cache	TAGS: [fonts, system, theme]
+      system : Install backgrounds	TAGS: [backgrounds, system, theme]
+      system : Extract soundbot theme into /usr/local/share/themes	TAGS: [system, theme]
+      system : Create /etc/xdg/menus and /usr/share/desktop-entries	TAGS: [system, xdg]
+      system : Install application menu	TAGS: [menu, system, xdg]
+      system : Install menus	TAGS: [menu, system, xdg]
+      system : Install directory entries	TAGS: [menu, system, xdg]
+      system : Install Ambisonics desktop entries	TAGS: [desktop, system, xdg]
+      system : Update desktop database	TAGS: [system, xdg]
+      system : Ensure these directories exist	TAGS: [jgmenu, menu, rofi, system]
+      system : Synchronize templates - rofi	TAGS: [menu, rofi, system]
+      Cleanup old backup files	TAGS: [cleanup]
+      Reboot host	TAGS: []
+      Wait for host to reboot	TAGS: []
+
+```
+</details>

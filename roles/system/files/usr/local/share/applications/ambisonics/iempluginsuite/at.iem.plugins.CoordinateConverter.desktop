@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=CoordinateConverter
+GenericName=VST Coordinate Converter
+Comment=Converts VST parameters from a spherical representation to a cartesian, and vice versa.
+Exec=CoordinateConverter
+Icon=IEMPluginSuite
+Terminal=false
+StartupNotify=false
+Categories=IEMPluginSuite,Ambisonics;

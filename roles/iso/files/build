@@ -27,6 +27,7 @@ b43-firmware
 dialog
 dunst
 gsimplecal
+i3
 lm_sensors
 networkmanager
 nitrogen
@@ -50,6 +51,7 @@ while getopts ":huLtl:" OPT; do
 			echo "    -h           Print this message and exit"
 			echo "    -t           Enable testing repos"
 			echo "    -L           Use the LTS kernel instead of vanilla"
+			echo "    -R           Use the Real Time kernel instead of vanilla"
 			echo "    -u           Remotely update the installer"
 			echo "    -l <PATH>    Locally update the installer"
 			echo
@@ -80,6 +82,18 @@ while getopts ":huLtl:" OPT; do
 			sed -i 's/-linux/-linux-lts/g' grub/grub.cfg
 			sed -i 's/"archlabs"/"archlabs-lts"/g' profiledef.sh
 			lts=true
+			;;
+		R)
+			echo "Enabling Real Time"
+			sleep 0.5
+			sed -i 's/^broadcom-wl$/broadcom-wl-dkms/g' packages.x86_64
+			sed -i '/^linux$/ a linux-rt-headers' packages.x86_64
+			sed -i 's/^linux$/linux-rt/g' packages.x86_64
+			sed -i 's/-linux/-linux-rt/g' efiboot/loader/entries/*
+			sed -i 's/-linux/-linux-rt/g' syslinux/*.cfg
+			sed -i 's/-linux/-linux-rt/g' grub/grub.cfg
+			sed -i 's/"archlabs"/"archlabs-rt"/g' profiledef.sh
+			realtime=true
 			;;
 		t)
 			testing=true
@@ -135,6 +149,15 @@ if [[ $lts == 'true' ]]; then
 	sed -i 's/archlabs-lts/archlabs/g' profiledef.sh
 fi
 
+if [[ $realtime == 'true' ]]; then
+	sed -i 's/^broadcom-wl-dkms$/broadcom-wl/g' packages.x86_64
+	sed -i '/linux-rt-headers/d' packages.x86_64
+	sed -i 's/^linux-rt$/linux/g' packages.x86_64
+	sed -i 's/-linux-rt/-linux/g' efiboot/loader/entries/*
+	sed -i 's/-linux-rt/-linux/g' syslinux/*.cfg
+	sed -i 's/-linux-rt/-linux/g' grub/grub.cfg
+	sed -i 's/archlabs-lts/archlabs/g' profiledef.sh
+fi
+
 end=$(date +%s)
 echo "build took $(( (end - begin) / 60 ))m $(( (end - begin) % 60 ))s"
-
