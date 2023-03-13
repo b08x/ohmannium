@@ -1,0 +1,17 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+<Menu>
+  <Name>Applications</Name>
+  <Menu>
+    <Name>Audio</Name>
+    <Menu>
+      <Name>dragonfly</Name>
+      <Directory>dragonfly.directory</Directory>
+      <Include>
+         <Filename>io.github.michaelwillis.DragonflyEarlyReflections.desktop</Filename>
+         <Filename>io.github.michaelwillis.DragonflyHallReverb.desktop</Filename>
+         <Filename>io.github.michaelwillis.DragonflyPlateReverb.desktop</Filename>
+         <Filename>io.github.michaelwillis.DragonflyRoomReverb.desktop</Filename>
+      </Include>
+    </Menu>
+  </Menu>
+</Menu>

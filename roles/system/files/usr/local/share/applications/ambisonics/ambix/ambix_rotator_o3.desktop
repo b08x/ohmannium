@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ambix_rotator_o3
+GenericName=Ambisonics Sounds Rotator o3
+Comment= o3
+Exec=ambix_rotator_o3
+Icon=ambix
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics
+

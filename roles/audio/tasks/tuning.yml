@@ -1,0 +1,141 @@
+---
+
+- name: Ensure user belongs to audio group
+  user:
+    name: "{{ user.name }}"
+    groups: "audio"
+    append: yes
+
+- name: Ensure /etc/security/limits.d directory exists
+  file:
+    path: /etc/security/limits.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Install jack limits file
+  copy:
+    src: etc/security/limits.d/41-realtime.conf
+    dest: /etc/security/limits.d/41-realtime.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: Install timer permissions file
+  copy:
+    src: etc/udev/rules.d/40-timer-permissions.rules
+    dest: /etc/udev/rules.d/40-timer-permissions.rules
+    owner: root
+    group: root
+    mode: '0644'
+
+- block:
+    - name: Set vm.swappiness to 10 to Ensure swap isn't overly used
+      sysctl: name=vm.swappiness value=10 state=present reload=yes
+
+    - name: Set vm.dirty_background_bytes to 100000000
+      sysctl: name=vm.dirty_background_bytes value=100000000 state=present reload=yes
+
+    - name: Set fs.inotify.max_user_watches
+      sysctl: name=fs.inotify.max_user_watches value=524288 state=present reload=yes
+
+    - name: Set dev.hpet.max-user-freq=3072
+      sysctl: name=dev.hpet.max-user-freq value=3072 state=present reload=yes
+
+  ignore_errors: yes
+  tags: ['sysctl']
+
+- block:
+    - name: Enable tuned service
+      systemd:
+        name: tuned
+        enabled: no
+      ignore_errors: "{{ ansible_check_mode }}"
+
+    # - name: Set tuned profile to laptop-battery-powersave
+    #   shell: |
+    #     tuned-adm profile laptop-battery-powersave
+    #   register: tuned_profile
+    #   changed_when: tuned_profile.rc != 0
+
+    - name: Create tuned profile folder
+      file:
+        path: /etc/tuned/realtime-modified
+        state: directory
+        owner: root
+        group: root
+        recurse: True
+
+    - name: Install realtime-modified profile
+      copy:
+        src: etc/tuned/realtime-modified/tuned.conf
+        dest: /etc/tuned/realtime-modified/tuned.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+  tags: ['tuned']
+
+
+- block:
+    - name: Install rtirq defaults
+      copy:
+        src: etc/sysconfig/rtirq
+        dest: /etc/rtirq.conf
+        directory_mode: no
+        owner: root
+        group: root
+        mode: '0644'
+      register: rtirq_config
+
+    # rtkit package should be Installed before this happens
+    # otherwise, if it sees this systemd file, it'll report
+    # being already Installed and error out
+
+    - name: Install rtkit.conf
+      copy:
+        src: etc/rtkit.conf
+        dest: /etc/rtkit.conf
+        directory_mode: no
+        owner: root
+        group: root
+        mode: '0644'
+      register: rtkit_conf
+
+    - name: Install rtkit systemd file
+      template:
+        src: usr/lib/systemd/system/rtkit-daemon.service.j2
+        dest: /usr/lib/systemd/system/rtkit-daemon.service
+        mode: '0644'
+      register: rtkit_systemd
+
+  tags: ['rtirq', 'rtkit']
+  notify:
+    - "enable rtirq service"
+    - "enable rtkit service"
+
+- name: Install cpucpower defaults
+  template:
+    src: etc/default/cpupower.j2
+    dest: /etc/default/cpupower
+    mode: '0644'
+    backup: yes
+  tags: ['cpupower']
+
+- name: Enable cpupower service
+  service:
+    name: cpupower
+    enabled: True
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: ansible_system_vendor != "QEMU"
+  tags: ['cpupower']
+
+# Do not use the irqbalance daemon, or do so carefully [4].
+# https://wiki.archlinux.org/title/Professional_audio#Tips_and_tricks
+- name: Disable irqbalance service
+  service:
+    name: irqbalance
+    enabled: False
+  ignore_errors: True

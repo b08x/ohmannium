@@ -1,0 +1,41 @@
+---
+
+- name: Install systemd configs
+  copy:
+    src: "files/etc/systemd/{{ item }}"
+    dest: "/etc/systemd/{{ item }}"
+    mode: '0644'
+    backup: yes
+  with_items:
+    - journald.conf
+    - logind.conf
+  register: systemd_config
+
+- name: Set system log level config
+  template:
+    src: etc/systemd/system.conf.j2
+    dest: /etc/systemd/system.conf
+    mode: '0644'
+    backup: yes
+  register: systemd_logging_system
+
+- name: Set user log level config
+  template:
+    src: etc/systemd/user.conf.j2
+    dest: /etc/systemd/user.conf
+    mode: '0644'
+    backup: yes
+  register: systemd_logging_user
+
+- block:
+    # - name: reload user systemd
+    #   systemd:
+    #     daemon_reload: yes
+    #     scope: user
+    #   become_user: "{{ user.name }}"
+
+    - name: Reload systemd
+      systemd:
+        daemon_reload: yes
+
+  when: (systemd_config.changed or systemd_logging_system.changed or systemd_logging_user.changed)

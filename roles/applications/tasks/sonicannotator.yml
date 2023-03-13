@@ -1,0 +1,31 @@
+---
+
+- name: check if sonic-annotator is already installed
+  stat:
+    path: /usr/local/bin/sonic-annotator
+  register: sonicannotator
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+    - name: fetch sonic-annotator
+      get_url:
+        url: "{{ url }}/{{ file }}"
+        dest: "/tmp"
+        validate_certs: no
+
+    - name: extract sonic-annotator
+      shell: |
+        tar -xvf {{ file }}
+
+        cd sonic-annotator-1.6-linux64-static/
+
+        chmod +x sonic-annotator
+
+        mv sonic-annotator /usr/local/bin/sonic-annotator
+      args:
+        chdir: "/tmp"
+
+  when: not sonicannotator.stat.exists
+  vars:
+    url: "https://code.soundsoftware.ac.uk/attachments/download/2708"
+    file: "sonic-annotator-1.6-linux64-static.tar.gz"

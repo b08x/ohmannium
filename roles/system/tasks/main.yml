@@ -1,0 +1,37 @@
+---
+
+- import_tasks: tasks/firewall.yml
+  tags: ['firewall']
+
+- import_tasks: tasks/filesystem.yml
+  tags: ['filesystem']
+
+- import_tasks: tasks/utils.yml
+  tags: ['utils']
+
+- import_tasks: tasks/updatedb.yml
+  tags: ['updatedb']
+
+- import_tasks: tasks/autologin.yml
+  tags: ['autologin']
+
+- import_tasks: tasks/grub.yml
+  tags: ['grub']
+
+- import_tasks: tasks/ui/main.yml
+  tags: ['ui']
+
+- import_tasks: tasks/ui/home.yml
+  tags: ['home']
+
+- import_tasks: tasks/ui/x11.yml
+  tags: ['x11']
+
+- import_tasks: tasks/ui/theme.yml
+  tags: ['theme']
+
+- import_tasks: tasks/ui/xdg.yml
+  tags: ['xdg']
+
+- import_tasks: tasks/ui/menu.yml
+  tags: ['menu']

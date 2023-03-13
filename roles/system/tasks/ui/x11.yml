@@ -1,0 +1,51 @@
+---
+
+- name: Collect only selected facts
+  ansible.builtin.setup:
+    filter:
+      - 'ansible_processor'
+      - 'ansible_system_vendor'
+
+- name: Ensure xorg.conf.d exists
+  file:
+    path: "/etc/X11/xorg.conf.d/"
+    state: directory
+    mode: '0755'
+
+- name: Install input config
+  template:
+    src: etc/X11/xorg.conf.d/00-input.conf.j2
+    dest: /etc/X11/xorg.conf.d/00-input.conf
+    mode: '0644'
+  when: x11.inputs is defined
+
+- block:
+    - block:
+        - name: Install intel config
+          template:
+            src: etc/X11/xorg.conf.d/20-intel.conf.j2
+            dest: /etc/X11/xorg.conf.d/20-intel.conf
+            mode: '0644'
+
+        - name: Uninstall mesa in favor of mesa-amber
+          pacman:
+            name: mesa
+            state: absent
+            force: yes
+            extra_args: --noconfirm
+
+
+        - name: Install i965 libs (mesa-amber)
+          aur:
+            use: auto
+            name: "{{ item }}"
+            state: present
+          become_user: "{{ user.name }}"
+          with_items:
+            - mesa-amber
+            - libvdpau-va-gl-i965
+
+      when: ansible_system_vendor != "QEMU"
+
+  when: ansible_processor[1] == "GenuineIntel"
+  tags: ['intel', 'i965']

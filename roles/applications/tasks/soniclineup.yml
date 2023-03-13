@@ -1,0 +1,26 @@
+---
+
+- name: check if sonic-lineup is already installed
+  stat:
+    path: /usr/local/bin/sonic-lineup
+  register: result
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+    - name: fetch soniclineup
+      get_url:
+        url: "{{ url }}/{{ file }}"
+        dest: "/tmp"
+        validate_certs: no
+
+    - name: link soniclineup to bin
+      shell: |
+        chmod +x {{ file }}
+        mv -v {{ file }} /usr/local/bin/sonic-lineup
+      args:
+        chdir: "/tmp"
+
+  when: not result.stat.exists
+  vars:
+    url: "https://code.soundsoftware.ac.uk/attachments/download/2766"
+    file: "SonicLineup-1.1-x86_64.AppImage"

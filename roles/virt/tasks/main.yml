@@ -1,0 +1,9 @@
+---
+
+- include_tasks: docker.yml
+  when: install.docker is defined
+  tags: ['docker']
+
+- include_tasks: libvirt.yml
+  when: install.libvirt is defined
+  tags: ['libvirt']

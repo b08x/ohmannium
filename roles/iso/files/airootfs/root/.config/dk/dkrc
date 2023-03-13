@@ -1,0 +1,11 @@
+#!/bin/sh
+
+pkill sxhkd
+pkill lemonbar
+sxhkd -c "$HOME/.config/dk/sxhkdrc" &
+bar 2>/dev/null &
+
+
+dkcmd set numws=10
+dkcmd set ws=_ apply gap=10
+dkcmd set border width=5 outer_width=3

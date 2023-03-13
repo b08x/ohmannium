@@ -1,0 +1,72 @@
+---
+
+baudline:
+  url: "https://www.baudline.com"
+  file: "baudline_1.08_linux_x86_64.tar.gz"
+
+deadbeef:
+  git: "https://github.com/DeaDBeeF-Player/deadbeef.git"
+
+jack_link:
+  git: "https://github.com/rncbc/jack_link.git"
+
+jacktrip:
+  git: "https://github.com/jacktrip/jacktrip.git"
+
+jalvselect:
+  git: "https://github.com/brummer10/jalv_select.git"
+
+njconnect:
+  git: "https://github.com/radiganm/njconnect.git"
+
+ocenaudio:
+  url:
+    debian: "https://www.ocenaudio.com/start_download/ocenaudio_debian9_64.deb"
+    fedora: "https://www.ocenaudio.com/downloads/index.php/ocenaudio_centos8.rpm?"
+
+patchage:
+  git: "https://gitlab.com/drobilla/patchage.git"
+
+polyphone:
+  git: "https://github.com/davy7125/polyphone.git"
+
+protokol:
+  url: "https://hexler.net/pub/protokol/"
+  file: "protokol-0.4.8.93-linux-x86_64.zip"
+
+qmidinet:
+  git: "https://github.com/rncbc/qmidinet.git"
+
+raysession:
+  git: "https://github.com/Houston4444/RaySession.git"
+
+reaper:
+  url: "http://reaper.fm/files/6.x/"
+  file: reaper675_linux_x86_64.tar.xz
+  version: v6.75
+
+scala:
+  url: "http://www.huygens-fokker.org/software/"
+  file: "scala-22-pc64-linux.tar.bz2"
+
+sonicpi:
+  git: "https://github.com/sonic-pi-net/sonic-pi.git"
+  branch: "stable"
+  path: /opt/sonic-pi
+
+swami:
+  git: "https://github.com/swami/swami.git"
+
+libinstpatch:
+  git: "https://github.com/swami/libinstpatch.git"
+
+timemachine:
+  git: "https://github.com/swh/timemachine.git"
+
+tony:
+  url: "https://code.soundsoftware.ac.uk/attachments/download/2617"
+  file: "Tony-2.1.1-x86_64.AppImage"
+
+touchosc:
+  url: "https://hexler.net/pub/touchosc/"
+  file: "touchosc-1.1.7.153-linux-x86_64.zip"

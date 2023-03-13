@@ -1,0 +1,48 @@
+---
+
+- name: setup nas
+  hosts: nas
+  become: True
+  gather_subset:
+    - hardware
+    - network
+
+  vars_files:
+    - "vars/distro/{{ ansible_distribution }}.yml"
+
+  vars:
+    nfs:
+      ports:
+        lockd:
+          tcp: 32803
+          udp: 32769
+        mountd: 892
+        statd: 662
+        rpc: 40418
+
+  pre_tasks:
+
+  tasks:
+
+    - import_tasks: nfs.yml
+      when: nfs_host is defined
+      tags: ['nfs']
+
+    - import_tasks: rsyncd.yml
+      when: rsyncd_host is defined
+      tags: ['rsyncd']
+
+    - import_tasks: musikcube.yml
+      when: musikcube_host is defined
+      tags: ['musikcube']
+
+    - import_role:
+        name: nginx
+      when: web_host is defined
+
+  post_tasks:
+
+    - name: Reload firewalld
+      shell: "firewall-cmd --reload"
+      when: fw_nfs.changed
+      ignore_errors: True

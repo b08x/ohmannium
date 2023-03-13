@@ -1,0 +1,70 @@
+# If you experience issues with default SNA (e.g. pixelated graphics, corrupt text, etc.), try using UXA instead, which can be done by adding the following line to your configuration file:
+Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+  Option "AccelMethod"  "uxa"
+  Option "TearFree" "true"
+  Option "Monitor-eDP1" "eDP1"
+  Option "Monitor-DP2-1" "DP2-1"
+  Option "Monitor-DP2-2" "DP2-2"
+  Option "Monitor-HDMI1" "HDMI1"
+EndSection
+
+Section "Monitor"
+  Identifier "eDP1"
+  Option "Primary" "true"
+  Option "PreferredMode" "2560x1440"
+EndSection
+
+Section "Monitor"
+  Identifier "DP2-2"
+  Option "Above" "eDP1"
+  Option "Primary" "false"
+  Option "PreferredMode" "2560x1440"
+EndSection
+
+Section "Monitor"
+  Identifier "HDMI1"
+  Option "Above" "DP2-2"
+  Option "Primary" "false"
+  Option "PreferredMode" "1920x1080"
+EndSection
+
+Section "Monitor"
+  Identifier "DP2-1"
+  Option "RightOf" "DP2-2"
+  Option "Primary" "false"
+  Option "PreferredMode" "2560x1440"
+EndSection
+
+
+Section "Screen"
+  Identifier "screen0"
+  Device "intel"
+EndSection
+
+Section "ServerLayout"
+    Identifier "layout1"
+    Screen "screen0"
+EndSection
+
+#Section "Screen"
+#  Identifier "HDMI1"
+#  SubSection "Display"
+#  Modes "1920x1080"
+#  EndSubSection
+#EndSection
+
+#Section "Screen"
+#  Identifier "HDMI2"
+#  SubSection "Display"
+#  Modes "1920x1200"
+#  EndSubSection
+#EndSection
+
+#Section "Screen"
+#  Identifier "Screen0"
+#  SubSection "Display"
+#	Virtual 4050 1920
+#  EndSubSection
+#EndSection

@@ -1,0 +1,22 @@
+---
+
+- name: Starting audio role tasks
+  debug:
+    msg: "Starting audio tasks"
+
+- name: Add modprobe for alsa card order
+  lineinfile:
+    path: /etc/modprobe.d/10-alsa_usb.conf
+    line: "options snd slots=snd-hda-intel,snd-usb-audio"
+    create: yes
+    backup: yes
+  tags: ['modprobe']
+
+- import_tasks: tuning.yml
+  tags: ['tuning']
+
+- import_tasks: jack.yml
+  tags: ['jack']
+
+- import_tasks: pulseaudio.yml
+  tags: ['pulseaudio']

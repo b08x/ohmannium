@@ -1,0 +1,25 @@
+#############################################################################
+#----------------------------- Auto Start ----------------------------------#
+#############################################################################
+
+set $kitty "kitty --class 'soundcheck' \
+                  -1 \
+                  --session $HOME/.config/kitty/start.conf; sleep 0.5"
+
+set $localbin /usr/local/bin
+
+$exec_always "pkill picom; sleep 1; DISPLAY=':0' picom -b; sleep 1"
+
+$exec "nm-applet"
+
+$exec "pactl -- set-sink-volume 0 55%"
+
+$exec "input-remapper-control --command autoload;sleep 1"
+
+$exec_always "$localbin/reload-sxhkd.sh"
+
+{% if i3.autostart != 'default' %}
+{% for a in i3.autostart %}
+$exec {{ a }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,51 @@
+---
+
+- name: Collect only selected facts
+  ansible.builtin.setup:
+    filter:
+      - 'ansible_processor'
+
+- name: Enable input-remapper service
+  systemd:
+    name: input-remapper
+    daemon_reload: yes
+    enabled: True
+    state: started
+
+- name: Set XDG env vars
+  copy:
+    content: |
+      # -*- mode: shell-script -*-
+      # ref: https://wiki.archlinux.org/title/XDG_Base_Directory
+      ## XDG_RUNTIME_DIR defined by pam
+      XDG_CONFIG_DIRS="/etc/xdg"
+      XDG_DATA_DIRS="/usr/local/share/:/usr/share"
+      XDG_CONFIG_HOME="$HOME/.config"
+      XDG_CACHE_HOME="$HOME/.cache"
+      XDG_DATA_HOME="$HOME/.local/share"
+      XDG_STATE_HOME="$HOME/.local/state"
+    dest: /usr/lib/environment.d/50-xdg-environment.conf
+  tags: ['env', 'xdg']
+
+- name: Set misc profile vars
+  template:
+    src: usr/lib/environment.d/51-misc-environment.conf.j2
+    dest: /usr/lib/environment.d/51-misc-environment.conf
+    mode: '0644'
+    backup: yes
+  tags: ['env']
+
+- name: Install Thunar actions
+  copy:
+    src: "files/etc/xdg/Thunar/{{ item }}"
+    dest: "/etc/xdg/Thunar/{{ item }}"
+    mode: '0644'
+  with_items:
+    - accels.scm
+    - uca.xml
+  tags: ['thunar']
+
+- name: Set Thunar as default for opening directories
+  shell: xdg-mime default thunar.desktop inode/directory
+  become_user: "{{ user.name }}"
+  tags: ['thunar']

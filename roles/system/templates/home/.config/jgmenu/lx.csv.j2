@@ -1,0 +1,571 @@
+@search,,3,3,150,20,2,left,top,auto,#000000 0,Type to Search
+^sep()
+Terminal,terminator,utilities-terminal
+File manager,thunar,system-file-manager
+^sep()
+
+Accessories,^checkout(Accessories0),gnome-util
+,^checkout(Ambisonics1),
+,^checkout(Audio2),
+Education,^checkout(Education3),package_edutainment
+Graphics,^checkout(Graphics4),gnome-graphics
+Internet,^checkout(Internet5),gnome-globe
+Office,^checkout(Office6),gnome-applications
+Programming,^checkout(Development7),gnome-devel
+Science &amp; Math,^checkout(Science8),kcmdf
+Sound &amp; Video,^checkout(Multimedia9),gnome-multimedia
+System Tools,^checkout(System15),gnome-system
+x42-plugins,^checkout(x42-plugins16),x42-fil4
+^sep()
+Lock,i3lock-fancy -p,system-lock-screen
+Exit,^checkout(exit),system-shutdown
+^tag(exit)
+Suspend,systemctl -i suspend,system-log-out
+Reboot,systemctl -i reboot,system-reboot
+Poweroff,systemctl -i poweroff,system-shutdown
+
+Accessories,^tag(Accessories0)
+Back,^back(),go-previous
+About Xfce,xfce4-about,org.xfce.about,,#Utility#X-XFCE#X-Xfce-Toplevel
+Barrier,barrier,barrier,,#Utility#RemoteAccess
+Bulk Rename,thunar --bulk-rename,org.xfce.thunar,,#Utility#Core#GTK#Filesystem
+KeePassXC (Password Manager),keepassxc,keepassxc,,#Utility#Security#Qt
+Kvantum Manager,kvantummanager,kvantum,,#Qt#Utility#Settings#DesktopSettings#LXQt#X-XFCE-SettingsDialog#X-XFCE-PersonalSettings#X-GNOME-PersonalSettings
+Neovim (Text Editor),^term(nvim),nvim,,#Utility#TextEditor
+Passwords and Keys,seahorse,org.gnome.seahorse.Application,,#GNOME#GTK#Security#Utility#DesktopSettings#X-XFCE-SettingsDialog
+picom (X compositor),picom,picom,,#Utility
+Redshift (Color temperature adjustment),redshift-gtk,redshift,,#Utility
+Software Token,stoken-gui,stoken-gui,,#Security#GTK#Utility
+Software Token (small) (Software Token),stoken-gui --small,stoken-gui,,#Security#GTK#Utility
+Xarchiver (Archive manager),xarchiver,xarchiver,,#GTK#Archiving#Compression#Utility
+Zim Desktop Wiki (Text Editor),zim,zim,,#Utility#TextEditor#GTK
+,^tag(Ambisonics1)
+Back,^back(),go-previous
+AllRADecoder (Ambisonic Decoder Designer),AllRADecoder,iempluginsuite,,#Application#Audio#Ambisonics
+ambix_binaural_o1 (Binaural Decoder o1),ambix_binaural_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_binaural_o3 (Binaural Decoder o3),ambix_binaural_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_converter_o1 (Ambisonics Formats Converter o1),ambix_converter_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_converter_o3 (Ambisonics Formats Converter o3),ambix_converter_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_decoder_o1 (Single-band Decoded Ambisonics o1),ambix_decoder_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_decoder_o3 (Single-band Decoded Ambisonics o3),ambix_decoder_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_directional_loudness_o1 (Spherical Soundfield Amplifier o1),ambix_directional_loudness_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_directional_loudness_o3 (Spherical Soundfield Amplifier o3),ambix_directional_loudness_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_encoder_o1 (Ambisonics Panning o1),ambix_encoder_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_encoder_o3 (Ambisonics Panning o3),ambix_encoder_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_mirror_o1 (Soundfield Mirroring o1),ambix_mirror_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_mirror_o3 (Soundfield Mirroring o3),ambix_mirror_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_rotator_o1 (Ambisonics Sounds Rotator o1),ambix_rotator_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_rotator_o3 (Ambisonics Sounds Rotator o3),ambix_rotator_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_vmic_o1 (Ambisonics Virtual Microphone o1),ambix_vmic_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_vmic_o3 (Ambisonics Virtual Microphone o3),ambix_vmic_o3,mcfx,,#Application#Audio#Ambisonics
+BinauralDecoder (Binaural Decoder),BinauralDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+CoordinateConverter (VST Coordinate Converter),CoordinateConverter,iempluginsuite,,#Application#Audio#Ambisonics
+DirectionalCompressor (Compressor Limiter),DirectionalCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+DirectivityShaper (Directivity Shaper),DirectivityShaper,iempluginsuite,,#Application#Audio#Ambisonics
+DistanceCompensator (Distance Compensation),DistanceCompensator,iempluginsuite,,#Application#Audio#Ambisonics
+DualDelay (Delay),DualDelay,iempluginsuite,,#Application#Audio#Ambisonics
+EnergyVisualizer (Audio Visualizer),EnergyVisualizer,iempluginsuite,,#Application#Audio#Ambisonics
+FdnReverb (Reverb),FdnReverb,iempluginsuite,,#Application#Audio#Ambisonics
+MatrixMultiplier (Matrix Transformation),MatrixMultiplier,iempluginsuite,,#Application#Audio#Ambisonics
+mcfx_convolver_o1,mcfx_convolver_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_convolver_o3,mcfx_convolver_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_convolver_o5,mcfx_convolver_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o1,mcfx_delay_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o3,mcfx_delay_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o5,mcfx_delay_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o1,mcfx_filter_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o3,mcfx_filter_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o5,mcfx_filter_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o1,mcfx_gain_delay_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o3,mcfx_gain_delay_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o5,mcfx_gain_delay_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o1,mcfx_meter_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o3,mcfx_meter_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o5,mcfx_meter_o5,mcfx,,#Application#Audio#Ambisonics
+MultiBandCompressor (Multiband Compressor),MultiBandCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+MultiEncoder (Ambisonics Encoder),MultiEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+MultiEQ (Multichannel Equalizer),MultiEQ,iempluginsuite,,#Application#Audio#Ambisonics
+OmniCompressor (Ambisonic Limiter Compressor),OmniCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+PluginTemplate,PluginTemplate,iempluginsuite,,#Application#Audio#Ambisonics
+ProbeDecoder (Ambisonic Decoder),ProbeDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+RoomEncoder (Room Encoder),RoomEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+SceneRotator (Ambisonic Scene Rotator),SceneRotator,iempluginsuite,,#Application#Audio#Ambisonics
+SimpleDecoder (Ambisonic Decoder),SimpleDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+StereoEncoder (Ambisonic Encoder),StereoEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+ToolBox (Ambisonic Transformation),ToolBox,iempluginsuite,,#Application#Audio#Ambisonics
+,^tag(Audio2)
+Back,^back(),go-previous
+AllRADecoder (Ambisonic Decoder Designer),AllRADecoder,iempluginsuite,,#Application#Audio#Ambisonics
+ambix_binaural_o1 (Binaural Decoder o1),ambix_binaural_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_binaural_o3 (Binaural Decoder o3),ambix_binaural_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_converter_o1 (Ambisonics Formats Converter o1),ambix_converter_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_converter_o3 (Ambisonics Formats Converter o3),ambix_converter_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_decoder_o1 (Single-band Decoded Ambisonics o1),ambix_decoder_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_decoder_o3 (Single-band Decoded Ambisonics o3),ambix_decoder_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_directional_loudness_o1 (Spherical Soundfield Amplifier o1),ambix_directional_loudness_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_directional_loudness_o3 (Spherical Soundfield Amplifier o3),ambix_directional_loudness_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_encoder_o1 (Ambisonics Panning o1),ambix_encoder_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_encoder_o3 (Ambisonics Panning o3),ambix_encoder_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_mirror_o1 (Soundfield Mirroring o1),ambix_mirror_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_mirror_o3 (Soundfield Mirroring o3),ambix_mirror_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_rotator_o1 (Ambisonics Sounds Rotator o1),ambix_rotator_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_rotator_o3 (Ambisonics Sounds Rotator o3),ambix_rotator_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_vmic_o1 (Ambisonics Virtual Microphone o1),ambix_vmic_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_vmic_o3 (Ambisonics Virtual Microphone o3),ambix_vmic_o3,mcfx,,#Application#Audio#Ambisonics
+ams (Synthesizer),ams,ams_32.xpm,,#AudioVideo#Audio
+Ardour,ardour7,ardour7,,#AudioVideo#Audio#AudioEditing#X-Recorders#X-Multitrack#X-Jack
+Audacity (Sound Editor),env UBUNTU_MENUPROXY=0 audacity,audacity,,#AudioVideo#Audio#AudioVideoEditing
+baudline,baudline,baudline,,#AudioVideo
+baudline_jack,baudline_jack -jack -palette /usr/share/baudline/palettes/rainbow,baudline_jack,,#AudioVideo
+BinauralDecoder (Binaural Decoder),BinauralDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+Calf Plugin Pack for JACK,calfjackhost,calf,,#Application#AudioVideo#Audio#GNOME
+Carla (Carla Plugin Host),carla,carla,,#AudioVideo#X-AudioEditing#Qt
+Carla Control (Carla OSC Control),carla-control,carla-control,,#AudioVideo#X-AudioEditing#Qt
+CLAP Host,clap-example-host,org.cleveraudio.clap-host,,#AudioVideo
+CoordinateConverter (VST Coordinate Converter),CoordinateConverter,iempluginsuite,,#Application#Audio#Ambisonics
+DirectionalCompressor (Compressor Limiter),DirectionalCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+DirectivityShaper (Directivity Shaper),DirectivityShaper,iempluginsuite,,#Application#Audio#Ambisonics
+DistanceCompensator (Distance Compensation),DistanceCompensator,iempluginsuite,,#Application#Audio#Ambisonics
+DragonflyEarlyReflections,DragonflyEarlyReflections,dragonfly,,#Application#Audio#Reverb
+DragonflyHallReverb,DragonflyHallReverb,dragonfly,,#Application#Audio#Reverb
+DragonflyPlateReverb,DragonflyPlateReverb,dragonfly,,#Application#Audio#Reverb
+DragonflyRoomReverb,DragonflyRoomReverb,dragonfly,,#Application#Audio#Reverb
+Drumstick ALSA MIDI Player,drumstick-guiplayer,drumstick,,#AudioVideo#Audio#Midi#Education#Music
+Drumstick Drum Grid,drumstick-drumgrid,drumstick,,#AudioVideo#Audio#Midi#Education#Music
+Drumstick Virtual Piano,drumstick-vpiano,drumstick,,#AudioVideo#Audio#Midi#Education#Music
+DualDelay (Delay),DualDelay,iempluginsuite,,#Application#Audio#Ambisonics
+Echomixer (Control Echo Digital Audio sound cards),echomixer,echomixer,,#AudioVideo
+EnergyVisualizer (Audio Visualizer),EnergyVisualizer,iempluginsuite,,#Application#Audio#Ambisonics
+Envy24 Control (Envy24 Control Utility),envy24control,envy24control,,#AudioVideo
+FdnReverb (Reverb),FdnReverb,iempluginsuite,,#Application#Audio#Ambisonics
+FMIT (Musical Instrument Tuner),fmit,fmit,,#Tuner#Audio#AudioVideo#Qt
+gigedit (Instrument Editor),gigedit,gigedit,,#AudioVideo#Audio
+HDAJackRetask (Retask the audio jacks for the HDA sound driver),hdajackretask,,,#AudioVideo
+HDSPConf,hdspconf,hdspconf,,#AudioVideo
+HDSPMixer,hdspmixer,hdspmixer,,#AudioVideo
+Helm (Synth),helm-synth,helm-synth,,#Audio#AudioVideo
+Hwmixvolume (Control the volume of individual streams on sound cards that use hardware mixing),hwmixvolume,hwmixvolume,,#AudioVideo
+Hydrogen (Drum Machine),hydrogen,org.hydrogenmusic.Hydrogen,,#AudioVideo#Audio#Qt
+JACK Keyboard,jack-keyboard,jack-keyboard,,#AudioVideo#Audio#Midi
+Jack Mixer,jack_mixer,jack_mixer,,#GTK#GNOME#AudioVideo#Player#Audio
+JACK Rack,jack-rack,jack-rack-icon.png,,#GNOME#Application#AudioVideo
+Jalv,/usr/bin/jalv.gtk3,,,#AudioVideo#Audio
+jalv.select,jalv.select,lv2,,#AudioVideo#Audio
+JAPA,japa,japa,,#AudioVideo#Audio
+MatrixMultiplier (Matrix Transformation),MatrixMultiplier,iempluginsuite,,#Application#Audio#Ambisonics
+mcfx_convolver_o1,mcfx_convolver_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_convolver_o3,mcfx_convolver_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_convolver_o5,mcfx_convolver_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o1,mcfx_delay_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o3,mcfx_delay_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o5,mcfx_delay_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o1,mcfx_filter_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o3,mcfx_filter_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o5,mcfx_filter_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o1,mcfx_gain_delay_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o3,mcfx_gain_delay_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o5,mcfx_gain_delay_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o1,mcfx_meter_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o3,mcfx_meter_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o5,mcfx_meter_o5,mcfx,,#Application#Audio#Ambisonics
+Mixxx (Digital DJ interface),sh -c "pasuspender -- mixxx -platform xcb || mixxx -platform xcb",mixxx,,#Qt#AudioVideo#Audio#Midi#Mixer#Player#Recorder#Sequencer
+mpv Media Player (Multimedia player),mpv --player-operation-mode=pseudo-gui --,mpv,,#AudioVideo#Audio#Video#Player#TV
+MultiBandCompressor (Multiband Compressor),MultiBandCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+MultiEncoder (Ambisonics Encoder),MultiEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+MultiEQ (Multichannel Equalizer),MultiEQ,iempluginsuite,,#Application#Audio#Ambisonics
+Non Sequencer,/usr/bin/non-sequencer,non-sequencer,,#AudioVideo#Audio#Midi
+OBS Studio (Streaming/Recording Software),obs,com.obsproject.Studio,,#AudioVideo#Recorder
+ocenaudio (Audio Editor),/usr/bin/ocenaudio,ocenaudio,,#AudioVideo#Audio#AudioVideoEditing
+OmniCompressor (Ambisonic Limiter Compressor),OmniCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+Patchage,/usr/bin/patchage,patchage,,#AudioVideo#Audio
+PluginTemplate,PluginTemplate,iempluginsuite,,#Application#Audio#Ambisonics
+Polyphone,polyphone,polyphone,,#AudioVideo#Audio#Midi#Music
+ProbeDecoder (Ambisonic Decoder),ProbeDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+PulseAudio Volume Control (Volume Control),pavucontrol,multimedia-volume-control,,#AudioVideo#Audio#Mixer#GTK#Settings#X-XFCE-SettingsDialog#X-XFCE-HardwareSettings
+QMidiArp (Arpeggiator-Sequencer-LFO),qmidiarp,qmidiarp,,#AudioVideo#X-Sound#Midi#Audio#AudioVideoEditing#X-Jack#X-Midi
+QmidiNet (MIDI Network),qmidinet,org.rncbc.qmidinet,,#Audio#AudioVideo#Midi#X-Alsa#X-Jack#Qt
+Qsampler (LinuxSampler GUI),qsampler,org.rncbc.qsampler,,#Audio#AudioVideo#Midi#X-Alsa#X-Jack#Qt
+Qt V4L2 test Utility,qv4l2,qv4l2,,#AudioVideo
+Qt V4L2 video capture utility,qvidcap,qvidcap,,#AudioVideo
+RaySession,raysession,raysession,,#AudioVideo#Audio#Qt
+REAPER,"/opt/REAPER/reaper",cockos-reaper,,#Audio#Video#AudioVideo#AudioVideoEditing#Recorder
+RoomEncoder (Room Encoder),RoomEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+SceneRotator (Ambisonic Scene Rotator),SceneRotator,iempluginsuite,,#Application#Audio#Ambisonics
+SimpleDecoder (Ambisonic Decoder),SimpleDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+SimpleScreenRecorder,simplescreenrecorder --logfile,simplescreenrecorder,,#AudioVideo#Video#Recorder#Qt
+sonic-pi,sonic-pi,sonic-pi,,#AudioVideo#Audio
+Sonic Visualiser,sonic-visualiser,sonic-visualiser,,#Audio#AudioVideo
+Sononym,sononym,sononym,,#AudioVideo#Audio
+SooperLooper (Live Looping Sampler),slgui,net.essej.sooperlooper,,#AudioVideo#Audio#
+SpectMorph Jack Client (SpectMorph Instrument),smjack,smjack.png,,#Audio#AudioVideo#Music#Midi
+StereoEncoder (Ambisonic Encoder),StereoEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+SuperCollider IDE,scide,sc_ide,,#AudioVideo#Audio#Development#IDE
+ToolBox (Ambisonic Transformation),ToolBox,iempluginsuite,,#Application#Audio#Ambisonics
+VMPK (Virtual Piano),vmpk,vmpk,,#AudioVideo#Audio#Midi#Education#Music
+Volume Icon,volumeicon,multimedia-volume-control,,#GTK#AudioVideo#Audio#Mixer
+wolf-shaper (Wave Shaper),wolf-shaper,com.github.pdesaulniers.wolf-shaper,,#AudioVideo#Audio
+x42-darc (Dynamic Audio Range Compressor),x42-darc,x42-darc,,#AudioVideo#Audio
+x42-dpl (Peak Limiter),x42-dpl,x42-dpl,,#AudioVideo#Audio
+x42-fat1 (Auto Tune),x42-fat1,x42-fat1,,#AudioVideo#Audio
+x42-fil4 (Parametric Equalizer),x42-fil4,x42-fil4,,#AudioVideo#Audio
+x42-matrixmixer8x8 (Matrix Mixer),x42-matrixmixer8x8,x42-matrixmixer8x8,,#AudioVideo#Audio
+x42-meter 1/3 Octave Spectrum Analyzer (Audio Meter),x42-meter 15,x42-meter,,#AudioVideo#Audio
+x42-meter BBC M-6 (Audio Meter),x42-meter 5,x42-meter,,#AudioVideo#Audio
+x42-meter BBC Meter (Stereo) (Audio Meter),x42-meter 4,x42-meter,,#AudioVideo#Audio
+x42-meter Bit Meter (Audio Meter),x42-meter 18,x42-meter,,#AudioVideo#Audio
+x42-meter DIN Meter (Stereo) (Audio Meter),x42-meter 6,x42-meter,,#AudioVideo#Audio
+x42-meter DR-14 - Crest Factor Loudness Range Meter (Audio Meter),x42-meter 11,x42-meter,,#AudioVideo#Audio
+x42-meter EBU Meter (Stereo) (Audio Meter),x42-meter 7,x42-meter,,#AudioVideo#Audio
+x42-meter EBU R128 Meter (Audio Meter),x42-meter 0,x42-meter,,#AudioVideo#Audio
+x42-meter Goniometer (Audio Meter),x42-meter 13,x42-meter,,#AudioVideo#Audio
+x42-meter K12/RMS Meter (Stereo) (Audio Meter),x42-meter 3,x42-meter,,#AudioVideo#Audio
+x42-meter K14/RMS Meter (Stereo) (Audio Meter),x42-meter 2,x42-meter,,#AudioVideo#Audio
+x42-meter K20/RMS Meter (Stereo) (Audio Meter),x42-meter 1,x42-meter,,#AudioVideo#Audio
+x42-meter Nordic Meter (Stereo) (Audio Meter),x42-meter 8,x42-meter,,#AudioVideo#Audio
+x42-meter Phase/Frequency Wheel (Audio Meter),x42-meter 14,x42-meter,,#AudioVideo#Audio
+x42-meter Signal Distribution Histogram (Audio Meter),x42-meter 17,x42-meter,,#AudioVideo#Audio
+x42-meter Stereo/Frequency Scope (Audio Meter),x42-meter 16,x42-meter,,#AudioVideo#Audio
+x42-meter Stereo Phase-Correlation Meter (Audio Meter),x42-meter 12,x42-meter,,#AudioVideo#Audio
+x42-meter Surround Level 8 (Audio Meter),x42-meter 19,x42-meter,,#AudioVideo#Audio
+x42-meter True-Peak and RMS Meter (Stereo) (Audio Meter),x42-meter 10,x42-meter,,#AudioVideo#Audio
+x42-meter VU Meter (Stereo) (Audio Meter),x42-meter 9,x42-meter,,#AudioVideo#Audio
+x42-mixtri (Mixer'n'Trigger),x42-mixtri,x42-mixtri,,#AudioVideo#Audio
+x42-phaserotate (Phase Rotation),x42-phaserotate,x42-phaserotate,,#AudioVideo#Audio
+x42-scope (Oscilloscope),x42-scope,x42-scope,,#AudioVideo#Audio
+x42-spectr (Spectrum Analyzer),x42-spectr,x42-spectr,,#AudioVideo#Audio
+x42-stepseq (Step Sequencer),x42-stepseq,x42-stepseq,,#AudioVideo#Audio
+x42-tuna Instrument Tuner (Music Instrument Tuner),x42-tuna 0,x42-tuna,,#AudioVideo#Audio
+x42-tuna Instrument Tuner (Spectrum) (Music Instrument Tuner),x42-tuna 1,x42-tuna,,#AudioVideo#Audio
+zita-dpl1,zita-dpl1,zita-dpl1,,#AudioVideo#Audio
+zita-mu1,zita-mu1,zita-mu1,,#AudioVideo#Audio
+zita-rev1,zita-rev1,zita-rev1,,#AudioVideo#Audio
+Education,^tag(Education3)
+Back,^back(),go-previous
+Drumstick ALSA MIDI Player,drumstick-guiplayer,drumstick,,#AudioVideo#Audio#Midi#Education#Music
+Drumstick Drum Grid,drumstick-drumgrid,drumstick,,#AudioVideo#Audio#Midi#Education#Music
+Drumstick Virtual Piano,drumstick-vpiano,drumstick,,#AudioVideo#Audio#Midi#Education#Music
+R (environment for statistical computing),^term(R),/usr/share/pixmaps/r.png,,#Math#Science#Education
+VMPK (Virtual Piano),vmpk,vmpk,,#AudioVideo#Audio#Midi#Education#Music
+Graphics,^tag(Graphics4)
+Back,^back(),go-previous
+Darktable (Virtual Lighttable and Darkroom),/usr/bin/darktable,darktable,,#Graphics#Photography#GTK
+Gpick (Color picker),gpick,gpick,,#Graphics#GTK
+XDot,xdot,,,#GTK#DataVisualization#Science#Graphics
+XDvi (DVI Viewer),xdvi,,,#Graphics#Viewer
+xzgv Picture Viewer,xzgv,xzgv,,#Graphics#2DGraphics#RasterGraphics#GTK
+Internet,^tag(Internet5)
+Back,^back(),go-previous
+Avahi SSH Server Browser,/usr/bin/bssh,network-wired,,#GNOME#Network
+Avahi VNC Server Browser,/usr/bin/bvnc,network-wired,,#GNOME#Network
+Google Chrome (Web Browser),/usr/bin/google-chrome-stable,google-chrome,,#Network#WebBrowser
+HexChat (IRC Client),hexchat --existing,io.github.Hexchat,,#GTK#Network#IRCClient
+lftp,^term(lftp),lftp-icon,,#Network
+qutebrowser (Web Browser),qutebrowser --untrusted-args,qutebrowser,,#Network#WebBrowser
+Office,^tag(Office6)
+Back,^back(),go-previous
+qpdfview (tabbed document viewer),qpdfview --unique,qpdfview,,#Viewer#Office
+Programming,^tag(Development7)
+Back,^back(),go-previous
+CMake,cmake-gui,CMakeSetup,,#Development#Building
+Pulsar,/opt/Pulsar/pulsar,pulsar,,#Development
+Qt6 Assistant,/usr/lib/qt6/bin/assistant,assistant,,#Qt#Development#Documentation
+Qt6 Designer (Interface Designer),/usr/lib/qt6/bin/designer,QtProject-designer,,#Qt#Development
+Qt6 Linguist,/usr/lib/qt6/bin/linguist,linguist,,#Qt#Development
+Qt Assistant,assistant,assistant,,#Qt#Development#Documentation
+Qt Designer (Interface Designer),designer,QtProject-designer,,#Qt#Development
+Qt Linguist,linguist,linguist,,#Qt#Development
+Qt QDBusViewer  (D-Bus Debugger),qdbusviewer,qdbusviewer,,#Qt#Development#Debugger
+Qt QDBusViewer  (D-Bus Debugger),/usr/lib/qt6/bin/qdbusviewer,qdbusviewer,,#Qt#Development#Debugger
+SuperCollider IDE,scide,sc_ide,,#AudioVideo#Audio#Development#IDE
+Science &amp; Math,^tag(Science8)
+Back,^back(),go-previous
+XDot,xdot,,,#GTK#DataVisualization#Science#Graphics
+Sound &amp; Video,^tag(Multimedia9)
+Back,^back(),go-previous
+ambix,^checkout(ambix10),ambix
+iempluginsuite,^checkout(IEMPluginSuite11),iempluginsuite
+LSP Plugins,^checkout(lsp-plugins12),lsp-plugins
+mcfx,^checkout(mcfx13),mcfx
+x42-plugins,^checkout(x42-plugins14),x42-fil4
+mpv Media Player (Multimedia player),mpv --player-operation-mode=pseudo-gui --,mpv,,#AudioVideo#Audio#Video#Player#TV
+REAPER,"/opt/REAPER/reaper",cockos-reaper,,#Audio#Video#AudioVideo#AudioVideoEditing#Recorder
+SimpleScreenRecorder,simplescreenrecorder --logfile,simplescreenrecorder,,#AudioVideo#Video#Recorder#Qt
+ambix,^tag(ambix10)
+Back,^back(),go-previous
+ambix_binaural_o1 (Binaural Decoder o1),ambix_binaural_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_binaural_o3 (Binaural Decoder o3),ambix_binaural_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_converter_o1 (Ambisonics Formats Converter o1),ambix_converter_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_converter_o3 (Ambisonics Formats Converter o3),ambix_converter_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_decoder_o1 (Single-band Decoded Ambisonics o1),ambix_decoder_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_decoder_o3 (Single-band Decoded Ambisonics o3),ambix_decoder_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_directional_loudness_o1 (Spherical Soundfield Amplifier o1),ambix_directional_loudness_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_directional_loudness_o3 (Spherical Soundfield Amplifier o3),ambix_directional_loudness_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_encoder_o1 (Ambisonics Panning o1),ambix_encoder_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_encoder_o3 (Ambisonics Panning o3),ambix_encoder_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_mirror_o1 (Soundfield Mirroring o1),ambix_mirror_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_mirror_o3 (Soundfield Mirroring o3),ambix_mirror_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_rotator_o1 (Ambisonics Sounds Rotator o1),ambix_rotator_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_rotator_o3 (Ambisonics Sounds Rotator o3),ambix_rotator_o3,mcfx,,#Application#Audio#Ambisonics
+ambix_vmic_o1 (Ambisonics Virtual Microphone o1),ambix_vmic_o1,mcfx,,#Application#Audio#Ambisonics
+ambix_vmic_o3 (Ambisonics Virtual Microphone o3),ambix_vmic_o3,mcfx,,#Application#Audio#Ambisonics
+iempluginsuite,^tag(IEMPluginSuite11)
+Back,^back(),go-previous
+AllRADecoder (Ambisonic Decoder Designer),AllRADecoder,iempluginsuite,,#Application#Audio#Ambisonics
+BinauralDecoder (Binaural Decoder),BinauralDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+CoordinateConverter (VST Coordinate Converter),CoordinateConverter,iempluginsuite,,#Application#Audio#Ambisonics
+DirectionalCompressor (Compressor Limiter),DirectionalCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+DirectivityShaper (Directivity Shaper),DirectivityShaper,iempluginsuite,,#Application#Audio#Ambisonics
+DistanceCompensator (Distance Compensation),DistanceCompensator,iempluginsuite,,#Application#Audio#Ambisonics
+DualDelay (Delay),DualDelay,iempluginsuite,,#Application#Audio#Ambisonics
+EnergyVisualizer (Audio Visualizer),EnergyVisualizer,iempluginsuite,,#Application#Audio#Ambisonics
+FdnReverb (Reverb),FdnReverb,iempluginsuite,,#Application#Audio#Ambisonics
+MatrixMultiplier (Matrix Transformation),MatrixMultiplier,iempluginsuite,,#Application#Audio#Ambisonics
+MultiBandCompressor (Multiband Compressor),MultiBandCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+MultiEncoder (Ambisonics Encoder),MultiEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+MultiEQ (Multichannel Equalizer),MultiEQ,iempluginsuite,,#Application#Audio#Ambisonics
+OmniCompressor (Ambisonic Limiter Compressor),OmniCompressor,iempluginsuite,,#Application#Audio#Ambisonics
+PluginTemplate,PluginTemplate,iempluginsuite,,#Application#Audio#Ambisonics
+ProbeDecoder (Ambisonic Decoder),ProbeDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+RoomEncoder (Room Encoder),RoomEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+SceneRotator (Ambisonic Scene Rotator),SceneRotator,iempluginsuite,,#Application#Audio#Ambisonics
+SimpleDecoder (Ambisonic Decoder),SimpleDecoder,iempluginsuite,,#Application#Audio#Ambisonics
+StereoEncoder (Ambisonic Encoder),StereoEncoder,iempluginsuite,,#Application#Audio#Ambisonics
+ToolBox (Ambisonic Transformation),ToolBox,iempluginsuite,,#Application#Audio#Ambisonics
+LSP Plugins,^tag(lsp-plugins12)
+Back,^back(),go-previous
+12 Channel Spectrum Analyzer (Spectrum Analyzer),lsp-plugins-spectrum-analyzer-x12,lsp-plugins,,
+16 Channel Spectrum Analyzer (Spectrum Analyzer),lsp-plugins-spectrum-analyzer-x16,lsp-plugins,,
+Artistic Delay Mono (Delay effect),lsp-plugins-art-delay-mono,lsp-plugins,,
+Artistic Delay Stereo (Delay effect),lsp-plugins-art-delay-stereo,lsp-plugins,,
+Direct Out 12 Instrument Sample Player (Sample Player),lsp-plugins-multisampler-x12-do,lsp-plugins,,
+Direct Out 24 Instrument Sample Player (Sample Player),lsp-plugins-multisampler-x24-do,lsp-plugins,,
+Direct out 48 Instrument Sample Player (Sample Player),lsp-plugins-multisampler-x48-do,lsp-plugins,,
+Eight Channel Spectrum Analyzer (Spectrum Analyzer),lsp-plugins-spectrum-analyzer-x8,lsp-plugins,,
+Four Channel Spectrum Analyzer (Spectrum Analyzer),lsp-plugins-spectrum-analyzer-x4,lsp-plugins,,
+Latency Meter (Utility),lsp-plugins-latency-meter,lsp-plugins,,
+Mid-Side Crossover (Crossover),lsp-plugins-crossover-ms,lsp-plugins,,
+Mid-Side Split Multiband Compressor (Multiband Compressor),lsp-plugins-mb-compressor-ms,lsp-plugins,,
+Mid-Side Split Multiband Expander (Multiband Expander),lsp-plugins-mb-expander-ms,lsp-plugins,,
+Mid-Side Split Multiband Gate (Multiband Gate),lsp-plugins-mb-gate-ms,lsp-plugins,,
+Mid-Side Split Multiband Sidechain Expander (Sidechain Multiband Expander),lsp-plugins-sc-mb-expander-ms,lsp-plugins,,
+Mid-Side Split Multiband Sidechain Gate (Sidechain Multiband Gate),lsp-plugins-sc-mb-gate-ms,lsp-plugins,,
+Mid-Side Split Stereo Compressor (Compressor),lsp-plugins-compressor-ms,lsp-plugins,,
+Mid-Side Stereo 16 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x16-ms,lsp-plugins,,
+Mid-Side Stereo 16 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x16-ms,lsp-plugins,,
+Mid-Side Stereo 32 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x32-ms,lsp-plugins,,
+Mid-Side Stereo 32 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x32-ms,lsp-plugins,,
+Mid-Side Stereo Dynamic Processor (Dynamic Processor),lsp-plugins-dyna-processor-ms,lsp-plugins,,
+Mid-Side Stereo Dynamic Sidechain Processor (Sidechain Dynamic Processor),lsp-plugins-sc-dyna-processor-ms,lsp-plugins,,
+Mid-Side Stereo Expander (Expander),lsp-plugins-expander-ms,lsp-plugins,,
+Mid-Side Stereo Gate (Gate),lsp-plugins-gate-ms,lsp-plugins,,
+Mid-Side Stereo Sidechain Expander (Sidechain Expander),lsp-plugins-sc-expander-ms,lsp-plugins,,
+Mid-Side Stereo Sidechain Gate (Sidechain Gate),lsp-plugins-sc-gate-ms,lsp-plugins,,
+Mid-Side Stereo Sidechain Multiband Compressor (Sidechain Multiband Compressor),lsp-plugins-sc-mb-compressor-ms,lsp-plugins,,
+Mid-Side Stero Sidechain Compressor (Sidechain Compressor),lsp-plugins-sc-compressor-ms,lsp-plugins,,
+Mono 16 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x32-mono,lsp-plugins,,
+Mono 16 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x16-mono,lsp-plugins,,
+Mono 16 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x16-mono,lsp-plugins,,
+Mono 32 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x32-mono,lsp-plugins,,
+Mono Audio Profiler (Profiler),lsp-plugins-profiler-mono,lsp-plugins,,
+Mono Audio Trigger (Trigger),lsp-plugins-trigger-mono,lsp-plugins,,
+Mono Compressor (Compressor),lsp-plugins-compressor-mono,lsp-plugins,,
+Mono Convolution Reverb (Convolution Processor),lsp-plugins-impulse-reverb-mono,lsp-plugins,,
+Mono Crossover (Crossover),lsp-plugins-crossover-mono,lsp-plugins,,
+Mono Delay Compensator (Delay effect),lsp-plugins-comp-delay-mono,lsp-plugins,,
+Mono Dynamic Processor (Dynamic Processor),lsp-plugins-dyna-processor-mono,lsp-plugins,,
+Mono Dynamic Sidechain Processor (Sidechain Dynamic Processor),lsp-plugins-sc-dyna-processor-mono,lsp-plugins,,
+Mono Expander (Expander),lsp-plugins-expander-mono,lsp-plugins,,
+Mono Gate (Gate),lsp-plugins-gate-mono,lsp-plugins,,
+Mono Impulse Responses (Convolution Processor),lsp-plugins-impulse-responses-mono,lsp-plugins,,
+Mono Limiter (Limiter),lsp-plugins-limiter-mono,lsp-plugins,,
+Mono Loudness Compensator (Spectral Processing),lsp-plugins-loud-comp-mono,lsp-plugins,,
+Mono MIDI Sample Player (Sample Player),lsp-plugins-sampler-mono,lsp-plugins,,
+Mono MIDI Trigger (Trigger),lsp-plugins-trigger-midi-mono,lsp-plugins,,
+Mono Multiband Compressor (Multiband Compressor),lsp-plugins-mb-compressor-mono,lsp-plugins,,
+Mono Multiband Expander (Multiband Expander),lsp-plugins-mb-expander-mono,lsp-plugins,,
+Mono Multiband Gate (Multiband Gate),lsp-plugins-mb-gate-mono,lsp-plugins,,
+Mono Multiband Sidechain Expander (Sidechain Multiband Expander),lsp-plugins-sc-mb-expander-mono,lsp-plugins,,
+Mono Multiband Sidechain Gate (Sidechain Multiband Gate),lsp-plugins-sc-mb-gate-mono,lsp-plugins,,
+Mono Room Impulse Response Builder (Simulator),lsp-plugins-room-builder-mono,lsp-plugins,,
+Mono Sidechain Compressor (Sidechain Compressor),lsp-plugins-sc-compressor-mono,lsp-plugins,,
+Mono Sidechain Expander (Sidechain Expander),lsp-plugins-sc-expander-mono,lsp-plugins,,
+Mono Sidechain Gate (Sidechain Gate),lsp-plugins-sc-gate-mono,lsp-plugins,,
+Mono Sidechain Limiter (Sidechain Limiter),lsp-plugins-sc-limiter-mono,lsp-plugins,,
+Mono Sidechain Multiband Compressor (Sidechain Multiband Compressor),lsp-plugins-sc-mb-compressor-mono,lsp-plugins,,
+Mono Signal Generator (Generator),lsp-plugins-oscillator-mono,lsp-plugins,,
+Mono Slap Delay (Delay effect),lsp-plugins-slap-delay-mono,lsp-plugins,,
+Mono Surge Filter (Surge Filter),lsp-plugins-surge-filter-mono,lsp-plugins,,
+Multiband Mid-Side Split Stereo Dynamic Processor (Multiband Dynamic Processor),lsp-plugins-mb-dyna-processor-ms,lsp-plugins,,
+Multiband Mid-Side Stero Sidechain Dynamic Processor (Multiband Sidechain Dynamic Processor),lsp-plugins-sc-mb-dyna-processor-ms,lsp-plugins,,
+Multiband Mono Dynamic Processor (Multiband Dynamic Processor),lsp-plugins-mb-dyna-processor-mono,lsp-plugins,,
+Multiband Mono Sidechain Dynamic Processor (Multiband Sidechain Dynamic Processor),lsp-plugins-sc-mb-dyna-processor-mono,lsp-plugins,,
+Multiband Split Stereo Dynamic Processor (Multiband Dynamic Processor),lsp-plugins-mb-dyna-processor-lr,lsp-plugins,,
+Multiband Split Stereo Sidechain Dynamic Processor (Multiband Sidechain Dynamic Processor),lsp-plugins-sc-mb-dyna-processor-lr,lsp-plugins,,
+Multiband Stereo Dynamic Processor (Multiband Dynamic Processor),lsp-plugins-mb-dyna-processor-stereo,lsp-plugins,,
+Multiband Stero Sidechain Dynamic Processor (Multiband Sidechain Dynamic Processor),lsp-plugins-sc-mb-dyna-processor-stereo,lsp-plugins,,
+Noise Generator x1 (Noise Generator),lsp-plugins-noise-generator-x1,lsp-plugins,,
+Noise Generator x2 (Noise Generator),lsp-plugins-noise-generator-x2,lsp-plugins,,
+Noise Generator x4 (Noise Generator),lsp-plugins-noise-generator-x4,lsp-plugins,,
+One Channel Spectrum Analyzer (Spectrum Analyzer),lsp-plugins-spectrum-analyzer-x1,lsp-plugins,,
+Oscilloscope 1 Channel (Oscilloscope),lsp-plugins-oscilloscope-x1,lsp-plugins,,
+Oscilloscope 2 Channels (Oscilloscope),lsp-plugins-oscilloscope-x2,lsp-plugins,,
+Oscilloscope 4 Channels (Oscilloscope),lsp-plugins-oscilloscope-x4,lsp-plugins,,
+Phase Detector (Utility),lsp-plugins-phase-detector,lsp-plugins,,
+Split Crossover (Crossover),lsp-plugins-crossover-lr,lsp-plugins,,
+Split Multiband Compressor (Multiband Compressor),lsp-plugins-mb-compressor-lr,lsp-plugins,,
+Split Multiband Expander (Multiband Expander),lsp-plugins-mb-expander-lr,lsp-plugins,,
+Split Multiband Gate (Multiband Gate),lsp-plugins-mb-gate-lr,lsp-plugins,,
+Split Multiband Sidechain Expander (Sidechain Multiband Expander),lsp-plugins-sc-mb-expander-lr,lsp-plugins,,
+Split Multiband Sidechain Gate (Sidechain Multiband Gate),lsp-plugins-sc-mb-gate-lr,lsp-plugins,,
+Split Stereo 16 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x16-lr,lsp-plugins,,
+Split Stereo 16 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x16-lr,lsp-plugins,,
+Split Stereo 32 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x32-lr,lsp-plugins,,
+Split Stereo 32 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x32-lr,lsp-plugins,,
+Split Stereo Compressor (Compressor),lsp-plugins-compressor-lr,lsp-plugins,,
+Split Stereo Delay Compensator (Delay effect),lsp-plugins-comp-delay-x2-stereo,lsp-plugins,,
+Split Stereo Dynamic Processor (Dynamic Processor),lsp-plugins-dyna-processor-lr,lsp-plugins,,
+Split Stereo Dynamic Sidechain Processor (Sidechain Dynamic Processor),lsp-plugins-sc-dyna-processor-lr,lsp-plugins,,
+Split Stereo Expander (Expander),lsp-plugins-expander-lr,lsp-plugins,,
+Split Stereo Gate (Gate),lsp-plugins-gate-lr,lsp-plugins,,
+Split Stereo Sidechain Compressor (Sidechain Compressor),lsp-plugins-sc-compressor-lr,lsp-plugins,,
+Split Stereo Sidechain Expander (Sidechain Expander),lsp-plugins-sc-expander-lr,lsp-plugins,,
+Split Stereo Sidechain Gate (Sidechain Gate),lsp-plugins-sc-gate-lr,lsp-plugins,,
+Split Stereo Sidechain Multiband Compressor (Sidechain Multiband Compressor),lsp-plugins-sc-mb-compressor-lr,lsp-plugins,,
+Stereo 12 Instrument Sample Player (Sample Player),lsp-plugins-multisampler-x12,lsp-plugins,,
+Stereo 16 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x16-stereo,lsp-plugins,,
+Stereo 16 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x16-stereo,lsp-plugins,,
+Stereo 24 Instrument Sample Player (Sample Player),lsp-plugins-multisampler-x24,lsp-plugins,,
+Stereo 32 Band Graphic Equalizer (Graphic Equalizer),lsp-plugins-graph-equalizer-x32-stereo,lsp-plugins,,
+Stereo 32 Band Parametric Equalizer (Parametric Equalizer),lsp-plugins-para-equalizer-x32-stereo,lsp-plugins,,
+Stereo 48 Instrument Sample Player (Sample Player),lsp-plugins-multisampler-x48,lsp-plugins,,
+Stereo Audio Profiler (Profiler),lsp-plugins-profiler-stereo,lsp-plugins,,
+Stereo Audio Trigger (Trigger),lsp-plugins-trigger-stereo,lsp-plugins,,
+Stereo Compressor (Compressor),lsp-plugins-compressor-stereo,lsp-plugins,,
+Stereo Convolution Reverb (Convolution Processor),lsp-plugins-impulse-reverb-stereo,lsp-plugins,,
+Stereo Crossover (Crossover),lsp-plugins-crossover-stereo,lsp-plugins,,
+Stereo Delay Compensator (Delay effect),lsp-plugins-comp-delay-stereo,lsp-plugins,,
+Stereo Dynamic Processor (Dynamic Processor),lsp-plugins-dyna-processor-stereo,lsp-plugins,,
+Stereo Dynamic Sidechain Processor (Sidechain Dynamic Processor),lsp-plugins-sc-dyna-processor-stereo,lsp-plugins,,
+Stereo Expander (Expander),lsp-plugins-expander-stereo,lsp-plugins,,
+Stereo Gate (Gate),lsp-plugins-gate-stereo,lsp-plugins,,
+Stereo Impulse Responses (Convolution Processor),lsp-plugins-impulse-responses-stereo,lsp-plugins,,
+Stereo Limiter (Limiter),lsp-plugins-limiter-stereo,lsp-plugins,,
+Stereo Loudness Compensator (Spectral Processing),lsp-plugins-loud-comp-stereo,lsp-plugins,,
+Stereo MIDI Sample Player (Sample Player),lsp-plugins-sampler-stereo,lsp-plugins,,
+Stereo MIDI Trigger (Trigger),lsp-plugins-trigger-midi-stereo,lsp-plugins,,
+Stereo Multiband Compressor (Multiband Compressor),lsp-plugins-mb-compressor-stereo,lsp-plugins,,
+Stereo Multiband Expander (Multiband Expander),lsp-plugins-mb-expander-stereo,lsp-plugins,,
+Stereo Multiband Gate (Multiband Gate),lsp-plugins-mb-gate-stereo,lsp-plugins,,
+Stereo Multiband Sidechain Expander (Sidechain Multiband Expander),lsp-plugins-sc-mb-expander-stereo,lsp-plugins,,
+Stereo Multiband Sidechain Gate (Sidechain Multiband Gate),lsp-plugins-sc-mb-gate-stereo,lsp-plugins,,
+Stereo Room Impulse Response Builder (Simulator),lsp-plugins-room-builder-stereo,lsp-plugins,,
+Stereo Sidechain Expander (Sidechain Expander),lsp-plugins-sc-expander-stereo,lsp-plugins,,
+Stereo Sidechain Gate (Sidechain Gate),lsp-plugins-sc-gate-stereo,lsp-plugins,,
+Stereo Sidechain Limiter (Sidechain Limiter),lsp-plugins-sc-limiter-stereo,lsp-plugins,,
+Stereo Sidechain Multiband Compressor (Sidechain Multiband Compressor),lsp-plugins-sc-mb-compressor-stereo,lsp-plugins,,
+Stereo Slap Delay (Delay effect),lsp-plugins-slap-delay-stereo,lsp-plugins,,
+Stereo Surge Filter (Surge Filter),lsp-plugins-surge-filter-mono,lsp-plugins,,
+Stero Sidechain Compressor (Sidechain Compressor),lsp-plugins-sc-compressor-stereo,lsp-plugins,,
+Two Channel Spectrum Analyzer (Spectrum Analyzer),lsp-plugins-spectrum-analyzer-x2,lsp-plugins,,
+mcfx,^tag(mcfx13)
+Back,^back(),go-previous
+mcfx_convolver_o1,mcfx_convolver_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_convolver_o3,mcfx_convolver_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_convolver_o5,mcfx_convolver_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o1,mcfx_delay_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o3,mcfx_delay_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_delay_o5,mcfx_delay_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o1,mcfx_filter_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o3,mcfx_filter_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_filter_o5,mcfx_filter_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o1,mcfx_gain_delay_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o3,mcfx_gain_delay_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_gain_delay_o5,mcfx_gain_delay_o5,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o1,mcfx_meter_o1,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o3,mcfx_meter_o3,mcfx,,#Application#Audio#Ambisonics
+mcfx_meter_o5,mcfx_meter_o5,mcfx,,#Application#Audio#Ambisonics
+x42-plugins,^tag(x42-plugins14)
+Back,^back(),go-previous
+x42-darc (Dynamic Audio Range Compressor),x42-darc,x42-darc,,#AudioVideo#Audio
+x42-dpl (Peak Limiter),x42-dpl,x42-dpl,,#AudioVideo#Audio
+x42-fat1 (Auto Tune),x42-fat1,x42-fat1,,#AudioVideo#Audio
+x42-fil4 (Parametric Equalizer),x42-fil4,x42-fil4,,#AudioVideo#Audio
+x42-matrixmixer8x8 (Matrix Mixer),x42-matrixmixer8x8,x42-matrixmixer8x8,,#AudioVideo#Audio
+x42-meter 1/3 Octave Spectrum Analyzer (Audio Meter),x42-meter 15,x42-meter,,#AudioVideo#Audio
+x42-meter BBC M-6 (Audio Meter),x42-meter 5,x42-meter,,#AudioVideo#Audio
+x42-meter BBC Meter (Stereo) (Audio Meter),x42-meter 4,x42-meter,,#AudioVideo#Audio
+x42-meter Bit Meter (Audio Meter),x42-meter 18,x42-meter,,#AudioVideo#Audio
+x42-meter DIN Meter (Stereo) (Audio Meter),x42-meter 6,x42-meter,,#AudioVideo#Audio
+x42-meter DR-14 - Crest Factor Loudness Range Meter (Audio Meter),x42-meter 11,x42-meter,,#AudioVideo#Audio
+x42-meter EBU Meter (Stereo) (Audio Meter),x42-meter 7,x42-meter,,#AudioVideo#Audio
+x42-meter EBU R128 Meter (Audio Meter),x42-meter 0,x42-meter,,#AudioVideo#Audio
+x42-meter Goniometer (Audio Meter),x42-meter 13,x42-meter,,#AudioVideo#Audio
+x42-meter K12/RMS Meter (Stereo) (Audio Meter),x42-meter 3,x42-meter,,#AudioVideo#Audio
+x42-meter K14/RMS Meter (Stereo) (Audio Meter),x42-meter 2,x42-meter,,#AudioVideo#Audio
+x42-meter K20/RMS Meter (Stereo) (Audio Meter),x42-meter 1,x42-meter,,#AudioVideo#Audio
+x42-meter Nordic Meter (Stereo) (Audio Meter),x42-meter 8,x42-meter,,#AudioVideo#Audio
+x42-meter Phase/Frequency Wheel (Audio Meter),x42-meter 14,x42-meter,,#AudioVideo#Audio
+x42-meter Signal Distribution Histogram (Audio Meter),x42-meter 17,x42-meter,,#AudioVideo#Audio
+x42-meter Stereo/Frequency Scope (Audio Meter),x42-meter 16,x42-meter,,#AudioVideo#Audio
+x42-meter Stereo Phase-Correlation Meter (Audio Meter),x42-meter 12,x42-meter,,#AudioVideo#Audio
+x42-meter Surround Level 8 (Audio Meter),x42-meter 19,x42-meter,,#AudioVideo#Audio
+x42-meter True-Peak and RMS Meter (Stereo) (Audio Meter),x42-meter 10,x42-meter,,#AudioVideo#Audio
+x42-meter VU Meter (Stereo) (Audio Meter),x42-meter 9,x42-meter,,#AudioVideo#Audio
+x42-mixtri (Mixer'n'Trigger),x42-mixtri,x42-mixtri,,#AudioVideo#Audio
+x42-scope (Oscilloscope),x42-scope,x42-scope,,#AudioVideo#Audio
+x42-spectr (Spectrum Analyzer),x42-spectr,x42-spectr,,#AudioVideo#Audio
+x42-stepseq (Step Sequencer),x42-stepseq,x42-stepseq,,#AudioVideo#Audio
+x42-tuna Instrument Tuner (Music Instrument Tuner),x42-tuna 0,x42-tuna,,#AudioVideo#Audio
+x42-tuna Instrument Tuner (Spectrum) (Music Instrument Tuner),x42-tuna 1,x42-tuna,,#AudioVideo#Audio
+System Tools,^tag(System15)
+Back,^back(),go-previous
+Alacritty (Terminal),alacritty,Alacritty,,#System#TerminalEmulator
+Avahi Zeroconf Browser,/usr/bin/avahi-discover,network-wired,,#GNOME#System
+Grsync (Synchronize files with rsync),/usr/bin/grsync -i,grsync,,#Application#System
+Guake Terminal,guake,guake,,#GNOME#GTK#System#Utility#TerminalEmulator
+Hardware Locality lstopo,lstopo,hwloc,,#System
+Htop (Process Viewer),^term(htop),htop,,#System#Monitor#ConsoleOnly
+jgmenu (Application Menu),jgmenu_run,jgmenu,,#System
+kitty (Terminal emulator),kitty,kitty,,#System#TerminalEmulator
+Manage Printing,xdg-open http://localhost:631/,cups,,#System#Printing#HardwareSettings#X-Red-Hat-Base
+ranger,^term(ranger),utilities-terminal,,#ConsoleOnly#System#FileTools#FileManager
+Terminator,terminator,terminator,,#GNOME#GTK#Utility#TerminalEmulator#System
+Thunar File Manager (File Manager),thunar,org.xfce.thunar,,#System#Core#GTK#FileTools#FileManager
+Tilda,/usr/bin/tilda,tilda,,#GNOME#GTK#System#Utility#TerminalEmulator
+Timeshift (System Restore Utility),timeshift-launcher,timeshift,,#System
+UXTerm,uxterm,xterm-color_48x48,,#System#TerminalEmulator
+xKill,xkill,application-exit,,#System
+XTerm,xterm,xterm-color_48x48,,#System#TerminalEmulator
+x42-plugins,^tag(x42-plugins16)
+Back,^back(),go-previous
+x42-darc (Dynamic Audio Range Compressor),x42-darc,x42-darc,,#AudioVideo#Audio
+x42-dpl (Peak Limiter),x42-dpl,x42-dpl,,#AudioVideo#Audio
+x42-fat1 (Auto Tune),x42-fat1,x42-fat1,,#AudioVideo#Audio
+x42-fil4 (Parametric Equalizer),x42-fil4,x42-fil4,,#AudioVideo#Audio
+x42-matrixmixer8x8 (Matrix Mixer),x42-matrixmixer8x8,x42-matrixmixer8x8,,#AudioVideo#Audio
+x42-meter 1/3 Octave Spectrum Analyzer (Audio Meter),x42-meter 15,x42-meter,,#AudioVideo#Audio
+x42-meter BBC M-6 (Audio Meter),x42-meter 5,x42-meter,,#AudioVideo#Audio
+x42-meter BBC Meter (Stereo) (Audio Meter),x42-meter 4,x42-meter,,#AudioVideo#Audio
+x42-meter Bit Meter (Audio Meter),x42-meter 18,x42-meter,,#AudioVideo#Audio
+x42-meter DIN Meter (Stereo) (Audio Meter),x42-meter 6,x42-meter,,#AudioVideo#Audio
+x42-meter DR-14 - Crest Factor Loudness Range Meter (Audio Meter),x42-meter 11,x42-meter,,#AudioVideo#Audio
+x42-meter EBU Meter (Stereo) (Audio Meter),x42-meter 7,x42-meter,,#AudioVideo#Audio
+x42-meter EBU R128 Meter (Audio Meter),x42-meter 0,x42-meter,,#AudioVideo#Audio
+x42-meter Goniometer (Audio Meter),x42-meter 13,x42-meter,,#AudioVideo#Audio
+x42-meter K12/RMS Meter (Stereo) (Audio Meter),x42-meter 3,x42-meter,,#AudioVideo#Audio
+x42-meter K14/RMS Meter (Stereo) (Audio Meter),x42-meter 2,x42-meter,,#AudioVideo#Audio
+x42-meter K20/RMS Meter (Stereo) (Audio Meter),x42-meter 1,x42-meter,,#AudioVideo#Audio
+x42-meter Nordic Meter (Stereo) (Audio Meter),x42-meter 8,x42-meter,,#AudioVideo#Audio
+x42-meter Phase/Frequency Wheel (Audio Meter),x42-meter 14,x42-meter,,#AudioVideo#Audio
+x42-meter Signal Distribution Histogram (Audio Meter),x42-meter 17,x42-meter,,#AudioVideo#Audio
+x42-meter Stereo/Frequency Scope (Audio Meter),x42-meter 16,x42-meter,,#AudioVideo#Audio
+x42-meter Stereo Phase-Correlation Meter (Audio Meter),x42-meter 12,x42-meter,,#AudioVideo#Audio
+x42-meter Surround Level 8 (Audio Meter),x42-meter 19,x42-meter,,#AudioVideo#Audio
+x42-meter True-Peak and RMS Meter (Stereo) (Audio Meter),x42-meter 10,x42-meter,,#AudioVideo#Audio
+x42-meter VU Meter (Stereo) (Audio Meter),x42-meter 9,x42-meter,,#AudioVideo#Audio
+x42-mixtri (Mixer'n'Trigger),x42-mixtri,x42-mixtri,,#AudioVideo#Audio
+x42-scope (Oscilloscope),x42-scope,x42-scope,,#AudioVideo#Audio
+x42-spectr (Spectrum Analyzer),x42-spectr,x42-spectr,,#AudioVideo#Audio
+x42-stepseq (Step Sequencer),x42-stepseq,x42-stepseq,,#AudioVideo#Audio
+x42-tuna Instrument Tuner (Music Instrument Tuner),x42-tuna 0,x42-tuna,,#AudioVideo#Audio
+x42-tuna Instrument Tuner (Spectrum) (Music Instrument Tuner),x42-tuna 1,x42-tuna,,#AudioVideo#Audio

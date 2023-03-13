@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=soundbot
+Comment=soundbot
+Categories=Audio;
+Exec=xterm -T "soundbot" -hold -e /usr/local/bin/soundbot midi
+Terminal=False
+Icon=soundbot

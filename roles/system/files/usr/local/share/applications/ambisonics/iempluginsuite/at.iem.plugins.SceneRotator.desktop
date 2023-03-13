@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=SceneRotator
+GenericName=Ambisonic Scene Rotator
+Comment=An Ambisonic rotator plug-in, which rotates the Ambisonic scene.
+Exec=SceneRotator
+Icon=IEMPluginSuite
+Terminal=false
+StartupNotify=false
+Categories=IEMPluginSuite,Ambisonics;

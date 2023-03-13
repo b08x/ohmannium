@@ -1,0 +1,58 @@
+---
+
+- name: Install icons
+  copy:
+    src: "files/usr/local/share/pixmaps/"
+    dest: "/usr/local/share/pixmaps/"
+    directory_mode: yes
+    mode: '644'
+  tags: ['icons']
+
+- name: Extract soundbot theme icons into /usr/local/share/icons
+  unarchive:
+    src: files/usr/local/share/icons/oomox-soundbot_icons.tar.xz
+    dest: "/usr/share/icons"
+  tags: ['icons']
+
+- name: Update the icon cache
+  command: bash -lc "gtk-update-icon-cache"
+  register: icon_cache
+  changed_when: icon_cache.rc !=0
+  tags: ['icons']
+
+- name: Extract fonts to /usr/local/share/fonts
+  unarchive:
+    src: files/usr/local/share/fonts.tar.xz
+    dest: "/usr/local/share/"
+  tags: ['fonts']
+
+- name: Install fonts.conf
+  copy:
+    src: home/.config/fontconfig/fonts.conf
+    dest: "{{ user.home }}/.config/fontconfig/fonts.conf"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'
+    backup: yes
+  tags: ['fonts']
+
+- name: Update font-cache
+  command: fc-cache -fv
+  register: font_cache
+  changed_when: font_cache.rc != 0
+  tags: ['fonts']
+
+- name: Install backgrounds
+  synchronize:
+    src: "files/usr/share/backgrounds/ohmannium/"
+    dest: "/usr/share/backgrounds/ohmannium/"
+    recursive: yes
+    mode: push
+    delete: no
+    rsync_opts: "--update"
+  tags: ['backgrounds']
+
+- name: Extract soundbot theme into /usr/local/share/themes
+  unarchive:
+    src: files/usr/local/share/themes/oomox-soundbot.tar.xz
+    dest: "/usr/share/themes"

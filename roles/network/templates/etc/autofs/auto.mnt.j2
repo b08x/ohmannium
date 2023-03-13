@@ -1,0 +1,5 @@
+#{{ ansible_managed }}
+
+{% for share in autofs_client.shares %}
+{{ share }}		-fstype=nfs4,rw,noacl,nocto,noatime,rsize=32768,wsize=32768	{{ autofs_client.host }}:/{{ share }}
+{% endfor %}

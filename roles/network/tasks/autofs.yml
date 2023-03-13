@@ -1,0 +1,26 @@
+---
+
+- name: Set autofs config folder
+  set_fact:
+    _autofs_dir: "{{ autofs_dir }}"
+
+- block:
+    - name: Create mount directory folder if it doesn't already exist
+      file:
+        path: /mnt/{{ autofs_client.host }}
+        state: directory
+        mode: '0755'
+
+    - name: Install autofs configs
+      template:
+        src: etc/autofs/{{ item }}.j2
+        dest: "{{ _autofs_dir }}/{{ item }}"
+        mode: '0644'
+        backup: yes
+      with_items:
+        - autofs.conf
+        - auto.master
+        - auto.mnt
+      register: autofsconfig
+
+  notify: enable autofs service

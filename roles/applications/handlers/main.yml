@@ -1,0 +1,5 @@
+---
+
+- name: update desktop database
+  command: bash -lc "update-desktop-database"
+  become: True

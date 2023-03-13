@@ -1,0 +1,44 @@
+---
+
+- name: check if reaper is already installed
+  stat:
+    path: /usr/local/bin/reaper
+  register: result
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: check reaper version
+  shell: |
+    cat whatsnew.txt | grep {{ reaper.version }}
+  args:
+    chdir: /opt/REAPER
+  register: if_installed_version
+  changed_when: if_installed_version.rc != 0
+  ignore_errors: True
+
+- block:
+    - name: fetch reaper
+      get_url:
+        url: "{{ reaper.url }}{{ reaper.file }}"
+        dest: "/tmp"
+        # validate_certs: no
+
+    - name: uninstall reaper
+      shell: |
+        bash -x ./uninstall-reaper.sh --quiet --uninstall
+      args:
+        chdir: /opt/REAPER
+      when: result.stat.exists
+
+    - name: extract and install reaper
+      shell: |
+        tar -xvf {{ reaper.file }}
+
+        cd reaper_linux_x86_64/
+
+        ./install-reaper.sh --install /opt \
+                        --integrate-desktop \
+                        --usr-local-bin-symlink
+      args:
+        chdir: "/tmp"
+
+  when: (not result.stat.exists or if_installed_version.changed)

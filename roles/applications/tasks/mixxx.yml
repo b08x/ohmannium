@@ -1,0 +1,9 @@
+---
+# fix for ERROR hiddev1: /usr/lib/udev/rules.d/69-mixxx-usb-uaccess.rules:57 Only network interfaces can be renamed, ignoring NAME="usb/%k".
+- name: comment out mixxx udev rule
+  lineinfile:
+    dest: /usr/lib/udev/rules.d/69-mixxx-usb-uaccess.rules
+    regexp: "^KERNEL=="
+    line: '#KERNEL=="hiddev*", NAME="usb/%k", GROUP="uaccess"'
+    backrefs: yes
+    backup: yes

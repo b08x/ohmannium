@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=mcfx_delay_o1
+Comment=mcfx_delay_o1
+Exec=mcfx_delay_o1
+Icon=mcfx
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics
+

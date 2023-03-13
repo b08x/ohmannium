@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ambix_decoder_o1
+GenericName=Single-band Decoded Ambisonics o1
+Comment= o1
+Exec=ambix_decoder_o1
+Icon=ambix
+Terminal=false
+StartupNotify=false
+Categories=Application;Audio;Ambisonics
